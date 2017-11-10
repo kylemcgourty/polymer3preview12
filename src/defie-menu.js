@@ -34,8 +34,8 @@
 
     import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
     import '../node_modules/@polymer/paper-toast/paper-toast.js'
-    import '/services/src/services-shell.js'
-    import '/salesorders/src/salesorders-shell.js'
+    // import '/services/src/services-shell.js'
+    // import '/salesorders/src/salesorders-shell.js'
 
 
 
@@ -102,7 +102,7 @@
         static get template() {
             return `
  
-             <style include="shared-styles iron-flex iron-flex-alignment">
+        <style include="shared-styles iron-flex iron-flex-alignment">
          :host {
             --app-primary-color: #4cc3d9;
             --app-secondary-color: black;
