@@ -599,6 +599,7 @@
                     type: Object,
                     value: function () {
                         return {
+                            "homepage": "signin",
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
