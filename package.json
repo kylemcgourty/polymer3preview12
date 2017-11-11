@@ -37,7 +37,10 @@
     "balanced-match": "1.0.0",
     "color": "1.0.3",
     "debug": "3.1.0",
-    "color-string": "1.5.2"
+    "color-string": "1.5.2",
+    "@polymer/iron-resizable-behavior": "3.0.0-pre.1",
+    "@polymer/iron-meta": "3.0.0-pre.1",
+    "@polymer/iron-selector": "3.0.0-pre.1"
   },
   "dependencies": {
     "@polymer/app-layout": "^3.0.0-pre.1",
@@ -54,6 +57,7 @@
     "@polymer/paper-button": "^3.0.0-pre.1",
     "@polymer/paper-card": "^3.0.0-pre.1",
     "@polymer/paper-checkbox": "^3.0.0-pre.1",
+    "@polymer/paper-dialog": "^3.0.0-pre.1",
     "@polymer/paper-drawer-panel": "^3.0.0-pre.1",
     "@polymer/paper-header-panel": "^3.0.0-pre.1",
     "@polymer/paper-icon-button": "^3.0.0-pre.1",
