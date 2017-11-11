@@ -34,8 +34,8 @@
 
     import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
     import '../node_modules/@polymer/paper-toast/paper-toast.js'
-    import '/services/src/services-shell.js'
-    import '/salesorders/src/salesorders-shell.js'
+    // import '/services/src/services-shell.js'
+    // import '/salesorders/src/salesorders-shell.js'
 
 
     
@@ -102,7 +102,7 @@
         static get template() {
             return `
  
-             <style include="shared-styles iron-flex iron-flex-alignment">
+        <style include="shared-styles iron-flex iron-flex-alignment">
          :host {
             --app-primary-color: #4cc3d9;
             --app-secondary-color: black;
@@ -292,6 +292,10 @@
             </app-drawer>
 
             <iron-pages id="custIronPages" selected="[[option]]" attr-for-selected="name" fallback-selection="view404" role="main">
+                
+                <signin-shell name="signin"></signin-shell>
+
+
                 <sign-authenticate email="[[loginemail]]" name="authenticate"></sign-authenticate>
                 <welcome-page name="welcome"></welcome-page>
                 <closedcustrmaslist-index hash="[[closedcustrmashash]]" closedcustrmas="[[closedcustrmas]]" name="closedcustrmas" setting="[[setting]]"></closedcustrmaslist-index>
@@ -595,9 +599,13 @@
                     type: Object,
                     value: function () {
                         return {
+                            "homepage": "signin",
+                            "signin": "signin",
+                            "signin-authenticate": "signin",
+                            "welcome": "signin",
                             "service-new": "services",
                             "services": "services",
-                             "salesorder-new": "salesorders",
+                            "salesorder-new": "salesorders",
                             "salesorders": "salesorders"
                         }
                     }
@@ -612,21 +620,9 @@
 
         constructor() {
             super()
-
-            //  this.addEventListener('leftservice', e => {
-
-            //     console.log('event hit')
-
-            // let ur = sessionStorage.getItem("UR")
-            // ur == undefined || null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/api/service"
-            // // this.$.serviceajax.url = "/api/user/services/" + ur
-            // this.$.serviceajax.generateRequest()
-
-
-            // })
-
-
+            this.addEventListener('ToWelcomeEvent', e => {
+                this.toWelcomePage(e);
+            });
 
         }
 
@@ -640,8 +636,10 @@
 
 
             console.log('the page', page)
-            if (page === undefined) {
-                return;
+            if (page === undefined ||  page.base.path === "/" ) {
+                console.log('inside')
+                 this.set('option', 'signin')
+                 return
             }
 
            
@@ -652,23 +650,10 @@
             let choice
 
             console.log('the comp', route)
-
-           
-
         
             this.set('option', this.ServicesList[route])
 
             console.log('the option', this.option)
-
-
-
-
-
-
-
-
-
-
 
         }
 
@@ -774,7 +759,7 @@
 
             console.log('e in service', e)
 
-            this.showMenu = true;
+            // this.showMenu = true;
 
             this.set('leftservices', e.detail.response.results.services)
 
@@ -794,7 +779,13 @@
 
         }
 
-
+        toWelcomePage(e) {
+            window.location.hash = "";
+            this.set('route.path', '/welcome');
+            this.showMenu = true;
+            this.set('leftservices', e.detail.response.results.services)
+            // this.$.serviceajax.generateRequest();
+        }
 
 
 

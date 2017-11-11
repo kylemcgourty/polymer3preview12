@@ -84,10 +84,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- Load your application shell -->
     <!-- <link rel="import" href="src/services-shell.html">
     <link rel="import" href="bower_components/paper-toast/paper-toast.html"> -->
-<script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
-<script type="module" src="src/defie-menu.js"></script>
-
+<script type="module" src="../src/defie-menu.js"></script>
+    <!-- Import the my-app element's module. -->
+    <script type="module" src="/services/src/services-shell.js"></script>
+    <script type="module" src="/salesorders/src/salesorders-shell.js"></script>
+    <script type="module" src="/signin/src/signin-shell.js"></script>
     <!-- Add any global styles for body, document, etc. -->
     <style>
       body {

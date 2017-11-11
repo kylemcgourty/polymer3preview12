@@ -1,22 +1,16 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/services-shell.html",
+  "shell": "src/defie-menu.js",
   "fragments": [
-    "src/service-edit.html",
-    "src/service-view.html",
-    "src/service-viewnew.html",
-    "src/service-new.html",
-    "src/services.html"
   ],
   "sources": [
     "src/**/*",
-    "images/**/*",
-    "bower.json"
+    "images/**/*"
   ],
   "extraDependencies": [
     "manifest.json",
-    "bower_components/webcomponentsjs/custom-elements-*.js",
-    "bower_components/webcomponentsjs/webcomponents-*.js"
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-*",
+    "node_modules/@polymer/**/*"
   ],
   "lint": {
     "rules": ["polymer-2"]
