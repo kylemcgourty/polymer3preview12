@@ -10,10 +10,7 @@
   "extraDependencies": [
     "manifest.json",
     "node_modules/@webcomponents/webcomponentsjs/webcomponents-*",
-    "node_modules/@polymer/paper-drawer-panel/paper-drawer-panel.js",
-    "node_modules/@polymer/paper-header-panel/paper-header-panel.js",
-    "node_modules/@polymer/iron-selector/iron-multi-selectable.js",
-    "node_modules/@polymer/iron-selector/iron-selector.js"
+    "node_modules/@polymer/**/*"
   ],
   "lint": {
     "rules": ["polymer-2"]
