@@ -19,7 +19,7 @@
     "@polymer/iron-location" "^3.0.0-pre.1"
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/font-roboto@^3.0.0-pre.1":
+"@polymer/font-roboto@3.0.0-pre.1", "@polymer/font-roboto@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/font-roboto/-/font-roboto-3.0.0-pre.1.tgz#3b989a3b7c7d7351d4d816f8136d708512b0bd10"
 
@@ -29,7 +29,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-a11y-keys-behavior@^3.0.0-pre.1":
+"@polymer/iron-a11y-keys-behavior@3.0.0-pre.1", "@polymer/iron-a11y-keys-behavior@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-a11y-keys-behavior/-/iron-a11y-keys-behavior-3.0.0-pre.1.tgz#0b2954d7f6b04d97c9ae69c7f7cb82b9d4efe3e4"
   dependencies:
@@ -41,7 +41,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-autogrow-textarea@^3.0.0-pre.1":
+"@polymer/iron-autogrow-textarea@3.0.0-pre.1", "@polymer/iron-autogrow-textarea@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-autogrow-textarea/-/iron-autogrow-textarea-3.0.0-pre.1.tgz#d9cf2f40d759acc27e9b70338bb55b35f07c27d3"
   dependencies:
@@ -50,7 +50,7 @@
     "@polymer/iron-validatable-behavior" "^3.0.0-pre.1"
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-behaviors@^3.0.0-pre.1":
+"@polymer/iron-behaviors@3.0.0-pre.1", "@polymer/iron-behaviors@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-behaviors/-/iron-behaviors-3.0.0-pre.1.tgz#bbb1d7555bf93e5d221d18cbf82d6994b39585b7"
   dependencies:
@@ -71,13 +71,13 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-flex-layout@^3.0.0-pre.1":
+"@polymer/iron-flex-layout@3.0.0-pre.1", "@polymer/iron-flex-layout@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-flex-layout/-/iron-flex-layout-3.0.0-pre.1.tgz#46738316b52fe2858bf4fb207176366b1657457f"
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-form-element-behavior@^3.0.0-pre.1":
+"@polymer/iron-form-element-behavior@3.0.0-pre.1", "@polymer/iron-form-element-behavior@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-form-element-behavior/-/iron-form-element-behavior-3.0.0-pre.1.tgz#a8bd62f2b6726353a821527683609081213441e7"
   dependencies:
@@ -112,7 +112,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-input@^3.0.0-pre.1":
+"@polymer/iron-input@3.0.0-pre.1", "@polymer/iron-input@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-input/-/iron-input-3.0.0-pre.1.tgz#b8e0563353ce101fadb619ed55af84882d19f73d"
   dependencies:
@@ -141,7 +141,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-meta@^3.0.0-pre.1":
+"@polymer/iron-meta@3.0.0-pre.1", "@polymer/iron-meta@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-meta/-/iron-meta-3.0.0-pre.1.tgz#809f5717a8eb80062fee6039ccd5fafe4875ca85"
   dependencies:
@@ -182,7 +182,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/iron-validatable-behavior@^3.0.0-pre.1":
+"@polymer/iron-validatable-behavior@3.0.0-pre.1", "@polymer/iron-validatable-behavior@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-validatable-behavior/-/iron-validatable-behavior-3.0.0-pre.1.tgz#2d1f05e69738e003a761769036d1aece32a7a266"
   dependencies:
@@ -252,6 +252,18 @@
     "@polymer/paper-styles" "^3.0.0-pre.1"
     "@polymer/polymer" "^3.0.0-pre.1"
 
+"@polymer/paper-input@3.0.0-pre.1":
+  version "3.0.0-pre.1"
+  resolved "https://registry.yarnpkg.com/@polymer/paper-input/-/paper-input-3.0.0-pre.1.tgz#d93ca8f5b70b821be5b19341b60092df7ca16fa8"
+  dependencies:
+    "@polymer/iron-a11y-keys-behavior" "^3.0.0-pre.1"
+    "@polymer/iron-autogrow-textarea" "^3.0.0-pre.1"
+    "@polymer/iron-behaviors" "^3.0.0-pre.1"
+    "@polymer/iron-form-element-behavior" "^3.0.0-pre.1"
+    "@polymer/iron-input" "^3.0.0-pre.1"
+    "@polymer/paper-styles" "^3.0.0-pre.1"
+    "@polymer/polymer" "^3.0.0-pre.1"
+
 "@polymer/paper-ripple@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/paper-ripple/-/paper-ripple-3.0.0-pre.1.tgz#67e692ea2c6d91d4f5f5bdf998dbd8a52acd9efa"
@@ -259,7 +271,7 @@
     "@polymer/iron-a11y-keys-behavior" "^3.0.0-pre.1"
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@polymer/paper-styles@^3.0.0-pre.1":
+"@polymer/paper-styles@3.0.0-pre.1", "@polymer/paper-styles@^3.0.0-pre.1":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/paper-styles/-/paper-styles-3.0.0-pre.1.tgz#333fd04f5052733ebc10e3a08a59f07b5586af13"
   dependencies:
@@ -332,7 +344,7 @@
   dependencies:
     "@types/estree" "*"
 
-"@types/estree@*", "@types/estree@^0.0.37":
+"@types/estree@*", "@types/estree@0.0.38", "@types/estree@^0.0.37":
   version "0.0.38"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.38.tgz#c1be40aa933723c608820a99a373a16d215a1ca2"
 
@@ -705,7 +717,7 @@ clone-stats@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/clone-stats/-/clone-stats-0.0.1.tgz#b88f94a82cf38b8791d58046ea4029ad88ca99d1"
 
-clone@^1.0.0, clone@^1.0.2, clone@^2.0.0, clone@^2.1.0:
+clone@2.1.1, clone@^1.0.0, clone@^1.0.2, clone@^2.0.0, clone@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
 
@@ -745,7 +757,7 @@ colors@1.0.x:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
 
-command-line-args@^3.0.1, command-line-args@^4.0.4:
+command-line-args@4.0.7, command-line-args@^3.0.1, command-line-args@^4.0.4:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/command-line-args/-/command-line-args-4.0.7.tgz#f8d1916ecb90e9e121eda6428e41300bfb64cc46"
   dependencies:
@@ -753,7 +765,7 @@ command-line-args@^3.0.1, command-line-args@^4.0.4:
     find-replace "^1.0.3"
     typical "^2.6.1"
 
-command-line-usage@^3.0.3, command-line-usage@^4.0.0:
+command-line-usage@4.0.1, command-line-usage@^3.0.3, command-line-usage@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/command-line-usage/-/command-line-usage-4.0.1.tgz#d89cf16c8ae71e8e8a6e6aabae1652af76ff644e"
   dependencies:
@@ -883,7 +895,7 @@ decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
-deep-extend@~0.4.0, deep-extend@~0.4.1, deep-extend@~0.5.0:
+deep-extend@0.5.0, deep-extend@~0.4.0, deep-extend@~0.4.1, deep-extend@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.5.0.tgz#6ef4a09b05f98b0e358d6d93d4ca3caec6672803"
 
@@ -1148,7 +1160,7 @@ espree@^3.1.7, espree@^3.4.0:
     acorn "^5.1.1"
     acorn-jsx "^3.0.0"
 
-esprima@^3.1.3, esprima@^4.0.0:
+esprima@4.0.0, esprima@^3.1.3, esprima@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.0.tgz#4499eddcd1110e0b218bacf2fa7f7f59f55ca804"
 
@@ -1383,7 +1395,7 @@ glob-base@^0.3.0:
     glob-parent "^2.0.0"
     is-glob "^2.0.0"
 
-glob-parent@^2.0.0, glob-parent@^3.0.0:
+glob-parent@3.1.0, glob-parent@^2.0.0, glob-parent@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-3.1.0.tgz#9e6af6299d8d3bd2bd40430832bd113df906c5ae"
   dependencies:
@@ -1403,7 +1415,7 @@ glob-stream@^5.3.2:
     to-absolute-glob "^0.1.1"
     unique-stream "^2.0.2"
 
-glob@^5.0.3, glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1:
+glob@7.1.2, glob@^5.0.3, glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -1560,7 +1572,7 @@ ipaddr.js@1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.5.2.tgz#d4b505bde9946987ccf0fc58d9010ff9607e3fa0"
 
-is-arrayish@^0.2.1, is-arrayish@^0.3.1:
+is-arrayish@0.3.1, is-arrayish@^0.2.1, is-arrayish@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.3.1.tgz#c2dfc386abaa0c3e33c48db3fe87059e69065efd"
 
@@ -1588,7 +1600,7 @@ is-extendable@^0.1.0, is-extendable@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/is-extendable/-/is-extendable-0.1.1.tgz#62b110e289a471418e3ec36a617d472e301dfc89"
 
-is-extglob@^1.0.0, is-extglob@^2.1.0:
+is-extglob@2.1.1, is-extglob@^1.0.0, is-extglob@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
 
@@ -1602,7 +1614,7 @@ is-fullwidth-code-point@2.0.0, is-fullwidth-code-point@^1.0.0, is-fullwidth-code
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz#a3b30a5c4f199183167aaab93beefae3ddfb654f"
 
-is-glob@^2.0.0, is-glob@^2.0.1, is-glob@^3.1.0:
+is-glob@3.1.0, is-glob@^2.0.0, is-glob@^2.0.1, is-glob@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-3.1.0.tgz#7ba5ae24217804ac70707b96922567486cc3e84a"
   dependencies:
@@ -1621,7 +1633,7 @@ is-npm@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-npm/-/is-npm-1.0.0.tgz#f2fb63a65e4905b406c86072765a1a4dc793b9f4"
 
-is-number@^2.1.0, is-number@^3.0.0:
+is-number@3.0.0, is-number@^2.1.0, is-number@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-3.0.0.tgz#24fd6201a4782cf50561c810276afc7d12d71195"
   dependencies:
@@ -1732,7 +1744,7 @@ jsonschema@^1.1.0, jsonschema@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/jsonschema/-/jsonschema-1.2.0.tgz#d6ebaf70798db7b3a20c544f6c9ef9319b077de2"
 
-kind-of@^3.0.2, kind-of@^4.0.0:
+kind-of@4.0.0, kind-of@^3.0.2, kind-of@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-4.0.0.tgz#20813df3d712928b207378691a45066fae72dd57"
   dependencies:
@@ -1908,7 +1920,7 @@ minimatch-all@^1.1.0:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@0.0.8, minimist@^1.1.3, minimist@^1.2.0:
+minimist@0.0.8, minimist@1.2.0, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
@@ -2102,7 +2114,7 @@ path-parse@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
 
-path-to-regexp@0.1.7, path-to-regexp@^1.0.1:
+path-to-regexp@0.1.7, path-to-regexp@1.7.0, path-to-regexp@^1.0.1:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
   dependencies:
@@ -2579,7 +2591,7 @@ read-pkg@^1.0.0:
     normalize-package-data "^2.3.2"
     path-type "^1.0.0"
 
-"readable-stream@>=1.0.33-1 <1.1.0-0", readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.5, readable-stream@^2.2.2:
+readable-stream@2.3.3, "readable-stream@>=1.0.33-1 <1.1.0-0", readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.5, readable-stream@^2.2.2:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.3.tgz#368f2512d79f9d46fdfc71349ae7878bbc1eb95c"
   dependencies:
@@ -2801,7 +2813,7 @@ slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
 
-source-map@^0.5.6, source-map@^0.6.1, source-map@~0.5.6:
+source-map@0.6.1, source-map@^0.5.6, source-map@^0.6.1, source-map@~0.5.6:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
@@ -2842,7 +2854,7 @@ string-width@2.1.1, string-width@^1.0.1, string-width@^2.0.0:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^4.0.0"
 
-string_decoder@~0.10.x, string_decoder@~1.0.3:
+string_decoder@1.0.3, string_decoder@~0.10.x, string_decoder@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
   dependencies:
@@ -2861,11 +2873,11 @@ strip-bom-stream@^1.0.0:
     first-chunk-stream "^1.0.0"
     strip-bom "^2.0.0"
 
-strip-bom@^2.0.0, strip-bom@^3.0.0:
+strip-bom@3.0.0, strip-bom@^2.0.0, strip-bom@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/strip-bom/-/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
 
-strip-indent@^1.0.1, strip-indent@^2.0.0:
+strip-indent@2.0.0, strip-indent@^1.0.1, strip-indent@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-2.0.0.tgz#5ef8db295d01e6ed6cbf7aab96998d7822527b68"
 
@@ -2901,7 +2913,7 @@ sw-toolbox@^3.4.0:
     path-to-regexp "^1.0.1"
     serviceworker-cache-polyfill "^4.0.0"
 
-table-layout@^0.3.0, table-layout@^0.4.1:
+table-layout@0.4.2, table-layout@^0.3.0, table-layout@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/table-layout/-/table-layout-0.4.2.tgz#10e9043c142a1e2d155da7257e478f0ef4981786"
   dependencies:
@@ -2952,7 +2964,7 @@ through2-filter@^2.0.0:
     through2 "~2.0.0"
     xtend "~4.0.0"
 
-through2@^0.6.0, through2@^2.0.0, through2@~2.0.0:
+through2@2.0.3, through2@^0.6.0, through2@^2.0.0, through2@~2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:
@@ -3147,7 +3159,7 @@ wordwrap@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
 
-wordwrapjs@^2.0.0-0, wordwrapjs@^3.0.0:
+wordwrapjs@3.0.0, wordwrapjs@^2.0.0-0, wordwrapjs@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/wordwrapjs/-/wordwrapjs-3.0.0.tgz#c94c372894cadc6feb1a66bff64e1d9af92c5d1e"
   dependencies:
