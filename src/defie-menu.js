@@ -368,7 +368,7 @@
 
                 <customers-shell name="customers"></customers-shell>
                 <salesorders-shell name="salesorders"></salesorders-shell>
-                <partnumbers-shell name="partnumberss"></partnumbers-shell>
+                <partnumbers-shell name="partnumbers"></partnumbers-shell>
 
                 <invoicenew-index hash="[[invoice-newhash]]" name="invoice-new" fromso="[[fromso]]" setting="[[setting]]"></invoicenew-index>
                 <invoiceslist-index hash="[[invoiceshash]]" invoices="[[invoices]]" name="invoices" setting="[[setting]]"></invoiceslist-index>
