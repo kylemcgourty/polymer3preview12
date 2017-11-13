@@ -89,6 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script type="module" src="../src/defie-menu.js"></script>
     <!-- Import the my-app element's module. -->
     <script type="module" src="/services/src/services-shell.js"></script>
+    <script type="module" src="/customers/src/customers-shell.js"></script>
     <script type="module" src="/salesorders/src/salesorders-shell.js"></script>
     <script type="module" src="/signin/src/signin-shell.js"></script>
     <script type="module" src="/licensor/src/licensors-shell.js"></script>
@@ -102,32 +103,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         min-height: 100vh;
         background-color: #eeeeee;
       }
-      #printpage {
-          display: none;
-      }
-      
-      @media print {
-          #printpage {
-              display: block;
-              background-color: white;
-          }
-          #defiemenu {
-              visibility: hidden;
-              display: none;
-          }
-       
-      }
+
+
+    #printpage {
+        display: none;
+    }
+    
+    @media print {
+        #printpage {
+            display: block;
+            background-color: white;
+        }
+        #defie-menu {
+            visibility: hidden;
+            display: none;
+        }
+     
+    }
     </style>
   </head>
   <body>
     <paper-toast id="toast">
         <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()"></span>
     </paper-toast>
-  <defie-menu id="defiemenu"></defie-menu>
+
+  <defie-menu id="defie-menu"></defie-menu>
+
+  <div id="printpage"></div>
     <noscript>
       Please enable JavaScript to view this website.
     </noscript>
-    <div id="printpage"></div>
 
     <!-- Built with love using Polymer Starter Kit -->
   </body>
