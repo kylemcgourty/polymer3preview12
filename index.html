@@ -102,16 +102,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         min-height: 100vh;
         background-color: #eeeeee;
       }
+      #printpage {
+          display: none;
+      }
+      
+      @media print {
+          #printpage {
+              display: block;
+              background-color: white;
+          }
+          #defiemenu {
+              visibility: hidden;
+              display: none;
+          }
+       
+      }
     </style>
   </head>
   <body>
     <paper-toast id="toast">
         <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()"></span>
     </paper-toast>
-  <defie-menu></defie-menu>
+  <defie-menu id="defiemenu"></defie-menu>
     <noscript>
       Please enable JavaScript to view this website.
     </noscript>
+    <div id="printpage"></div>
+
     <!-- Built with love using Polymer Starter Kit -->
   </body>
 </html>

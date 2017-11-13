@@ -15,8 +15,7 @@ module.exports = {
     'index.html',
     'manifest.json',
     'images/**/*',
-    "bower_components/webcomponentsjs/custom-elements-*.js",
-    "bower_components/webcomponentsjs/webcomponents-*.js"
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js",
   ],
   navigateFallback: 'index.html',
   dontCacheBustUrlsMatching: /./,

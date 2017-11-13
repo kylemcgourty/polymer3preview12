@@ -199,8 +199,10 @@
             display: none;
             background-color: #eaecef;
         }
+
         </style>
-            <app-location route="{{route}}"></app-location>
+
+        <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <app-route route="{{subroute}}" pattern="/:company" data="{{routeData1}}" tail="{{subroute1}}"></app-route>
         <app-route route="{{subroute1}}" pattern="/:id" data="{{routeData2}}" tail="{{subroute2}}"></app-route>
@@ -635,7 +637,9 @@
             this.addEventListener('ToWelcomeEvent', e => {
                 this.toWelcomePage(e);
             });
-
+            this.addEventListener('printpage', e => {
+                window.print();
+            });
         }
 
         static get observers() {
