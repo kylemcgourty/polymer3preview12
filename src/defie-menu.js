@@ -356,7 +356,6 @@
                 <partnumbernew-index hash="[[partnumber-newhash]]" toparts="[[toparts]]" name="partnumber-new" setting="[[setting]]" frombom="[[frombom]]" frombuildorder="[[frombuildorder]]"></partnumbernew-index>
                 <partnumberslist-index hash="[[partnumbershash]]" partnumber="[[partnumber]]" name="partnumbers" setting="[[setting]]"></partnumberslist-index>
                 <customernew-index hash="[[customer-newhash]]" name="customer-new" setting="[[setting]]" clonefromcustomerview="[[clonefromcustomerview]]"></customernew-index>
-                <customerslist-index hash="[[customershash]]" customers="[[customers]]" name="customers" setting="[[setting]]"></customerslist-index>
                 <vendornew-index hash="[[vendor-newhash]]" name="vendor-new" setting="[[setting]]" licensoraddress="[[licensoraddress]]"></vendornew-index>
                 <vendorslist-index hash="[[vendorshash]]" vendors="[[vendors]]" name="vendors" setting="[[setting]]"></vendorslist-index>
                 <quotenew-index hash="[[quote-newhash]]" name="quote-new" clonefromquoteview="[[clonefromquoteview]]" setting="[[setting]]"></quotenew-index>
@@ -365,7 +364,9 @@
                 <salesordernew-index hash="[[salesorder-newhash]]" name="salesorder-new" fromquote="[[fromquote]]" setting="[[setting]]"></salesordernew-index>
                 <salesorderslist-index hash="[[salesordershash]]" priv="[[SOpriv]]" salesorders="[[salesorders]]"  setting="[[setting]]"></salesorderslist-index>
 
+                <customers-shell name="customers"></customers-shell>
                 <salesorders-shell name="salesorders"></salesorders-shell>
+                <partnumbers-shell name="partnumberss"></partnumbers-shell>
 
                 <invoicenew-index hash="[[invoice-newhash]]" name="invoice-new" fromso="[[fromso]]" setting="[[setting]]"></invoicenew-index>
                 <invoiceslist-index hash="[[invoiceshash]]" invoices="[[invoices]]" name="invoices" setting="[[setting]]"></invoiceslist-index>
@@ -509,6 +510,11 @@
                             "quote-new": "/quote/components/new/quotenew-index.html",
                             "salesorders": "/salesorder/components/list/salesorderslist-index.html",
                             "salesorder-new": "/salesorder/components/new/salesordernew-index.html",
+
+                            "partnumbers": "/partnumber/components/list/partnumberslist-index.html",
+                            "partnumber-new": "/partnumber/components/new/partnumbernew-index.html",
+
+
                             "invoices": "/invoice/components/list/invoiceslist-index.html",
                             "invoice-new": "/invoice/components/new/invoicenew-index.html",
                             "creditmemos": "/creditmemo/components/list/creditmemoslist-index.html",
@@ -583,7 +589,9 @@
                     type: Object,
                     value: function() {
                         return {
-                            "/salesorders": "SOpriv"
+                            "/salesorders": "SOpriv",
+                            "/customers": "SOpriv",
+                            "/partnumbers": "SOpriv",
                         }
                     }
                 },
@@ -605,8 +613,12 @@
                             "welcome": "signin",
                             "service-new": "services",
                             "services": "services",
+                            "customer-new": "customers",
+                            "customers": "customers",
                             "salesorder-new": "salesorders",
-                            "salesorders": "salesorders"
+                            "salesorders": "salesorders",
+                            "partnumber-new": "partnumbers",
+                            "partnumbers": "partnumbers",
                         }
                     }
                 },
@@ -652,6 +664,8 @@
             console.log('the comp', route)
         
             this.set('option', this.ServicesList[route])
+
+            console.log("this.ServicesList[route]", this.ServicesList[route])
 
             console.log('the option', this.option)
 

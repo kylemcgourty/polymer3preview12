@@ -141,8 +141,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.1"
 
-
-"@polymer/iron-meta@3.0.0-pre.1", "@polymer/iron-meta@^3.0.0-pre.1":
+"@polymer/iron-meta@3.0.0-pre.1", "@polymer/iron-meta@^3.0.0-pre.1", "@polymer/iron-meta@preview":
   version "3.0.0-pre.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-meta/-/iron-meta-3.0.0-pre.1.tgz#809f5717a8eb80062fee6039ccd5fafe4875ca85"
   dependencies:
@@ -711,13 +710,10 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000748, caniuse-lite@^1.0.30000758:
   version "1.0.30000760"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000760.tgz#ec720395742f1c7ec8947fd6dd2604e77a8f98ff"
 
-<<<<<<< HEAD
-=======
 capture-stack-trace@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.0.tgz#4a6fa07399c26bba47f0b2496b4d0fb408c5550d"
 
->>>>>>> 8e9506bae159f5b7e18efc0ec0ac49abf68d8f6e
 chalk@2.3.0, chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3, chalk@^2.0.1, chalk@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.3.0.tgz#b5ea48efc9c1793dccc9b4767c93914d3f2d52ba"
@@ -2648,8 +2644,6 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
-<<<<<<< HEAD
-=======
 redent@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
@@ -2657,7 +2651,6 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
->>>>>>> 8e9506bae159f5b7e18efc0ec0ac49abf68d8f6e
 reduce-css-calc@2.1.1, reduce-css-calc@^1.2.7, reduce-css-calc@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/reduce-css-calc/-/reduce-css-calc-2.1.1.tgz#f4ecd7a00ec3e5683773f208067ad7da117b9db0"
@@ -3142,11 +3135,6 @@ viewport-dimensions@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/viewport-dimensions/-/viewport-dimensions-0.2.0.tgz#de740747db5387fd1725f5175e91bac76afdf36c"
 
-<<<<<<< HEAD
-web-animations-js@^2.2.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.3.1.tgz#3a6d9bc15196377a90f8e2803fa5262165b04510"
-=======
 vinyl-fs@^2.4.4:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/vinyl-fs/-/vinyl-fs-2.4.4.tgz#be6ff3270cb55dfd7d3063640de81f25d7532239"
@@ -3177,6 +3165,10 @@ vinyl@^1.0.0, vinyl@^1.2.0:
     clone-stats "^0.0.1"
     replace-ext "0.0.1"
 
+web-animations-js@^2.2.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.3.1.tgz#3a6d9bc15196377a90f8e2803fa5262165b04510"
+
 widest-line@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/widest-line/-/widest-line-1.0.0.tgz#0c09c85c2a94683d0d7eaf8ee097d564bf0e105c"
@@ -3193,7 +3185,6 @@ winston@^2.2.0:
     eyes "0.1.x"
     isstream "0.1.x"
     stack-trace "0.0.x"
->>>>>>> 8e9506bae159f5b7e18efc0ec0ac49abf68d8f6e
 
 wordwrap@~1.0.0:
   version "1.0.0"
