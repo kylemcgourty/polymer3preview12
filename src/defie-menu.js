@@ -355,8 +355,13 @@
                 <serviceslist-index hash="[[serviceshash]]" services="[[services]]" setting="[[setting]]"></serviceslist-index>
 
 
+                <services-shell name="services" setting="[[setting]]"></services-shell>
+
                 <licensornew-index hash="[[licensor-newhash]]" name="licensor-new" menus="[[menus]]" setting="[[setting]]"></licensornew-index>
                 <licensorslist-index hash="[[licensorshash]]" licensor="[[licensor]]" name="licensors" setting="[[setting]]"></licensorslist-index>
+
+                <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
+
                 <settingnew-index hash="[[setting-newhash]]" name="setting-new"></settingnew-index>
                 <partnumbernew-index hash="[[partnumber-newhash]]" toparts="[[toparts]]" name="partnumber-new" setting="[[setting]]" frombom="[[frombom]]" frombuildorder="[[frombuildorder]]"></partnumbernew-index>
                 <partnumberslist-index hash="[[partnumbershash]]" partnumber="[[partnumber]]" name="partnumbers" setting="[[setting]]"></partnumberslist-index>
@@ -369,10 +374,11 @@
                 <salesordernew-index hash="[[salesorder-newhash]]" name="salesorder-new" fromquote="[[fromquote]]" setting="[[setting]]"></salesordernew-index>
                 <salesorderslist-index hash="[[salesordershash]]" priv="[[SOpriv]]" salesorders="[[salesorders]]"  setting="[[setting]]"></salesorderslist-index>
 
-                <customers-shell name="customers"></customers-shell>
-                <partnumbers-shell name="partnumbers"></partnumbers-shell>
-                <salesorders-shell name="salesorders"></salesorders-shell>
-                
+
+
+                <customers-shell name="customers" setting="[[setting]]"></customers-shell>
+                <salesorders-shell name="salesorders" setting="[[setting]]"></salesorders-shell>
+                <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
 
                 <invoicenew-index hash="[[invoice-newhash]]" name="invoice-new" fromso="[[fromso]]" setting="[[setting]]"></invoicenew-index>
                 <invoiceslist-index hash="[[invoiceshash]]" invoices="[[invoices]]" name="invoices" setting="[[setting]]"></invoiceslist-index>
@@ -406,6 +412,7 @@
             
         </app-drawer-layout>
         <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
+        <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
             `
         }
 
@@ -420,11 +427,14 @@
                     type: Array,
                     reflectToAttribute: true
                 },
+                setting: {
+                    type: Object,
+                    reflectToAttribute: true,
+                    value: function() {
+                        return {}
+                    }
+                },
 
-                // option: {
-                //     type: String,
-                //     value: "list"
-                // },
                 hash: {
                     type: String,
                     reflectToAttribute: true
@@ -618,6 +628,9 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+                            "licensor-new": "licensor",
+                            "licensors": "licensor",
+                            "services": "services",
                             "service-new": "services",
                             "services": "services",
                             "customer-new": "customers",
@@ -866,9 +879,22 @@
         //     }
 
         // }
+
+        responseSetting(response) {
+            var results = response.detail.response
+
+            if (results) {
+                this.setting = results
+            }
+        }
+
+        getSetting() {
+            this.$.ajaxSetting.url = "/api/profile/setting";
+            this.$.ajaxSetting.generateRequest();
+        }
         ready() {
             super.ready()
-
+            this.getSetting()
             console.log('readyu called')
 
 
