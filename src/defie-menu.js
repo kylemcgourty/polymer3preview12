@@ -355,12 +355,10 @@
                 <serviceslist-index hash="[[serviceshash]]" services="[[services]]" setting="[[setting]]"></serviceslist-index>
 
 
-                <services-shell name="services" setting="[[setting]]"></services-shell>
 
                 <licensornew-index hash="[[licensor-newhash]]" name="licensor-new" menus="[[menus]]" setting="[[setting]]"></licensornew-index>
                 <licensorslist-index hash="[[licensorshash]]" licensor="[[licensor]]" name="licensors" setting="[[setting]]"></licensorslist-index>
 
-                <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
 
                 <settingnew-index hash="[[setting-newhash]]" name="setting-new"></settingnew-index>
                 <partnumbernew-index hash="[[partnumber-newhash]]" toparts="[[toparts]]" name="partnumber-new" setting="[[setting]]" frombom="[[frombom]]" frombuildorder="[[frombuildorder]]"></partnumbernew-index>
@@ -375,10 +373,13 @@
                 <salesorderslist-index hash="[[salesordershash]]" priv="[[SOpriv]]" salesorders="[[salesorders]]"  setting="[[setting]]"></salesorderslist-index>
 
 
-
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
                 <salesorders-shell name="salesorders" setting="[[setting]]"></salesorders-shell>
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
+                <services-shell name="services" setting="[[setting]]"></services-shell>
+                
+
+                <vendors-shell name="vendors" setting="[[setting]]">abfsga43gaym43ym</vendors-shell>
 
                 <invoicenew-index hash="[[invoice-newhash]]" name="invoice-new" fromso="[[fromso]]" setting="[[setting]]"></invoicenew-index>
                 <invoiceslist-index hash="[[invoiceshash]]" invoices="[[invoices]]" name="invoices" setting="[[setting]]"></invoiceslist-index>
@@ -607,8 +608,8 @@
                         return {
                             "/salesorders": "SOpriv",
                             "/customers": "SOpriv",
-                            "/partnumbers": "SOpriv",
                             "/vendors": "SOpriv",
+                            "/partnumbers": "SOpriv",
                         }
                     }
                 },
@@ -628,8 +629,8 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
-                            "licensor-new": "licensor",
-                            "licensors": "licensor",
+                            // "licensor-new": "licensor",
+                            // "licensors": "licensor",
                             "services": "services",
                             "service-new": "services",
                             "services": "services",
@@ -637,8 +638,8 @@
                             "customers": "customers",
                             "salesorder-new": "salesorders",
                             "salesorders": "salesorders",
-                            "partnumber-new": "partnumbers",
-                            "partnumbers": "partnumbers",
+                            // "partnumber-new": "partnumbers",
+                            // "partnumbers": "partnumbers",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
                         }
