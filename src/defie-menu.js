@@ -34,6 +34,10 @@
 
     import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
     import '../node_modules/@polymer/paper-toast/paper-toast.js'
+
+    // import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
+    // import '../node_modules/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js'
+    // import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
     // import '/services/src/services-shell.js'
     // import '/salesorders/src/salesorders-shell.js'
 
@@ -350,7 +354,6 @@
                 <servicenew-index hash="[[service-newhash]]" name="service-new" setting="[[setting]]"></servicenew-index>
                 <serviceslist-index hash="[[serviceshash]]" services="[[services]]" setting="[[setting]]"></serviceslist-index>
 
-                <services-shell name="services"></services-shell>
 
                 <licensornew-index hash="[[licensor-newhash]]" name="licensor-new" menus="[[menus]]" setting="[[setting]]"></licensornew-index>
                 <licensorslist-index hash="[[licensorshash]]" licensor="[[licensor]]" name="licensors" setting="[[setting]]"></licensorslist-index>
@@ -367,8 +370,9 @@
                 <salesorderslist-index hash="[[salesordershash]]" priv="[[SOpriv]]" salesorders="[[salesorders]]"  setting="[[setting]]"></salesorderslist-index>
 
                 <customers-shell name="customers"></customers-shell>
-                <salesorders-shell name="salesorders"></salesorders-shell>
                 <partnumbers-shell name="partnumbers"></partnumbers-shell>
+                <salesorders-shell name="salesorders"></salesorders-shell>
+                
 
                 <invoicenew-index hash="[[invoice-newhash]]" name="invoice-new" fromso="[[fromso]]" setting="[[setting]]"></invoicenew-index>
                 <invoiceslist-index hash="[[invoiceshash]]" invoices="[[invoices]]" name="invoices" setting="[[setting]]"></invoiceslist-index>
@@ -594,6 +598,7 @@
                             "/salesorders": "SOpriv",
                             "/customers": "SOpriv",
                             "/partnumbers": "SOpriv",
+                            "/vendors": "SOpriv",
                         }
                     }
                 },
@@ -621,6 +626,8 @@
                             "salesorders": "salesorders",
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
+                            "vendor-new": "vendors",
+                            "vendors": "vendors",
                         }
                     }
                 },
