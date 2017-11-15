@@ -298,106 +298,17 @@
                 <signin-shell name="signin"></signin-shell>
 
 
-                <sign-authenticate email="[[loginemail]]" name="authenticate"></sign-authenticate>
-                <welcome-page name="welcome"></welcome-page>
-                <closedcustrmaslist-index hash="[[closedcustrmashash]]" closedcustrmas="[[closedcustrmas]]" name="closedcustrmas" setting="[[setting]]"></closedcustrmaslist-index>
-                <closedvendrmaslist-index hash="[[closedvendrmashash]]" closedcustrmas="[[closedvendrmas]]" name="closedvendrmas" setting="[[setting]]"></closedvendrmaslist-index>
-                <qachecklists-index hash="[[qachecklistshash]]" name="qachecklists"></qachecklists-index>
-                <qachecklistnew-index hash="[[qachecklist-newhash]]" name="qachecklist-new"></qachecklistnew-index>
-                <shippinglabelnew-index hash="[[shippinglabel-newhash]]" name="shippinglabel-new"></shippinglabelnew-index>
-                <paymentshistorylist-index hash="[[paymentshistoryshash]]" paymentshistory="[[paymentshistory]]" name="paymentshistory" setting="[[setting]]"></paymentshistorylist-index>
-                <signerslist-index hash="[[signershash]]" signers="[[signers]]" name="signers" setting="[[setting]]"></signerslist-index>
-                <arentercashreceiptnew-index hash="[[arentercashreceipt-newhash]]" name="arentercashreceipt-new" setting="[[setting]]" thecustomerid="[[thecustomerid]]" fromarstatus="[[fromarstatus]]"></arentercashreceiptnew-index>
-                <arentercashreceiptslist-index hash="[[arentercashreceiptshash]]" payables="[[arentercashreceipts]]" name="arentercashreceipts" setting="[[setting]]" thecustomerid="[[thecustomerid]]"></arentercashreceiptslist-index>
-                <aropenreceivableslist-index hash="[[aropenreceivableshash]]" aropenreceivables="[[aropenreceivables]]" name="aropenreceivables" setting="[[setting]]" thecustomerid="[[thecustomerid]]"></aropenreceivableslist-index>
-                <arstatuslist-index hash="[[arstatushash]]" arstatus="[[arstatus]]" name="arstatus" setting="[[setting]]"></arstatuslist-index>
-                <appaymentsregisterlist-index hash="[[appaymentsregisterhash]]" appaymentsregister="[[appaymentsregister]]" name="appaymentsregister" setting="[[setting]]"></appaymentsregisterlist-index>
-                <atpreportslist-index hash="[[atpreportshash]]" atpreports="[[atpreports]]" name="atpreports" setting="[[setting]]" thevendorid="[[thevendorid]]"></atpreportslist-index>
-                <approvetopaylist-index hash="[[approvetopayhash]]" approvetopay="[[approvetopay]]" name="approvetopay" setting="[[setting]]" thevendorid="[[thevendorid]]"></approvetopaylist-index>
-                <apstatuslist-index hash="[[apstatushash]]" apstatus="[[apstatus]]" name="apstatus" setting="[[setting]]"></apstatuslist-index>
-                <apcreditmemonew-index hash="[[apcreditmemo-newhash]]" name="apcreditmemo-new" setting="[[setting]]"></apcreditmemonew-index>
-                <apcreditmemoslist-index hash="[[apcreditmemoshash]]" apcreditmemos="{{apcreditmemos}}" name="apcreditmemos" setting="[[setting]]"></apcreditmemoslist-index>
-                <payablenew-index hash="[[payable-newhash]]" name="payable-new" setting="[[setting]]"></payablenew-index>
-                <payableslist-index hash="[[payableshash]]" payables="[[payables]]" name="payables" setting="[[setting]]" thevendorid="[[thevendorid]]"></payableslist-index>
-                <apdistributedaccountsnew-index hash="[[apdistributedaccounts-newhash]]" name="apdistributedaccounts-new" setting="[[setting]]"></apdistributedaccountsnew-index>
-                <apdistributedaccountslist-index hash="[[apdistributedaccountshash]]" apdistributedaccounts="[[apdistributedaccounts]]" name="apdistributedaccounts" setting="[[setting]]"></apdistributedaccountslist-index>
-                <apchartofaccountsnew-index hash="[[apchartofaccounts-newhash]]" name="apchartofaccounts-new" setting="[[setting]]"></apchartofaccountsnew-index>
-                <barcodesnew-index hash="[[barcodes-newhash]]" name="barcodes-new" setting="[[setting]]"></barcodesnew-index>
-                <barcodeslist-index hash="[[barcodeshash]]" name="barcodes" barcodes="[[barcodes]]" setting="[[setting]]"></barcodeslist-index>
-                <createinvoicenew-index hash="[[createinvoice-newhash]]" name="createinvoice-new" setting="[[setting]]"></createinvoicenew-index>
-                <createinvoiceslist-index hash="[[createinvoiceshash]]" createinvoices="[[createinvoices]]" name="createinvoices" setting="[[setting]]"></createinvoiceslist-index>
-                <createcreditmemonew-index hash="[[createcreditmemo-newhash]]" name="createcreditmemo-new" setting="[[setting]]"></createcreditmemonew-index>
-                <createcreditmemoslist-index hash="[[createcreditmemoshash]]" createcreditmemos="[[createcreditmemos]]" name="createcreditmemos" setting="[[setting]]"></createcreditmemoslist-index>
-                <customerreceivermanew-index setting="[[setting]]" hash="[[customerreceiverma-newhash]]" name="customerreceiverma-new" fromcrma="[[fromcrma]]"></customerreceivermanew-index>
-                <customerreceivermaslist-index setting="[[setting]]" hash="[[customerreceivermashash]]" customerreceivermas="[[customerreceivermas]]" name="customerreceivermas"></customerreceivermaslist-index>
-                <customerrmanew-index setting="[[setting]]" licensoraddress="[[licensoraddress]]" hash="[[customerrma-newhash]]" name="customerrma-new"></customerrmanew-index>
-                <customerrmaslist-index setting="[[setting]]" hash="[[customerrmashash]]" customerrmas="[[customerrmas]]" name="customerrmas"></customerrmaslist-index>
-                <customershiprmanew-index setting="[[setting]]" hash="[[customershiprma-newhash]]" name="customershiprma-new" fromcrma="[[fromcrma]]"></customershiprmanew-index>
-                <customershiprmaslist-index setting="[[setting]]" hash="[[customershiprmashash]]" customershiprmas="[[customershiprmas]]" name="customershiprmas"></customershiprmaslist-index>
-                <vendorshiprmanew-index setting="[[setting]]" hash="[[vendorshiprma-newhash]]" name="vendorshiprma-new" fromvrma="[[fromvrma]]"></vendorshiprmanew-index>
-                <vendorshiprmaslist-index setting="[[setting]]" hash="[[vendorshiprmashash]]" vendorshiprmas="[[vendorshiprmas]]" name="vendorshiprmas"></vendorshiprmaslist-index>
-                <vendorreceivermanew-index setting="[[setting]]" hash="[[vendorreceiverma-newhash]]" name="vendorreceiverma-new" fromvrma="[[fromvrma]]"></vendorreceivermanew-index>
-                <vendorreceivermaslist-index setting="[[setting]]" hash="[[vendorreceivermashash]]" vendorreceivermas="[[vendorreceivermas]]" name="vendorreceivermas"></vendorreceivermaslist-index>
-                <vendorrmanew-index setting="[[setting]]" licensoraddress="[[licensoraddress]]" hash="[[vendorrma-newhash]]" name="vendorrma-new"></vendorrmanew-index>
-                <vendorrmaslist-index setting="[[setting]]" hash="[[vendorrmashash]]" vendorrmas="[[vendorrmas]]" name="vendorrmas"></vendorrmaslist-index>
-                <profile-index hash="[[profilehash]]" profile="[[profile]]" name="profile"></profile-index>
-                <locationslist-index hash="[[locationshash]]" location="[[location]]" name="locations" setting="[[setting]]"></locationslist-index>
-                <locationnew-index hash="[[location-newhash]]" name="location-new" menus="[[menus]]" setting="[[setting]]"></locationnew-index>
-                <usernew-index hash="[[user-newhash]]" name="user-new" setting="[[setting]]"></usernew-index>
-                <userslist-index hash="[[usershash]]" users="[[users]]" name="users" setting="[[setting]]"></userslist-index>
-               
-
-                <servicenew-index hash="[[service-newhash]]" name="service-new" setting="[[setting]]"></servicenew-index>
-                <serviceslist-index hash="[[serviceshash]]" services="[[services]]" setting="[[setting]]"></serviceslist-index>
-
+                
                 <services-shell name="services"></services-shell>
 
-                <licensornew-index hash="[[licensor-newhash]]" name="licensor-new" menus="[[menus]]" setting="[[setting]]"></licensornew-index>
-                <licensorslist-index hash="[[licensorshash]]" licensor="[[licensor]]" name="licensors" setting="[[setting]]"></licensorslist-index>
-                <settingnew-index hash="[[setting-newhash]]" name="setting-new"></settingnew-index>
-                <partnumbernew-index hash="[[partnumber-newhash]]" toparts="[[toparts]]" name="partnumber-new" setting="[[setting]]" frombom="[[frombom]]" frombuildorder="[[frombuildorder]]"></partnumbernew-index>
-                <partnumberslist-index hash="[[partnumbershash]]" partnumber="[[partnumber]]" name="partnumbers" setting="[[setting]]"></partnumberslist-index>
-                <customernew-index hash="[[customer-newhash]]" name="customer-new" setting="[[setting]]" clonefromcustomerview="[[clonefromcustomerview]]"></customernew-index>
-                <vendornew-index hash="[[vendor-newhash]]" name="vendor-new" setting="[[setting]]" licensoraddress="[[licensoraddress]]"></vendornew-index>
-                <vendorslist-index hash="[[vendorshash]]" vendors="[[vendors]]" name="vendors" setting="[[setting]]"></vendorslist-index>
-                <quotenew-index hash="[[quote-newhash]]" name="quote-new" clonefromquoteview="[[clonefromquoteview]]" setting="[[setting]]"></quotenew-index>
-                <quoteslist-index hash="[[quoteshash]]" quotes="[[quotes]]" name="quotes" setting="[[setting]]"></quoteslist-index>
-                
-                <salesordernew-index hash="[[salesorder-newhash]]" name="salesorder-new" fromquote="[[fromquote]]" setting="[[setting]]"></salesordernew-index>
-                <salesorderslist-index hash="[[salesordershash]]" priv="[[SOpriv]]" salesorders="[[salesorders]]"  setting="[[setting]]"></salesorderslist-index>
+     
 
                 <customers-shell name="customers"></customers-shell>
                 <salesorders-shell name="salesorders"></salesorders-shell>
                 <partnumbers-shell name="partnumbers"></partnumbers-shell>
+                <invoices-shell  name="invoices" fromso=[[fromso]] ></invoices-shell>
 
-                <invoicenew-index hash="[[invoice-newhash]]" name="invoice-new" fromso="[[fromso]]" setting="[[setting]]"></invoicenew-index>
-                <invoiceslist-index hash="[[invoiceshash]]" invoices="[[invoices]]" name="invoices" setting="[[setting]]"></invoiceslist-index>
-                <returnsonew-index hash="[[returnso-newhash]]" name="returnso-new" setting="[[setting]]" licensoraddress="[[licensoraddress]]"></returnsonew-index>
-                <returnsoslist-index hash="[[returnsoshash]]" returnsos="[[returnsos]]" name="returnsos" setting="[[setting]]"></returnsoslist-index>
-                <creditmemonew-index setting="[[setting]]" hash="[[creditmemo-newhash]]" name="creditmemo-new" fromrtnso="[[fromrtnso]]"></creditmemonew-index>
-                <creditmemoslist-index setting="[[setting]]" hash="[[creditmemoshash]]" creditmemos="[[creditmemos]]" name="creditmemos"></creditmemoslist-index>
-                <purchaseordernew-index hash="[[purchaseorder-newhash]]" name="purchaseorder-new" setting="[[setting]]" licensoraddress="[[licensoraddress]]" clonefrompurchaseorderview="[[clonefrompurchaseorderview]]"></purchaseordernew-index>
-                <purchaseorderslist-index hash="[[purchaseordershash]]" purchaseorders="[[purchaseorders]]" name="purchaseorders" setting="[[setting]]"></purchaseorderslist-index>
-                <receiveponew-index hash="[[receivepo-newhash]]" name="receivepo-new" purchaseorders="[[purchaseorders]]" frompo="[[frompo]]" setting="[[setting]]"></receiveponew-index>
-                <receiveposlist-index setting="[[setting]]" hash="[[receiveposhash]]" receivepo="[[receivepo]]" name="receivepos" setting="[[setting]]"></receiveposlist-index>
-                <returnponew-index setting="[[setting]]" licensoraddress="[[licensoraddress]]" hash="[[returnpo-newhash]]" name="returnpo-new"></returnponew-index>
-                <returnposlist-index setting="[[setting]]" hash="[[returnposhash]]" returnpos="[[returnpos]]" name="returnpos"></returnposlist-index>
-                <shipreturnponew-index setting="[[setting]]" hash="[[shipreturnpo-newhash]]" name="shipreturnpo-new" fromrtnpo="[[fromrtnpo]]"></shipreturnponew-index>
-                <shipreturnposlist-index setting="[[setting]]" hash="[[shipreturnposhash]]" shipreturnpos="[[shipreturnpos]]" name="shipreturnpos"></shipreturnposlist-index>
-                <bomnew-index setting="[[setting]]" hash="[[bom-newhash]]" bom="[[bomnew]]" name="bom-new"></bomnew-index>
-                <releasebomnew-index hash="[[releasebom-newhash]]" rbom="[[rbom]]" name="releasebom-new"></releasebomnew-index>
-                <releasedbomslist-index hash="[[releasedbomshash]]" releasedboms="[[releasedboms]]" name="releasedboms"></releasedbomslist-index>
-                <bomslist-index setting="[[setting]]" hash="[[bomshash]]" boms="[[boms]]" name="boms" clonefrombomview="[[clonefrombomview]]"></bomslist-index>
-                <bomsreleasedlist-index setting="[[setting]]" hash="[[bomsreleasedhash]]" bomsreleased="[[bomsreleased]]" name="bomsreleased"></bomsreleasedlist-index>
-                <!--                 <releasebomnew-index hash="[[releasebom-newhash]]" rbom="[[rbom]]" name="releasebom-new"></releasebomnew-index>
-                <releasedbomslist-index hash="[[releasedbomshash]]" releasedboms="[[releasedboms]]" name="releasedboms"></releasedbomslist-index> -->
-                <buildordernew-index setting="[[setting]]" hash="[[buildorder-newhash]]" name="buildorder-new" clonefrombuildorderview="[[clonefrombuildorderview]]"></buildordernew-index>
-                <buildorderslist-index setting="[[setting]]" hash="[[buildordershash]]" buildorders="[[buildorders]]" name="buildorders"></buildorderslist-index>
-                <releasedbuildorderslist-index setting="[[setting]]" hash="[[releasedbuildordershash]]" name="releasedbuildorders"></releasedbuildorderslist-index>
-                <workordernew-index setting="[[setting]]" hash="[[workorder-newhash]]" name="workorder-new" clonefromworkorderview="[[clonefromworkorderview]]"></workordernew-index>
-                <workorderslist-index setting="[[setting]]" hash="[[workordershash]]" name="workorders"></workorderslist-index>
-                <!-- <workordersfinishedlist-index setting="[[setting]]" hash="[[workordersfinishedhash]]" name="workordersfinished"></workordersfinishedlist-index> -->
-                <finishedworkorderslist-index setting="[[setting]]" hash="[[finishedworkordershash]]" name="finishedworkorders"></finishedworkorderslist-index>
+
             </iron-pages>
             
         </app-drawer-layout>
@@ -621,6 +532,8 @@
                             "salesorders": "salesorders",
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
+                            "invoice-new": "invoices",
+                            "invoices": "invoices",
                         }
                     }
                 },
@@ -639,6 +552,11 @@
             });
             this.addEventListener('printpage', e => {
                 window.print();
+            });
+
+            this.addEventListener('toInvoiceNew', e => {
+                console.log('fromso event')
+                this.set('fromso', e.detail.model)
             });
         }
 
@@ -777,9 +695,11 @@
 
             console.log('e in service', e)
 
-            // this.showMenu = true;
+            this.showMenu = true;
 
             this.set('leftservices', e.detail.response.results.services)
+
+            console.log('the left services', this.leftservices)
 
             // this.set('leftservices', e.detail.response.results)
 
