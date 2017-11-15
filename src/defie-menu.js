@@ -562,7 +562,7 @@
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
                             "boms": "boms",
-                            "bom-new": "bom-new"
+                            "bom-new": "boms"
                             // "vendor-new": "vendors",
                             // "vendors": "vendors",
                         }
