@@ -309,7 +309,7 @@
      
 
                 <salesorders-shell name="salesorders"></salesorders-shell>
-                <invoices-shell  name="invoices" fromso=[[fromso]] ></invoices-shell>
+                <invoices-shell  name="invoices" fromso="[[fromso]]" ></invoices-shell>
 
 
 
