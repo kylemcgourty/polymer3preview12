@@ -318,7 +318,7 @@
                 <services-shell name="services" setting="[[setting]]"></services-shell>
                 
 
-                <vendors-shell name="vendors" setting="[[setting]]">abfsga43gaym43ym</vendors-shell>
+                <!-- <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell> -->
 
             </iron-pages>
             
@@ -553,10 +553,10 @@
                             "partnumbers": "partnumbers",
                             "invoice-new": "invoices",
                             "invoices": "invoices",
-                            // "partnumber-new": "partnumbers",
-                            // "partnumbers": "partnumbers",
-                            "vendor-new": "vendors",
-                            "vendors": "vendors",
+                            "partnumber-new": "partnumbers",
+                            "partnumbers": "partnumbers",
+                            // "vendor-new": "vendors",
+                            // "vendors": "vendors",
                         }
                     }
                 },
