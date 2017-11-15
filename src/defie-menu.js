@@ -34,6 +34,10 @@
 
     import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
     import '../node_modules/@polymer/paper-toast/paper-toast.js'
+
+    // import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
+    // import '../node_modules/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js'
+    // import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
     // import '/services/src/services-shell.js'
     // import '/salesorders/src/salesorders-shell.js'
 
@@ -298,21 +302,29 @@
                 <signin-shell name="signin"></signin-shell>
 
 
+
                 
                 <services-shell name="services"></services-shell>
 
      
 
-                <customers-shell name="customers"></customers-shell>
                 <salesorders-shell name="salesorders"></salesorders-shell>
-                <partnumbers-shell name="partnumbers"></partnumbers-shell>
                 <invoices-shell  name="invoices" fromso=[[fromso]] ></invoices-shell>
 
+
+
+                <customers-shell name="customers" setting="[[setting]]"></customers-shell>
+                <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
+                <services-shell name="services" setting="[[setting]]"></services-shell>
+                
+
+                <vendors-shell name="vendors" setting="[[setting]]">abfsga43gaym43ym</vendors-shell>
 
             </iron-pages>
             
         </app-drawer-layout>
         <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
+        <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
             `
         }
 
@@ -327,11 +339,14 @@
                     type: Array,
                     reflectToAttribute: true
                 },
+                setting: {
+                    type: Object,
+                    reflectToAttribute: true,
+                    value: function() {
+                        return {}
+                    }
+                },
 
-                // option: {
-                //     type: String,
-                //     value: "list"
-                // },
                 hash: {
                     type: String,
                     reflectToAttribute: true
@@ -504,6 +519,7 @@
                         return {
                             "/salesorders": "SOpriv",
                             "/customers": "SOpriv",
+                            "/vendors": "SOpriv",
                             "/partnumbers": "SOpriv",
                         }
                     }
@@ -524,6 +540,9 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+                            // "licensor-new": "licensor",
+                            // "licensors": "licensor",
+                            "services": "services",
                             "service-new": "services",
                             "services": "services",
                             "customer-new": "customers",
@@ -534,6 +553,10 @@
                             "partnumbers": "partnumbers",
                             "invoice-new": "invoices",
                             "invoices": "invoices",
+                            // "partnumber-new": "partnumbers",
+                            // "partnumbers": "partnumbers",
+                            "vendor-new": "vendors",
+                            "vendors": "vendors",
                         }
                     }
                 },
@@ -779,9 +802,22 @@
         //     }
 
         // }
+
+        responseSetting(response) {
+            var results = response.detail.response
+
+            if (results) {
+                this.setting = results
+            }
+        }
+
+        getSetting() {
+            this.$.ajaxSetting.url = "/api/profile/setting";
+            this.$.ajaxSetting.generateRequest();
+        }
         ready() {
             super.ready()
-
+            this.getSetting()
             console.log('readyu called')
 
 

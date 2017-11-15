@@ -88,6 +88,7 @@
     "@polymer/iron-list": "^3.0.0-pre.1",
     "@polymer/iron-pages": "^3.0.0-pre.1",
     "@polymer/iron-scroll-target-behavior": "^3.0.0-pre.1",
+    "@polymer/neon-animation": "^1.2.4-pre.3",
     "@polymer/paper-button": "^3.0.0-pre.1",
     "@polymer/paper-card": "^3.0.0-pre.1",
     "@polymer/paper-checkbox": "^3.0.0-pre.1",
