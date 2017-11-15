@@ -303,23 +303,18 @@
 
 
 
-                
-                <services-shell name="services"></services-shell>
 
-<<<<<<< Updated upstream
-     
-=======
                 <services-shell name="services" setting="[[setting]]"></services-shell>
 
-                <licensornew-index hash="[[licensor-newhash]]" name="licensor-new" menus="[[menus]]" setting="[[setting]]"></licensornew-index>
-                <licensorslist-index hash="[[licensorshash]]" licensor="[[licensor]]" name="licensors" setting="[[setting]]"></licensorslist-index>
+         
 
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
->>>>>>> Stashed changes
 
-                <salesorders-shell name="salesorders"></salesorders-shell>
-                <invoices-shell  name="invoices" fromso="[[fromso]]" ></invoices-shell>
+                <salesorders-shell setting="[[setting]]" name="salesorders"></salesorders-shell>
+                <invoices-shell setting="[[setting]]"  name="invoices" fromso="[[fromso]]" ></invoices-shell>
+                <boms-shell setting="[[setting]]"  name="boms" ></boms-shell>
+
 
 
 
@@ -566,6 +561,8 @@
                             "invoices": "invoices",
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
+                            "boms": "boms",
+                            "bom-new": "bom-new"
                             // "vendor-new": "vendors",
                             // "vendors": "vendors",
                         }
