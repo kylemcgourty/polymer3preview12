@@ -323,7 +323,7 @@
                 <services-shell name="services" setting="[[setting]]"></services-shell>
                 
 
-                <!-- <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell> -->
+              <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
             </iron-pages>
             
@@ -562,9 +562,9 @@
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
                             "boms": "boms",
-                            "bom-new": "boms"
-                            // "vendor-new": "vendors",
-                            // "vendors": "vendors",
+                            "bom-new": "boms",
+                            "vendor-new": "vendors",
+                            "vendors": "vendors",
                         }
                     }
                 },
