@@ -572,6 +572,11 @@
                 option: {
                     type: String,
                     value: "services"
+                },
+
+                showMenu: {
+                    type: Boolean,
+                    value: false
                 }
             };
         }
@@ -749,10 +754,11 @@
         }
 
         toWelcomePage(e) {
-            window.location.hash = "";
+
+            console.log('reached To Welcome Page', e)
             this.set('route.path', '/welcome');
             this.showMenu = true;
-            this.set('leftservices', e.detail.response.results.services)
+            this.set('leftservices', e.detail.services)
             // this.$.serviceajax.generateRequest();
         }
 
@@ -829,12 +835,12 @@
             console.log('readyu called')
 
 
-             let ur = sessionStorage.getItem("UR")
-            ur == undefined || null ? ur = 1 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
+            //  let ur = sessionStorage.getItem("UR")
+            // ur == undefined || null ? ur = 1 : ur
+            // this.$.serviceajax.url = "/api/service/leftservice"
 
-            // this.$.serviceajax.url = "/api/user/services/" + ur
-            this.$.serviceajax.generateRequest()
+            // // this.$.serviceajax.url = "/api/user/services/" + ur
+            // this.$.serviceajax.generateRequest()
            
 
             this.shadowRoot.addEventListener('leftservice', e => {
