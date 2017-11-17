@@ -311,7 +311,7 @@
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
-                <salesorders-shell setting="[[setting]]" name="salesorders" fromquo="[[fromquo]]"></salesorders-shell>
+                <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
                 <invoices-shell setting="[[setting]]"  name="invoices" fromso="[[fromso]]" ></invoices-shell>
                 <boms-shell setting="[[setting]]"  name="boms" ></boms-shell>
 
@@ -589,8 +589,8 @@
                 window.print();
             });
             this.addEventListener('toSalesOrderNew', e => {
-                console.log('fromquo event')
-                this.set('fromquo', e.detail.model)
+                console.log('fromquote event')
+                this.set('fromquote', e.detail.model)
             });
             this.addEventListener('toInvoiceNew', e => {
                 console.log('fromso event')
