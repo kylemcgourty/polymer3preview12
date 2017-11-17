@@ -301,20 +301,16 @@
                 
                 <signin-shell name="signin"></signin-shell>
 
-
-
-
                 <services-shell name="services" setting="[[setting]]"></services-shell>
-
-         
 
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
                 <salesorders-shell setting="[[setting]]" name="salesorders"></salesorders-shell>
                 <invoices-shell setting="[[setting]]"  name="invoices" fromso="[[fromso]]" ></invoices-shell>
-                <boms-shell setting="[[setting]]"  name="boms" ></boms-shell>
+                <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
+                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
 
 
 
@@ -323,7 +319,7 @@
                 <services-shell name="services" setting="[[setting]]"></services-shell>
                 
 
-                <!-- <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell> -->
+                <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
             </iron-pages>
             
@@ -562,9 +558,9 @@
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
                             "boms": "boms",
-                            "bom-new": "boms"
-                            // "vendor-new": "vendors",
-                            // "vendors": "vendors",
+                            "bom-new": "boms",
+                            "vendor-new": "vendors",
+                            "vendors": "vendors",
                         }
                     }
                 },
@@ -726,7 +722,7 @@
 
             console.log('e in service', e)
 
-            this.showMenu = true;
+            // this.showMenu = true;
 
             this.set('leftservices', e.detail.response.results.services)
 
@@ -837,17 +833,17 @@
             this.$.serviceajax.generateRequest()
            
 
-            this.shadowRoot.addEventListener('leftservice', e => {
+            // this.shadowRoot.addEventListener('leftservice', e => {
 
 
-            let ur = sessionStorage.getItem("UR")
-            ur == undefined || null ? ur = 1 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
-            // this.$.serviceajax.url = "/api/user/services/" + ur
-            this.$.serviceajax.generateRequest()
+            // let ur = sessionStorage.getItem("UR")
+            // ur == undefined || null ? ur = 1 : ur
+            // this.$.serviceajax.url = "/api/service/leftservice"
+            // // this.$.serviceajax.url = "/api/user/services/" + ur
+            // this.$.serviceajax.generateRequest()
 
 
-            })
+            // })
 
 
             this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
