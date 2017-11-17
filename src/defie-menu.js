@@ -306,7 +306,7 @@
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
-                <salesorders-shell setting="[[setting]]" name="salesorders"></salesorders-shell>
+                <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
                 <invoices-shell setting="[[setting]]"  name="invoices" fromso="[[fromso]]" ></invoices-shell>
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
@@ -318,6 +318,7 @@
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
                 <services-shell name="services" setting="[[setting]]"></services-shell>
                 
+                <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
                 <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
@@ -522,6 +523,7 @@
                             "/customers": "SOpriv",
                             "/vendors": "SOpriv",
                             "/partnumbers": "SOpriv",
+                            "/quotes": "SOpriv",
                         }
                     }
                 },
@@ -561,6 +563,8 @@
                             "bom-new": "boms",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
+                            "quote-new": "quotes",
+                            "quotes": "quotes",
                         }
                     }
                 },
@@ -580,7 +584,10 @@
             this.addEventListener('printpage', e => {
                 window.print();
             });
-
+            this.addEventListener('toSalesOrderNew', e => {
+                console.log('fromquote event')
+                this.set('fromquote', e.detail.model)
+            });
             this.addEventListener('toInvoiceNew', e => {
                 console.log('fromso event')
                 this.set('fromso', e.detail.model)
