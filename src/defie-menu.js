@@ -307,6 +307,11 @@
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
                 <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
+
+                <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
+
+
+
                 <invoices-shell setting="[[setting]]"  name="invoices" fromso="[[fromso]]" ></invoices-shell>
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
@@ -519,6 +524,7 @@
                     type: Object,
                     value: function() {
                         return {
+                            "/returnsos": "SOpriv",
                             "/salesorders": "SOpriv",
                             "/customers": "SOpriv",
                             "/vendors": "SOpriv",
@@ -543,6 +549,8 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+                            "returnso-new": "returnsos",
+                            "returnsos": "returnsos",
                             "licensor-new": "licensor",
                             "licensors": "licensor",
                             "licuser-new": "licuser",
