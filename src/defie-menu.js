@@ -307,15 +307,14 @@
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
                 <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
+                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
 
                 <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
+                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" ></creditmemos-shell>
 
 
-
-                <invoices-shell setting="[[setting]]"  name="invoices" fromso="[[fromso]]" ></invoices-shell>
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
-                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
 
 
 
@@ -326,6 +325,7 @@
                 <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
                 <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
+                <purchaseorders-shell setting="[[setting]]" name="purchaseorders"></purchaseorders-shell>
 
             </iron-pages>
             
@@ -530,6 +530,8 @@
                             "/vendors": "SOpriv",
                             "/partnumbers": "SOpriv",
                             "/quotes": "SOpriv",
+                            "/creditmemos": "SOpriv",
+                            "/purchaseorders": "SOpriv",
                         }
                     }
                 },
@@ -551,6 +553,8 @@
                             "welcome": "signin",
                             "returnso-new": "returnsos",
                             "returnsos": "returnsos",
+                            "creditmemo-new": "creditmemos",
+                            "creditmemos": "creditmemos",
                             "licensor-new": "licensor",
                             "licensors": "licensor",
                             "licuser-new": "licuser",
@@ -571,6 +575,8 @@
                             "bom-new": "boms",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
+                            "purchaseorder-new": "purchaseorders",
+                            "purchaseorders": "purchaseorders",
                             "quote-new": "quotes",
                             "quotes": "quotes",
                         }
@@ -600,6 +606,18 @@
                 console.log('fromso event')
                 this.set('fromso', e.detail.model)
             });
+
+            this.addEventListener('toCreditMemoNew', e => {
+                console.log('fromrtnso event', e.detail.model)
+                this.set('fromrtnso', e.detail.model)
+            });
+
+            toReceivepoNew
+            this.addEventListener('toReceivepoNew', e => {
+                console.log('frompo event', e.detail.model)
+                this.set('frompo', e.detail.model)
+            });
+
         }
 
         static get observers() {
