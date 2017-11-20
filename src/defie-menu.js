@@ -303,6 +303,11 @@
 
                 <services-shell name="services" setting="[[setting]]"></services-shell>
 
+
+                <purchaseorders-shell setting="[[setting]]" name="purchaseorders"></purchaseorders-shell>
+
+
+
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
@@ -325,7 +330,6 @@
                 <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
                 <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
-                <purchaseorders-shell setting="[[setting]]" name="purchaseorders"></purchaseorders-shell>
 
             </iron-pages>
             
