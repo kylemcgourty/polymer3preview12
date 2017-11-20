@@ -612,7 +612,6 @@
                 this.set('fromrtnso', e.detail.model)
             });
 
-            toReceivepoNew
             this.addEventListener('toReceivepoNew', e => {
                 console.log('frompo event', e.detail.model)
                 this.set('frompo', e.detail.model)
