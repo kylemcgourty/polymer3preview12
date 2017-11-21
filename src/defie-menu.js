@@ -296,9 +296,7 @@
                     </div>
                 </template>
             </app-drawer>
-
             <iron-pages id="custIronPages" selected="[[option]]" attr-for-selected="name" fallback-selection="view404" role="main">
-                
                 <signin-shell name="signin"></signin-shell>
 
                 <services-shell name="services" setting="[[setting]]"></services-shell>
@@ -773,7 +771,7 @@
 
             // this.showMenu = true;
 
-            this.set('leftservices', e.detail.response.results.services)
+            this.set('leftservices', e.detail.response.results)
 
             console.log('the left services', this.leftservices)
 
@@ -796,10 +794,23 @@
         toWelcomePage(e) {
 
             console.log('reached To Welcome Page', e)
+            this.tempMenu();
             this.set('route.path', '/welcome');
             this.showMenu = true;
             this.set('leftservices', e.detail.services)
             // this.$.serviceajax.generateRequest();
+        }
+
+
+        tempMenu(){
+            console.log('in temp menu')
+            let ur = sessionStorage.getItem("UR")
+            ur == undefined || ur == null ? ur = 0 : ur
+            // this.$.serviceajax.url = "/api/service/leftservice"
+            this.$.serviceajax.url = "/api/user/services/0" 
+            this.$.serviceajax.generateRequest()
+            this.showMenu = true;
+
         }
 
 
@@ -883,17 +894,20 @@
             // this.$.serviceajax.generateRequest()
            
 
-            // this.shadowRoot.addEventListener('leftservice', e => {
+            document.querySelector('defie-menu').addEventListener('leftservice', e => {
 
+                    console.log("HIT EVENT")
 
-            // let ur = sessionStorage.getItem("UR")
-            // ur == undefined || null ? ur = 1 : ur
+            let ur = sessionStorage.getItem("UR")
+            ur == undefined || ur == null ? ur = 1 : ur
             // this.$.serviceajax.url = "/api/service/leftservice"
-            // // this.$.serviceajax.url = "/api/user/services/" + ur
-            // this.$.serviceajax.generateRequest()
+            this.$.serviceajax.url = "/api/user/services/" + ur
+            this.$.serviceajax.generateRequest()
+            this.showMenu = true;
 
 
-            // })
+
+            })
 
 
             this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
