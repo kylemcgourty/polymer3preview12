@@ -771,7 +771,7 @@
 
             // this.showMenu = true;
 
-            this.set('leftservices', e.detail.response.results)
+            this.set('leftservices', e.detail.response.results.services)
 
             console.log('the left services', this.leftservices)
 
@@ -806,8 +806,8 @@
             console.log('in temp menu')
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 0 : ur
-            // this.$.serviceajax.url = "/api/service/leftservice"
-            this.$.serviceajax.url = "/api/user/services/0" 
+            this.$.serviceajax.url = "/api/service/leftservice"
+            // this.$.serviceajax.url = "/api/user/services/0" 
             this.$.serviceajax.generateRequest()
             this.showMenu = true;
 
