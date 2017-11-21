@@ -301,19 +301,25 @@
                 
                 <signin-shell name="signin"></signin-shell>
 
-
-
-
                 <services-shell name="services" setting="[[setting]]"></services-shell>
 
-         
+
+                <purchaseorders-shell setting="[[setting]]" name="purchaseorders"></purchaseorders-shell>
+                <receivepos-shell setting="[[setting]]" name="receivepos" frompo="[[frompo]]"></receivepos-shell>
+
+                <returnpos-shell setting="[[setting]]" name="returnpos"></returnpos-shell>
 
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
-                <salesorders-shell setting="[[setting]]" name="salesorders"></salesorders-shell>
-                <invoices-shell setting="[[setting]]"  name="invoices" fromso="[[fromso]]" ></invoices-shell>
-                <boms-shell setting="[[setting]]"  name="boms" ></boms-shell>
+                <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
+                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
+
+                <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
+                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" ></creditmemos-shell>
+
+
+                <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
 
 
@@ -322,8 +328,13 @@
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
                 <services-shell name="services" setting="[[setting]]"></services-shell>
                 
+                <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
+<<<<<<< HEAD
               <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
+=======
+                <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
+>>>>>>> cf44a34340c1aa5f4ddf1ba73f6fd7a6fcc16104
 
             </iron-pages>
             
@@ -522,10 +533,16 @@
                     type: Object,
                     value: function() {
                         return {
+                            "/purchaseorders": "SOpriv",
+                            "/receivepos": "SOpriv",
+                            "/returnpos": "SOpriv",
+                            "/returnsos": "SOpriv",
                             "/salesorders": "SOpriv",
                             "/customers": "SOpriv",
                             "/vendors": "SOpriv",
                             "/partnumbers": "SOpriv",
+                            "/quotes": "SOpriv",
+                            "/creditmemos": "SOpriv",
                         }
                     }
                 },
@@ -545,6 +562,16 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+                            "purchaseorder-new": "purchaseorders",
+                            "purchaseorders": "purchaseorders",
+                            "receivepo-new": "receivepos",
+                            "receivepos": "receivepos",
+                            "returnpo-new": "returnpos",
+                            "returnpos": "returnpos",
+                            "returnso-new": "returnsos",
+                            "returnsos": "returnsos",
+                            "creditmemo-new": "creditmemos",
+                            "creditmemos": "creditmemos",
                             "licensor-new": "licensor",
                             "licensors": "licensor",
                             "licuser-new": "licuser",
@@ -565,6 +592,8 @@
                             "bom-new": "boms",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
+                            "quote-new": "quotes",
+                            "quotes": "quotes",
                         }
                     }
                 },
@@ -589,11 +618,25 @@
             this.addEventListener('printpage', e => {
                 window.print();
             });
-
+            this.addEventListener('toSalesOrderNew', e => {
+                console.log('fromquote event')
+                this.set('fromquote', e.detail.model)
+            });
             this.addEventListener('toInvoiceNew', e => {
                 console.log('fromso event')
                 this.set('fromso', e.detail.model)
             });
+
+            this.addEventListener('toCreditMemoNew', e => {
+                console.log('fromrtnso event', e.detail.model)
+                this.set('fromrtnso', e.detail.model)
+            });
+
+            this.addEventListener('toReceivepoNew', e => {
+                console.log('frompo event', e.detail.model)
+                this.set('frompo', e.detail.model)
+            });
+
         }
 
         static get observers() {
@@ -731,7 +774,7 @@
 
             console.log('e in service', e)
 
-            this.showMenu = true;
+            // this.showMenu = true;
 
             this.set('leftservices', e.detail.response.results.services)
 
@@ -843,17 +886,17 @@
             // this.$.serviceajax.generateRequest()
            
 
-            this.shadowRoot.addEventListener('leftservice', e => {
+            // this.shadowRoot.addEventListener('leftservice', e => {
 
 
-            let ur = sessionStorage.getItem("UR")
-            ur == undefined || null ? ur = 1 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
-            // this.$.serviceajax.url = "/api/user/services/" + ur
-            this.$.serviceajax.generateRequest()
+            // let ur = sessionStorage.getItem("UR")
+            // ur == undefined || null ? ur = 1 : ur
+            // this.$.serviceajax.url = "/api/service/leftservice"
+            // // this.$.serviceajax.url = "/api/user/services/" + ur
+            // this.$.serviceajax.generateRequest()
 
 
-            })
+            // })
 
 
             this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
