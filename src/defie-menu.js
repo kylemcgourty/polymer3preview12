@@ -305,8 +305,9 @@
 
 
                 <purchaseorders-shell setting="[[setting]]" name="purchaseorders"></purchaseorders-shell>
+                <receivepos-shell setting="[[setting]]" name="receivepos" frompo="[[frompo]]"></receivepos-shell>
 
-
+                <returnpos-shell setting="[[setting]]" name="returnpos"></returnpos-shell>
 
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
@@ -528,6 +529,9 @@
                     type: Object,
                     value: function() {
                         return {
+                            "/purchaseorders": "SOpriv",
+                            "/receivepos": "SOpriv",
+                            "/returnpos": "SOpriv",
                             "/returnsos": "SOpriv",
                             "/salesorders": "SOpriv",
                             "/customers": "SOpriv",
@@ -535,7 +539,6 @@
                             "/partnumbers": "SOpriv",
                             "/quotes": "SOpriv",
                             "/creditmemos": "SOpriv",
-                            "/purchaseorders": "SOpriv",
                         }
                     }
                 },
@@ -555,6 +558,12 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+                            "purchaseorder-new": "purchaseorders",
+                            "purchaseorders": "purchaseorders",
+                            "receivepo-new": "receivepos",
+                            "receivepos": "receivepos",
+                            "returnpo-new": "returnpos",
+                            "returnpos": "returnpos",
                             "returnso-new": "returnsos",
                             "returnsos": "returnsos",
                             "creditmemo-new": "creditmemos",
@@ -579,8 +588,7 @@
                             "bom-new": "boms",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
-                            "purchaseorder-new": "purchaseorders",
-                            "purchaseorders": "purchaseorders",
+                            
                             "quote-new": "quotes",
                             "quotes": "quotes",
                         }
