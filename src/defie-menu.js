@@ -330,11 +330,8 @@
                 
                 <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
-<<<<<<< HEAD
               <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
-=======
-                <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
->>>>>>> cf44a34340c1aa5f4ddf1ba73f6fd7a6fcc16104
+
 
             </iron-pages>
             
