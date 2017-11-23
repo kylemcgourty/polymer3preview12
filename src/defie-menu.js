@@ -307,7 +307,15 @@
                 <purchaseorders-shell setting="[[setting]]" name="purchaseorders"></purchaseorders-shell>
                 <receivepos-shell setting="[[setting]]" name="receivepos" frompo="[[frompo]]"></receivepos-shell>
 
-                <returnpos-shell setting="[[setting]]" name="returnpos"></returnpos-shell>
+                <vendorrmas-shell setting="[[setting]]" name="vendorrmas" licensoraddress="[[licensoraddress]]"></vendorrmas-shell>
+                <vendorshiprmas-shell setting="[[setting]]" name="vendorshiprmas" fromvrma="[[fromvrma]]" licensoraddress="[[licensoraddress]]"></vendorshiprmas-shell>
+                <vendorreceivermas-shell setting="[[setting]]" name="vendorreceivermas" fromvrmatorec="[[fromvrmatorec]]" licensoraddress="[[licensoraddress]]"></vendorreceivermas-shell>
+
+                <returnpos-shell setting="[[setting]]" name="returnpos" licensoraddress="[[licensoraddress]]"></returnpos-shell>
+
+
+                <shipreturnpos-shell setting="[[setting]]" name="shipreturnpos" fromrtnpo="[[fromrtnpo]]"></shipreturnpos-shell>
+
 
                 <licensors-shell name="licensor" setting="[[setting]]"></licensors-shell>
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
@@ -321,10 +329,11 @@
 
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
-
-
-
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
+
+                <customerrmas-shell setting="[[setting]]" name="customerrmas" licensoraddress="[[licensoraddress]]"></customerrmas-shell>
+
+
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
                 <services-shell name="services" setting="[[setting]]"></services-shell>
                 
@@ -337,7 +346,8 @@
         </app-drawer-layout>
         <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
         <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
-            `
+        <iron-ajax id="ajaxShipto" method="GET" handle-as="json" on-response="responseShipto" content-type="application/json"></iron-ajax>
+           `
         }
 
         static get properties() {
@@ -351,6 +361,14 @@
                     type: Array,
                     reflectToAttribute: true
                 },
+                licensoraddress: {
+                    type: Object,
+                    reflectToAttribute: true,
+                    value: function() {
+                        return {}
+                    }
+                },
+                
                 setting: {
                     type: Object,
                     reflectToAttribute: true,
@@ -529,6 +547,14 @@
                     type: Object,
                     value: function() {
                         return {
+                            "/customerrmas": "SOpriv",
+                            "/customershiprmas": "SOpriv",
+                            "/customerreceivermas": "SOpriv",
+
+                            "/vendorrmas": "SOpriv",
+                            "/vendorshiprmas": "SOpriv",
+                            "/vendorreceivermas": "SOpriv",
+                            "/shipreturnpos": "SOpriv",
                             "/purchaseorders": "SOpriv",
                             "/receivepos": "SOpriv",
                             "/returnpos": "SOpriv",
@@ -558,6 +584,20 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+                            "customerrma-new": "customerrmas",
+                            "customerrmas": "customerrmas",
+                            "customershiprma-new": "customershiprmas",
+                            "customershiprmas": "customershiprmas",
+                            "customerreceiverma-new": "customerreceivermas",
+                            "customerreceivermas": "customerreceivermas",
+                            "vendorrma-new": "vendorrmas",
+                            "vendorrmas": "vendorrmas",
+                            "vendorshiprma-new": "vendorshiprmas",
+                            "vendorshiprmas": "vendorshiprmas",
+                            "vendorreceiverma-new": "vendorreceivermas",
+                            "vendorreceivermas": "vendorreceivermas",
+                            "shipreturnpo-new": "shipreturnpos",
+                            "shipreturnpos": "shipreturnpos",
                             "purchaseorder-new": "purchaseorders",
                             "purchaseorders": "purchaseorders",
                             "receivepo-new": "receivepos",
@@ -627,6 +667,18 @@
             this.addEventListener('toReceivepoNew', e => {
                 console.log('frompo event', e.detail.model)
                 this.set('frompo', e.detail.model)
+            });
+            this.addEventListener('toShipReturnPONew', e => {
+                console.log('fromrtnpo event', e.detail.model)
+                this.set('fromrtnpo', e.detail.model)
+            });
+            this.addEventListener('toVendorShipRMANew', e => {
+                console.log('fromvrma event', e.detail.model)
+                this.set('fromvrma', e.detail.model)
+            });
+            this.addEventListener('toVendorReceiveRMANew', e => {
+                console.log('fromvrmatec event', e.detail.model)
+                this.set('fromvrmatorec', e.detail.model)
             });
 
         }
@@ -863,9 +915,28 @@
             this.$.ajaxSetting.url = "/api/profile/setting";
             this.$.ajaxSetting.generateRequest();
         }
+
+
+        responseShipto(response) {
+            var results = response.detail.response
+            console.log("here are results in responseshipto")
+            if (results) {
+                this.licensoraddress = results
+            }
+        }
+
+        getDefaultShipto() {
+            this.$.ajaxShipto.url = "/api/profile/defaultaddress";
+            this.$.ajaxShipto.generateRequest();
+        }
+
+
         ready() {
             super.ready()
             this.getSetting()
+
+            this.getDefaultShipto();
+
             console.log('readyu called')
 
 
