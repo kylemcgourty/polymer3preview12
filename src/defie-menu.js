@@ -296,9 +296,7 @@
                     </div>
                 </template>
             </app-drawer>
-
             <iron-pages id="custIronPages" selected="[[option]]" attr-for-selected="name" fallback-selection="view404" role="main">
-                
                 <signin-shell name="signin"></signin-shell>
 
                 <services-shell name="services" setting="[[setting]]"></services-shell>
@@ -339,7 +337,8 @@
                 
                 <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
-                <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
+              <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
+
 
             </iron-pages>
             
@@ -628,7 +627,6 @@
                             "bom-new": "boms",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
-                            
                             "quote-new": "quotes",
                             "quotes": "quotes",
                         }
@@ -638,6 +636,11 @@
                 option: {
                     type: String,
                     value: "services"
+                },
+
+                showMenu: {
+                    type: Boolean,
+                    value: false
                 }
             };
         }
@@ -841,11 +844,25 @@
         }
 
         toWelcomePage(e) {
-            window.location.hash = "";
+
+            console.log('reached To Welcome Page', e)
+            this.tempMenu();
             this.set('route.path', '/welcome');
             this.showMenu = true;
-            this.set('leftservices', e.detail.response.results.services)
+            this.set('leftservices', e.detail.services)
             // this.$.serviceajax.generateRequest();
+        }
+
+
+        tempMenu(){
+            console.log('in temp menu')
+            let ur = sessionStorage.getItem("UR")
+            ur == undefined || ur == null ? ur = 0 : ur
+            this.$.serviceajax.url = "/api/service/leftservice"
+            // this.$.serviceajax.url = "/api/user/services/0" 
+            this.$.serviceajax.generateRequest()
+            this.showMenu = true;
+
         }
 
 
@@ -940,25 +957,28 @@
             console.log('readyu called')
 
 
-             let ur = sessionStorage.getItem("UR")
-            ur == undefined || null ? ur = 1 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
-
-            // this.$.serviceajax.url = "/api/user/services/" + ur
-            this.$.serviceajax.generateRequest()
-           
-
-            // this.shadowRoot.addEventListener('leftservice', e => {
-
-
-            // let ur = sessionStorage.getItem("UR")
+            //  let ur = sessionStorage.getItem("UR")
             // ur == undefined || null ? ur = 1 : ur
             // this.$.serviceajax.url = "/api/service/leftservice"
-            // // this.$.serviceajax.url = "/api/user/services/" + ur
+
+            // this.$.serviceajax.url = "/api/user/services/" + ur
             // this.$.serviceajax.generateRequest()
+           
+
+            document.querySelector('defie-menu').addEventListener('leftservice', e => {
+
+                    console.log("HIT EVENT")
+
+            let ur = sessionStorage.getItem("UR")
+            ur == undefined || ur == null ? ur = 1 : ur
+            // this.$.serviceajax.url = "/api/service/leftservice"
+            this.$.serviceajax.url = "/api/user/services/" + ur
+            this.$.serviceajax.generateRequest()
+            this.showMenu = true;
 
 
-            // })
+
+            })
 
 
             this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
