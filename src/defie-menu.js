@@ -330,6 +330,8 @@
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
 
                 <customerrmas-shell setting="[[setting]]" name="customerrmas" licensoraddress="[[licensoraddress]]"></customerrmas-shell>
+                <customershiprmas-shell setting="[[setting]]" name="customershiprmas" fromcrma="[[fromcrma]]" licensoraddress="[[licensoraddress]]"></customershiprmas-shell>
+                <customerreceivermas-shell setting="[[setting]]" name="customerreceivermas" fromcrmatorec="[[fromcrmatorec]]" licensoraddress="[[licensoraddress]]"></customerreceivermas-shell>
 
 
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
@@ -683,6 +685,19 @@
                 console.log('fromvrmatec event', e.detail.model)
                 this.set('fromvrmatorec', e.detail.model)
             });
+
+
+            this.addEventListener('toCustomerShipRMANew', e => {
+                console.log('fromcrma event', e.detail.model)
+                this.set('fromcrma', e.detail.model)
+            });
+            this.addEventListener('toCustomerReceiveRMANew', e => {
+                console.log('fromcrmatec event', e.detail.model)
+                this.set('fromcrmatorec', e.detail.model)
+            });
+
+
+
 
         }
 
