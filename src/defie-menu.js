@@ -350,6 +350,9 @@
         </app-drawer-layout>
         <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
         <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSetting1" method="GET" handle-as="json" on-response="responseSetting1" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSetting2" method="GET" handle-as="json" on-response="responseSetting2" content-type="application/json"></iron-ajax>
+
         <iron-ajax id="ajaxShipto" method="GET" handle-as="json" on-response="responseShipto" content-type="application/json"></iron-ajax>
            `
         }
@@ -941,10 +944,36 @@
         // }
 
         responseSetting(response) {
-            var results = response.detail.response
+            var results = response.detail.response.results[0]
 
             if (results) {
+
+                console.log('setting results', results)
                 this.setting = results
+            }
+        }
+        responseSetting1(response) {
+            var results = response.detail.response.results[0]
+
+            if (results) {
+
+                console.log('setting results', results)
+                this.setting = results
+
+            document.querySelector('#toast').text = 'Licensor\'s settings changed successfully.';
+            document.querySelector('#toast').open();
+            }
+        }
+        responseSetting2(response) {
+            var results = response.detail.response.results[0]
+
+            if (results) {
+
+                console.log('setting results', results)
+                this.setting = results
+
+            document.querySelector('#toast').text = 'Company\' settings changed successfully.';
+            document.querySelector('#toast').open();
             }
         }
 
@@ -977,13 +1006,13 @@
             console.log('readyu called')
 
 
-            //  let ur = sessionStorage.getItem("UR")
-            // ur == undefined || null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/api/service/leftservice"
+             let ur = sessionStorage.getItem("UR")
+            ur == undefined || null ? ur = 1 : ur
+            this.$.serviceajax.url = "/api/service/leftservice"
 
-            // // this.$.serviceajax.url = "/api/user/services/" + ur
-            // this.$.serviceajax.generateRequest()
-            // this.showMenu = true;
+            // this.$.serviceajax.url = "/api/user/services/" + ur
+            this.$.serviceajax.generateRequest()
+            this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
@@ -1000,6 +1029,16 @@
 
 
             })
+
+            this.shadowRoot.addEventListener('LicensorSettings', e => {
+                console.log('e in def menu', e)
+                let id = e.detail.id
+
+                this.$.ajaxSetting1.url = "/api/licensor/setting/"+id;
+                this.$.ajaxSetting1.generateRequest();
+
+            })
+
 
 
             this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
