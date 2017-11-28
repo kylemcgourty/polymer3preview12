@@ -965,14 +965,14 @@
             }
         }
         responseSetting2(response) {
-            var results = response.detail.response.results[0]
+            var results = response.detail.response
 
             if (results) {
 
                 console.log('setting results', results)
                 this.setting = results
 
-            document.querySelector('#toast').text = 'Company\' settings changed successfully.';
+            document.querySelector('#toast').text = 'Company\'s settings changed successfully.';
             document.querySelector('#toast').open();
             }
         }
@@ -1036,6 +1036,15 @@
 
                 this.$.ajaxSetting1.url = "/api/licensor/setting/"+id;
                 this.$.ajaxSetting1.generateRequest();
+
+            })
+
+            this.shadowRoot.addEventListener('ProfileSettings', e => {
+                console.log('e in def menu', e)
+                let id = e.detail.id
+
+                this.$.ajaxSetting2.url = "/api/profile/setting/"+id;
+                this.$.ajaxSetting2.generateRequest();
 
             })
 
