@@ -1006,13 +1006,13 @@
             console.log('readyu called')
 
 
-             let ur = sessionStorage.getItem("UR")
-            ur == undefined || null ? ur = 1 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
+            //  let ur = sessionStorage.getItem("UR")
+            // ur == undefined || null ? ur = 1 : ur
+            // this.$.serviceajax.url = "/api/service/leftservice"
 
-            // this.$.serviceajax.url = "/api/user/services/" + ur
-            this.$.serviceajax.generateRequest()
-            this.showMenu = true;
+            // // this.$.serviceajax.url = "/api/user/services/" + ur
+            // this.$.serviceajax.generateRequest()
+            // this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
