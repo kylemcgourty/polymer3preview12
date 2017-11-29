@@ -944,7 +944,7 @@
         // }
 
         responseSetting(response) {
-            var results = response.detail.response.results[0]
+            var results = response.detail.response
 
             if (results) {
 
