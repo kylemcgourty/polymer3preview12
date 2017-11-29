@@ -306,8 +306,8 @@
                 <receivepos-shell setting="[[setting]]" name="receivepos" frompo="[[frompo]]"></receivepos-shell>
 
                 <vendorrmas-shell setting="[[setting]]" name="vendorrmas" licensoraddress="[[licensoraddress]]"></vendorrmas-shell>
-                <vendorshiprmas-shell setting="[[setting]]" name="vendorshiprmas" fromvrma="[[fromvrma]]" licensoraddress="[[licensoraddress]]"></vendorshiprmas-shell>
-                <vendorreceivermas-shell setting="[[setting]]" name="vendorreceivermas" fromvrmatorec="[[fromvrmatorec]]" licensoraddress="[[licensoraddress]]"></vendorreceivermas-shell>
+                <vendorshiprmas-shell setting="[[setting]]" name="vendorshiprmas" fromvrma="[[fromvrma]]" fromvrmarelation="[[fromvrmarelation]]" licensoraddress="[[licensoraddress]]"></vendorshiprmas-shell>
+                <vendorreceivermas-shell setting="[[setting]]" name="vendorreceivermas" fromvrmatorec="[[fromvrmatorec]]" fromvrmatorecrelation="[[fromvrmatorecrelation]]" licensoraddress="[[licensoraddress]]"></vendorreceivermas-shell>
 
                 <returnpos-shell setting="[[setting]]" name="returnpos" licensoraddress="[[licensoraddress]]"></returnpos-shell>
 
@@ -355,6 +355,9 @@
         </app-drawer-layout>
         <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
         <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSetting1" method="GET" handle-as="json" on-response="responseSetting1" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSetting2" method="GET" handle-as="json" on-response="responseSetting2" content-type="application/json"></iron-ajax>
+
         <iron-ajax id="ajaxShipto" method="GET" handle-as="json" on-response="responseShipto" content-type="application/json"></iron-ajax>
            `
         }
@@ -700,12 +703,18 @@
                 console.log('fromvrma event', e.detail.model)
                 this.set('fromvrma', e.detail.model)
             });
+            this.addEventListener('toVendorShipRMAView', e => {
+                console.log('fromvrmarelation event', e.detail.model)
+                this.set('fromvrmarelation', e.detail.model)
+            });
             this.addEventListener('toVendorReceiveRMANew', e => {
-                console.log('fromvrmatec event', e.detail.model)
+                console.log('fromvrmarec event', e.detail.model)
                 this.set('fromvrmatorec', e.detail.model)
             });
-
-
+            this.addEventListener('toVendorReceiveRMAView', e => {
+                console.log('fromvrmarec event', e.detail.model)
+                this.set('fromvrmatorecrelation', e.detail.model)
+            });
             this.addEventListener('toCustomerShipRMANew', e => {
                 console.log('fromcrma event', e.detail.model)
                 this.set('fromcrma', e.detail.model)
@@ -714,10 +723,6 @@
                 console.log('fromcrmatec event', e.detail.model)
                 this.set('fromcrmatorec', e.detail.model)
             });
-
-
-
-
         }
 
         static get observers() {
@@ -955,10 +960,36 @@
         // }
 
         responseSetting(response) {
+            var results = response.detail.response.results[0]
+
+            if (results) {
+
+                console.log('setting results', results)
+                this.setting = results
+            }
+        }
+        responseSetting1(response) {
+            var results = response.detail.response.results[0]
+
+            if (results) {
+
+                console.log('setting results', results)
+                this.setting = results
+
+            document.querySelector('#toast').text = 'Licensor\'s settings changed successfully.';
+            document.querySelector('#toast').open();
+            }
+        }
+        responseSetting2(response) {
             var results = response.detail.response
 
             if (results) {
+
+                console.log('setting results', results)
                 this.setting = results
+
+            document.querySelector('#toast').text = 'Company\'s settings changed successfully.';
+            document.querySelector('#toast').open();
             }
         }
 
@@ -1014,6 +1045,25 @@
 
 
             })
+
+            this.shadowRoot.addEventListener('LicensorSettings', e => {
+                console.log('e in def menu', e)
+                let id = e.detail.id
+
+                this.$.ajaxSetting1.url = "/api/licensor/setting/"+id;
+                this.$.ajaxSetting1.generateRequest();
+
+            })
+
+            this.shadowRoot.addEventListener('ProfileSettings', e => {
+                console.log('e in def menu', e)
+                let id = e.detail.id
+
+                this.$.ajaxSetting2.url = "/api/profile/setting/"+id;
+                this.$.ajaxSetting2.generateRequest();
+
+            })
+
 
 
             this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
