@@ -306,8 +306,8 @@
                 <receivepos-shell setting="[[setting]]" name="receivepos" frompo="[[frompo]]"></receivepos-shell>
 
                 <vendorrmas-shell setting="[[setting]]" name="vendorrmas" licensoraddress="[[licensoraddress]]"></vendorrmas-shell>
-                <vendorshiprmas-shell setting="[[setting]]" name="vendorshiprmas" fromvrma="[[fromvrma]]" licensoraddress="[[licensoraddress]]"></vendorshiprmas-shell>
-                <vendorreceivermas-shell setting="[[setting]]" name="vendorreceivermas" fromvrmatorec="[[fromvrmatorec]]" licensoraddress="[[licensoraddress]]"></vendorreceivermas-shell>
+                <vendorshiprmas-shell setting="[[setting]]" name="vendorshiprmas" fromvrma="[[fromvrma]]" fromvrmarelation="[[fromvrmarelation]]" licensoraddress="[[licensoraddress]]"></vendorshiprmas-shell>
+                <vendorreceivermas-shell setting="[[setting]]" name="vendorreceivermas" fromvrmatorec="[[fromvrmatorec]]" fromvrmatorecrelation="[[fromvrmatorecrelation]]" licensoraddress="[[licensoraddress]]"></vendorreceivermas-shell>
 
                 <returnpos-shell setting="[[setting]]" name="returnpos" licensoraddress="[[licensoraddress]]"></returnpos-shell>
 
@@ -321,8 +321,13 @@
                 <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
                 <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
 
+                <createinvoices-shell setting="[[setting]]" name="createinvoices"></createinvoices-shell>
+
                 <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
                 <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" ></creditmemos-shell>
+
+
+                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos"></createcreditmemos-shell>
 
 
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
@@ -567,11 +572,14 @@
                             "/returnpos": "SOpriv",
                             "/returnsos": "SOpriv",
                             "/salesorders": "SOpriv",
+                            "/invoices": "SOpriv",
+                            "/createinvoices": "SOpriv",
                             "/customers": "SOpriv",
                             "/vendors": "SOpriv",
                             "/partnumbers": "SOpriv",
                             "/quotes": "SOpriv",
                             "/creditmemos": "SOpriv",
+                            "/createcreditmemos": "SOpriv",
                         }
                     }
                 },
@@ -615,6 +623,10 @@
                             "returnsos": "returnsos",
                             "creditmemo-new": "creditmemos",
                             "creditmemos": "creditmemos",
+
+                            "createcreditmemo-new": "createcreditmemos",
+                            "createcreditmemos": "createcreditmemos",
+
                             "licensor-new": "licensor",
                             "licensors": "licensor",
                             "licuser-new": "licuser",
@@ -627,6 +639,8 @@
                             "salesorders": "salesorders",
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
+                            "createinvoice-new": "createinvoices",
+                            "createinvoices": "createinvoices",
                             "invoice-new": "invoices",
                             "invoices": "invoices",
                             "partnumber-new": "partnumbers",
@@ -689,12 +703,18 @@
                 console.log('fromvrma event', e.detail.model)
                 this.set('fromvrma', e.detail.model)
             });
+            this.addEventListener('toVendorShipRMAView', e => {
+                console.log('fromvrmarelation event', e.detail.model)
+                this.set('fromvrmarelation', e.detail.model)
+            });
             this.addEventListener('toVendorReceiveRMANew', e => {
-                console.log('fromvrmatec event', e.detail.model)
+                console.log('fromvrmarec event', e.detail.model)
                 this.set('fromvrmatorec', e.detail.model)
             });
-
-
+            this.addEventListener('toVendorReceiveRMAView', e => {
+                console.log('fromvrmarec event', e.detail.model)
+                this.set('fromvrmatorecrelation', e.detail.model)
+            });
             this.addEventListener('toCustomerShipRMANew', e => {
                 console.log('fromcrma event', e.detail.model)
                 this.set('fromcrma', e.detail.model)
@@ -703,10 +723,6 @@
                 console.log('fromcrmatec event', e.detail.model)
                 this.set('fromcrmatorec', e.detail.model)
             });
-
-
-
-
         }
 
         static get observers() {
