@@ -327,9 +327,14 @@
 
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
+                <profiles-shell setting="[[setting]]" name="profile"></profiles-shell>
+
+
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
 
                 <customerrmas-shell setting="[[setting]]" name="customerrmas" licensoraddress="[[licensoraddress]]"></customerrmas-shell>
+                <customershiprmas-shell setting="[[setting]]" name="customershiprmas" fromcrma="[[fromcrma]]" licensoraddress="[[licensoraddress]]"></customershiprmas-shell>
+                <customerreceivermas-shell setting="[[setting]]" name="customerreceivermas" fromcrmatorec="[[fromcrmatorec]]" licensoraddress="[[licensoraddress]]"></customerreceivermas-shell>
 
 
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
@@ -345,6 +350,9 @@
         </app-drawer-layout>
         <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
         <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSetting1" method="GET" handle-as="json" on-response="responseSetting1" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSetting2" method="GET" handle-as="json" on-response="responseSetting2" content-type="application/json"></iron-ajax>
+
         <iron-ajax id="ajaxShipto" method="GET" handle-as="json" on-response="responseShipto" content-type="application/json"></iron-ajax>
            `
         }
@@ -629,6 +637,8 @@
                             "vendors": "vendors",
                             "quote-new": "quotes",
                             "quotes": "quotes",
+                            "profiles": "profile",
+                            "profile-new":"profile"
                         }
                     }
                 },
@@ -690,6 +700,14 @@
             this.addEventListener('toVendorReceiveRMAView', e => {
                 console.log('fromvrmarec event', e.detail.model)
                 this.set('fromvrmatorecrelation', e.detail.model)
+            });
+            this.addEventListener('toCustomerShipRMANew', e => {
+                console.log('fromcrma event', e.detail.model)
+                this.set('fromcrma', e.detail.model)
+            });
+            this.addEventListener('toCustomerReceiveRMANew', e => {
+                console.log('fromcrmatec event', e.detail.model)
+                this.set('fromcrmatorec', e.detail.model)
             });
         }
 
@@ -928,10 +946,36 @@
         // }
 
         responseSetting(response) {
+            var results = response.detail.response.results[0]
+
+            if (results) {
+
+                console.log('setting results', results)
+                this.setting = results
+            }
+        }
+        responseSetting1(response) {
+            var results = response.detail.response.results[0]
+
+            if (results) {
+
+                console.log('setting results', results)
+                this.setting = results
+
+            document.querySelector('#toast').text = 'Licensor\'s settings changed successfully.';
+            document.querySelector('#toast').open();
+            }
+        }
+        responseSetting2(response) {
             var results = response.detail.response
 
             if (results) {
+
+                console.log('setting results', results)
                 this.setting = results
+
+            document.querySelector('#toast').text = 'Company\'s settings changed successfully.';
+            document.querySelector('#toast').open();
             }
         }
 
@@ -968,8 +1012,9 @@
             // ur == undefined || null ? ur = 1 : ur
             // this.$.serviceajax.url = "/api/service/leftservice"
 
-            // this.$.serviceajax.url = "/api/user/services/" + ur
+            // // this.$.serviceajax.url = "/api/user/services/" + ur
             // this.$.serviceajax.generateRequest()
+            // this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
@@ -986,6 +1031,25 @@
 
 
             })
+
+            this.shadowRoot.addEventListener('LicensorSettings', e => {
+                console.log('e in def menu', e)
+                let id = e.detail.id
+
+                this.$.ajaxSetting1.url = "/api/licensor/setting/"+id;
+                this.$.ajaxSetting1.generateRequest();
+
+            })
+
+            this.shadowRoot.addEventListener('ProfileSettings', e => {
+                console.log('e in def menu', e)
+                let id = e.detail.id
+
+                this.$.ajaxSetting2.url = "/api/profile/setting/"+id;
+                this.$.ajaxSetting2.generateRequest();
+
+            })
+
 
 
             this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
