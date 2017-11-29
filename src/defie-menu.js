@@ -306,8 +306,8 @@
                 <receivepos-shell setting="[[setting]]" name="receivepos" frompo="[[frompo]]"></receivepos-shell>
 
                 <vendorrmas-shell setting="[[setting]]" name="vendorrmas" licensoraddress="[[licensoraddress]]"></vendorrmas-shell>
-                <vendorshiprmas-shell setting="[[setting]]" name="vendorshiprmas" fromvrma="[[fromvrma]]" licensoraddress="[[licensoraddress]]"></vendorshiprmas-shell>
-                <vendorreceivermas-shell setting="[[setting]]" name="vendorreceivermas" fromvrmatorec="[[fromvrmatorec]]" licensoraddress="[[licensoraddress]]"></vendorreceivermas-shell>
+                <vendorshiprmas-shell setting="[[setting]]" name="vendorshiprmas" fromvrma="[[fromvrma]]" fromvrmarelation="[[fromvrmarelation]]" licensoraddress="[[licensoraddress]]"></vendorshiprmas-shell>
+                <vendorreceivermas-shell setting="[[setting]]" name="vendorreceivermas" fromvrmatorec="[[fromvrmatorec]]" fromvrmatorecrelation="[[fromvrmatorecrelation]]" licensoraddress="[[licensoraddress]]"></vendorreceivermas-shell>
 
                 <returnpos-shell setting="[[setting]]" name="returnpos" licensoraddress="[[licensoraddress]]"></returnpos-shell>
 
@@ -679,11 +679,18 @@
                 console.log('fromvrma event', e.detail.model)
                 this.set('fromvrma', e.detail.model)
             });
+            this.addEventListener('toVendorShipRMAView', e => {
+                console.log('fromvrmarelation event', e.detail.model)
+                this.set('fromvrmarelation', e.detail.model)
+            });
             this.addEventListener('toVendorReceiveRMANew', e => {
-                console.log('fromvrmatec event', e.detail.model)
+                console.log('fromvrmarec event', e.detail.model)
                 this.set('fromvrmatorec', e.detail.model)
             });
-
+            this.addEventListener('toVendorReceiveRMAView', e => {
+                console.log('fromvrmarec event', e.detail.model)
+                this.set('fromvrmatorecrelation', e.detail.model)
+            });
         }
 
         static get observers() {
