@@ -321,8 +321,13 @@
                 <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
                 <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
 
+                <createinvoices-shell setting="[[setting]]" name="createinvoices"></createinvoices-shell>
+
                 <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
                 <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" ></creditmemos-shell>
+
+
+                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos"></createcreditmemos-shell>
 
 
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
@@ -567,11 +572,14 @@
                             "/returnpos": "SOpriv",
                             "/returnsos": "SOpriv",
                             "/salesorders": "SOpriv",
+                            "/invoices": "SOpriv",
+                            "/createinvoices": "SOpriv",
                             "/customers": "SOpriv",
                             "/vendors": "SOpriv",
                             "/partnumbers": "SOpriv",
                             "/quotes": "SOpriv",
                             "/creditmemos": "SOpriv",
+                            "/createcreditmemos": "SOpriv",
                         }
                     }
                 },
@@ -615,6 +623,10 @@
                             "returnsos": "returnsos",
                             "creditmemo-new": "creditmemos",
                             "creditmemos": "creditmemos",
+
+                            "createcreditmemo-new": "createcreditmemos",
+                            "createcreditmemos": "createcreditmemos",
+
                             "licensor-new": "licensor",
                             "licensors": "licensor",
                             "licuser-new": "licuser",
@@ -627,6 +639,8 @@
                             "salesorders": "salesorders",
                             "partnumber-new": "partnumbers",
                             "partnumbers": "partnumbers",
+                            "createinvoice-new": "createinvoices",
+                            "createinvoices": "createinvoices",
                             "invoice-new": "invoices",
                             "invoices": "invoices",
                             "partnumber-new": "partnumbers",
@@ -954,7 +968,7 @@
         // }
 
         responseSetting(response) {
-            var results = response.detail.response.results[0]
+            var results = response.detail.response
 
             if (results) {
 
