@@ -866,6 +866,9 @@
 
             console.log('the left services', this.leftservices)
 
+
+            this.getSetting(sessionStorage.getItem("PR"))
+
             // this.set('leftservices', e.detail.response.results)
 
             // this.leftservices.map((micro) => {
@@ -993,8 +996,8 @@
             }
         }
 
-        getSetting() {
-            this.$.ajaxSetting.url = "/api/profile/setting";
+        getSetting(id) {
+            this.$.ajaxSetting.url = "/api/profile/setting/"+id;
             this.$.ajaxSetting.generateRequest();
         }
 
@@ -1015,20 +1018,19 @@
 
         ready() {
             super.ready()
-            this.getSetting()
 
             this.getDefaultShipto();
 
             console.log('readyu called')
 
 
-            //  let ur = sessionStorage.getItem("UR")
-            // ur == undefined || null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/api/service/leftservice"
+             let ur = sessionStorage.getItem("UR")
+            ur == undefined || null ? ur = 1 : ur
+            this.$.serviceajax.url = "/api/service/leftservice"
 
-            // // this.$.serviceajax.url = "/api/user/services/" + ur
-            // this.$.serviceajax.generateRequest()
-            // this.showMenu = true;
+            // this.$.serviceajax.url = "/api/user/services/" + ur
+            this.$.serviceajax.generateRequest()
+            this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
