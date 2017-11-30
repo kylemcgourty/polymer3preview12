@@ -343,8 +343,8 @@
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
 
                 <customerrmas-shell setting="[[setting]]" name="customerrmas" licensoraddress="[[licensoraddress]]"></customerrmas-shell>
-                <customershiprmas-shell setting="[[setting]]" name="customershiprmas" fromcrma="[[fromcrma]]" licensoraddress="[[licensoraddress]]"></customershiprmas-shell>
-                <customerreceivermas-shell setting="[[setting]]" name="customerreceivermas" fromcrmatorec="[[fromcrmatorec]]" licensoraddress="[[licensoraddress]]"></customerreceivermas-shell>
+                <customershiprmas-shell setting="[[setting]]" name="customershiprmas" fromcrma="[[fromcrma]]" fromcrmarelation="[[fromcrmarelation]]" licensoraddress="[[licensoraddress]]"></customershiprmas-shell>
+                <customerreceivermas-shell setting="[[setting]]" name="customerreceivermas" fromcrmatorec="[[fromcrmatorec]]" fromcrmatorecrelation="[[fromcrmatorecrelation]]" licensoraddress="[[licensoraddress]]"></customerreceivermas-shell>
 
 
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
@@ -733,9 +733,17 @@
                 console.log('fromcrma event', e.detail.model)
                 this.set('fromcrma', e.detail.model)
             });
+            this.addEventListener('toCustomerShipRMAView', e => {
+                console.log('fromcrmarelation event', e.detail.model)
+                this.set('fromcrmarelation', e.detail.model)
+            });
             this.addEventListener('toCustomerReceiveRMANew', e => {
                 console.log('fromcrmatec event', e.detail.model)
                 this.set('fromcrmatorec', e.detail.model)
+            });
+            this.addEventListener('toCustomerReceiveRMAView', e => {
+                console.log('fromvrmarec event', e.detail.model)
+                this.set('fromcrmatorecrelation', e.detail.model)
             });
         }
 
@@ -974,7 +982,7 @@
         // }
 
         responseSetting(response) {
-            var results = response.detail.response.results[0]
+            var results = response.detail.response
 
             if (results) {
 
