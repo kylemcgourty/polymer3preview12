@@ -330,6 +330,11 @@
                 <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos"></createcreditmemos-shell>
 
 
+                <apdistributedaccounts-shell setting="[[setting]]" name="apdistributedaccounts"></apdistributedaccounts-shell>
+                <apchartofaccounts-shell setting="[[setting]]" name="apchartofaccounts"></apchartofaccounts-shell>
+
+
+
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
                 <profiles-shell setting="[[setting]]" name="profile"></profiles-shell>
@@ -563,6 +568,11 @@
                             "/customershiprmas": "SOpriv",
                             "/customerreceivermas": "SOpriv",
 
+                            "/apdistributedaccounts": "SOpriv",
+                            "/apchartofaccounts": "SOpriv",
+
+
+
                             "/vendorrmas": "SOpriv",
                             "/vendorshiprmas": "SOpriv",
                             "/vendorreceivermas": "SOpriv",
@@ -599,6 +609,10 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+
+                            "apdistributedaccounts-new": "apdistributedaccounts",
+                            "apchartofaccounts-new": "apchartofaccounts",
+
                             "customerrma-new": "customerrmas",
                             "customerrmas": "customerrmas",
                             "customershiprma-new": "customershiprmas",
