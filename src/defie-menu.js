@@ -332,7 +332,13 @@
 
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
+                <releasedboms-shell setting="[[setting]]" name="releasedboms"></releasedboms-shell>
+
+
                 <profiles-shell setting="[[setting]]" name="profile"></profiles-shell>
+
+                <users-shell setting="[[setting]]" name="users"></users-shell>
+
 
 
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
@@ -647,12 +653,16 @@
                             "partnumbers": "partnumbers",
                             "boms": "boms",
                             "bom-new": "boms",
+                            "releasedboms": "releasedboms",
+                            "releasedbom-new": "releasedboms",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
                             "quote-new": "quotes",
                             "quotes": "quotes",
                             "profiles": "profile",
-                            "profile-new":"profile"
+                            "profile-new":"profile",
+                             "users": "users",
+                            "user-new":"users"
                         }
                     }
                 },
@@ -997,6 +1007,8 @@
         }
 
         getSetting(id) {
+
+            id ? id : id = 50000
             this.$.ajaxSetting.url = "/api/profile/setting/"+id;
             this.$.ajaxSetting.generateRequest();
         }
