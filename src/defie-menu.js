@@ -334,6 +334,9 @@
 
                 <releasedboms-shell rbom="[[rbom]]" setting="[[setting]]" name="releasedboms"></releasedboms-shell>
 
+                <buildorders-shell setting="[[setting]]" name="buildorders"></buildorders-shell>
+
+
 
                 <profiles-shell setting="[[setting]]" name="profile"></profiles-shell>
 
@@ -655,6 +658,8 @@
                             "bom-new": "boms",
                             "releasedboms": "releasedboms",
                             "releasebom-new": "releasedboms",
+                            "buildorders": "buildorders",
+                            "buildorder-new": "buildorders",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
                             "quote-new": "quotes",
@@ -903,7 +908,7 @@
             console.log('in temp menu')
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 0 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
+            this.$.serviceajax.url = "/service/leftservice"
             // this.$.serviceajax.url = "/api/user/services/0" 
             this.$.serviceajax.generateRequest()
             this.showMenu = true;
@@ -1035,13 +1040,13 @@
             console.log('readyu called')
 
 
-             let ur = sessionStorage.getItem("UR")
-            ur == undefined || null ? ur = 1 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
+            //  let ur = sessionStorage.getItem("UR")
+            // ur == undefined || null ? ur = 1 : ur
+            // this.$.serviceajax.url = "/service/leftservice"
 
-            // this.$.serviceajax.url = "/api/user/services/" + ur
-            this.$.serviceajax.generateRequest()
-            this.showMenu = true;
+            // // this.$.serviceajax.url = "/api/user/services/" + ur
+            // this.$.serviceajax.generateRequest()
+            // this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
@@ -1050,7 +1055,7 @@
 
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/api/service/leftservice"
+            // this.$.serviceajax.url = "/service/leftservice"
             this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
             this.showMenu = true;
