@@ -337,7 +337,16 @@
 
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
+                <releasedboms-shell rbom="[[rbom]]" setting="[[setting]]" name="releasedboms"></releasedboms-shell>
+
+                <buildorders-shell setting="[[setting]]" name="buildorders"></buildorders-shell>
+
+
+
                 <profiles-shell setting="[[setting]]" name="profile"></profiles-shell>
+
+                <users-shell setting="[[setting]]" name="users"></users-shell>
+
 
 
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
@@ -661,12 +670,18 @@
                             "partnumbers": "partnumbers",
                             "boms": "boms",
                             "bom-new": "boms",
+                            "releasedboms": "releasedboms",
+                            "releasebom-new": "releasedboms",
+                            "buildorders": "buildorders",
+                            "buildorder-new": "buildorders",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
                             "quote-new": "quotes",
                             "quotes": "quotes",
                             "profiles": "profile",
-                            "profile-new":"profile"
+                            "profile-new":"profile",
+                             "users": "users",
+                            "user-new":"users"
                         }
                     }
                 },
@@ -691,46 +706,40 @@
             this.addEventListener('printpage', e => {
                 window.print();
             });
+            this.addEventListener('toReleasedBomNew', e => {
+                console.log('rbom  event', e)
+                this.set('rbom', e.detail.model)
+            });
             this.addEventListener('toSalesOrderNew', e => {
-                console.log('fromquote event')
                 this.set('fromquote', e.detail.model)
             });
             this.addEventListener('toInvoiceNew', e => {
-                console.log('fromso event')
                 this.set('fromso', e.detail.model)
             });
 
             this.addEventListener('toCreditMemoNew', e => {
-                console.log('fromrtnso event', e.detail.model)
                 this.set('fromrtnso', e.detail.model)
             });
 
             this.addEventListener('toReceivepoNew', e => {
-                console.log('frompo event', e.detail.model)
                 this.set('frompo', e.detail.model)
             });
             this.addEventListener('toShipReturnPONew', e => {
-                console.log('fromrtnpo event', e.detail.model)
                 this.set('fromrtnpo', e.detail.model)
             });
             this.addEventListener('toVendorShipRMANew', e => {
-                console.log('fromvrma event', e.detail.model)
                 this.set('fromvrma', e.detail.model)
             });
             this.addEventListener('toVendorShipRMAView', e => {
-                console.log('fromvrmarelation event', e.detail.model)
                 this.set('fromvrmarelation', e.detail.model)
             });
             this.addEventListener('toVendorReceiveRMANew', e => {
-                console.log('fromvrmarec event', e.detail.model)
                 this.set('fromvrmatorec', e.detail.model)
             });
             this.addEventListener('toVendorReceiveRMAView', e => {
-                console.log('fromvrmarec event', e.detail.model)
                 this.set('fromvrmatorecrelation', e.detail.model)
             });
             this.addEventListener('toCustomerShipRMANew', e => {
-                console.log('fromcrma event', e.detail.model)
                 this.set('fromcrma', e.detail.model)
             });
             this.addEventListener('toCustomerShipRMAView', e => {
@@ -738,7 +747,6 @@
                 this.set('fromcrmarelation', e.detail.model)
             });
             this.addEventListener('toCustomerReceiveRMANew', e => {
-                console.log('fromcrmatec event', e.detail.model)
                 this.set('fromcrmatorec', e.detail.model)
             });
             this.addEventListener('toCustomerReceiveRMAView', e => {
@@ -888,6 +896,9 @@
 
             console.log('the left services', this.leftservices)
 
+
+            this.getSetting(sessionStorage.getItem("PR"))
+
             // this.set('leftservices', e.detail.response.results)
 
             // this.leftservices.map((micro) => {
@@ -919,7 +930,7 @@
             console.log('in temp menu')
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 0 : ur
-            this.$.serviceajax.url = "/api/service/leftservice"
+            this.$.serviceajax.url = "/service/leftservice"
             // this.$.serviceajax.url = "/api/user/services/0" 
             this.$.serviceajax.generateRequest()
             this.showMenu = true;
@@ -988,6 +999,8 @@
 
                 console.log('setting results', results)
                 this.setting = results
+                sessionStorage.setItem("PR", this.setting.id)
+
             }
         }
         responseSetting1(response) {
@@ -997,6 +1010,8 @@
 
                 console.log('setting results', results)
                 this.setting = results
+                sessionStorage.setItem("PR", this.setting.id)
+
 
             document.querySelector('#toast').text = 'Licensor\'s settings changed successfully.';
             document.querySelector('#toast').open();
@@ -1009,14 +1024,18 @@
 
                 console.log('setting results', results)
                 this.setting = results
+                sessionStorage.setItem("PR", this.setting.id)
+
 
             document.querySelector('#toast').text = 'Company\'s settings changed successfully.';
             document.querySelector('#toast').open();
             }
         }
 
-        getSetting() {
-            this.$.ajaxSetting.url = "/api/profile/setting";
+        getSetting(id) {
+
+            id ? id : id = 50000
+            this.$.ajaxSetting.url = "/api/profile/setting/"+id;
             this.$.ajaxSetting.generateRequest();
         }
 
@@ -1037,7 +1056,6 @@
 
         ready() {
             super.ready()
-            this.getSetting()
 
             this.getDefaultShipto();
 
@@ -1046,7 +1064,7 @@
 
             //  let ur = sessionStorage.getItem("UR")
             // ur == undefined || null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/api/service/leftservice"
+            // this.$.serviceajax.url = "/service/leftservice"
 
             // // this.$.serviceajax.url = "/api/user/services/" + ur
             // this.$.serviceajax.generateRequest()
@@ -1059,7 +1077,7 @@
 
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/api/service/leftservice"
+            // this.$.serviceajax.url = "/service/leftservice"
             this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
             this.showMenu = true;
