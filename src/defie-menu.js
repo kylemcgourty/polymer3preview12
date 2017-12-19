@@ -330,6 +330,11 @@
                 <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos"></createcreditmemos-shell>
 
 
+                <apdistributedaccounts-shell setting="[[setting]]" name="apdistributedaccounts"></apdistributedaccounts-shell>
+                <apchartofaccounts-shell setting="[[setting]]" name="apchartofaccounts"></apchartofaccounts-shell>
+
+
+
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
                 <releasedboms-shell rbom="[[rbom]]" setting="[[setting]]" name="releasedboms"></releasedboms-shell>
@@ -342,7 +347,7 @@
 
 
 
-                <profiles-shell setting="[[setting]]" name="profile"></profiles-shell>
+                <profiles-shell setting="[[setting]]" name="profiles"></profiles-shell>
 
                 <users-shell setting="[[setting]]" name="users"></users-shell>
 
@@ -351,8 +356,8 @@
                 <customers-shell name="customers" setting="[[setting]]"></customers-shell>
 
                 <customerrmas-shell setting="[[setting]]" name="customerrmas" licensoraddress="[[licensoraddress]]"></customerrmas-shell>
-                <customershiprmas-shell setting="[[setting]]" name="customershiprmas" fromcrma="[[fromcrma]]" licensoraddress="[[licensoraddress]]"></customershiprmas-shell>
-                <customerreceivermas-shell setting="[[setting]]" name="customerreceivermas" fromcrmatorec="[[fromcrmatorec]]" licensoraddress="[[licensoraddress]]"></customerreceivermas-shell>
+                <customershiprmas-shell setting="[[setting]]" name="customershiprmas" fromcrma="[[fromcrma]]" fromcrmarelation="[[fromcrmarelation]]" licensoraddress="[[licensoraddress]]"></customershiprmas-shell>
+                <customerreceivermas-shell setting="[[setting]]" name="customerreceivermas" fromcrmatorec="[[fromcrmatorec]]" fromcrmatorecrelation="[[fromcrmatorecrelation]]" licensoraddress="[[licensoraddress]]"></customerreceivermas-shell>
 
 
                 <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
@@ -573,6 +578,11 @@
                             "/customershiprmas": "SOpriv",
                             "/customerreceivermas": "SOpriv",
 
+                            "/apdistributedaccounts": "SOpriv",
+                            "/apchartofaccounts": "SOpriv",
+
+
+
                             "/vendorrmas": "SOpriv",
                             "/vendorshiprmas": "SOpriv",
                             "/vendorreceivermas": "SOpriv",
@@ -609,6 +619,10 @@
                             "signin": "signin",
                             "signin-authenticate": "signin",
                             "welcome": "signin",
+
+                            "apdistributedaccounts-new": "apdistributedaccounts",
+                            "apchartofaccounts-new": "apchartofaccounts",
+
                             "customerrma-new": "customerrmas",
                             "customerrmas": "customerrmas",
                             "customershiprma-new": "customershiprmas",
@@ -667,8 +681,8 @@
                             "vendors": "vendors",
                             "quote-new": "quotes",
                             "quotes": "quotes",
-                            "profiles": "profile",
-                            "profile-new":"profile",
+                            "profiles": "profiles",
+                            "profile-new":"profiles",
                              "users": "users",
                             "user-new":"users"
                         }
@@ -735,8 +749,16 @@
             this.addEventListener('toCustomerShipRMANew', e => {
                 this.set('fromcrma', e.detail.model)
             });
+            this.addEventListener('toCustomerShipRMAView', e => {
+                console.log('fromcrmarelation event', e.detail.model)
+                this.set('fromcrmarelation', e.detail.model)
+            });
             this.addEventListener('toCustomerReceiveRMANew', e => {
                 this.set('fromcrmatorec', e.detail.model)
+            });
+            this.addEventListener('toCustomerReceiveRMAView', e => {
+                console.log('fromvrmarec event', e.detail.model)
+                this.set('fromcrmatorecrelation', e.detail.model)
             });
         }
 
@@ -1020,7 +1042,7 @@
         getSetting(id) {
 
             id ? id : id = 50000
-            this.$.ajaxSetting.url = "/api/profile/setting/"+id;
+            this.$.ajaxSetting.url = "/profile/setting/"+id;
             this.$.ajaxSetting.generateRequest();
         }
 
@@ -1034,7 +1056,7 @@
         }
 
         getDefaultShipto() {
-            this.$.ajaxShipto.url = "/api/profile/defaultaddress";
+            this.$.ajaxShipto.url = "/profile/defaultaddress";
             this.$.ajaxShipto.generateRequest();
         }
 
@@ -1084,7 +1106,7 @@
                 console.log('e in def menu', e)
                 let id = e.detail.id
 
-                this.$.ajaxSetting2.url = "/api/profile/setting/"+id;
+                this.$.ajaxSetting2.url = "/profile/setting/"+id;
                 this.$.ajaxSetting2.generateRequest();
 
             })
