@@ -336,6 +336,10 @@
 
                 <buildorders-shell setting="[[setting]]" name="buildorders"></buildorders-shell>
 
+                <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders"></releasedbuildorders-shell>
+
+
+
 
 
                 <profiles-shell setting="[[setting]]" name="profile"></profiles-shell>
@@ -514,7 +518,6 @@
 
                             "bom-new": "/bom/components/new/bomnew-index.html",
                             "boms": "/bom/components/list/bomslist-index.html",
-                            // "releasedboms": "/bom/components/list/bomslist-index.html",
                             "releasebom-new": "/releasedbom/components/new/releasebomnew-index.html",
                             "releasedboms": "/releasedbom/components/list/releasedbomslist-index.html",
                             "buildorder-new": "/buildorder/components/new/buildordernew-index.html",
@@ -526,9 +529,7 @@
 
                             "workorder-new": "/workorder/components/new/workordernew-index.html",
                             "workorders": "/workorder/components/list/workorderslist-index.html",
-                            //kjb
                             "finishedworkorders": "/workorder/components/list/workorderslist-index.html",
-                            // kjb ^
 
 
 
@@ -660,6 +661,8 @@
                             "releasebom-new": "releasedboms",
                             "buildorders": "buildorders",
                             "buildorder-new": "buildorders",
+                            "releasedbuildorders": "releasedbuildorders",
+                            "releasebuildorder-new": "releasedbuildorders",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
                             "quote-new": "quotes",
@@ -695,6 +698,10 @@
             this.addEventListener('toReleasedBomNew', e => {
                 console.log('rbom  event', e)
                 this.set('rbom', e.detail.model)
+            });
+            this.addEventListener('toReleaseBuildOrderNew', e => {
+                console.log('rbo  event', e)
+                this.set('rbo', e.detail.model)
             });
             this.addEventListener('toSalesOrderNew', e => {
                 this.set('fromquote', e.detail.model)
@@ -1040,13 +1047,13 @@
             console.log('readyu called')
 
 
-            //  let ur = sessionStorage.getItem("UR")
-            // ur == undefined || null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/service/leftservice"
+             let ur = sessionStorage.getItem("UR")
+            ur == undefined || null ? ur = 1 : ur
+            this.$.serviceajax.url = "/service/leftservice"
 
-            // // this.$.serviceajax.url = "/api/user/services/" + ur
-            // this.$.serviceajax.generateRequest()
-            // this.showMenu = true;
+            // this.$.serviceajax.url = "/api/user/services/" + ur
+            this.$.serviceajax.generateRequest()
+            this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
