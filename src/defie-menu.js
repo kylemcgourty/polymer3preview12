@@ -341,6 +341,9 @@
 
                 <buildorders-shell setting="[[setting]]" name="buildorders"></buildorders-shell>
 
+                <workorders-shell setting="[[setting]]" name="workorders"></workorders-shell>
+
+
                 <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders"></releasedbuildorders-shell>
 
 
@@ -360,7 +363,7 @@
                 <customerreceivermas-shell setting="[[setting]]" name="customerreceivermas" fromcrmatorec="[[fromcrmatorec]]" fromcrmatorecrelation="[[fromcrmatorecrelation]]" licensoraddress="[[licensoraddress]]"></customerreceivermas-shell>
 
 
-                <partnumbers-shell name="partnumbers" setting="[[setting]]"></partnumbers-shell>
+                <partnumbers-shell name="partnumbers" setting="[[setting]]" toparts="[[toparts]]"></partnumbers-shell>
                 <services-shell name="services" setting="[[setting]]"></services-shell>
                 
                 <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
@@ -677,6 +680,8 @@
                             "buildorder-new": "buildorders",
                             "releasedbuildorders": "releasedbuildorders",
                             "releasebuildorder-new": "releasedbuildorders",
+                            "workorders": "workorders",
+                            "workorder-new": "workorders",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
                             "quote-new": "quotes",
@@ -709,12 +714,14 @@
             this.addEventListener('printpage', e => {
                 window.print();
             });
+            this.addEventListener('toparts', e => {
+                console.log('toparts  event', e)
+                this.set('toparts', e.detail.model)
+            });
             this.addEventListener('toReleasedBomNew', e => {
-                console.log('rbom  event', e)
                 this.set('rbom', e.detail.model)
             });
             this.addEventListener('toReleaseBuildOrderNew', e => {
-                console.log('rbo  event', e)
                 this.set('rbo', e.detail.model)
             });
             this.addEventListener('toSalesOrderNew', e => {
@@ -1084,8 +1091,8 @@
 
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 1 : ur
-            // this.$.serviceajax.url = "/service/leftservice"
-            this.$.serviceajax.url = "/api/user/services/" + ur
+            this.$.serviceajax.url = "/service/leftservice"
+            // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
             this.showMenu = true;
 
