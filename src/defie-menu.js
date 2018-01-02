@@ -371,6 +371,9 @@
 
               <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
+              <accountspayable-shell name="accountspayable" setting="[[setting]]"></accountspayable-shell>
+
+
 
             </iron-pages>
             
@@ -690,7 +693,10 @@
                             "profiles": "profiles",
                             "profile-new":"profiles",
                              "users": "users",
-                            "user-new":"users"
+                            "user-new":"users",
+                            "accountspayable-new": "accountspayable",
+                            "accountspayable":"accountspayable",
+
                         }
                     }
                 },
