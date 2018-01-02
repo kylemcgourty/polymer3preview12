@@ -1089,7 +1089,7 @@
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
-            this.showMenu = true;
+            this.showMenu = false;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
