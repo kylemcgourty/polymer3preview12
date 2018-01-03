@@ -689,7 +689,7 @@
                             "quotes": "quotes",
                             "profiles": "profiles",
                             "profile-new":"profiles",
-                             "users": "users",
+                            "users": "users",
                             "user-new":"users"
                         }
                     }
