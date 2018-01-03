@@ -1089,7 +1089,7 @@
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
-            this.showMenu = false;
+            this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
@@ -1111,7 +1111,7 @@
                 console.log('e in def menu', e)
                 let id = e.detail.id
 
-                this.$.ajaxSetting1.url = "/api/licensor/setting/"+id;
+                this.$.ajaxSetting1.url = "/licensor/setting/"+id;
                 this.$.ajaxSetting1.generateRequest();
 
             })
