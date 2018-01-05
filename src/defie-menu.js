@@ -161,16 +161,16 @@
             font-size: 15px;
             line-height: 24px;
             display: block;
-            border-left: 4px solid transparent;
             text-align: center;
         }
 
         .title {
             height: 38px;
             position: relative;
-            margin-left: 20px;
             color: black;
             font-weight: 500;
+            border-left: thick solid white;
+
         }
 
         .toggleicon {
@@ -180,7 +180,8 @@
 
         .alink {
             text-decoration: none;
-            color: black;
+                color: #6b6b6b;
+            
         }
 
         .inner {
@@ -210,6 +211,12 @@
             display: none;
         }
 
+        .menuborder .iron {
+            border-left: thick solid white;
+        }
+
+
+
         
 
         </style>
@@ -231,11 +238,11 @@
                         <iron-selector id="selector" selected="0" attr-for-selected="name1" selectable=".inner">
                             <template is="dom-repeat" items="{{leftservices}}" as="limb">
                                 <section class="outer" id="{{limb.id}}" style="border-top: 1px solid #eceff1;">
-                                    <div class="title center layout horizontal">
+                                    <div class="title center layout horizontal menuborder inner">
                                         <span style="" style$="{{returnFont(limb.service.fcolor,limb.service.fname,limb.service.fsize)}}">{{limb.name}}</span>
                                     </div>
                                 </section>
-                                <div class="menuholder" id="container[[index]]">
+                                <div class="menuholder menuborder" id="container[[index]]">
                                     <div class="inner iron iron0" name1="{{limb.transportapps.0.name}}" style$="{{privilege(limb.transportapps.0.link, limb.privileges)}}">
                                         <a on-tap="resetSearch" class="alink micro0" id="{{limb.transportapps.0.link}}" href="{{limb.transportapps.0.link}}">{{limb.transportapps.0.name}}</a>
                                     </div>
@@ -869,9 +876,9 @@
             if (this.stylekeeper.length > 0) {
                 let undo = this.pop('stylekeeper')
 
-                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.color = "black"
+                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.color = "#6b6b6b"
 
-                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[2]).style.borderLeft = "none"
+                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[2]).style.borderLeft = "thick solid white"
             }
 
 
@@ -1095,7 +1102,7 @@
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
-            // this.showMenu = true;
+            this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
