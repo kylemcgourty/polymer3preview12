@@ -32,6 +32,15 @@
     import '../node_modules/@polymer/paper-button/paper-button.js'
     import '../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
     import '../node_modules/@polymer/paper-card/paper-card.js'
+    import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
+    import '../node_modules/@polymer/paper-dialog-behavior/paper-dialog-behavior.js'
+
+    import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
+   
+
+
+
+
 
     import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
     import '../node_modules/@polymer/paper-toast/paper-toast.js'
@@ -160,7 +169,8 @@
             height: 38px;
             position: relative;
             margin-left: 20px;
-            color: #6b6b6b
+            color: black;
+            font-weight: 500;
         }
 
         .toggleicon {
@@ -200,10 +210,7 @@
             display: none;
         }
 
-        .menuholder {
-            display: none;
-            background-color: #eaecef;
-        }
+        
 
         </style>
 
@@ -226,8 +233,6 @@
                                 <section class="outer" id="{{limb.id}}" style="border-top: 1px solid #eceff1;">
                                     <div class="title center layout horizontal">
                                         <span style="" style$="{{returnFont(limb.service.fcolor,limb.service.fname,limb.service.fsize)}}">{{limb.name}}</span>
-                                        <paper-icon-button class="toggleicon upicon" on-tap="toggleMenuUp" id="up[[index]]" icon="icons:expand-less"></paper-icon-button>
-                                        <paper-icon-button class="toggleicon" on-tap="toggleMenuDown" id="down[[index]]" icon="icons:expand-more"></paper-icon-button>
                                     </div>
                                 </section>
                                 <div class="menuholder" id="container[[index]]">
@@ -865,14 +870,16 @@
             if (this.stylekeeper.length > 0) {
                 let undo = this.pop('stylekeeper')
 
-                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.fontWeight = "400"
+                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.color = "black"
+
                 this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[2]).style.borderLeft = "none"
             }
 
 
             this.push('stylekeeper', [index, child, iron])
 
-            this.shadowRoot.querySelector('#container' + index + " ." + child).style.fontWeight = "900"
+            this.shadowRoot.querySelector('#container' + index + " ." + child).style.color = "#e82c45"
+
             this.shadowRoot.querySelector('#container' + index + " ." + iron).style.borderLeft = "thick solid #f93422"
 
 
