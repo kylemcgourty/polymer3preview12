@@ -697,11 +697,10 @@
                             "quotes": "quotes",
                             "profiles": "profiles",
                             "profile-new":"profiles",
-                             "users": "users",
+                            "users": "users",
                             "user-new":"users",
                             "accountspayable-new": "accountspayable",
                             "accountspayable":"accountspayable",
-
                         }
                     }
                 },
@@ -1096,7 +1095,7 @@
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
-            this.showMenu = true;
+            // this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
