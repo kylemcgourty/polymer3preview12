@@ -383,7 +383,7 @@
 
               <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
-              <accountspayable-shell name="accountspayable" setting="[[setting]]"></accountspayable-shell>
+              <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
 
 
 
@@ -735,6 +735,10 @@
             this.addEventListener('toparts', e => {
                 console.log('toparts  event', e)
                 this.set('toparts', e.detail.model)
+            });
+             this.addEventListener('toAP', e => {
+                console.log('toAP  event', e)
+                this.set('ap', e.detail.model)
             });
             this.addEventListener('toReleasedBomNew', e => {
                 this.set('rbom', e.detail.model)
