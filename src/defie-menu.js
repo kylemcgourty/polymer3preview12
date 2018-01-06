@@ -35,7 +35,7 @@
     import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
     import '../node_modules/@polymer/paper-dialog-behavior/paper-dialog-behavior.js'
 
-    import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
+    // import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
    
 
 
@@ -1102,7 +1102,7 @@
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
-            this.showMenu = true;
+            // this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
