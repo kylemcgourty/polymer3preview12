@@ -165,11 +165,11 @@
         }
 
         .title {
-            height: 38px;
             position: relative;
             color: black;
             font-weight: 500;
             border-left: thick solid white;
+            padding-top: 10px!important;
 
         }
 
@@ -186,10 +186,11 @@
 
         .inner {
             font-size: 15px;
-            padding: 5px 30px 5px 30px;
+            padding: 0px 30px 10px 30px;
             margin: 0px!important;
             position: relative;
             border-left: 4px solid transparent;
+            height: 22px;
         }
 
         #selector .iron-selected {
