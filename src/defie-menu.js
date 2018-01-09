@@ -337,10 +337,10 @@
                 <createinvoices-shell setting="[[setting]]" name="createinvoices"></createinvoices-shell>
 
                 <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
-                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" ></creditmemos-shell>
+                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" fromccm="[[fromccm]]"></creditmemos-shell>
 
 
-                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos"></createcreditmemos-shell>
+                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos" fromcm="[[fromcm]]"></createcreditmemos-shell>
 
 
                 <apdistributedaccounts-shell setting="[[setting]]" name="apdistributedaccounts"></apdistributedaccounts-shell>
@@ -756,7 +756,12 @@
             this.addEventListener('toCreditMemoNew', e => {
                 this.set('fromrtnso', e.detail.model)
             });
-
+            this.addEventListener('toCreateCreditMemos', e => {
+                this.set('fromcm', e.detail.model)
+            });
+            this.addEventListener('toCreditMemos', e => {
+                this.set('fromccm', e.detail.model)
+            });
             this.addEventListener('toReceivepoNew', e => {
                 this.set('frompo', e.detail.model)
             });
