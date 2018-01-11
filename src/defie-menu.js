@@ -333,15 +333,15 @@
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
                 <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
-                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
+                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" fromcinv="[[fromcinv]]"></invoices-shell>
 
-                <createinvoices-shell setting="[[setting]]" name="createinvoices"></createinvoices-shell>
+                <createinvoices-shell setting="[[setting]]" name="createinvoices" frominv="[[frominv]]"></createinvoices-shell>
 
                 <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
-                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" ></creditmemos-shell>
+                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" fromccm="[[fromccm]]"></creditmemos-shell>
 
 
-                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos"></createcreditmemos-shell>
+                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos" fromcm="[[fromcm]]"></createcreditmemos-shell>
 
 
                 <apdistributedaccounts-shell setting="[[setting]]" name="apdistributedaccounts"></apdistributedaccounts-shell>
@@ -761,11 +761,21 @@
             this.addEventListener('toInvoiceNew', e => {
                 this.set('fromso', e.detail.model)
             });
-
+            this.addEventListener('toCreateInvoices', e => {
+                this.set('frominv', e.detail.model)
+            });
+            this.addEventListener('toInvoices', e => {
+                this.set('fromcinv', e.detail.model)
+            });
             this.addEventListener('toCreditMemoNew', e => {
                 this.set('fromrtnso', e.detail.model)
             });
-
+            this.addEventListener('toCreateCreditMemos', e => {
+                this.set('fromcm', e.detail.model)
+            });
+            this.addEventListener('toCreditMemos', e => {
+                this.set('fromccm', e.detail.model)
+            });
             this.addEventListener('toReceivepoNew', e => {
                 this.set('frompo', e.detail.model)
             });
