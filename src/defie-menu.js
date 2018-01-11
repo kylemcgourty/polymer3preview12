@@ -385,6 +385,8 @@
               <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
               <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
+              <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
+
 
 
 
@@ -709,6 +711,12 @@
                             "user-new":"users",
                             "accountspayable-new": "accountspayable",
                             "accountspayable":"accountspayable",
+                            "ap-vendors":"accountspayable",
+                            "approvetopay-new": "approvetopay",
+                            "approvetopay":"approvetopay",
+                            "ATPReport":"approvetopay",
+
+
                         }
                     }
                 },
@@ -1107,7 +1115,7 @@
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
-            // this.showMenu = true;
+            this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
