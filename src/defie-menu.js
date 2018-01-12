@@ -713,6 +713,7 @@
                             "accountspayable":"accountspayable",
                             "ap-vendors":"accountspayable",
                             "approvetopay-new": "approvetopay",
+                            "approvetopay-check": "approvetopay",
                             "approvetopay":"approvetopay",
                             "ATPReport":"approvetopay",
 
