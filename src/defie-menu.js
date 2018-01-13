@@ -32,6 +32,15 @@
     import '../node_modules/@polymer/paper-button/paper-button.js'
     import '../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
     import '../node_modules/@polymer/paper-card/paper-card.js'
+    import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
+    import '../node_modules/@polymer/paper-dialog-behavior/paper-dialog-behavior.js'
+
+    // import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
+   
+
+
+
+
 
     import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
     import '../node_modules/@polymer/paper-toast/paper-toast.js'
@@ -152,15 +161,16 @@
             font-size: 15px;
             line-height: 24px;
             display: block;
-            border-left: 4px solid transparent;
             text-align: center;
         }
 
         .title {
-            height: 38px;
             position: relative;
-            margin-left: 20px;
-            color: #6b6b6b
+            color: black;
+            font-weight: 500;
+            border-left: thick solid white;
+            padding-top: 10px!important;
+
         }
 
         .toggleicon {
@@ -170,15 +180,17 @@
 
         .alink {
             text-decoration: none;
-            color: black;
+                color: #6b6b6b;
+            
         }
 
         .inner {
             font-size: 15px;
-            padding: 5px 30px 5px 30px;
+            padding: 0px 30px 10px 30px;
             margin: 0px!important;
             position: relative;
             border-left: 4px solid transparent;
+            height: 22px;
         }
 
         #selector .iron-selected {
@@ -200,10 +212,13 @@
             display: none;
         }
 
-        .menuholder {
-            display: none;
-            background-color: #eaecef;
+        .menuborder .iron {
+            border-left: thick solid white;
         }
+
+
+
+        
 
         </style>
 
@@ -224,13 +239,11 @@
                         <iron-selector id="selector" selected="0" attr-for-selected="name1" selectable=".inner">
                             <template is="dom-repeat" items="{{leftservices}}" as="limb">
                                 <section class="outer" id="{{limb.id}}" style="border-top: 1px solid #eceff1;">
-                                    <div class="title center layout horizontal">
+                                    <div class="title center layout horizontal menuborder inner">
                                         <span style="" style$="{{returnFont(limb.service.fcolor,limb.service.fname,limb.service.fsize)}}">{{limb.name}}</span>
-                                        <paper-icon-button class="toggleicon upicon" on-tap="toggleMenuUp" id="up[[index]]" icon="icons:expand-less"></paper-icon-button>
-                                        <paper-icon-button class="toggleicon" on-tap="toggleMenuDown" id="down[[index]]" icon="icons:expand-more"></paper-icon-button>
                                     </div>
                                 </section>
-                                <div class="menuholder" id="container[[index]]">
+                                <div class="menuholder menuborder" id="container[[index]]">
                                     <div class="inner iron iron0" name1="{{limb.transportapps.0.name}}" style$="{{privilege(limb.transportapps.0.link, limb.privileges)}}">
                                         <a on-tap="resetSearch" class="alink micro0" id="{{limb.transportapps.0.link}}" href="{{limb.transportapps.0.link}}">{{limb.transportapps.0.name}}</a>
                                     </div>
@@ -320,15 +333,15 @@
                 <licusers-shell name="licuser" setting="[[setting]]"></licusers-shell>
 
                 <salesorders-shell setting="[[setting]]" name="salesorders" fromquote="[[fromquote]]"></salesorders-shell>
-                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" ></invoices-shell>
+                <invoices-shell setting="[[setting]]" name="invoices" fromso="[[fromso]]" fromcinv="[[fromcinv]]"></invoices-shell>
 
-                <createinvoices-shell setting="[[setting]]" name="createinvoices"></createinvoices-shell>
+                <createinvoices-shell setting="[[setting]]" name="createinvoices" frominv="[[frominv]]"></createinvoices-shell>
 
                 <returnsos-shell setting="[[setting]]" name="returnsos"></returnsos-shell>
-                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" ></creditmemos-shell>
+                <creditmemos-shell setting="[[setting]]" name="creditmemos" fromrtnso="[[fromrtnso]]" fromccm="[[fromccm]]"></creditmemos-shell>
 
 
-                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos"></createcreditmemos-shell>
+                <createcreditmemos-shell setting="[[setting]]" name="createcreditmemos" fromcm="[[fromcm]]"></createcreditmemos-shell>
 
 
                 <apdistributedaccounts-shell setting="[[setting]]" name="apdistributedaccounts"></apdistributedaccounts-shell>
@@ -371,8 +384,9 @@
 
               <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
-                <accountspayable-shell name="accountspayable" setting="[[setting]]"></accountspayable-shell>
                 <accountsreceivable-shell name="accountsreceivable" setting="[[setting]]"></accountsreceivable-shell>
+              <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
+              <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
 
             </iron-pages>
             
@@ -699,8 +713,17 @@
                             "quotes": "quotes",
                             "profiles": "profiles",
                             "profile-new":"profiles",
-                             "users": "users",
-                            "user-new":"users"
+                            "users": "users",
+                            "user-new":"users",
+                            "accountspayable-new": "accountspayable",
+                            "accountspayable":"accountspayable",
+                            "ap-vendors":"accountspayable",
+                            "approvetopay-new": "approvetopay",
+                            "approvetopay-check": "approvetopay",
+                            "approvetopay":"approvetopay",
+                            "ATPReport":"approvetopay",
+
+
                         }
                     }
                 },
@@ -729,6 +752,10 @@
                 console.log('toparts  event', e)
                 this.set('toparts', e.detail.model)
             });
+             this.addEventListener('toAP', e => {
+                console.log('toAP  event', e)
+                this.set('ap', e.detail.model)
+            });
             this.addEventListener('toReleasedBomNew', e => {
                 this.set('rbom', e.detail.model)
             });
@@ -741,11 +768,21 @@
             this.addEventListener('toInvoiceNew', e => {
                 this.set('fromso', e.detail.model)
             });
-
+            this.addEventListener('toCreateInvoices', e => {
+                this.set('frominv', e.detail.model)
+            });
+            this.addEventListener('toInvoices', e => {
+                this.set('fromcinv', e.detail.model)
+            });
             this.addEventListener('toCreditMemoNew', e => {
                 this.set('fromrtnso', e.detail.model)
             });
-
+            this.addEventListener('toCreateCreditMemos', e => {
+                this.set('fromcm', e.detail.model)
+            });
+            this.addEventListener('toCreditMemos', e => {
+                this.set('fromccm', e.detail.model)
+            });
             this.addEventListener('toReceivepoNew', e => {
                 this.set('frompo', e.detail.model)
             });
@@ -869,14 +906,16 @@
             if (this.stylekeeper.length > 0) {
                 let undo = this.pop('stylekeeper')
 
-                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.fontWeight = "400"
-                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[2]).style.borderLeft = "none"
+                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.color = "#6b6b6b"
+
+                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[2]).style.borderLeft = "thick solid white"
             }
 
 
             this.push('stylekeeper', [index, child, iron])
 
-            this.shadowRoot.querySelector('#container' + index + " ." + child).style.fontWeight = "900"
+            this.shadowRoot.querySelector('#container' + index + " ." + child).style.color = "#e82c45"
+
             this.shadowRoot.querySelector('#container' + index + " ." + iron).style.borderLeft = "thick solid #f93422"
 
 
@@ -1115,7 +1154,7 @@
                 console.log('e in def menu', e)
                 let id = e.detail.id
 
-                this.$.ajaxSetting1.url = "/api/licensor/setting/"+id;
+                this.$.ajaxSetting1.url = "/licensor/setting/"+id;
                 this.$.ajaxSetting1.generateRequest();
 
             })
