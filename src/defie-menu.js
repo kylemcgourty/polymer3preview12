@@ -384,11 +384,9 @@
 
               <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
+                <accountsreceivable-shell name="accountsreceivable" setting="[[setting]]"></accountsreceivable-shell>
               <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
               <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
-
-
-
 
             </iron-pages>
             
@@ -622,6 +620,8 @@
                             "/quotes": "SOpriv",
                             "/creditmemos": "SOpriv",
                             "/createcreditmemos": "SOpriv",
+                            "/accountspayable": "SOpriv",
+                            "/accountsreceivable": "SOpriv",
                         }
                     }
                 },
@@ -644,6 +644,12 @@
 
                             "apdistributedaccounts-new": "apdistributedaccounts",
                             "apchartofaccounts-new": "apchartofaccounts",
+
+                            "accountspayable": "accountspayable",
+                            "ap-vendors": "accountspayable",
+
+                            "accountsreceivable": "accountsreceivable",
+                            "ar-customers": "accountsreceivable",
 
                             "customerrma-new": "customerrmas",
                             "customerrmas": "customerrmas",
