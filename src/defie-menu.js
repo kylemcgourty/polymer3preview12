@@ -715,7 +715,7 @@
                             "approvetopay-new": "approvetopay",
                             "approvetopay-check": "approvetopay",
                             "approvetopay":"approvetopay",
-                            "ATPReport":"approvetopay",
+                            "approvetopay-report":"approvetopay",
 
 
                         }
