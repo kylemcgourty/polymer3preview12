@@ -717,6 +717,7 @@
                             "user-new":"users",
                             "accountspayable-new": "accountspayable",
                             "accountspayable":"accountspayable",
+                            "ap-status":"accountspayable",
                             "ap-vendors":"accountspayable",
                             "approvetopay-new": "approvetopay",
                             "approvetopay-check": "approvetopay",
