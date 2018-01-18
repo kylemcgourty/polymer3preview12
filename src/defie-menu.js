@@ -387,6 +387,8 @@
                 <accountsreceivable-shell name="accountsreceivable" setting="[[setting]]"></accountsreceivable-shell>
               <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
               <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
+              <apcreditmemos-shell name="apcreditmemos" setting="[[setting]]"></apcreditmemos-shell>
+
 
             </iron-pages>
             
@@ -466,130 +468,7 @@
                     }
                 },
 
-                mainRoutes: {
-                    type: Object,
-                    value: {
-                        "signers": "/signers/components/list/signerslist-index.html",
-
-                            "arentercashreceipts": "/arentercashreceipt/components/list/arentercashreceiptslist-index.html",
-                            "arentercashreceipt-new": "/arentercashreceipt/components/new/arentercashreceiptnew-index.html",
-
-
-
-                            "closedcustrmas": "/atpreport/components/list/closedcustrmaslist-index.html",
-
-
-
-                            "barcodes": "/barcode/components/list/barcodeslist-index.html",
-                            "barcodes-new": "/barcode/components/new/barcodesnew-index.html",
-                            "qachecklists": "/qachecklist/components/list/qachecklistslist-index.html",
-                            "qachecklist-new": "/qachecklist/components/new/qachecklistnew-index.html",
-
-
-
-                            "atpreports": "/atpreport/components/list/atpreportslist-index.html",
-
-
-
-                            "approvetopays": "/approvetopay/components/list/approvetopayslist-index.html",
-
-                            "apstatus": "/apstatus/components/list/apstatuslist-index.html",
-
-                            "payables": "/payable/components/list/payableslist-index.html",
-                            "payable-new": "/payable/components/new/payablenew-index.html",
-
-
-                            // "apdistributedaccounts": "/apdistributedaccount/components/list/apdistributedaccountslist-index.html",
-                            "apdistributedaccounts-new": "/accounts/components/new/apdistributedaccountsnew-index.html",
-
-                            "apchartofaccounts-new": "/chartofaccounts/components/new/apchartofaccountsnew-index.html",
-
-
-
-
-                            "createinvoices": "/createinvoice/components/list/createinvoiceslist-index.html",
-                            "createinvoice-new": "/createinvoice/components/new/createinvoicenew-index.html",
-
-                            "partnumbers": "/inventory/components/list/partnumberslist-index.html",
-                            "partnumber-new": "/inventory/components/new/partnumbernew-index.html",
-                            "customers": "/customer/components/list/customerslist-index.html",
-                            "customer-new": "customer/components/new/customernew-index.html",
-                            "quotes": "/quote/components/list/quoteslist-index.html",
-                            "quote-new": "/quote/components/new/quotenew-index.html",
-                            "salesorders": "/salesorder/components/list/salesorderslist-index.html",
-                            "salesorder-new": "/salesorder/components/new/salesordernew-index.html",
-
-                            "partnumbers": "/partnumber/components/list/partnumberslist-index.html",
-                            "partnumber-new": "/partnumber/components/new/partnumbernew-index.html",
-
-
-                            "invoices": "/invoice/components/list/invoiceslist-index.html",
-                            "invoice-new": "/invoice/components/new/invoicenew-index.html",
-                            "creditmemos": "/creditmemo/components/list/creditmemoslist-index.html",
-                            "creditmemo-new": "/creditmemo/components/new/creditmemonew-index.html",
-                            "returnsos": "/returnso/components/list/returnsoslist-index.html",
-                            "returnso-new": "/returnso/components/new/returnsonew-index.html",
-                            "vendor-new": "/vendor/components/new/vendornew-index.html",
-                            "vendors": "/vendor/components/list/vendorslist-index.html",
-                            "purchaseorders": "/purchaseorder/components/list/purchaseorderslist-index.html",
-                            "purchaseorder-new": "/purchaseorder/components/new/purchaseordernew-index.html",
-                            "receivepos": "/receivepo/components/list/receiveposlist-index.html",
-                            "receivepo-new": "/receivepo/components/new/receiveponew-index.html",
-                            "returnpos": "/returnpo/components/list/returnposlist-index.html",
-                            "returnpo-new": "/returnpo/components/new/returnponew-index.html",
-                            "shipreturnpos": "/shipreturnpo/components/list/shipreturnposlist-index.html",
-                            "shipreturnpo-new": "/shipreturnpo/components/new/shipreturnponew-index.html",
-
-
-                            "bom-new": "/bom/components/new/bomnew-index.html",
-                            "boms": "/bom/components/list/bomslist-index.html",
-                            "releasebom-new": "/releasedbom/components/new/releasebomnew-index.html",
-                            "releasedboms": "/releasedbom/components/list/releasedbomslist-index.html",
-                            "buildorder-new": "/buildorder/components/new/buildordernew-index.html",
-                            "buildorders": "/buildorder/components/list/buildorderslist-index.html",
-                            "releasedbuildorder-new": "/releasedbuildorder/components/new/releasebuildordernew-index.html",
-                            "releasedbuildorders": "/releasedbuildorder/components/list/releasedbuildorderslist-index.html",
-
-
-
-                            "workorder-new": "/workorder/components/new/workordernew-index.html",
-                            "workorders": "/workorder/components/list/workorderslist-index.html",
-                            "finishedworkorders": "/workorder/components/list/workorderslist-index.html",
-
-
-
-                            "service-new": "/service/components/new/servicenew-index.html",
-                            "services": "/service/components/list/serviceslist-index.html",
-                            "users": "/user/components/list/userslist-index.html",
-                            "user-new": "/user/components/new/usernew-index.html",
-                            "licensors": "/licensor/components/list/licensorslist-index.html",
-                            "licensor-new": "/licensor/components/new/licensornew-index.html",
-                            "locations": "/location/components/list/locationslist-index.html",
-                            "location-new": "/location/components/new/locationnew-index.html",
-
-                            "customerrmas": "/customerrma/components/list/customerrmaslist-index.html",
-                            "customerrma-new": "/customerrma/components/new/customerrmanew-index.html",
-
-                            "customerreceivermas": "/customerreceiverma/components/list/customerreceivermaslist-index.html",
-                            "customerreceiverma-new": "/customerreceiverma/components/new/customerreceivermanew-index.html",
-
-                            "customershiprmas": "/customershiprma/components/list/customershiprmaslist-index.html",
-                            "customershiprma-new": "/customershiprma/components/new/customershiprmanew-index.html",
-
-
-                            "vendorrmas": "/vendorrma/components/list/vendorrmaslist-index.html",
-                            "vendorrma-new": "/vendorrma/components/new/vendorrmanew-index.html",
-
-                            "vendorshiprmas": "/vendorshiprma/components/list/vendorshiprmaslist-index.html",
-                            "vendorshiprma-new": "/vendorshiprma/components/new/vendorshiprmanew-index.html",
-
-                            "vendorreceivermas": "/vendorreceiverma/components/list/vendorreceivermaslist-index.html",
-                            "vendorreceiverma-new": "/vendorreceiverma/components/new/vendorreceivermanew-index.html",
-                            "service-new": "/var/www/go/src/p3-services/index.html",
-                            "services": "/var/www/go/src/p3-services/index.html"
-                    }
-                },
-
+           
                 PermissionMap: {
                     type: Object,
                     value: function() {
@@ -723,6 +602,10 @@
                             "approvetopay-check": "approvetopay",
                             "approvetopay":"approvetopay",
                             "approvetopay-report":"approvetopay",
+                            "apcreditmemo-new":"apcreditmemos",
+                            "apcreditmemo":"apcreditmemos",
+
+
 
 
                         }
@@ -1133,7 +1016,7 @@
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
-            // this.showMenu = true;
+            this.showMenu = true;
            
 
             document.querySelector('defie-menu').addEventListener('leftservice', e => {
