@@ -364,7 +364,7 @@
 
 
 
-                <profiles-shell setting="[[setting]]" name="profiles"></profiles-shell>
+                <profiles-shell setting="[[setting]]" fromlicensor="[[fromlicensor]]" name="profiles"></profiles-shell>
 
                 <users-shell setting="[[setting]]" name="users"></users-shell>
 
@@ -382,11 +382,12 @@
                 
                 <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
-              <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
+                <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
                 <accountsreceivable-shell name="accountsreceivable" setting="[[setting]]"></accountsreceivable-shell>
-              <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
-              <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
+                <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
+                <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
+                <cashreceipt-shell name="cashreceipt" setting="[[setting]]"></cashreceipt-shell>
 
             </iron-pages>
             
@@ -471,8 +472,8 @@
                     value: {
                         "signers": "/signers/components/list/signerslist-index.html",
 
-                            "arentercashreceipts": "/arentercashreceipt/components/list/arentercashreceiptslist-index.html",
-                            "arentercashreceipt-new": "/arentercashreceipt/components/new/arentercashreceiptnew-index.html",
+                            // "arentercashreceipts": "/arentercashreceipt/components/list/arentercashreceiptslist-index.html",
+                            // "arentercashreceipt-new": "/arentercashreceipt/components/new/arentercashreceiptnew-index.html",
 
 
 
@@ -651,6 +652,8 @@
                             "accountsreceivable": "accountsreceivable",
                             "ar-customers": "accountsreceivable",
 
+                            "cashreceipt-new": "cashreceipt",
+                            "cashreceipt": "cashreceipt",
                             "customerrma-new": "customerrmas",
                             "customerrmas": "customerrmas",
                             "customershiprma-new": "customershiprmas",
@@ -742,6 +745,10 @@
 
         constructor() {
             super()
+            this.addEventListener('toProfileNew', e => {
+                console.log('toProfileNew event listened ', e)
+                this.set('fromlicensor', e.detail.model)
+            });
             this.addEventListener('ToWelcomeEvent', e => {
                 this.toWelcomePage(e);
             });
