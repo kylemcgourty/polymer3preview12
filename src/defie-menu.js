@@ -716,6 +716,7 @@
                             "quotes": "quotes",
                             "profiles": "profiles",
                             "profile-new":"profiles",
+                            "profile-view":"profiles",
                             "users": "users",
                             "user-new":"users",
                             "accountspayable-new": "accountspayable",
@@ -746,8 +747,8 @@
 
         constructor() {
             super()
-            this.addEventListener('toProfileNew', e => {
-                console.log('toProfileNew event listened ', e)
+            this.addEventListener('toProfileView', e => {
+                console.log('toProfileView event listened ', e)
                 this.set('fromlicensor', e.detail.model)
             });
             this.addEventListener('ToWelcomeEvent', e => {
