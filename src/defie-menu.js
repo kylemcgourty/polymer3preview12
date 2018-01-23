@@ -385,9 +385,9 @@ export class DefieMenu extends PolymerElement {
 
                 <accountsreceivable-shell name="accountsreceivable" setting="[[setting]]"></accountsreceivable-shell>
 
-              <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
+              <accountspayable-shell name="accountspayable" ap="[[ap]]" apve="[[apve]]" setting="[[setting]]"></accountspayable-shell>
               <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
-              <apcreditmemos-shell name="apcreditmemos" setting="[[setting]]"></apcreditmemos-shell>
+              <apcreditmemos-shell apcm="[[apcm]]" name="apcreditmemos" setting="[[setting]]"></apcreditmemos-shell>
 
 
                 <cashreceipt-shell name="cashreceipt" setting="[[setting]]"></cashreceipt-shell>
@@ -554,9 +554,10 @@ export class DefieMenu extends PolymerElement {
                             "ap-status":"accountspayable",
                             "ap-vendors":"accountspayable",
                             "approvetopay-new": "approvetopay",
-                            "approvetopay-check": "approvetopay",
-                            "approvetopay":"approvetopay",
-                            "approvetopay-report":"approvetopay",
+                             "approvetopay-new": "approvetopay",
+                        "approvetopay-check": "approvetopay",
+                        "approvetopay": "approvetopay",
+                        "approvetopay-report": "approvetopay",
                             "apcreditmemo-new":"apcreditmemos",
                             "apcreditmemo":"apcreditmemos",
 
@@ -575,196 +576,97 @@ export class DefieMenu extends PolymerElement {
                 }
             },
 
-            ServicesList: {
-                type: Object,
-                value: function() {
-                    return {
-                        "homepage": "signin",
-                        "signin": "signin",
-                        "signin-authenticate": "signin",
-                        "welcome": "signin",
-
-                        "apdistributedaccounts-new": "apdistributedaccounts",
-                        "apchartofaccounts-new": "apchartofaccounts",
-
-                        "accountspayable": "accountspayable",
-                        "ap-vendors": "accountspayable",
-
-                        "accountsreceivable": "accountsreceivable",
-                        "ar-customers": "accountsreceivable",
-
-                        "cashreceipt-new": "cashreceipt",
-                        "cashreceipt": "cashreceipt",
-                        "customerrma-new": "customerrmas",
-                        "customerrmas": "customerrmas",
-                        "customershiprma-new": "customershiprmas",
-                        "customershiprmas": "customershiprmas",
-                        "customerreceiverma-new": "customerreceivermas",
-                        "customerreceivermas": "customerreceivermas",
-                        "vendorrma-new": "vendorrmas",
-                        "vendorrmas": "vendorrmas",
-                        "vendorshiprma-new": "vendorshiprmas",
-                        "vendorshiprmas": "vendorshiprmas",
-                        "vendorreceiverma-new": "vendorreceivermas",
-                        "vendorreceivermas": "vendorreceivermas",
-                        "shipreturnpo-new": "shipreturnpos",
-                        "shipreturnpos": "shipreturnpos",
-                        "purchaseorder-new": "purchaseorders",
-                        "purchaseorders": "purchaseorders",
-                        "receivepo-new": "receivepos",
-                        "receivepos": "receivepos",
-                        "returnpo-new": "returnpos",
-                        "returnpos": "returnpos",
-                        "returnso-new": "returnsos",
-                        "returnsos": "returnsos",
-                        "creditmemo-new": "creditmemos",
-                        "creditmemos": "creditmemos",
-
-                        "createcreditmemo-new": "createcreditmemos",
-                        "createcreditmemos": "createcreditmemos",
-
-                        "licensor-new": "licensor",
-                        "licensors": "licensor",
-                        "licuser-new": "licuser",
-                        "licusers": "licuser",
-                        "service-new": "services",
-                        "services": "services",
-                        "customer-new": "customers",
-                        "customers": "customers",
-                        "salesorder-new": "salesorders",
-                        "salesorders": "salesorders",
-                        "partnumber-new": "partnumbers",
-                        "partnumbers": "partnumbers",
-                        "createinvoice-new": "createinvoices",
-                        "createinvoices": "createinvoices",
-                        "invoice-new": "invoices",
-                        "invoices": "invoices",
-                        "partnumber-new": "partnumbers",
-                        "partnumbers": "partnumbers",
-                        "boms": "boms",
-                        "bom-new": "boms",
-                        "releasedboms": "releasedboms",
-                        "releasebom-new": "releasedboms",
-                        "buildorders": "buildorders",
-                        "buildorder-new": "buildorders",
-                        "releasedbuildorders": "releasedbuildorders",
-                        "releasebuildorder-new": "releasedbuildorders",
-                        "workorders": "workorders",
-                        "workorder-new": "workorders",
-                        "vendor-new": "vendors",
-                        "vendors": "vendors",
-                        "quote-new": "quotes",
-                        "quotes": "quotes",
-                        "profiles": "profiles",
-                        "profile-new": "profiles",
-                        "users": "users",
-                        "user-new": "users",
-                        "accountspayable-new": "accountspayable",
-                        "accountspayable": "accountspayable",
-                        "ap-status": "accountspayable",
-                        "ap-vendors": "accountspayable",
-                        "approvetopay-new": "approvetopay",
-                        "approvetopay-check": "approvetopay",
-                        "approvetopay": "approvetopay",
-                        "approvetopay-report": "approvetopay",
-
-
-                    }
-                }
-            },
-
-            option: {
-                type: String,
-                value: "services"
-            },
-
-            showMenu: {
-                type: Boolean,
-                value: false
-            }
-        };
+       
+        }
     }
 
-    constructor() {
-        super()
-        this.addEventListener('toProfileNew', e => {
-            console.log('toProfileNew event listened ', e)
-            this.set('fromlicensor', e.detail.model)
-        });
-        this.addEventListener('ToWelcomeEvent', e => {
-            this.toWelcomePage(e);
-        });
-        this.addEventListener('printpage', e => {
-            window.print();
-        });
-        this.addEventListener('toparts', e => {
-            console.log('toparts  event', e)
-            this.set('toparts', e.detail.model)
-        });
-        this.addEventListener('toAP', e => {
-            console.log('toAP  event', e)
-            this.set('ap', e.detail.model)
-        });
-        this.addEventListener('toReleasedBomNew', e => {
-            this.set('rbom', e.detail.model)
-        });
-        this.addEventListener('toReleaseBuildOrderNew', e => {
-            this.set('rbo', e.detail.model)
-        });
-        this.addEventListener('toSalesOrderNew', e => {
-            this.set('fromquote', e.detail.model)
-        });
-        this.addEventListener('toInvoiceNew', e => {
-            this.set('fromso', e.detail.model)
-        });
-        this.addEventListener('toCreateInvoices', e => {
-            this.set('frominv', e.detail.model)
-        });
-        this.addEventListener('toInvoices', e => {
-            this.set('fromcinv', e.detail.model)
-        });
-        this.addEventListener('toCreditMemoNew', e => {
-            this.set('fromrtnso', e.detail.model)
-        });
-        this.addEventListener('toCreateCreditMemos', e => {
-            this.set('fromcm', e.detail.model)
-        });
-        this.addEventListener('toCreditMemos', e => {
-            this.set('fromccm', e.detail.model)
-        });
-        this.addEventListener('toReceivepoNew', e => {
-            this.set('frompo', e.detail.model)
-        });
-        this.addEventListener('toShipReturnPONew', e => {
-            this.set('fromrtnpo', e.detail.model)
-        });
-        this.addEventListener('toVendorShipRMANew', e => {
-            this.set('fromvrma', e.detail.model)
-        });
-        this.addEventListener('toVendorShipRMAView', e => {
-            this.set('fromvrmarelation', e.detail.model)
-        });
-        this.addEventListener('toVendorReceiveRMANew', e => {
-            this.set('fromvrmatorec', e.detail.model)
-        });
-        this.addEventListener('toVendorReceiveRMAView', e => {
-            this.set('fromvrmatorecrelation', e.detail.model)
-        });
-        this.addEventListener('toCustomerShipRMANew', e => {
-            this.set('fromcrma', e.detail.model)
-        });
-        this.addEventListener('toCustomerShipRMAView', e => {
-            console.log('fromcrmarelation event', e.detail.model)
-            this.set('fromcrmarelation', e.detail.model)
-        });
-        this.addEventListener('toCustomerReceiveRMANew', e => {
-            this.set('fromcrmatorec', e.detail.model)
-        });
-        this.addEventListener('toCustomerReceiveRMAView', e => {
-            console.log('fromvrmarec event', e.detail.model)
-            this.set('fromcrmatorecrelation', e.detail.model)
-        });
-    }
+
+        constructor() {
+            super()
+            this.addEventListener('ToWelcomeEvent', e => {
+                this.toWelcomePage(e);
+            });
+            this.addEventListener('printpage', e => {
+                window.print();
+            });
+            this.addEventListener('toparts', e => {
+                this.set('toparts', e.detail.model)
+            });
+             this.addEventListener('toAP', e => {
+                this.set('ap', e.detail.model)
+            });
+
+            this.addEventListener('toAccountsPayables', e => {
+                console.log('received event', e.detail.model)
+                this.set('apve', e.detail.model)
+            });
+
+            
+              this.addEventListener('toAPCM', e => {
+                console.log('toAPCM  event', e)
+                this.set('apcm', e.detail.model)
+            });
+            this.addEventListener('toReleasedBomNew', e => {
+                this.set('rbom', e.detail.model)
+            });
+            this.addEventListener('toReleaseBuildOrderNew', e => {
+                this.set('rbo', e.detail.model)
+            });
+            this.addEventListener('toSalesOrderNew', e => {
+                this.set('fromquote', e.detail.model)
+            });
+            this.addEventListener('toInvoiceNew', e => {
+                this.set('fromso', e.detail.model)
+            });
+            this.addEventListener('toCreateInvoices', e => {
+                this.set('frominv', e.detail.model)
+            });
+            this.addEventListener('toInvoices', e => {
+                this.set('fromcinv', e.detail.model)
+            });
+            this.addEventListener('toCreditMemoNew', e => {
+                this.set('fromrtnso', e.detail.model)
+            });
+            this.addEventListener('toCreateCreditMemos', e => {
+                this.set('fromcm', e.detail.model)
+            });
+            this.addEventListener('toCreditMemos', e => {
+                this.set('fromccm', e.detail.model)
+            });
+            this.addEventListener('toReceivepoNew', e => {
+                this.set('frompo', e.detail.model)
+            });
+            this.addEventListener('toShipReturnPONew', e => {
+                this.set('fromrtnpo', e.detail.model)
+            });
+            this.addEventListener('toVendorShipRMANew', e => {
+                this.set('fromvrma', e.detail.model)
+            });
+            this.addEventListener('toVendorShipRMAView', e => {
+                this.set('fromvrmarelation', e.detail.model)
+            });
+            this.addEventListener('toVendorReceiveRMANew', e => {
+                this.set('fromvrmatorec', e.detail.model)
+            });
+            this.addEventListener('toVendorReceiveRMAView', e => {
+                this.set('fromvrmatorecrelation', e.detail.model)
+            });
+            this.addEventListener('toCustomerShipRMANew', e => {
+                this.set('fromcrma', e.detail.model)
+            });
+            this.addEventListener('toCustomerShipRMAView', e => {
+                console.log('fromcrmarelation event', e.detail.model)
+                this.set('fromcrmarelation', e.detail.model)
+            });
+            this.addEventListener('toCustomerReceiveRMANew', e => {
+                this.set('fromcrmatorec', e.detail.model)
+            });
+            this.addEventListener('toCustomerReceiveRMAView', e => {
+                console.log('fromvrmarec event', e.detail.model)
+                this.set('fromcrmatorecrelation', e.detail.model)
+            });
+        }
+
 
     static get observers() {
         return [
