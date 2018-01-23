@@ -1,64 +1,63 @@
+import { Element as PolymerElement }
+from '../node_modules/@polymer/polymer/polymer-element.js'
 
-    import {Element as PolymerElement}
-    from '../node_modules/@polymer/polymer/polymer-element.js'
-
-    import '../node_modules/@polymer/iron-ajax/iron-ajax.js'
-    import '../node_modules/@polymer/app-layout/app-drawer-layout/app-drawer-layout.js'
-    import '../node_modules/@polymer/app-layout/app-header/app-header.js'
-    import '../node_modules/@polymer/app-layout/app-drawer/app-drawer.js'
+import '../node_modules/@polymer/iron-ajax/iron-ajax.js'
+import '../node_modules/@polymer/app-layout/app-drawer-layout/app-drawer-layout.js'
+import '../node_modules/@polymer/app-layout/app-header/app-header.js'
+import '../node_modules/@polymer/app-layout/app-drawer/app-drawer.js'
 
 
-    import '../node_modules/@polymer/app-layout/app-header-layout/app-header-layout.js'
+import '../node_modules/@polymer/app-layout/app-header-layout/app-header-layout.js'
 
-    import '../node_modules/@polymer/app-layout/app-scroll-effects/app-scroll-effects.js'
-    import '../node_modules/@polymer/app-layout/app-toolbar/app-toolbar.js'
-    import '../node_modules/@polymer/app-layout/app-layout-behavior/app-layout-behavior.js'
+import '../node_modules/@polymer/app-layout/app-scroll-effects/app-scroll-effects.js'
+import '../node_modules/@polymer/app-layout/app-toolbar/app-toolbar.js'
+import '../node_modules/@polymer/app-layout/app-layout-behavior/app-layout-behavior.js'
 
-    import '../node_modules/@polymer/app-route/app-route.js'
-    import '../node_modules/@polymer/app-route/app-location.js'
+import '../node_modules/@polymer/app-route/app-route.js'
+import '../node_modules/@polymer/app-route/app-location.js'
 
-    import '../node_modules/@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js'
-    import '../node_modules/@polymer/iron-checked-element-behavior/iron-checked-element-behavior.js'
-    import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js'
-    import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js'
-    import '../node_modules/@polymer/iron-icon/iron-icon.js'
-    import '../node_modules/@polymer/iron-icons/iron-icons.js'
-    import '../node_modules/@polymer/iron-image/iron-image.js'
-    import '../node_modules/@polymer/iron-input/iron-input.js'
-    import '../node_modules/@polymer/iron-list/iron-list.js'
-    import '../node_modules/@polymer/iron-pages/iron-pages.js'
-    import '../node_modules/@polymer/iron-resizable-behavior/iron-resizable-behavior.js'
-    import '../node_modules/@polymer/iron-scroll-target-behavior/iron-scroll-target-behavior.js'
-    import '../node_modules/@polymer/paper-button/paper-button.js'
-    import '../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
-    import '../node_modules/@polymer/paper-card/paper-card.js'
-    import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
-    import '../node_modules/@polymer/paper-dialog-behavior/paper-dialog-behavior.js'
+import '../node_modules/@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js'
+import '../node_modules/@polymer/iron-checked-element-behavior/iron-checked-element-behavior.js'
+import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js'
+import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js'
+import '../node_modules/@polymer/iron-icon/iron-icon.js'
+import '../node_modules/@polymer/iron-icons/iron-icons.js'
+import '../node_modules/@polymer/iron-image/iron-image.js'
+import '../node_modules/@polymer/iron-input/iron-input.js'
+import '../node_modules/@polymer/iron-list/iron-list.js'
+import '../node_modules/@polymer/iron-pages/iron-pages.js'
+import '../node_modules/@polymer/iron-resizable-behavior/iron-resizable-behavior.js'
+import '../node_modules/@polymer/iron-scroll-target-behavior/iron-scroll-target-behavior.js'
+import '../node_modules/@polymer/paper-button/paper-button.js'
+import '../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
+import '../node_modules/@polymer/paper-card/paper-card.js'
+import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
+import '../node_modules/@polymer/paper-dialog-behavior/paper-dialog-behavior.js'
 
-    // import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
-   
+// import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
 
 
 
 
 
-    import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
-    import '../node_modules/@polymer/paper-toast/paper-toast.js'
 
-    // import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
-    // import '../node_modules/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js'
-    // import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
-    // import '/services/src/services-shell.js'
-    // import '/salesorders/src/salesorders-shell.js'
+import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js'
+import '../node_modules/@polymer/paper-toast/paper-toast.js'
+
+// import '../node_modules/@polymer/paper-dialog/paper-dialog.js'
+// import '../node_modules/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js'
+// import '../node_modules/@polymer/neon-animation/neon-animation-runner-behavior.js'
+// import '/services/src/services-shell.js'
+// import '/salesorders/src/salesorders-shell.js'
 
 
-    
+
 
 
 
 
 // <iron-lazy-pages id="custIronPages" selected="[[option]]" attr-for-selected="vista" fallback-selection="view404" role="main">
-                
+
 //                 <template data-path="service-new.html" vista="new" is="dom-if" restamp>
 //                     <service-new startnew="{{startnew}}" setting="[[setting]]" id="new" model="{{model1}}" sendclone="{{sendclone}}" services="[[services]]"></service-new>
 //                 </template>
@@ -106,15 +105,15 @@
 //     j = (j = i.length) > 3 ? j % 3 : 0;
 //     return `${s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "")}%`;
 // };
-       
-        
-  export  class DefieMenu extends PolymerElement {
-        // static get is() {
-        //     return 'services-shell'
-        // }
 
-        static get template() {
-            return `
+
+export class DefieMenu extends PolymerElement {
+    // static get is() {
+    //     return 'services-shell'
+    // }
+
+    static get template() {
+        return `
  
         <style include="shared-styles iron-flex iron-flex-alignment">
          :host {
@@ -364,7 +363,7 @@
 
 
 
-                <profiles-shell setting="[[setting]]" name="profiles"></profiles-shell>
+                <profiles-shell setting="[[setting]]" fromlicensor="[[fromlicensor]]" name="profiles"></profiles-shell>
 
                 <users-shell setting="[[setting]]" name="users"></users-shell>
 
@@ -382,12 +381,16 @@
                 
                 <quotes-shell setting="[[setting]]" name="quotes"></quotes-shell>
 
-              <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
+                <vendors-shell name="vendors" setting="[[setting]]"></vendors-shell>
 
                 <accountsreceivable-shell name="accountsreceivable" setting="[[setting]]"></accountsreceivable-shell>
+
               <accountspayable-shell name="accountspayable" ap="[[ap]]" setting="[[setting]]"></accountspayable-shell>
               <approvetopay-shell name="approvetopay" setting="[[setting]]"></approvetopay-shell>
               <apcreditmemos-shell name="apcreditmemos" setting="[[setting]]"></apcreditmemos-shell>
+
+
+                <cashreceipt-shell name="cashreceipt" setting="[[setting]]"></cashreceipt-shell>
 
 
             </iron-pages>
@@ -400,75 +403,27 @@
 
         <iron-ajax id="ajaxShipto" method="GET" handle-as="json" on-response="responseShipto" content-type="application/json"></iron-ajax>
            `
-        }
+    }
 
-        static get properties() {
-            return {
-                addC: {
-                    type: String,
-                    reflectToAttribute: true,
-                    value: "",
-                },
-                menus: {
-                    type: Array,
-                    reflectToAttribute: true
-                },
-                licensoraddress: {
-                    type: Object,
-                    reflectToAttribute: true,
-                    value: function() {
-                        return {}
-                    }
-                },
-                
-                setting: {
-                    type: Object,
-                    reflectToAttribute: true,
-                    value: function() {
-                        return {}
-                    }
-                },
+    static get properties() {
+        return {
+            addC: {
+                type: String,
+                reflectToAttribute: true,
+                value: "",
+            },
+            menus: {
+                type: Array,
+                reflectToAttribute: true
+            },
+            licensoraddress: {
+                type: Object,
+                reflectToAttribute: true,
+                value: function() {
+                    return {}
+                }
+            },
 
-                hash: {
-                    type: String,
-                    reflectToAttribute: true
-                },
-
-                option: {
-                    type: String,
-                    // value: "list"
-                },
-
-                model: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {
-                            id: '',
-                            idver: '',
-                            stype: '',
-                            name: '',
-                            ftext: 'roboto',
-                            fsize: '15px',
-                            fcolor: '#000000',
-                            iname: '',
-                            isize: '24px',
-                            icolor: '#000000',
-                            idisplay: true,
-                            servicelocation: 0,
-                            appftext: 'roboto',
-                            appfsize: '15px',
-                            appfcolor: '#000000',
-                            apptoptoolbar: '',
-                            app2ndtoolbar: '',
-                            appbutton1: '',
-                            appbutton2: '',
-                            transportapps: [],
-                        };
-                    }
-                },
-
-           
                 PermissionMap: {
                     type: Object,
                     value: function() {
@@ -612,416 +567,533 @@
                     }
                 },
 
-                option: {
-                    type: String,
-                    value: "services"
-                },
 
-                showMenu: {
-                    type: Boolean,
-                    value: false
+            stylekeeper: {
+                type: Array,
+                value: function() {
+                    return []
                 }
-            };
-        }
+            },
 
-        constructor() {
-            super()
-            this.addEventListener('ToWelcomeEvent', e => {
-                this.toWelcomePage(e);
-            });
-            this.addEventListener('printpage', e => {
-                window.print();
-            });
-            this.addEventListener('toparts', e => {
-                console.log('toparts  event', e)
-                this.set('toparts', e.detail.model)
-            });
-             this.addEventListener('toAP', e => {
-                console.log('toAP  event', e)
-                this.set('ap', e.detail.model)
-            });
-            this.addEventListener('toReleasedBomNew', e => {
-                this.set('rbom', e.detail.model)
-            });
-            this.addEventListener('toReleaseBuildOrderNew', e => {
-                this.set('rbo', e.detail.model)
-            });
-            this.addEventListener('toSalesOrderNew', e => {
-                this.set('fromquote', e.detail.model)
-            });
-            this.addEventListener('toInvoiceNew', e => {
-                this.set('fromso', e.detail.model)
-            });
-            this.addEventListener('toCreateInvoices', e => {
-                this.set('frominv', e.detail.model)
-            });
-            this.addEventListener('toInvoices', e => {
-                this.set('fromcinv', e.detail.model)
-            });
-            this.addEventListener('toCreditMemoNew', e => {
-                this.set('fromrtnso', e.detail.model)
-            });
-            this.addEventListener('toCreateCreditMemos', e => {
-                this.set('fromcm', e.detail.model)
-            });
-            this.addEventListener('toCreditMemos', e => {
-                this.set('fromccm', e.detail.model)
-            });
-            this.addEventListener('toReceivepoNew', e => {
-                this.set('frompo', e.detail.model)
-            });
-            this.addEventListener('toShipReturnPONew', e => {
-                this.set('fromrtnpo', e.detail.model)
-            });
-            this.addEventListener('toVendorShipRMANew', e => {
-                this.set('fromvrma', e.detail.model)
-            });
-            this.addEventListener('toVendorShipRMAView', e => {
-                this.set('fromvrmarelation', e.detail.model)
-            });
-            this.addEventListener('toVendorReceiveRMANew', e => {
-                this.set('fromvrmatorec', e.detail.model)
-            });
-            this.addEventListener('toVendorReceiveRMAView', e => {
-                this.set('fromvrmatorecrelation', e.detail.model)
-            });
-            this.addEventListener('toCustomerShipRMANew', e => {
-                this.set('fromcrma', e.detail.model)
-            });
-            this.addEventListener('toCustomerShipRMAView', e => {
-                console.log('fromcrmarelation event', e.detail.model)
-                this.set('fromcrmarelation', e.detail.model)
-            });
-            this.addEventListener('toCustomerReceiveRMANew', e => {
-                this.set('fromcrmatorec', e.detail.model)
-            });
-            this.addEventListener('toCustomerReceiveRMAView', e => {
-                console.log('fromvrmarec event', e.detail.model)
-                this.set('fromcrmatorecrelation', e.detail.model)
-            });
-        }
+            ServicesList: {
+                type: Object,
+                value: function() {
+                    return {
+                        "homepage": "signin",
+                        "signin": "signin",
+                        "signin-authenticate": "signin",
+                        "welcome": "signin",
 
-        static get observers() {
-            return [
-                '_routePageChanged(route.*)',
-            ];
-        }
+                        "apdistributedaccounts-new": "apdistributedaccounts",
+                        "apchartofaccounts-new": "apchartofaccounts",
 
-        _routePageChanged(page, v) {
+                        "accountspayable": "accountspayable",
+                        "ap-vendors": "accountspayable",
+
+                        "accountsreceivable": "accountsreceivable",
+                        "ar-customers": "accountsreceivable",
+
+                        "cashreceipt-new": "cashreceipt",
+                        "cashreceipt": "cashreceipt",
+                        "customerrma-new": "customerrmas",
+                        "customerrmas": "customerrmas",
+                        "customershiprma-new": "customershiprmas",
+                        "customershiprmas": "customershiprmas",
+                        "customerreceiverma-new": "customerreceivermas",
+                        "customerreceivermas": "customerreceivermas",
+                        "vendorrma-new": "vendorrmas",
+                        "vendorrmas": "vendorrmas",
+                        "vendorshiprma-new": "vendorshiprmas",
+                        "vendorshiprmas": "vendorshiprmas",
+                        "vendorreceiverma-new": "vendorreceivermas",
+                        "vendorreceivermas": "vendorreceivermas",
+                        "shipreturnpo-new": "shipreturnpos",
+                        "shipreturnpos": "shipreturnpos",
+                        "purchaseorder-new": "purchaseorders",
+                        "purchaseorders": "purchaseorders",
+                        "receivepo-new": "receivepos",
+                        "receivepos": "receivepos",
+                        "returnpo-new": "returnpos",
+                        "returnpos": "returnpos",
+                        "returnso-new": "returnsos",
+                        "returnsos": "returnsos",
+                        "creditmemo-new": "creditmemos",
+                        "creditmemos": "creditmemos",
+
+                        "createcreditmemo-new": "createcreditmemos",
+                        "createcreditmemos": "createcreditmemos",
+
+                        "licensor-new": "licensor",
+                        "licensors": "licensor",
+                        "licuser-new": "licuser",
+                        "licusers": "licuser",
+                        "service-new": "services",
+                        "services": "services",
+                        "customer-new": "customers",
+                        "customers": "customers",
+                        "salesorder-new": "salesorders",
+                        "salesorders": "salesorders",
+                        "partnumber-new": "partnumbers",
+                        "partnumbers": "partnumbers",
+                        "createinvoice-new": "createinvoices",
+                        "createinvoices": "createinvoices",
+                        "invoice-new": "invoices",
+                        "invoices": "invoices",
+                        "partnumber-new": "partnumbers",
+                        "partnumbers": "partnumbers",
+                        "boms": "boms",
+                        "bom-new": "boms",
+                        "releasedboms": "releasedboms",
+                        "releasebom-new": "releasedboms",
+                        "buildorders": "buildorders",
+                        "buildorder-new": "buildorders",
+                        "releasedbuildorders": "releasedbuildorders",
+                        "releasebuildorder-new": "releasedbuildorders",
+                        "workorders": "workorders",
+                        "workorder-new": "workorders",
+                        "vendor-new": "vendors",
+                        "vendors": "vendors",
+                        "quote-new": "quotes",
+                        "quotes": "quotes",
+                        "profiles": "profiles",
+                        "profile-new": "profiles",
+                        "users": "users",
+                        "user-new": "users",
+                        "accountspayable-new": "accountspayable",
+                        "accountspayable": "accountspayable",
+                        "ap-status": "accountspayable",
+                        "ap-vendors": "accountspayable",
+                        "approvetopay-new": "approvetopay",
+                        "approvetopay-check": "approvetopay",
+                        "approvetopay": "approvetopay",
+                        "approvetopay-report": "approvetopay",
 
 
-            console.log('the page', page)
-            if (page === undefined ||  page.base.path === "/" ) {
-                console.log('inside')
-                 this.set('option', 'signin')
-                 return
+                    }
+                }
+            },
+
+            option: {
+                type: String,
+                value: "services"
+            },
+
+            showMenu: {
+                type: Boolean,
+                value: false
             }
-
-           
-
-            let route = page.base.path.split("/")[1]
-
-            this.lazyloader
-            let choice
-
-            console.log('the comp', route)
-        
-            this.set('option', this.ServicesList[route])
-
-            console.log("this.ServicesList[route]", this.ServicesList[route])
-
-            console.log('the option', this.option)
-
-        }
-
-
-        toggleMenuUp(e) {
-
-
-
-            let index = e.model.index;
-
-            this.shadowRoot.querySelector('#container' + index).style.display = "none"
-            this.shadowRoot.querySelector('#up' + index).style.display = "none"
-            this.shadowRoot.querySelector('#down' + index).style.display = "block"
-
-
-
-        }
-        toggleMenuDown(e) {
-
-
-
-            let index = e.model.index;
-
-            this.shadowRoot.querySelector('#container' + index).style.display = "block"
-            this.shadowRoot.querySelector('#up' + index).style.display = "block"
-            this.shadowRoot.querySelector('#down' + index).style.display = "none"
-
-
-
-
-        }
-
-        routeSetter(route) {
-            console.log('in route settter', route)
-            route=route.split("/")[1]
-            this.set('option', this.ServicesList[route])
-
-            console.log('the option', this.option)
-        }
-
-        resetSearch(e) {
-
-            console.log('e in reset search', e, e.model.id, e.target.id)
-
-            // this.routeSetter(e.target.id)
-
-
-            let index = e.model.index;
-            let child = e.path[0].classList[1]
-
-
-            let num = child.split('o')[1]
-            let iron = "iron" + num
-
-
-
-            if (this.stylekeeper.length > 0) {
-                let undo = this.pop('stylekeeper')
-
-                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.color = "#6b6b6b"
-
-                this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[2]).style.borderLeft = "thick solid white"
-            }
-
-
-            this.push('stylekeeper', [index, child, iron])
-
-            this.shadowRoot.querySelector('#container' + index + " ." + child).style.color = "#e82c45"
-
-            this.shadowRoot.querySelector('#container' + index + " ." + iron).style.borderLeft = "thick solid #f93422"
-
-
-
-
-            let microservice = e.target.getAttribute("href").slice(1)
-
-
-            this.dispatchEvent(new CustomEvent(microservice + '-ResetSearch'), {})
-
-        }
-
-
-        privilege(link, privilege) {
-            console.log('the link', link, "the priv", privilege)
-
-            if (link != "" && link != undefined && link != "undefined") {
-                return "display: block"
-            } else {
-                return "display: none"
-            }
-            // if (link) {
-
-            //     if (privilege == "View" && link.includes("-new")) {
-            //         return "display: none;"
-
-            //     } else {
-            //         return "display: block;"
-            //     }
-            // } else {
-            //     return "display: none"
-            // }
-        }
-
-        userResponse(e) {
-
-            console.log('e in service', e)
-
-            // this.showMenu = true;
-
-            this.set('leftservices', e.detail.response.results.services)
-
-            console.log('the left services', this.leftservices)
-
-
-            this.getSetting(sessionStorage.getItem("PR"))
-
-            // this.set('leftservices', e.detail.response.results)
-
-            // this.leftservices.map((micro) => {
-            //     if (micro.privileges == "View") {
-            //         micro.transportapps.map((app) => {
-
-            //             if (this.PermissionMap[app.link]) {
-            //                 this.set(this.PermissionMap[app.link], "View")
-            //             }
-            //         })
-            //     }
-            // })
-
-
-        }
-
-        toWelcomePage(e) {
-
-            console.log('reached To Welcome Page', e)
-            this.tempMenu();
-            this.set('route.path', '/welcome');
-            this.showMenu = true;
-            this.set('leftservices', e.detail.services)
-            // this.$.serviceajax.generateRequest();
-        }
-
-
-        tempMenu(){
-            console.log('in temp menu')
-            let ur = sessionStorage.getItem("UR")
-            ur == undefined || ur == null ? ur = 0 : ur
-            this.$.serviceajax.url = "/service/leftservice"
-            // this.$.serviceajax.url = "/api/user/services/0" 
-            this.$.serviceajax.generateRequest()
-            this.showMenu = true;
-
+        };
+    }
+
+    constructor() {
+        super()
+        this.addEventListener('toProfileNew', e => {
+            console.log('toProfileNew event listened ', e)
+            this.set('fromlicensor', e.detail.model)
+        });
+        this.addEventListener('ToWelcomeEvent', e => {
+            this.toWelcomePage(e);
+        });
+        this.addEventListener('printpage', e => {
+            window.print();
+        });
+        this.addEventListener('toparts', e => {
+            console.log('toparts  event', e)
+            this.set('toparts', e.detail.model)
+        });
+        this.addEventListener('toAP', e => {
+            console.log('toAP  event', e)
+            this.set('ap', e.detail.model)
+        });
+        this.addEventListener('toReleasedBomNew', e => {
+            this.set('rbom', e.detail.model)
+        });
+        this.addEventListener('toReleaseBuildOrderNew', e => {
+            this.set('rbo', e.detail.model)
+        });
+        this.addEventListener('toSalesOrderNew', e => {
+            this.set('fromquote', e.detail.model)
+        });
+        this.addEventListener('toInvoiceNew', e => {
+            this.set('fromso', e.detail.model)
+        });
+        this.addEventListener('toCreateInvoices', e => {
+            this.set('frominv', e.detail.model)
+        });
+        this.addEventListener('toInvoices', e => {
+            this.set('fromcinv', e.detail.model)
+        });
+        this.addEventListener('toCreditMemoNew', e => {
+            this.set('fromrtnso', e.detail.model)
+        });
+        this.addEventListener('toCreateCreditMemos', e => {
+            this.set('fromcm', e.detail.model)
+        });
+        this.addEventListener('toCreditMemos', e => {
+            this.set('fromccm', e.detail.model)
+        });
+        this.addEventListener('toReceivepoNew', e => {
+            this.set('frompo', e.detail.model)
+        });
+        this.addEventListener('toShipReturnPONew', e => {
+            this.set('fromrtnpo', e.detail.model)
+        });
+        this.addEventListener('toVendorShipRMANew', e => {
+            this.set('fromvrma', e.detail.model)
+        });
+        this.addEventListener('toVendorShipRMAView', e => {
+            this.set('fromvrmarelation', e.detail.model)
+        });
+        this.addEventListener('toVendorReceiveRMANew', e => {
+            this.set('fromvrmatorec', e.detail.model)
+        });
+        this.addEventListener('toVendorReceiveRMAView', e => {
+            this.set('fromvrmatorecrelation', e.detail.model)
+        });
+        this.addEventListener('toCustomerShipRMANew', e => {
+            this.set('fromcrma', e.detail.model)
+        });
+        this.addEventListener('toCustomerShipRMAView', e => {
+            console.log('fromcrmarelation event', e.detail.model)
+            this.set('fromcrmarelation', e.detail.model)
+        });
+        this.addEventListener('toCustomerReceiveRMANew', e => {
+            this.set('fromcrmatorec', e.detail.model)
+        });
+        this.addEventListener('toCustomerReceiveRMAView', e => {
+            console.log('fromvrmarec event', e.detail.model)
+            this.set('fromcrmatorecrelation', e.detail.model)
+        });
+    }
+
+    static get observers() {
+        return [
+            '_routePageChanged(route.*)',
+        ];
+    }
+
+    _routePageChanged(page, v) {
+
+
+        console.log('the page', page)
+        if (page === undefined || page.base.path === "/") {
+            console.log('inside')
+            this.set('option', 'signin')
+            return
         }
 
 
 
-        // _pageChanged(route) {
+        let route = page.base.path.split("/")[1]
 
-        //     if (route.base.path == "undefined") {
-        //         return
-        //     }
-        //     let components = route.base.path.split("/")
+        this.lazyloader
+        let choice
+
+        console.log('the comp', route)
+
+        this.set('option', this.ServicesList[route])
+
+        console.log("this.ServicesList[route]", this.ServicesList[route])
+
+        console.log('the option', this.option)
+
+    }
 
 
-        //     if (components[1].split('-')[1]) {
-        //         this.set(this.page + 'hash', "")
-        //         this.set(this.page + 'hash', this.newRoutes[components[4]])
+    toggleMenuUp(e) {
+
+
+
+        let index = e.model.index;
+
+        this.shadowRoot.querySelector('#container' + index).style.display = "none"
+        this.shadowRoot.querySelector('#up' + index).style.display = "none"
+        this.shadowRoot.querySelector('#down' + index).style.display = "block"
+
+
+
+    }
+    toggleMenuDown(e) {
+
+
+
+        let index = e.model.index;
+
+        this.shadowRoot.querySelector('#container' + index).style.display = "block"
+        this.shadowRoot.querySelector('#up' + index).style.display = "block"
+        this.shadowRoot.querySelector('#down' + index).style.display = "none"
+
+
+
+
+    }
+
+    routeSetter(route) {
+        console.log('in route settter', route)
+        route = route.split("/")[1]
+        this.set('option', this.ServicesList[route])
+
+        console.log('the option', this.option)
+    }
+
+    resetSearch(e) {
+
+        console.log('e in reset search', e, e.model.id, e.target.id)
+
+        // this.routeSetter(e.target.id)
+
+
+        let index = e.model.index;
+        let child = e.path[0].classList[1]
+
+
+        let num = child.split('o')[1]
+        let iron = "iron" + num
+
+
+
+        if (this.stylekeeper.length > 0) {
+            let undo = this.pop('stylekeeper')
+
+            this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[1]).style.color = "#6b6b6b"
+
+            this.shadowRoot.querySelector('#container' + undo[0] + " ." + undo[2]).style.borderLeft = "thick solid white"
+        }
+
+
+        this.push('stylekeeper', [index, child, iron])
+
+        this.shadowRoot.querySelector('#container' + index + " ." + child).style.color = "#e82c45"
+
+        this.shadowRoot.querySelector('#container' + index + " ." + iron).style.borderLeft = "thick solid #f93422"
+
+
+
+
+        let microservice = e.target.getAttribute("href").slice(1)
+
+
+        this.dispatchEvent(new CustomEvent(microservice + '-ResetSearch'), {})
+
+    }
+
+
+    privilege(link, privilege) {
+        console.log('the link', link, "the priv", privilege)
+
+        if (link != "" && link != undefined && link != "undefined") {
+            return "display: block"
+        } else {
+            return "display: none"
+        }
+        // if (link) {
+
+        //     if (privilege == "View" && link.includes("-new")) {
+        //         return "display: none;"
+
         //     } else {
-        //         this.set(this.page + 'hash', "")
-        //         this.set(this.page + 'hash', this.listRoutes[components[4]])
+        //         return "display: block;"
         //     }
-
-
-
+        // } else {
+        //     return "display: none"
         // }
+    }
+
+    userResponse(e) {
+
+        console.log('e in service', e)
+
+        // this.showMenu = true;
+
+        this.set('leftservices', e.detail.response.results.services)
+
+        console.log('the left services', this.leftservices)
 
 
-        // Router(hash) {
+        this.getSetting(sessionStorage.getItem("PR"))
 
-        //     this.option = hash;
+        // this.set('leftservices', e.detail.response.results)
 
+        // this.leftservices.map((micro) => {
+        //     if (micro.privileges == "View") {
+        //         micro.transportapps.map((app) => {
 
-        //     if (this.option == "edit") {
-        //         this.$.edit.scrollTop()
-        //         this.$.edit.close()
-        //     } else if (this.option == "view") {
-        //         if (this.showless) {
-        //             this.history = false
-        //             this.showless = ""
-        //         } else {
-        //             this.history = true;
-        //         }
-        //         this.$.view.setModel(this.model1)/
-        //         this.$.view.close()
-        //         this.$.view.scrollTop()
-        //     } else if (this.option == "list") {
-        //         this.$.list.scrollTop()
+        //             if (this.PermissionMap[app.link]) {
+        //                 this.set(this.PermissionMap[app.link], "View")
+        //             }
+        //         })
         //     }
+        // })
 
-        //     if (hash === "list" && this.model1.changeList === true) {
-        //         this.set('model1.changelist', false)
-        //         this.dispatchEvent(new CustomEvent('resizeCust', {
-        //             composed: true,
-        //             bubbles: true
-        //         }))
-        //     }
 
-        // }
+    }
 
-        responseSetting(response) {
-            var results = response.detail.response
+    toWelcomePage(e) {
 
-            if (results) {
+        console.log('reached To Welcome Page', e)
+        this.tempMenu();
+        this.set('route.path', '/welcome');
+        this.showMenu = true;
+        this.set('leftservices', e.detail.services)
+        // this.$.serviceajax.generateRequest();
+    }
 
-                console.log('setting results', results)
-                this.setting = results
-                sessionStorage.setItem("PR", this.setting.id)
 
-            }
+    tempMenu() {
+        console.log('in temp menu')
+        let ur = sessionStorage.getItem("UR")
+        ur == undefined || ur == null ? ur = 0 : ur
+        this.$.serviceajax.url = "/service/leftservice"
+        // this.$.serviceajax.url = "/api/user/services/0" 
+        this.$.serviceajax.generateRequest()
+        this.showMenu = true;
+
+    }
+
+
+
+    // _pageChanged(route) {
+
+    //     if (route.base.path == "undefined") {
+    //         return
+    //     }
+    //     let components = route.base.path.split("/")
+
+
+    //     if (components[1].split('-')[1]) {
+    //         this.set(this.page + 'hash', "")
+    //         this.set(this.page + 'hash', this.newRoutes[components[4]])
+    //     } else {
+    //         this.set(this.page + 'hash', "")
+    //         this.set(this.page + 'hash', this.listRoutes[components[4]])
+    //     }
+
+
+
+    // }
+
+
+    // Router(hash) {
+
+    //     this.option = hash;
+
+
+    //     if (this.option == "edit") {
+    //         this.$.edit.scrollTop()
+    //         this.$.edit.close()
+    //     } else if (this.option == "view") {
+    //         if (this.showless) {
+    //             this.history = false
+    //             this.showless = ""
+    //         } else {
+    //             this.history = true;
+    //         }
+    //         this.$.view.setModel(this.model1)/
+    //         this.$.view.close()
+    //         this.$.view.scrollTop()
+    //     } else if (this.option == "list") {
+    //         this.$.list.scrollTop()
+    //     }
+
+    //     if (hash === "list" && this.model1.changeList === true) {
+    //         this.set('model1.changelist', false)
+    //         this.dispatchEvent(new CustomEvent('resizeCust', {
+    //             composed: true,
+    //             bubbles: true
+    //         }))
+    //     }
+
+    // }
+
+    responseSetting(response) {
+        var results = response.detail.response
+
+        if (results) {
+
+            console.log('setting results', results)
+            this.setting = results
+            sessionStorage.setItem("PR", this.setting.id)
+
         }
-        responseSetting1(response) {
-            var results = response.detail.response.results[0]
+    }
+    responseSetting1(response) {
+        var results = response.detail.response.results[0]
 
-            if (results) {
+        if (results) {
 
-                console.log('setting results', results)
-                this.setting = results
-                sessionStorage.setItem("PR", this.setting.id)
+            console.log('setting results', results)
+            this.setting = results
+            sessionStorage.setItem("PR", this.setting.id)
 
 
             document.querySelector('#toast').text = 'Licensor\'s settings changed successfully.';
             document.querySelector('#toast').open();
-            }
         }
-        responseSetting2(response) {
-            var results = response.detail.response
+    }
+    responseSetting2(response) {
+        var results = response.detail.response
 
-            if (results) {
+        if (results) {
 
-                console.log('setting results', results)
-                this.setting = results
-                sessionStorage.setItem("PR", this.setting.id)
+            console.log('setting results', results)
+            this.setting = results
+            sessionStorage.setItem("PR", this.setting.id)
 
 
             document.querySelector('#toast').text = 'Company\'s settings changed successfully.';
             document.querySelector('#toast').open();
-            }
         }
+    }
 
-        getSetting(id) {
+    getSetting(id) {
 
-            id ? id : id = 50000
-            this.$.ajaxSetting.url = "/profile/setting/"+id;
-            this.$.ajaxSetting.generateRequest();
+        id ? id : id = 50000
+        this.$.ajaxSetting.url = "/profile/setting/" + id;
+        this.$.ajaxSetting.generateRequest();
+    }
+
+
+    responseShipto(response) {
+        var results = response.detail.response
+        console.log("here are results in responseshipto")
+        if (results) {
+            this.licensoraddress = results
         }
+    }
+
+    getDefaultShipto() {
+        this.$.ajaxShipto.url = "/profile/defaultaddress";
+        this.$.ajaxShipto.generateRequest();
+    }
 
 
-        responseShipto(response) {
-            var results = response.detail.response
-            console.log("here are results in responseshipto")
-            if (results) {
-                this.licensoraddress = results
-            }
-        }
+    ready() {
+        super.ready()
 
-        getDefaultShipto() {
-            this.$.ajaxShipto.url = "/profile/defaultaddress";
-            this.$.ajaxShipto.generateRequest();
-        }
+        this.getDefaultShipto();
+
+        console.log('readyu called')
 
 
-        ready() {
-            super.ready()
+        let ur = sessionStorage.getItem("UR")
+        ur == undefined || null ? ur = 1 : ur
+        this.$.serviceajax.url = "/service/leftservice"
 
-            this.getDefaultShipto();
-
-            console.log('readyu called')
-
-
-             let ur = sessionStorage.getItem("UR")
-            ur == undefined || null ? ur = 1 : ur
-            this.$.serviceajax.url = "/service/leftservice"
 
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
             this.showMenu = true;
            
 
-            document.querySelector('defie-menu').addEventListener('leftservice', e => {
+        // this.$.serviceajax.url = "/api/user/services/" + ur
+        this.$.serviceajax.generateRequest()
+        // this.showMenu = true;
 
-                    console.log("HIT EVENT")
+
+
+        document.querySelector('defie-menu').addEventListener('leftservice', e => {
+
+            console.log("HIT EVENT")
 
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 1 : ur
@@ -1032,41 +1104,41 @@
 
 
 
-            })
+        })
 
-            this.shadowRoot.addEventListener('LicensorSettings', e => {
-                console.log('e in def menu', e)
-                let id = e.detail.id
+        this.shadowRoot.addEventListener('LicensorSettings', e => {
+            console.log('e in def menu', e)
+            let id = e.detail.id
 
-                this.$.ajaxSetting1.url = "/licensor/setting/"+id;
-                this.$.ajaxSetting1.generateRequest();
+            this.$.ajaxSetting1.url = "/licensor/setting/" + id;
+            this.$.ajaxSetting1.generateRequest();
 
-            })
+        })
 
-            this.shadowRoot.addEventListener('ProfileSettings', e => {
-                console.log('e in def menu', e)
-                let id = e.detail.id
+        this.shadowRoot.addEventListener('ProfileSettings', e => {
+            console.log('e in def menu', e)
+            let id = e.detail.id
 
-                this.$.ajaxSetting2.url = "/profile/setting/"+id;
-                this.$.ajaxSetting2.generateRequest();
+            this.$.ajaxSetting2.url = "/profile/setting/" + id;
+            this.$.ajaxSetting2.generateRequest();
 
-            })
+        })
 
 
 
-            this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
-                this.model1 = {}
-                this.model1 = e.detail.model
-                let idver = e.detail.latestidver
-                this.set('model1.savehistoryidver', idver)
-                this.startview = true;
-                this.history = true;
+        this.shadowRoot.addEventListener('api/service/GetHistory-ViewEvent', e => {
+            this.model1 = {}
+            this.model1 = e.detail.model
+            let idver = e.detail.latestidver
+            this.set('model1.savehistoryidver', idver)
+            this.startview = true;
+            this.history = true;
 
-                this.set('route.path', "service/view/" + this.model1.name + "/" + this.model1.idver)
-            })
+            this.set('route.path', "service/view/" + this.model1.name + "/" + this.model1.idver)
+        })
 
-        }
     }
+}
 
 
-    customElements.define('defie-menu', DefieMenu);
+customElements.define('defie-menu', DefieMenu);
