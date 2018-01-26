@@ -101,6 +101,7 @@
     "@polymer/paper-toast": "^3.0.0-pre.1",
     "@polymer/polymer": "^3.0.0-pre.1",
     "@webcomponents/webcomponentsjs": "^1.0.18",
+    "p3-commons": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
     "postcss": "^6.0.14",
     "postcss-cssnext": "^3.0.2"
   },

@@ -1,0 +1,49 @@
+{
+  "_from": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
+  "_id": "p3-commons@1.0.5",
+  "_inBundle": false,
+  "_location": "/p3-commons",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
+    "rawSpec": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
+    "saveSpec": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
+    "fetchSpec": "git@gitlabnew.defie.co:p3/p3-commons.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git#7419918372a47d6a6cea6638b71210ca11cbddbf",
+  "_spec": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
+  "_where": "/home/defie/microservice/p3/p3-defie-menu",
+  "author": {
+    "name": "Medet Nokhatov"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Common Polymer 3 Elements",
+  "keywords": [
+    "logout",
+    "header",
+    "module",
+    "billshipto",
+    "defie",
+    "list",
+    "module",
+    "header"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "p3-commons",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlabnew.defie.co:8888/p3/p3-commons.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.5"
+}
