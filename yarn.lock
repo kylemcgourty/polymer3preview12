@@ -2094,6 +2094,10 @@ osenv@^0.1.0:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
+"p3-commons@git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git":
+  version "1.0.5"
+  resolved "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git#7419918372a47d6a6cea6638b71210ca11cbddbf"
+
 package-json@^2.0.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/package-json/-/package-json-2.4.0.tgz#0d15bd67d1cbbddbb2ca222ff2edb86bcb31a8bb"

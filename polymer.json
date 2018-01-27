@@ -9,6 +9,7 @@
   ],
   "extraDependencies": [
     "manifest.json",
+    "node_modules/p3-common*",
     "node_modules/@webcomponents/webcomponentsjs/webcomponents-*",
     "node_modules/@polymer/**/*"
   ],
