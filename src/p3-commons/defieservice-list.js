@@ -1,8 +1,8 @@
 
        import {Element as PolymerElement}
-    from '../node_modules/@polymer/polymer/polymer-element.js' 
+    from '../../node_modules/@polymer/polymer/polymer-element.js' 
    
-    class DefieServiceList extends PolymerElement {
+   export class DefieServiceList extends PolymerElement {
 
         static get template() {
             return `
@@ -130,7 +130,6 @@
 
         .my-content {
             display: block;
-            min-height: 24px;
             position: relative;
             word-wrap: break-word;
         }
