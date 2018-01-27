@@ -354,7 +354,8 @@ export class DefieMenu extends PolymerElement {
 
                 <buildorders-shell setting="[[setting]]" name="buildorders"></buildorders-shell>
 
-                <workorders-shell setting="[[setting]]" name="workorders"></workorders-shell>
+                <workorders-shell setting="[[setting]]" name="workorders" rbomtowo="[[rbomtowo]]" rbotowo="[[rbotowo]]"></workorders-shell>
+                <finishworkorders-shell setting="[[setting]]" name="finishworkorders" fromwo="[[fromwo]]"></finishworkorders-shell>
 
 
                 <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders"></releasedbuildorders-shell>
@@ -424,150 +425,148 @@ export class DefieMenu extends PolymerElement {
                 }
             },
 
-                PermissionMap: {
-                    type: Object,
-                    value: function() {
-                        return {
-                            "/customerrmas": "SOpriv",
-                            "/customershiprmas": "SOpriv",
-                            "/customerreceivermas": "SOpriv",
+            PermissionMap: {
+                type: Object,
+                value: function() {
+                    return {
+                        "/customerrmas": "SOpriv",
+                        "/customershiprmas": "SOpriv",
+                        "/customerreceivermas": "SOpriv",
 
-                            "/apdistributedaccounts": "SOpriv",
-                            "/apchartofaccounts": "SOpriv",
+                        "/apdistributedaccounts": "SOpriv",
+                        "/apchartofaccounts": "SOpriv",
 
 
 
-                            "/vendorrmas": "SOpriv",
-                            "/vendorshiprmas": "SOpriv",
-                            "/vendorreceivermas": "SOpriv",
-                            "/shipreturnpos": "SOpriv",
-                            "/purchaseorders": "SOpriv",
-                            "/receivepos": "SOpriv",
-                            "/returnpos": "SOpriv",
-                            "/returnsos": "SOpriv",
-                            "/salesorders": "SOpriv",
-                            "/invoices": "SOpriv",
-                            "/createinvoices": "SOpriv",
-                            "/customers": "SOpriv",
-                            "/vendors": "SOpriv",
-                            "/partnumbers": "SOpriv",
-                            "/quotes": "SOpriv",
-                            "/creditmemos": "SOpriv",
-                            "/createcreditmemos": "SOpriv",
-                            "/accountspayable": "SOpriv",
-                            "/accountsreceivable": "SOpriv",
-                        }
+                        "/vendorrmas": "SOpriv",
+                        "/vendorshiprmas": "SOpriv",
+                        "/vendorreceivermas": "SOpriv",
+                        "/shipreturnpos": "SOpriv",
+                        "/purchaseorders": "SOpriv",
+                        "/receivepos": "SOpriv",
+                        "/returnpos": "SOpriv",
+                        "/returnsos": "SOpriv",
+                        "/salesorders": "SOpriv",
+                        "/invoices": "SOpriv",
+                        "/createinvoices": "SOpriv",
+                        "/customers": "SOpriv",
+                        "/vendors": "SOpriv",
+                        "/partnumbers": "SOpriv",
+                        "/quotes": "SOpriv",
+                        "/creditmemos": "SOpriv",
+                        "/createcreditmemos": "SOpriv",
+                        "/accountspayable": "SOpriv",
+                        "/accountsreceivable": "SOpriv",
                     }
-                },
+                }
+            },
 
-                 stylekeeper: {
-                    type: Array,
-                    value: function() {
-                        return []
-                    }
-                },
+            stylekeeper: {
+                type: Array,
+                value: function() {
+                    return []
+                }
+            },
 
-                ServicesList: {
-                    type: Object,
-                    value: function () {
-                        return {
-                            "homepage": "signin",
-                            "signin": "signin",
-                            "signin-authenticate": "signin",
-                            "welcome": "signin",
+            ServicesList: {
+                type: Object,
+                value: function() {
+                    return {
+                        "homepage": "signin",
+                        "signin": "signin",
+                        "signin-authenticate": "signin",
+                        "welcome": "signin",
 
-                            "apdistributedaccounts-new": "apdistributedaccounts",
-                            "apchartofaccounts-new": "apchartofaccounts",
+                        "apdistributedaccounts-new": "apdistributedaccounts",
+                        "apchartofaccounts-new": "apchartofaccounts",
 
-                            "accountspayable": "accountspayable",
-                            "ap-vendors": "accountspayable",
+                        "accountspayable": "accountspayable",
+                        "ap-vendors": "accountspayable",
 
-                            "accountsreceivable": "accountsreceivable",
-                            "ar-customers": "accountsreceivable",
+                        "accountsreceivable": "accountsreceivable",
+                        "ar-customers": "accountsreceivable",
 
-                            "customerrma-new": "customerrmas",
-                            "customerrmas": "customerrmas",
-                            "customershiprma-new": "customershiprmas",
-                            "customershiprmas": "customershiprmas",
-                            "customerreceiverma-new": "customerreceivermas",
-                            "customerreceivermas": "customerreceivermas",
-                            "vendorrma-new": "vendorrmas",
-                            "vendorrmas": "vendorrmas",
-                            "vendorshiprma-new": "vendorshiprmas",
-                            "vendorshiprmas": "vendorshiprmas",
-                            "vendorreceiverma-new": "vendorreceivermas",
-                            "vendorreceivermas": "vendorreceivermas",
-                            "shipreturnpo-new": "shipreturnpos",
-                            "shipreturnpos": "shipreturnpos",
-                            "purchaseorder-new": "purchaseorders",
-                            "purchaseorders": "purchaseorders",
-                            "receivepo-new": "receivepos",
-                            "receivepos": "receivepos",
-                            "returnpo-new": "returnpos",
-                            "returnpos": "returnpos",
-                            "returnso-new": "returnsos",
-                            "returnsos": "returnsos",
-                            "creditmemo-new": "creditmemos",
-                            "creditmemos": "creditmemos",
+                        "customerrma-new": "customerrmas",
+                        "customerrmas": "customerrmas",
+                        "customershiprma-new": "customershiprmas",
+                        "customershiprmas": "customershiprmas",
+                        "customerreceiverma-new": "customerreceivermas",
+                        "customerreceivermas": "customerreceivermas",
+                        "vendorrma-new": "vendorrmas",
+                        "vendorrmas": "vendorrmas",
+                        "vendorshiprma-new": "vendorshiprmas",
+                        "vendorshiprmas": "vendorshiprmas",
+                        "vendorreceiverma-new": "vendorreceivermas",
+                        "vendorreceivermas": "vendorreceivermas",
+                        "shipreturnpo-new": "shipreturnpos",
+                        "shipreturnpos": "shipreturnpos",
+                        "purchaseorder-new": "purchaseorders",
+                        "purchaseorders": "purchaseorders",
+                        "receivepo-new": "receivepos",
+                        "receivepos": "receivepos",
+                        "returnpo-new": "returnpos",
+                        "returnpos": "returnpos",
+                        "returnso-new": "returnsos",
+                        "returnsos": "returnsos",
+                        "creditmemo-new": "creditmemos",
+                        "creditmemos": "creditmemos",
 
-                            "createcreditmemo-new": "createcreditmemos",
-                            "createcreditmemos": "createcreditmemos",
+                        "createcreditmemo-new": "createcreditmemos",
+                        "createcreditmemos": "createcreditmemos",
 
-                            "licensor-new": "licensor",
-                            "licensors": "licensor",
-                            "licuser-new": "licuser",
-                            "licusers": "licuser",
-                            "service-new": "services",
-                            "services": "services",
-                            "customer-new": "customers",
-                            "customers": "customers",
-                            "salesorder-new": "salesorders",
-                            "salesorders": "salesorders",
-                            "partnumber-new": "partnumbers",
-                            "partnumbers": "partnumbers",
-                            "createinvoice-new": "createinvoices",
-                            "createinvoices": "createinvoices",
-                            "invoice-new": "invoices",
-                            "invoices": "invoices",
-                            "partnumber-new": "partnumbers",
-                            "partnumbers": "partnumbers",
-                            "boms": "boms",
-                            "bom-new": "boms",
-                            "releasedboms": "releasedboms",
-                            "releasebom-new": "releasedboms",
-                            "buildorders": "buildorders",
-                            "buildorder-new": "buildorders",
-                            "releasedbuildorders": "releasedbuildorders",
-                            "releasebuildorder-new": "releasedbuildorders",
-                            "workorders": "workorders",
-                            "workorder-new": "workorders",
-                            "vendor-new": "vendors",
-                            "vendors": "vendors",
-                            "quote-new": "quotes",
-                            "quotes": "quotes",
-                            "profiles": "profiles",
-                            "profile-new":"profiles",
-                            "profile-view":"profiles",
-                            "users": "users",
-                            "user-new":"users",
-                            "accountspayable-new": "accountspayable",
-                            "accountspayable":"accountspayable",
-                            "ap-status":"accountspayable",
-                            "ap-vendors":"accountspayable",
-                            "approvetopay-new": "approvetopay",
-                             "approvetopay-new": "approvetopay",
+                        "licensor-new": "licensor",
+                        "licensors": "licensor",
+                        "licuser-new": "licuser",
+                        "licusers": "licuser",
+                        "service-new": "services",
+                        "services": "services",
+                        "customer-new": "customers",
+                        "customers": "customers",
+                        "salesorder-new": "salesorders",
+                        "salesorders": "salesorders",
+                        "partnumber-new": "partnumbers",
+                        "partnumbers": "partnumbers",
+                        "createinvoice-new": "createinvoices",
+                        "createinvoices": "createinvoices",
+                        "invoice-new": "invoices",
+                        "invoices": "invoices",
+                        "partnumber-new": "partnumbers",
+                        "partnumbers": "partnumbers",
+                        "boms": "boms",
+                        "bom-new": "boms",
+                        "releasedboms": "releasedboms",
+                        "releasebom-new": "releasedboms",
+                        "buildorders": "buildorders",
+                        "buildorder-new": "buildorders",
+                        "releasedbuildorders": "releasedbuildorders",
+                        "releasebuildorder-new": "releasedbuildorders",
+                        "workorders": "workorders",
+                        "workorder-new": "workorders",
+                        "finishworkorders": "finishworkorders",
+                        "finishworkorder-new": "finishworkorders",
+                        "vendor-new": "vendors",
+                        "vendors": "vendors",
+                        "quote-new": "quotes",
+                        "quotes": "quotes",
+                        "profiles": "profiles",
+                        "profile-new": "profiles",
+                        "profile-view": "profiles",
+                        "users": "users",
+                        "user-new": "users",
+                        "accountspayable-new": "accountspayable",
+                        "accountspayable": "accountspayable",
+                        "ap-status": "accountspayable",
+                        "ap-vendors": "accountspayable",
+                        "approvetopay-new": "approvetopay",
+                        "approvetopay-new": "approvetopay",
                         "approvetopay-check": "approvetopay",
                         "approvetopay": "approvetopay",
                         "approvetopay-report": "approvetopay",
-                            "apcreditmemo-new":"apcreditmemos",
-                            "apcreditmemo":"apcreditmemos",
-
-
-
-
-                        }
+                        "apcreditmemo-new": "apcreditmemos",
+                        "apcreditmemo": "apcreditmemos",
                     }
-                },
+                }
+            },
 
 
             stylekeeper: {
@@ -577,100 +576,101 @@ export class DefieMenu extends PolymerElement {
                 }
             },
 
-       
+
         }
     }
 
 
-        constructor() {
-            super()
-            this.addEventListener('toProfileView', e => {
-                console.log('toProfileView event listened ', e)
-                this.set('fromlicensor', e.detail.model)
-            });
-            this.addEventListener('ToWelcomeEvent', e => {
-                this.toWelcomePage(e);
-            });
-            this.addEventListener('printpage', e => {
-                window.print();
-            });
-            this.addEventListener('toparts', e => {
-                this.set('toparts', e.detail.model)
-            });
-             this.addEventListener('toAP', e => {
-                this.set('ap', e.detail.model)
-            });
-
-            this.addEventListener('toAccountsPayables', e => {
-                console.log('received event', e.detail.model)
-                this.set('apve', e.detail.model)
-            });
-
-            
-              this.addEventListener('toAPCM', e => {
-                console.log('toAPCM  event', e)
-                this.set('apcm', e.detail.model)
-            });
-            this.addEventListener('toReleasedBomNew', e => {
-                this.set('rbom', e.detail.model)
-            });
-            this.addEventListener('toReleaseBuildOrderNew', e => {
-                this.set('rbo', e.detail.model)
-            });
-            this.addEventListener('toSalesOrderNew', e => {
-                this.set('fromquote', e.detail.model)
-            });
-            this.addEventListener('toInvoiceNew', e => {
-                this.set('fromso', e.detail.model)
-            });
-            this.addEventListener('toCreateInvoices', e => {
-                this.set('frominv', e.detail.model)
-            });
-            this.addEventListener('toInvoices', e => {
-                this.set('fromcinv', e.detail.model)
-            });
-            this.addEventListener('toCreditMemoNew', e => {
-                this.set('fromrtnso', e.detail.model)
-            });
-            this.addEventListener('toCreateCreditMemos', e => {
-                this.set('fromcm', e.detail.model)
-            });
-            this.addEventListener('toCreditMemos', e => {
-                this.set('fromccm', e.detail.model)
-            });
-            this.addEventListener('toReceivepoNew', e => {
-                this.set('frompo', e.detail.model)
-            });
-            this.addEventListener('toShipReturnPONew', e => {
-                this.set('fromrtnpo', e.detail.model)
-            });
-            this.addEventListener('toVendorShipRMANew', e => {
-                this.set('fromvrma', e.detail.model)
-            });
-            this.addEventListener('toVendorShipRMAView', e => {
-                this.set('fromvrmarelation', e.detail.model)
-            });
-            this.addEventListener('toVendorReceiveRMANew', e => {
-                this.set('fromvrmatorec', e.detail.model)
-            });
-            this.addEventListener('toVendorReceiveRMAView', e => {
-                this.set('fromvrmatorecrelation', e.detail.model)
-            });
-            this.addEventListener('toCustomerShipRMANew', e => {
-                this.set('fromcrma', e.detail.model)
-            });
-            this.addEventListener('toCustomerShipRMAView', e => {
-                console.log('fromcrmarelation event', e.detail.model)
-                this.set('fromcrmarelation', e.detail.model)
-            });
-            this.addEventListener('toCustomerReceiveRMANew', e => {
-                this.set('fromcrmatorec', e.detail.model)
-            });
-            this.addEventListener('toCustomerReceiveRMAView', e => {
-                console.log('fromvrmarec event', e.detail.model)
-                this.set('fromcrmatorecrelation', e.detail.model)
-            });
-        }
+    constructor() {
+        super()
+        this.addEventListener('toProfileView', e => {
+            this.set('fromlicensor', e.detail.model)
+        });
+        this.addEventListener('ToWelcomeEvent', e => {
+            this.toWelcomePage(e);
+        });
+        this.addEventListener('printpage', e => {
+            window.print();
+        });
+        this.addEventListener('toparts', e => {
+            this.set('toparts', e.detail.model)
+        });
+        this.addEventListener('toAP', e => {
+            this.set('ap', e.detail.model)
+        });
+        this.addEventListener('toAccountsPayables', e => {
+            this.set('apve', e.detail.model)
+        });
+        this.addEventListener('toAPCM', e => {
+            this.set('apcm', e.detail.model)
+        });
+        this.addEventListener('toReleasedBomNew', e => {
+            this.set('rbom', e.detail.model)
+        });
+        this.addEventListener('toReleaseBuildOrderNew', e => {
+            this.set('rbo', e.detail.model)
+        });
+        this.addEventListener('toSalesOrderNew', e => {
+            this.set('fromquote', e.detail.model)
+        });
+        this.addEventListener('toInvoiceNew', e => {
+            this.set('fromso', e.detail.model)
+        });
+        this.addEventListener('toCreateInvoices', e => {
+            this.set('frominv', e.detail.model)
+        });
+        this.addEventListener('toInvoices', e => {
+            this.set('fromcinv', e.detail.model)
+        });
+        this.addEventListener('toCreditMemoNew', e => {
+            this.set('fromrtnso', e.detail.model)
+        });
+        this.addEventListener('toCreateCreditMemos', e => {
+            this.set('fromcm', e.detail.model)
+        });
+        this.addEventListener('toCreditMemos', e => {
+            this.set('fromccm', e.detail.model)
+        });
+        this.addEventListener('toReceivepoNew', e => {
+            this.set('frompo', e.detail.model)
+        });
+        this.addEventListener('toShipReturnPONew', e => {
+            this.set('fromrtnpo', e.detail.model)
+        });
+        this.addEventListener('toVendorShipRMANew', e => {
+            this.set('fromvrma', e.detail.model)
+        });
+        this.addEventListener('toVendorShipRMAView', e => {
+            this.set('fromvrmarelation', e.detail.model)
+        });
+        this.addEventListener('toVendorReceiveRMANew', e => {
+            this.set('fromvrmatorec', e.detail.model)
+        });
+        this.addEventListener('toVendorReceiveRMAView', e => {
+            this.set('fromvrmatorecrelation', e.detail.model)
+        });
+        this.addEventListener('toCustomerShipRMANew', e => {
+            this.set('fromcrma', e.detail.model)
+        });
+        this.addEventListener('toCustomerShipRMAView', e => {
+            this.set('fromcrmarelation', e.detail.model)
+        });
+        this.addEventListener('toCustomerReceiveRMANew', e => {
+            this.set('fromcrmatorec', e.detail.model)
+        });
+        this.addEventListener('toCustomerReceiveRMAView', e => {
+            this.set('fromcrmatorecrelation', e.detail.model)
+        });
+        this.addEventListener('toFinishworkorderNew', e => {
+            this.set('fromwo', e.detail.model)
+        });
+        this.addEventListener('RBOMtoWONew', e => {
+            this.set('rbomtowo', e.detail.model)
+        });
+        this.addEventListener('RBOtoWONew', e => {
+            this.set('rbotowo', e.detail.model)
+        });
+    }
 
 
     static get observers() {
@@ -680,30 +680,16 @@ export class DefieMenu extends PolymerElement {
     }
 
     _routePageChanged(page, v) {
-
-
-        console.log('the page', page)
         if (page === undefined || page.base.path === "/") {
-            console.log('inside')
             this.set('option', 'signin')
             return
         }
-
-
 
         let route = page.base.path.split("/")[1]
 
         this.lazyloader
         let choice
-
-        console.log('the comp', route)
-
         this.set('option', this.ServicesList[route])
-
-        console.log("this.ServicesList[route]", this.ServicesList[route])
-
-        console.log('the option', this.option)
-
     }
 
 
@@ -736,16 +722,11 @@ export class DefieMenu extends PolymerElement {
     }
 
     routeSetter(route) {
-        console.log('in route settter', route)
         route = route.split("/")[1]
         this.set('option', this.ServicesList[route])
-
-        console.log('the option', this.option)
     }
 
     resetSearch(e) {
-
-        console.log('e in reset search', e, e.model.id, e.target.id)
 
         // this.routeSetter(e.target.id)
 
@@ -786,8 +767,6 @@ export class DefieMenu extends PolymerElement {
 
 
     privilege(link, privilege) {
-        console.log('the link', link, "the priv", privilege)
-
         if (link != "" && link != undefined && link != "undefined") {
             return "display: block"
         } else {
@@ -808,14 +787,9 @@ export class DefieMenu extends PolymerElement {
 
     userResponse(e) {
 
-        console.log('e in service', e)
-
         // this.showMenu = true;
 
         this.set('leftservices', e.detail.response.results.services)
-
-        console.log('the left services', this.leftservices)
-
 
         this.getSetting(sessionStorage.getItem("PR"))
 
@@ -837,7 +811,6 @@ export class DefieMenu extends PolymerElement {
 
     toWelcomePage(e) {
 
-        console.log('reached To Welcome Page', e)
         this.tempMenu();
         this.set('route.path', '/welcome');
         this.showMenu = true;
@@ -847,7 +820,6 @@ export class DefieMenu extends PolymerElement {
 
 
     tempMenu() {
-        console.log('in temp menu')
         let ur = sessionStorage.getItem("UR")
         ur == undefined || ur == null ? ur = 0 : ur
         this.$.serviceajax.url = "/service/leftservice"
@@ -917,7 +889,6 @@ export class DefieMenu extends PolymerElement {
 
         if (results) {
 
-            console.log('setting results', results)
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -928,7 +899,6 @@ export class DefieMenu extends PolymerElement {
 
         if (results) {
 
-            console.log('setting results', results)
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -942,7 +912,6 @@ export class DefieMenu extends PolymerElement {
 
         if (results) {
 
-            console.log('setting results', results)
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -962,7 +931,6 @@ export class DefieMenu extends PolymerElement {
 
     responseShipto(response) {
         var results = response.detail.response
-        console.log("here are results in responseshipto")
         if (results) {
             this.licensoraddress = results
         }
@@ -979,18 +947,15 @@ export class DefieMenu extends PolymerElement {
 
         this.getDefaultShipto();
 
-        console.log('readyu called')
-
-
         let ur = sessionStorage.getItem("UR")
         ur == undefined || null ? ur = 1 : ur
         this.$.serviceajax.url = "/service/leftservice"
 
 
-            // this.$.serviceajax.url = "/api/user/services/" + ur
-            this.$.serviceajax.generateRequest()
-            this.showMenu = true;
-           
+        // this.$.serviceajax.url = "/api/user/services/" + ur
+        this.$.serviceajax.generateRequest()
+        this.showMenu = true;
+
 
         // this.$.serviceajax.url = "/api/user/services/" + ur
         this.$.serviceajax.generateRequest()
@@ -999,8 +964,6 @@ export class DefieMenu extends PolymerElement {
 
 
         document.querySelector('defie-menu').addEventListener('leftservice', e => {
-
-            console.log("HIT EVENT")
 
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 1 : ur
@@ -1014,7 +977,6 @@ export class DefieMenu extends PolymerElement {
         })
 
         this.shadowRoot.addEventListener('LicensorSettings', e => {
-            console.log('e in def menu', e)
             let id = e.detail.id
 
             this.$.ajaxSetting1.url = "/licensor/setting/" + id;
@@ -1023,7 +985,6 @@ export class DefieMenu extends PolymerElement {
         })
 
         this.shadowRoot.addEventListener('ProfileSettings', e => {
-            console.log('e in def menu', e)
             let id = e.detail.id
 
             this.$.ajaxSetting2.url = "/profile/setting/" + id;
