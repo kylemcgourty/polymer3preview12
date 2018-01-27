@@ -354,7 +354,8 @@ export class DefieMenu extends PolymerElement {
 
                 <buildorders-shell setting="[[setting]]" name="buildorders"></buildorders-shell>
 
-                <workorders-shell setting="[[setting]]" name="workorders"></workorders-shell>
+                <workorders-shell setting="[[setting]]" name="workorders" rbomtowo="[[rbomtowo]]" rbotowo="[[rbotowo]]"></workorders-shell>
+                <finishworkorders-shell setting="[[setting]]" name="finishworkorders" fromwo="[[fromwo]]"></finishworkorders-shell>
 
 
                 <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders"></releasedbuildorders-shell>
@@ -541,6 +542,8 @@ export class DefieMenu extends PolymerElement {
                             "releasebuildorder-new": "releasedbuildorders",
                             "workorders": "workorders",
                             "workorder-new": "workorders",
+                            "finishworkorders": "finishworkorders",
+                            "finishworkorder-new": "finishworkorders",
                             "vendor-new": "vendors",
                             "vendors": "vendors",
                             "quote-new": "quotes",
@@ -555,16 +558,12 @@ export class DefieMenu extends PolymerElement {
                             "ap-status":"accountspayable",
                             "ap-vendors":"accountspayable",
                             "approvetopay-new": "approvetopay",
-                             "approvetopay-new": "approvetopay",
-                        "approvetopay-check": "approvetopay",
-                        "approvetopay": "approvetopay",
-                        "approvetopay-report": "approvetopay",
+                            "approvetopay-new": "approvetopay",
+                            "approvetopay-check": "approvetopay",
+                            "approvetopay": "approvetopay",
+                            "approvetopay-report": "approvetopay",
                             "apcreditmemo-new":"apcreditmemos",
                             "apcreditmemo":"apcreditmemos",
-
-
-
-
                         }
                     }
                 },
@@ -669,6 +668,15 @@ export class DefieMenu extends PolymerElement {
             this.addEventListener('toCustomerReceiveRMAView', e => {
                 console.log('fromvrmarec event', e.detail.model)
                 this.set('fromcrmatorecrelation', e.detail.model)
+            });
+            this.addEventListener('toFinishworkorderNew', e => {
+                this.set('fromwo', e.detail.model)
+            });
+            this.addEventListener('RBOMtoWONew', e => {
+                this.set('rbomtowo', e.detail.model)
+            });
+            this.addEventListener('RBOtoWONew', e => {
+                this.set('rbotowo', e.detail.model)
             });
         }
 
@@ -786,8 +794,6 @@ export class DefieMenu extends PolymerElement {
 
 
     privilege(link, privilege) {
-        console.log('the link', link, "the priv", privilege)
-
         if (link != "" && link != undefined && link != "undefined") {
             return "display: block"
         } else {
@@ -808,14 +814,9 @@ export class DefieMenu extends PolymerElement {
 
     userResponse(e) {
 
-        console.log('e in service', e)
-
         // this.showMenu = true;
 
         this.set('leftservices', e.detail.response.results.services)
-
-        console.log('the left services', this.leftservices)
-
 
         this.getSetting(sessionStorage.getItem("PR"))
 
@@ -837,7 +838,6 @@ export class DefieMenu extends PolymerElement {
 
     toWelcomePage(e) {
 
-        console.log('reached To Welcome Page', e)
         this.tempMenu();
         this.set('route.path', '/welcome');
         this.showMenu = true;
@@ -847,7 +847,6 @@ export class DefieMenu extends PolymerElement {
 
 
     tempMenu() {
-        console.log('in temp menu')
         let ur = sessionStorage.getItem("UR")
         ur == undefined || ur == null ? ur = 0 : ur
         this.$.serviceajax.url = "/service/leftservice"
@@ -917,7 +916,6 @@ export class DefieMenu extends PolymerElement {
 
         if (results) {
 
-            console.log('setting results', results)
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -928,7 +926,6 @@ export class DefieMenu extends PolymerElement {
 
         if (results) {
 
-            console.log('setting results', results)
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -942,7 +939,6 @@ export class DefieMenu extends PolymerElement {
 
         if (results) {
 
-            console.log('setting results', results)
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -962,7 +958,6 @@ export class DefieMenu extends PolymerElement {
 
     responseShipto(response) {
         var results = response.detail.response
-        console.log("here are results in responseshipto")
         if (results) {
             this.licensoraddress = results
         }
@@ -978,9 +973,6 @@ export class DefieMenu extends PolymerElement {
         super.ready()
 
         this.getDefaultShipto();
-
-        console.log('readyu called')
-
 
         let ur = sessionStorage.getItem("UR")
         ur == undefined || null ? ur = 1 : ur
@@ -1000,8 +992,6 @@ export class DefieMenu extends PolymerElement {
 
         document.querySelector('defie-menu').addEventListener('leftservice', e => {
 
-            console.log("HIT EVENT")
-
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 1 : ur
             this.$.serviceajax.url = "/service/leftservice"
@@ -1014,7 +1004,6 @@ export class DefieMenu extends PolymerElement {
         })
 
         this.shadowRoot.addEventListener('LicensorSettings', e => {
-            console.log('e in def menu', e)
             let id = e.detail.id
 
             this.$.ajaxSetting1.url = "/licensor/setting/" + id;
@@ -1023,7 +1012,6 @@ export class DefieMenu extends PolymerElement {
         })
 
         this.shadowRoot.addEventListener('ProfileSettings', e => {
-            console.log('e in def menu', e)
             let id = e.detail.id
 
             this.$.ajaxSetting2.url = "/profile/setting/" + id;

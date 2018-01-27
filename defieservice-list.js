@@ -1242,16 +1242,12 @@
             ]
         }
 
-        // rowToHighlight(rthl) {
-        //     console.log("rthl in obs", rthl)
-        //     console.log("this.$", this.$)
+        // rowToHighlight(e) {
+        //     console.log("dsafdas", e)
+        //     console.log("e.model.index", e.model.index)
+        //     console.log("e.path[0]", e.path[0])
+        //     console.log("e.path[6]", e.path[6])
         // }
-        rowToHighlight(e) {
-            console.log("dsafdas", e)
-            console.log("e.model.index", e.model.index)
-            console.log("e.path[0]", e.path[0])
-            console.log("e.path[6]", e.path[6])
-        }
         constructor() {
             super()
 
@@ -1278,20 +1274,18 @@
         }
 
 
-        show(val) {
-            console.log('the display val', val)
-        }
+        // show(val) {
+        //     console.log('the display val', val)
+        // }
 
-        show2(val) {
-            console.log('the display val2', val)
-        }
+        // show2(val) {
+        //     console.log('the display val2', val)
+        // }
 
         open(coldata, data) {
 
             if (coldata.twelve) {
-                console.log('insde twelve')
                 this.set('twelve', "twelve")
-                console.log('this.twelve', this.twelve)
             }
 
             if (coldata) {
@@ -1339,8 +1333,6 @@
 
         event1(e) {
 
-            console.log("this.$", this.$)
-
             this.dispatchEvent(new CustomEvent('event1', {
                 bubbles: true,
                 composed: true,
@@ -1379,7 +1371,6 @@
             }))
         }
         event5(e) {
-            console.log("event5")
             this.dispatchEvent(new CustomEvent('event5', {
                 bubbles: true,
                 composed: true,
@@ -1398,7 +1389,6 @@
             }))
         }
         event7(e) {
-            console.log("event7")
             this.dispatchEvent(new CustomEvent('event7', {
                 bubbles: true,
                 composed: true,
