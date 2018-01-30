@@ -52,19 +52,24 @@ export class ModuleHeader extends LitElement {
                     notify: true
                 },
                 model: {
-                    type: String,
+                    type: Object,
                     notify: true
                 },
             }
         }
         constructor() {
             super();
+            this.setting = {};
+            this.model = {}
+            
         }
         open(setting) {
             this.setting = JSON.parse(JSON.stringify(setting))
 
-            this.set('setting.s_logo', "")
-            this.set('setting.s_logo', setting.s_logo)
+            this.setting.s_logo= ""
+            this.setting.s_logo=  setting.s_logo
+
+            console.log('the setting in cust new', this.setting)
 
 
         }
@@ -82,7 +87,7 @@ export class ModuleHeader extends LitElement {
             super.ready()
         }
 
-          render() {
+          render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
         return html`
            <style>
         #paperToggle {
@@ -261,49 +266,49 @@ export class ModuleHeader extends LitElement {
         <section class="nomargin">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
-                    <div class="my-content" hidden$="${!this.isHidden}">
-                        <img class="logo" src="${this.setting.s_logo}" alt="No logo uploaded">
+                    <div class="my-content" hidden$="${!isHidden}">
+                        <img class="logo" src="${setting.s_logo}" alt="No logo uploaded">
                     </div>
-                    <div class="my-content" hidden$="${!this.setting.s_address}">
+                    <div class="my-content" hidden$="${!setting.s_address}">
                         <div class="bottom">
-                            <div hidden$="${!this.model.Headers.Addr.Enabled}" style="position: initial; margin-top: 5px;">${this.setting.address}</div>
+                            <div  style="position: initial; margin-top: 5px;">${setting.address}</div>
                         </div>
                     </div>
-                    <div class="my-content" hidden$="${!this.setting.s_phone}">
+                    <div class="my-content" hidden$="${!setting.s_phone}">
                         <div class="bottom">
-                            <div hidden$="${!this.model.Headers.Ph.Enabled}">
-                                Tel: <span>${this.setting.ma_phone}</span>
+                            <div>
+                                Tel: <span>${setting.ma_phone}</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 text-right">
-                    <div class="my-content" hidden$="${!this.isHidden}"></div>
+                    <div class="my-content" hidden$="${!isHidden}"></div>
                     <div class="my-content">
                         <div class="title bottom">
                             <div class="right-icon">
-                                <span data-id='header-pagename' style="font-size:21px">${this.pagename}</span>
+                                <span data-id='header-pagename' style="font-size:21px">${pagename}</span>
                             </div>
                         </div>
                     </div>
                     <div class="my-content">
                         <div class="bottom">
                             <div class="right-icon">
-                                <span>${this.pageidtext}</span>&nbsp;<span class="allcaps">${this.pageid}</span>
+                                <span>${pageidtext}</span>&nbsp;<span class="allcaps">${pageid}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="my-content" hidden$="${this.hider(this.soidtext)}">
+                    <div class="my-content" hidden$="${this.hider(soidtext)}">
                         <div class="bottom">
                             <div class="right-icon">
-                                <span>${this.soidtext}</span>&nbsp;<span class="allcaps">${this.soid}</span>
+                                <span>${soidtext}</span>&nbsp;<span class="allcaps">${soid}</span>
                             </div>
                         </div>
                     </div>
                     <div class="my-content">
                         <div class="bottom">
                             <div class="right-icon">
-                                <span>${this.datetext}</span>&nbsp;<span data-id='header-pagedate'>${this.date}</span>
+                                <span>${datetext}</span>&nbsp;<span data-id='header-pagedate'>${date}</span>
                             </div>
                         </div>
                     </div>
