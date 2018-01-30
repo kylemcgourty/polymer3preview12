@@ -71,6 +71,8 @@ export class ModuleHeader extends LitElement {
 
             console.log('the setting in cust new', this.setting)
 
+            this.test = "Dad"
+
 
         }
         hider(soid) {
@@ -79,6 +81,14 @@ export class ModuleHeader extends LitElement {
                 return false;
             } else {
                 return true;
+            }
+        }
+
+        show(show) {
+            if (show == true){
+                return "block"
+            } else {
+                return "none"
             }
         }
 
@@ -266,15 +276,15 @@ export class ModuleHeader extends LitElement {
         <section class="nomargin">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
-                    <div class="my-content" hidden$="${!isHidden}">
+                    <div class="my-content">
                         <img class="logo" src="${setting.s_logo}" alt="No logo uploaded">
                     </div>
-                    <div class="my-content" hidden$="${!setting.s_address}">
+                    <div class="my-content" style="display: ${this.show(setting.s_address)}">
                         <div class="bottom">
                             <div  style="position: initial; margin-top: 5px;">${setting.address}</div>
                         </div>
                     </div>
-                    <div class="my-content" hidden$="${!setting.s_phone}">
+                    <div class="my-content" style="display: ${this.show(setting.s_phone)}">
                         <div class="bottom">
                             <div>
                                 Tel: <span>${setting.ma_phone}</span>
