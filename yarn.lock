@@ -41,7 +41,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0-pre.7"
 
-"@polymer/iron-autogrow-textarea@3.0.0-pre.7.6", "@polymer/iron-autogrow-textarea@^3.0.0-pre.7":
+"@polymer/iron-autogrow-textarea@3.0.0-pre.7", "@polymer/iron-autogrow-textarea@^3.0.0-pre.7":
   version "3.0.0-pre.7"
   resolved "https://registry.yarnpkg.com/@polymer/iron-autogrow-textarea/-/iron-autogrow-textarea-3.0.0-pre.7.tgz#c2fcaa3528ec8d5efb182e5c5daa2068879cbac3"
   dependencies:

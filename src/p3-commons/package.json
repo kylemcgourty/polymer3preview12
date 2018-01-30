@@ -1,0 +1,25 @@
+{
+  "name": "p3-commons",
+  "version": "1.0.5",
+  "description": "Common Polymer 3 Elements",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlabnew.defie.co:8888/p3/p3-commons.git"
+  },
+  "keywords": [
+    "logout",
+    "header",
+    "module",
+    "billshipto",
+    "defie",
+    "list",
+    "module",
+    "header"
+  ],
+  "author": "Medet Nokhatov",
+  "license": "ISC"
+}
