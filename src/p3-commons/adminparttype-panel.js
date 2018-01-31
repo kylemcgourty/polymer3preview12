@@ -85,7 +85,7 @@ export class AdminPartTypePanel extends LitElement {
        this.shadowRoot.querySelector('#ajaxOption').generateRequest();
     }
     responseOption(request) {
-        console.log('hit reponse option')
+        console.log('hit reponse option', request)
 
         if (request){
         var data = request.detail.response.results
@@ -198,37 +198,37 @@ export class AdminPartTypePanel extends LitElement {
     ready() {
         super.ready()
 
-        this.data = [{
-                type: "Spare"
-            }, {
-                type: "Component"
-            }, {
-                type: "Product"
-            }, {
-                type: "Others"
-            }]
+       //  this.data = [{
+       //          type: "Spare"
+       //      }, {
+       //          type: "Component"
+       //      }, {
+       //          type: "Product"
+       //      }, {
+       //          type: "Others"
+       //      }]
         
 
-        const types = data => {
+       //  const types = data => {
 
-            return html`
-            <div>
-            ${repeat (
-                 data,
-                 item => item.type,
-                 item => html`
+       //      return html`
+       //      <div>
+       //      ${repeat (
+       //           data,
+       //           item => item.type,
+       //           item => html`
              
-        <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="${item.type}">
-                               <input disabled class="input">
-                            </iron-input>
-       `
-                 )}
-            <div>`;
-        }
+       //  <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="${item.type}">
+       //                         <input disabled class="input">
+       //                      </iron-input>
+       // `
+       //           )}
+       //      <div>`;
+       //  }
 
-        render(types(this.data), this.shadowRoot.querySelector('#table'))
+       //  render(types(this.data), this.shadowRoot.querySelector('#table'))
 
-        console.log('hit ready', this.data, this.shadowRoot.querySelector('#table') )
+       //  console.log('hit ready', this.data, this.shadowRoot.querySelector('#table') )
 
         
 
@@ -561,7 +561,7 @@ export class AdminPartTypePanel extends LitElement {
                 </div>
             </div>
             
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption()} content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption} content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
         `
 
