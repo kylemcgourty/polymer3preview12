@@ -1,4 +1,6 @@
   import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+    import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
+
        
    export class InventoryInfo extends LitElement {
    
@@ -32,7 +34,7 @@
         }
         k(m) {
             console.log('inventory XX inventory', m)
-            this.set('model', m);
+            this.model = m;
         }
         constructor() {
             super();
@@ -44,8 +46,10 @@
             }))
         }
         open(url) {
-            if (typeof url === 'string') this.set('url', url);
-            this.$.ajaxList.generateRequest();
+            if (typeof url === 'string') this.url = url;
+            this.shadowRoot.querySelector('#ajaxList').generateRequest();
+
+            
         }
 
         mathAbs(val) {
@@ -53,10 +57,12 @@
         }
 
         successList(e) {
-            this.set('model', e.detail.response.results);
-            this.set('model.returnso', this.mathAbs(this.model.returnso))
-            this.set('model.allocated', this.mathAbs(this.model.allocated))
+            if (e){
+            this.model= e.detail.response.results;
+            this.model.returnso = this.mathAbs(this.model.returnso)
+            this.model.allocated= this.mathAbs(this.model.allocated)
             console.log(this.model)
+        }
         }
 
         render({}){
@@ -281,6 +287,8 @@
             ;
         }
         </style>
+        <dom-bind>
+        <template>
         <div class="title-rightpaneldraw">
             Inventory
         </div>
@@ -400,7 +408,10 @@
                 </div>
             </div>
         </div>
-        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>`
+        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>
+        </templat>
+        </dom-bind>`
+
         }
     }
    customElements.define('inventory-info', InventoryInfo);
