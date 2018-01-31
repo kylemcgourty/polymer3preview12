@@ -561,7 +561,7 @@ export class AdminPartTypePanel extends LitElement {
                 </div>
             </div>
             
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption()} content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
         `
 
