@@ -119,8 +119,32 @@ export class AdminPartTypePanel extends LitElement {
             }]
         }
 
+        const types = data => {
+
+            return html`
+            <div>
+            ${repeat (
+                 data,
+                 item => item.type,
+                 item => html`
+        
+        <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="${item.type}">
+                               <input class="input">
+                            </iron-input>
+      `
+                 )}
+            <div>`;
+        }
+
+
+        console.log('the shadowRoot', this.shadowRoot, document.querySelector('#table'), this.shadowRoot)
+
+        render(types(this.data), this.shadowRoot.querySelector('#table'))
+
+        console.log('hit reponseOption', this.data, this.shadowRoot.querySelector('#table') )
+
        
-        this.setData()
+        // this.setData()
 
     }
 }
@@ -138,31 +162,7 @@ export class AdminPartTypePanel extends LitElement {
 
     setData() {
 
-         const types = data => {
-
-            return html`
-            <div>
-            ${repeat (
-                 data,
-                 item => item.type,
-                 item => html`
-                 <dom-bind>
-        <template>
-        <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-                               <input class="input">
-                            </iron-input>
-        </template>
-        </dom-bind>`
-                 )}
-            <div>`;
-        }
-
-
-        console.log('the shadowRoot', this.shadowRoot, document.querySelector('#table'), this.shadowRoot)
-
-        render(types(this.data), this.shadowRoot.querySelector('#table'))
-
-        console.log('hit reponseOption', this.data, this.shadowRoot.querySelector('#table') )
+         
 
 
     }
