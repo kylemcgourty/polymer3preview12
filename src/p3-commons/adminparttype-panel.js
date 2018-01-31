@@ -58,12 +58,12 @@ export class AdminPartTypePanel extends LitElement {
                 this.data.forEach(function(val, index) {
                     str = str + val.type + ","
                 })
-                this.set('savemodel', str)
+                this.savemodel =str;
             }
-        this.$.ajaxSubmit.url = "/api/optionsetting/option/"+this.typemodel;
-        this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
+       this.shadowRoot.querySelector('#ajaxSubmit').url = "/api/optionsetting/option/"+this.typemodel;
+       this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
         console.log(this.savemodel)
-        this.$.ajaxSubmit.generateRequest();
+       this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
     }
     responseSubmit(request) {
 
@@ -77,12 +77,12 @@ export class AdminPartTypePanel extends LitElement {
 }
     open(type) {
 
-        this.set('type', "ptypes")
+        this.type= "ptypes"
 
         this.typemodel = type;
-        this.$.ajaxOption.url = "/api/optionsetting/option/"+type;
-        this.$.ajaxOption.body = JSON.stringify(this.model);
-        this.$.ajaxOption.generateRequest();
+       this.shadowRoot.querySelector('#ajaxOption').url = "/api/optionsetting/option/"+type;
+       this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
+       this.shadowRoot.querySelector('#ajaxOption').generateRequest();
     }
     responseOption(request) {
 
@@ -122,8 +122,8 @@ export class AdminPartTypePanel extends LitElement {
 
     // adminchange(a) {
     //     console.log('admin ', a)
-    //     this.$.innerchange.innerHTML = "";
-    //     this.$.innerchange.setAttribute("on-tap", "");
+    //    this.shadowRoot.querySelector('#innerchang')e.innerHTML = "";
+    //    this.shadowRoot.querySelector('#innerchang')e.setAttribute("on-tap", "");
     // }
 
     add() {
@@ -527,6 +527,7 @@ export class AdminPartTypePanel extends LitElement {
                     </div>
                 </div>
             </div>
+            
         <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
         `
