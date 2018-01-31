@@ -1,13 +1,7 @@
-
-
-
-  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
-
+import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 export class ModuleHeader extends LitElement {
-       
-
-     
+            
         static get properties() {
             return {
                 pageid: String,
@@ -73,7 +67,6 @@ export class ModuleHeader extends LitElement {
 
             this.test = "Dad"
 
-
         }
         hider(soid) {
 
@@ -97,7 +90,7 @@ export class ModuleHeader extends LitElement {
             super.ready()
         }
 
-render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
+    render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
         return html`
            <style>
         #paperToggle {
