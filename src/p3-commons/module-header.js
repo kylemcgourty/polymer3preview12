@@ -67,7 +67,6 @@ export class ModuleHeader extends LitElement {
 
             this.test = "Dad"
 
-
         }
         hider(soid) {
 
@@ -91,7 +90,7 @@ export class ModuleHeader extends LitElement {
             super.ready()
         }
 
-          render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
+    render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
         return html`
            <style>
         #paperToggle {
