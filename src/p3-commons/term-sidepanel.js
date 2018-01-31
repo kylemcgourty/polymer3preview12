@@ -1,14 +1,157 @@
+import { LitElement, html } from '../../../node_modules/@polymer/lit-element/lit-element.js'
 
-  import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
-  
+export class TermSidepanel extends LitElement {
+    static get properties() {
+        return {
+            model: {
+                type: Array,
+                reflectToAttribute: true,
 
-  export  class TermSidepanel extends PolymerElement {
-       
+                value: function() {
+                    return [];
+                },
+            },
+            flag: {
+                type: String,
+                reflectToAttribute: true
+            },
+            requireadmin: {
+                type: Boolean,
+                reflectToAttribute: true,
+                notify: true,
+            },
+            admin: {
+                type: Boolean,
+                reflectToAttribute: true,
+                notify: true
+            }
+        }
+    }
+    static get observers() {
+        return ['k(model)']
+    }
+    k(m) {
+        this.set('model', m);
+    }
+    constructor() {
+        super();
+        this.titlecolor();
+    }
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+    }
 
-        static get template() {
-            return `
-            <style include="iron-flex iron-flex-alignment">
+    require(requireadmin) {
+        if (requireadmin) {
+            return "block"
+        } else {
+            return "none"
+        }
+
+    }
+
+    toSignIn() {
+
+        this.dispatchEvent(new CustomEvent('toSignIn', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                panel: "showstatuslist",
+            }
+        }))
+    }
+
+    open(data) {
+        if (data) {
+            this.model = [];
+            data = data.split("-")
+            data.forEach(function(item, index) {
+                this.push('model', {
+                    subname: item
+                })
+            })
+        } else {
+            this.model = [{
+                subname: "COD"
+            }, {
+                subname: "Net 1"
+            }, {
+                subname: "Net 30"
+            }, {
+                subname: "Net 60"
+            }]
+        }
+
+        this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
+            bubbles: true,
+            composed: true
+        }));
+    }
+    selected(e) {
+        if (this.requireadmin == true) {
+            if (this.admin != "superuser") {
+                return;
+            }
+        }
+        var index = e.model.index;
+        var name = this.model[index].subname;
+        if (this.flag == "Category") {
+            this.dispatchEvent(new CustomEvent('CategoryEvent', {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    name: name
+                }
+            }));
+        } else if (this.flag == "U/M") {
+            this.dispatchEvent(new CustomEvent('UmEvent', {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    name: name
+                }
+            }));
+        } else if (this.flag == "Type") {
+            this.dispatchEvent(new CustomEvent('TypeEvent', {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    name: name
+                }
+            }));
+        } else if (this.flag == "Status") {
+            this.dispatchEvent(new CustomEvent('StatusEvent', {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    name: name
+                }
+            }));
+        } else {
+            this.dispatchEvent(new CustomEvent('TermEvent', {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    name: name
+                }
+            }));
+        }
+    }
+    titlecolor() {
+        this.updateStyles({
+            '--title-background-normal': this.headercolor,
+            '--title-normal': 'white',
+        });
+    }
+    ready() {
+        super.ready()
+    }
+    render({ model, flag, requireadmin, admin }) {
+        return html `
+        <style include="iron-flex iron-flex-alignment">
          :host {
             display: block;
         }
@@ -326,7 +469,7 @@
             text-align: right;
         }
         </style>
-        <div class="title-rightpaneldraw">{{title}}</div>
+        <div class="title-rightpaneldraw">${title}</div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap="close">Close</span>
@@ -335,192 +478,27 @@
         </div>
         <div class="table-padding">
             <div class="layout horizontal">
-<!--                <paper-icon-button on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add" style="display: none">
+<!--                <paper-icon-button on-tap="add" class="add-icon admin" data-admin$="${admin}" icon="icons:add" style="display: none">
                 </paper-icon-button>
-                <paper-icon-button on-tap="add" class="add-icon admin" data-adminoff$="[[admin]] icon="icons:add" style="display: none"></paper-icon-button> -->
+                <paper-icon-button on-tap="add" class="add-icon admin" data-adminoff$="${admin} icon="icons:add" style="display: none"></paper-icon-button> -->
             </div>
-            <iron-list id="list" items="{{model}}" scroll-target="document">
+            <iron-list id="list" items="${model}" scroll-target="document">
                 <template>
                     <div>
                     <div class="my-content layout horizontal">
-                           <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="selected" bind-value="{{item.subname}}">
+                           <iron-input class="col-xs-9 i-input" data-adminoff$="${admin}" id="term" on-tap="selected" bind-value="${item.subname}">
                                 <input disabled class="input">
                             </iron-input>
-                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="selected" bind-value="{{item.subname}}">
+                            <iron-input class="col-xs-9 i-input admin1" data-admin$="${admin}" id="term" on-tap="selected" bind-value="${item.subname}">
                                 <input disabled class="input">
                             </iron-input>
-                        <!-- <span class="col-xs-9 text-right"><iron-input  id="input[[index]]" class="i-input" bind-value="{{item.subname}}" on-tap="selected"><input class="input" value="[[item.subname]]" disabled></iron-input></span> -->
+                        <!-- <span class="col-xs-9 text-right"><iron-input  id="input${index}" class="i-input" bind-value="${item.subname}" on-tap="selected"><input class="input" value="${item.subname}" disabled></iron-input></span> -->
                     </div>
                     </div>
                 </template>
             </iron-list>
         </div>`
-        }
-        static get properties() {
-            return {
-                model: {
-                    type: Array,
-                    reflectToAttribute: true,
-
-                    value: function() {
-                        return [];
-                    },
-                },
-                flag: {
-                    type: String,
-                    reflectToAttribute: true
-                },
-                requireadmin: {
-                    type: Boolean,
-                    reflectToAttribute: true,
-                    notify: true,
-                },
-                admin: {
-                    type: Boolean,
-                    reflectToAttribute: true,
-                    notify: true
-                }
-            }
-        }
-        static get observers() {
-            return ['k(model)']
-        }
-        k(m) {
-            // console.log('23423423423423423423423', m)
-            this.set('model', m);
-            // console.log("this.model", this.model);
-
-        }
-        constructor() {
-            super();
-            this.titlecolor();
-        }
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        require(requireadmin) {
-            if (requireadmin) {
-                return "block"
-            } else {
-                return "none"
-            }
-
-        }
-
-        toSignIn() {
-
-            this.dispatchEvent(new CustomEvent('toSignIn', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    panel: "showstatuslist",
-                }
-            }))
-        }
-
-
-        open(data) {
-
-            if (data) {
-
-                this.model = [];
-                data = data.split("-")
-
-                data.forEach(function(item, index) {
-                    this.push('model', {
-                        subname: item
-                    })
-                })
-
-            } else {
-                this.model = [{
-                    subname: "COD"
-                }, {
-                    subname: "Net 1"
-                }, {
-                    subname: "Net 30"
-                }, {
-                    subname: "Net 60"
-                }]
-            }
-
-
-            this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-                bubbles: true,
-                composed: true
-            }));
-        }
-        selected(e) {
-
-            if (this.requireadmin == true) {
-                if (this.admin != "superuser") {
-                    return;
-                }
-            }
-            // console.log("inselected term sidepanl", e)
-            var index = e.model.index;
-            // console.log('save is called, here is save"', this.model[index])
-            var name = this.model[index].subname;
-            // console.log(name)
-            // console.log("this.flag", this.flag);
-            if (this.flag == "Category") {
-                this.dispatchEvent(new CustomEvent('CategoryEvent', {
-                    composed: true,
-                    bubbles: true,
-                    detail: {
-                        name: name
-                    }
-                }));
-            } else if (this.flag == "U/M") {
-                this.dispatchEvent(new CustomEvent('UmEvent', {
-                    composed: true,
-                    bubbles: true,
-                    detail: {
-                        name: name
-                    }
-                }));
-            } else if (this.flag == "Type") {
-                this.dispatchEvent(new CustomEvent('TypeEvent', {
-                    composed: true,
-                    bubbles: true,
-                    detail: {
-                        name: name
-                    }
-                }));
-            } else if (this.flag == "Status") {
-                this.dispatchEvent(new CustomEvent('StatusEvent', {
-                    composed: true,
-                    bubbles: true,
-                    detail: {
-                        name: name
-                    }
-                }));
-            } else {
-                this.dispatchEvent(new CustomEvent('TermEvent', {
-                    composed: true,
-                    bubbles: true,
-                    detail: {
-                        name: name
-                    }
-                }));
-            }
-        }
-        titlecolor() {
-            // console.log(this.model)
-
-
-            this.updateStyles({
-                '--title-background-normal': this.headercolor,
-                '--title-normal': 'white',
-            });
-        }
-        // ready() {
-        //     console.log(this.model)
-        //     this.titlecolor();
-        // }
     }
+}
+
 customElements.define('term-sidepanel', TermSidepanel);

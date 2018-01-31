@@ -1,14 +1,198 @@
+import { LitElement, html } from '../../../node_modules/@polymer/lit-element/lit-element.js'
 
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
-        
-    import './serialnumber-list.js'
-   
-  export class SerialNumberInfo extends PolymerElement {
-       
+import './serialnumber-list.js'
 
-        static get template() {
-            return `
+export class SerialNumberInfo extends LitElement {
+
+    static get properties() {
+        return {
+            _inventory: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return {};
+                }
+            },
+            model: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return {};
+                }
+            },
+            olditem: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return {};
+                }
+            },
+            url: {
+                type: String,
+                notify: true
+            },
+            queryMatches: {
+                type: Boolean,
+                observer: 'mySize'
+            },
+            display: {
+                type: Boolean,
+                value: false,
+                notify: true,
+            },
+            lineitemIndex: {
+                reflectToAttribute: true,
+                type: Number
+            },
+            headercolor: {
+                type: String,
+                reflectToAttribute: true
+            },
+        }
+    }
+
+    static get observers() {
+        return [
+            'gotmid(mid, launch)'
+        ]
+    }
+
+    constructor() {
+        super()
+    }
+
+    checkHWRs(item) {
+        setTimeout(function() {
+            this.open1();
+        }.bind(this), 100)
+
+        if (item.hwrnumbers) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
+    addDim(e) {
+        var str = this.item.dimension
+        if (str.includes("Inch(s)")) {
+            return
+        } else {
+            var d = this.$.dimension.value + " Inch(s)"
+            this.set('item.dimension', d)
+        }
+    }
+
+    addWeight(weight) {
+        var str = this.item.netweight
+        if (str.includes("Lb(s)")) {
+            return
+        } else {
+            var w = this.$.weight.value + " Lb(s)"
+            this.set('item.netweight', w)
+        }
+    }
+
+    getHWRnumber() {
+
+        this.dispatchEvent(new CustomEvent(this.hwrretrieve, {
+            bubbles: true,
+            composed: true
+        }))
+    }
+
+    launchModelToDB() {
+        this.$.ajaxSave1.body = JSON.stringify(this.largeModel);
+        this.$.ajaxSave1.generateRequest();
+    }
+
+
+
+    open(url, item, model) {
+        if (typeof url === 'string') this.set('url', url);
+        this.item = item;
+        this.olditem = item;
+        this.largeModel = model
+
+        this.$.sn.setQty();
+    }
+
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+    }
+
+    open1() {
+        this.$.sn.setQty();
+        if (this.shadowRoot.getElementById('hwr')) {
+            this.shadowRoot.getElementById('hwr').setQty();
+        }
+    }
+
+
+    clean() {
+        this.set('item.serialnumbers', null)
+        this.set('item.hwr', null)
+        this.set('item.useccn', null)
+        this.set('item.hstariff', null)
+        this.set('item.netweight', null)
+        this.set('item.dimension', null)
+        this.set('item.product', null)
+        this.set('item.incoterms', null)
+        this.set('item.countryoforigin', null)
+        this.set('item.other', null)
+    }
+
+    save() {
+        this.dispatchEvent(new CustomEvent(this.starter, {
+            bubbles: true,
+            composed: true
+        }))
+
+    }
+
+    response(response) {
+        if (response.detail.response.results.display) {
+            document.querySelector('#toast').text = "Serial numbers and HWR numbers updated successfully";
+            document.querySelector('#toast').show();
+        }
+        this.dispatchEvent(new CustomEvent(this.ender, {
+            bubbles: true,
+            composed: true,
+            detail: {
+                item: this.item,
+                model: response.detail.response.results
+            }
+        }))
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+    }
+
+    isPart(type) {
+        if (type == "") {
+            type = 'Part'
+        }
+        return type === 'Part';
+    }
+
+    gotmid() {
+        this.shadowRoot.addEventListener(this.launch, function() {
+            this.launchModelToDB()
+        }.bind(this));
+
+    }
+
+    ready() {
+        super.ready()
+    }
+    render({ _inventory, model, olditem, url, queryMatches, display, lineitemIndex, headercolor }) {
+        return html `
             <style include="shared-styles">
         #page {
             height: 100vh;
@@ -173,9 +357,9 @@ import {Element as PolymerElement}
                     <iron-icon icon="close" on-tap="close"></iron-icon>
                 </div>
             </div>
-            <serialnumber-list qty="[[qty]]" id="sn" piece="[[item]]" launch="[[launch]]" starter="[[starter]]"></serialnumber-list>
-         <!--    <template is="dom-if" if="{{checkHWRs(item)}}">
-                <hwrnumber-list qty="[[qty]]" id="hwr" piece="[[item]]" hwrretrieve="[[hwrretrieve]]" mid="[[mid]]"></hwrnumber-list>
+            <serialnumber-list qty="${qty}" id="sn" piece="${item}" launch="${launch}" starter="${starter}"></serialnumber-list>
+         <!--    <template is="dom-if" if="${checkHWRs(item)}">
+                <hwrnumber-list qty="${qty}" id="hwr" piece="${item}" hwrretrieve="${hwrretrieve}" mid="${mid}"></hwrnumber-list>
             </template> -->
             <div class="side-padding">
                 <div class="row top-spacing1" id="moveleft">
@@ -194,302 +378,51 @@ import {Element as PolymerElement}
                 <div class="my-content">
                     <div class="col-xs-3">Product</div>
                     <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="{{item.product}}">
+                        <input is="iron-input" class="input" bind-value="${item.product}">
                     </div>
                 </div>
                 <div class="my-content">
                     <div class="col-xs-3">US ECCN</div>
                     <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="{{item.useccn}}">
+                        <input is="iron-input" class="input" bind-value="${item.useccn}">
                     </div>
                 </div>
                 <div class="my-content">
                     <div class="col-xs-3">HS Tariff</div>
                     <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="{{item.hstariff}}">
+                        <input is="iron-input" class="input" bind-value="${item.hstariff}">
                     </div>
                 </div>
                 <div class="my-content">
                     <div class="col-xs-3">Dim(HxWxD)</div>
                     <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" id="dimension" label="x" placeholder="Inches" on-focusout="addDim" bind-value="{{item.dimension}}">
+                        <input is="iron-input" class="input" id="dimension" label="x" placeholder="Inches" on-focusout="addDim" bind-value="${item.dimension}">
                     </div>
                 </div>
                 <div class="my-content">
                     <div class="col-xs-3">Net Weight</div>
                     <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" id="weight" placeholder="Lbs" on-focusout="addWeight" bind-value="{{item.netweight}}">
+                        <input is="iron-input" class="input" id="weight" placeholder="Lbs" on-focusout="addWeight" bind-value="${item.netweight}">
                     </div>
                 </div>
                 <div class="my-content">
                     <div class="col-xs-3">IncoTerms</div>
                     <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="{{item.incoterms}}">
+                        <input is="iron-input" class="input" bind-value="${item.incoterms}">
                     </div>
                 </div>
                 <div class="my-content">
                     <div class="col-xs-3">Orig. Country</div>
                     <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="{{item.countryoforigin}}">
+                        <input is="iron-input" class="input" bind-value="${item.countryoforigin}">
                     </div>
                 </div> -->
             </div>
         </div>
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="success" on-error="ajaxerror" content-type="application/json"></iron-ajax>
-        <iron-media-query query="(min-width: 767px)" query-matches="{{queryMatches}}"></iron-media-query>
-        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>
-        <iron-ajax id="ajaxSave1" url="{{url}}" method="PUT" on-response="response"></iron-ajax>`
-        }
-
-        static get properties() {
-            return {
-                _inventory: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                model: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                olditem: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                url: {
-                    type: String,
-                    notify: true
-                },
-                queryMatches: {
-                    type: Boolean,
-                    observer: 'mySize'
-                },
-                display: {
-                    type: Boolean,
-                    value: false,
-                    notify: true,
-                },
-                lineitemIndex: {
-                    reflectToAttribute: true,
-                    type: Number
-                },
-                headercolor: {
-                    type: String,
-                    reflectToAttribute: true
-                },
-            }
-        }
-
-
-
-
-        static get observers() {
-            return [
-                'gotmid(mid, launch)'
-            ]
-        }
-
-
-        constructor() {
-
-            super()
-
-        }
-
-
-        //     displayChanger() {
-        //         this.display = this.$.display.checked;
-
-
-        //     }
-
-        checkHWRs(item) {
-            setTimeout(function() {
-                this.open1();
-            }.bind(this), 100)
-
-            if (item.hwrnumbers) {
-                return true;
-            } else {
-                return false;
-            }
-
-
-        }
-
-        addDim(e) {
-            var str = this.item.dimension
-            if (str.includes("Inch(s)")) {
-                return
-            } else {
-                var d = this.$.dimension.value + " Inch(s)"
-                this.set('item.dimension', d)
-            }
-        }
-
-        addWeight(weight) {
-            var str = this.item.netweight
-            if (str.includes("Lb(s)")) {
-                return
-            } else {
-                var w = this.$.weight.value + " Lb(s)"
-                this.set('item.netweight', w)
-            }
-        }
-
-        getHWRnumber() {
-
-            this.dispatchEvent(new CustomEvent(this.hwrretrieve, {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        launchModelToDB() {
-
-            // var pass1, pass2
-            // for (var i = 0; i < this.item.serialnumbers.length; i++) {
-            //     if (this.item.serialnumbers[i].sn) {
-            //         pass1 = true
-            //     }
-            //     if (this.item.hwrnumbers[i].sn) {
-            //         pass2 = true
-            //     }
-
-            //     if (pass1 && pass2) {
-            //         break;
-            //     }
-
-            // }
-
-            // if (!pass1 && pass2) {
-            //         document.querySelector('#toast').text = "'Serial Numbers should be filled before 'Other Serial Numbers'";
-            //         document.querySelector('#toast').show();
-            //         return
-            // }
-            // this.largeModel.year = Number(this.largeModel.year);
-            this.$.ajaxSave1.body = JSON.stringify(this.largeModel);
-            this.$.ajaxSave1.generateRequest();
-
-        }
-
-
-
-        open(url, item, model) {
-
-
-
-            if (typeof url === 'string') this.set('url', url);
-            this.item = item;
-            this.olditem = item;
-            this.largeModel = model
-
-
-            this.$.sn.setQty();
-
-        }
-
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        open1() {
-            this.$.sn.setQty();
-
-            console.log('the $, shadowRoot', this.$, this.shadowRoot)
-            if (this.shadowRoot.getElementById('hwr')) {
-                this.shadowRoot.getElementById('hwr').setQty();
-            }
-        }
-
-
-        clean() {
-            this.set('item.serialnumbers', null)
-            this.set('item.hwr', null)
-            this.set('item.useccn', null)
-            this.set('item.hstariff', null)
-            this.set('item.netweight', null)
-            this.set('item.dimension', null)
-            this.set('item.product', null)
-            this.set('item.incoterms', null)
-            this.set('item.countryoforigin', null)
-            this.set('item.other', null)
-        }
-
-        save() {
-            this.dispatchEvent(new CustomEvent(this.starter, {
-                bubbles: true,
-                composed: true
-            }))
-
-        }
-
-        response(response) {
-
-            console.log("this.ender", this.ender)
-
-            if (response.detail.response.results.display) {
-                document.querySelector('#toast').text = "Serial numbers and HWR numbers updated successfully";
-                document.querySelector('#toast').show();
-            }
-            this.dispatchEvent(new CustomEvent(this.ender, {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    item: this.item,
-                    model: response.detail.response.results
-                }
-            }))
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        isPart(type) {
-            if (type == "") {
-                type = 'Part'
-            }
-            return type === 'Part';
-        }
-
-      
-
-        gotmid() {
-            // var fromMA = document.querySelector('my-app');
-            // fromMA.addEventListener(this.mid, function() {
-            //     this._debouncer = Polymer.Debouncer.debounce(this._debouncer, Polymer.Async.timeOut.after(100), () => {
-            //         this.launchModelToDB();
-            //     });
-            // }.bind(this));
-
-            this.shadowRoot.addEventListener(this.launch, function() {
-                this.launchModelToDB()
-                // if (this.item.hwrnumbers) {
-                //     this.getHWRnumber();
-                // } else {
-                //     this.launchModelToDB();
-                // }
-            }.bind(this));
-
-        }
-
-        ready() {
-
-            super.ready()
-        }
-
+        <iron-media-query query="(min-width: 767px)" query-matches="${queryMatches}"></iron-media-query>
+        <iron-ajax id="ajaxList" url="${url}" method="GET" on-response="successList"></iron-ajax>
+        <iron-ajax id="ajaxSave1" url="${url}" method="PUT" on-response="response"></iron-ajax>`
     }
+}
 customElements.define('serialnumber-info', SerialNumberInfo);
-

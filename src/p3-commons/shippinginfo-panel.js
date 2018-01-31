@@ -1,13 +1,148 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
+import { LitElement, html } from '../../../node_modules/@polymer/lit-element/lit-element.js'
 
-    import '../../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
+import '../../../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
+
+export class ShippingInfoPanel extends LitElement {
+    static get properties() {
+        return {
+            _inventory: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return {};
+                }
+            },
+            model: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return {};
+                }
+            },
+            olditem: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return {};
+                }
+            },
+            url: {
+                type: String,
+                notify: true
+            },
+            queryMatches: {
+                type: Boolean,
+                observer: 'mySize'
+            },
+            display: {
+                type: Boolean,
+                value: false,
+                notify: true,
+            },
+            lineitemIndex: {
+                reflectToAttribute: true,
+                type: Number
+            },
+            headercolor: {
+                type: String,
+                reflectToAttribute: true
+            },
+            item: {
+                type: Object,
+
+            }
+        }
+    }
+
+    static get observers() {
+        return []
+    }
 
 
-       
-export class ShippingInfoPanel extends PolymerElement {
-       static get template() {
-        return `
+    constructor() {
+        super()
+    }
+
+    addDim(e) {
+        var str = this.item.dimension
+        if (str.includes("Inch(s)")) {
+            return
+        } else {
+            var d = this.$.dimension.value + " inch(s)"
+            this.set('item.dimension', d)
+        }
+    }
+
+    addWeight(weight) {
+        var str = this.item.netweight
+        if (str.includes("Lb(s)")) {
+            return
+        } else {
+            var w = this.$.weight.value + " lb(s)"
+            this.set('item.netweight', w)
+        }
+    }
+
+    save() {
+        this.item.updatecheck = true;
+        this.$.ajaxSave1.body = JSON.stringify(this.largeModel);
+        this.$.ajaxSave1.generateRequest();
+    }
+
+    open(url, item, model) {
+        if (typeof url === 'string') this.set('url', url);
+        this.set('item', item)
+        this.set('item.display', item.display)
+        this.set('item.useccn', item.useccn);
+        this.set('largeModel', model)
+    }
+
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+    }
+
+    clean() {
+        this.set('item.serialnumbers', null)
+        this.set('item.hwr', null)
+        this.set('item.useccn', null)
+        this.set('item.hstariff', null)
+        this.set('item.netweight', null)
+        this.set('item.dimension', null)
+        this.set('item.product', null)
+        this.set('item.incoterms', null)
+        this.set('item.countryoforigin', null)
+        this.set('item.other', null)
+    }
+
+    response(response) {
+        document.querySelector('#toast').text = "Shipping info updated successfully";
+        document.querySelector('#toast').show();
+        this.dispatchEvent(new CustomEvent(this.ender, {
+            bubbles: true,
+            composed: true,
+            detail: {
+                item: this.item,
+                model: response.detail.response.results
+            }
+        }))
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+        this.dispatchEvent(new CustomEvent('getPartsList', {
+            bubbles: true,
+            composed: true,
+        }))
+    }
+
+    ready() {
+        super.ready()
+    }
+    render({ _inventory, model, olditem, url, queryMatches, display, lineitemIndex, headercolor, item }) {
+        return html `
          <style include="shared-styles">
         #page {
             height: 100vh;
@@ -195,7 +330,7 @@ export class ShippingInfoPanel extends PolymerElement {
                     <div class="my-content">
                         <div class="col-xs-3">Tracking</div>
                         <div class="col-xs-9 text-right">
-                            <iron-input class="input" bind-value="{{item.tracking}}">
+                            <iron-input class="input" bind-value="${item.tracking}">
                                 <input class="input1">
                             </iron-input>
                         </div>
@@ -203,7 +338,7 @@ export class ShippingInfoPanel extends PolymerElement {
                     <div class="my-content">
                         <div class="col-xs-3">US ECCN</div>
                         <div class="col-xs-9 text-right">
-                            <iron-input class="input" bind-value="{{item.useccn}}">
+                            <iron-input class="input" bind-value="${item.useccn}">
                                 <input class="input1">
                             </iron-input>
                         </div>
@@ -211,7 +346,7 @@ export class ShippingInfoPanel extends PolymerElement {
                     <div class="my-content">
                         <div class="col-xs-3">HS Tariff</div>
                         <div class="col-xs-9 text-right">
-                            <iron-input class="input" bind-value="{{item.hstariff}}">
+                            <iron-input class="input" bind-value="${item.hstariff}">
                                 <input class="input1">
                             </iron-input>
                         </div>
@@ -219,7 +354,7 @@ export class ShippingInfoPanel extends PolymerElement {
                     <div class="my-content">
                         <div class="col-xs-3">Dim(HxWxD)</div>
                         <div class="col-xs-9 text-right">
-                            <iron-input class="input" id="dimension" label="x" placeholder="Inches" on-focusout="addDim" bind-value="{{item.dimension}}">
+                            <iron-input class="input" id="dimension" label="x" placeholder="Inches" on-focusout="addDim" bind-value="${item.dimension}">
                                 <input class="input1">
                             </iron-input>
                         </div>
@@ -227,7 +362,7 @@ export class ShippingInfoPanel extends PolymerElement {
                     <div class="my-content">
                         <div class="col-xs-3">Net Weight</div>
                         <div class="col-xs-9 text-right">
-                            <iron-input class="input" id="weight" placeholder="Lbs" on-focusout="addWeight" bind-value="{{item.netweight}}">
+                            <iron-input class="input" id="weight" placeholder="Lbs" on-focusout="addWeight" bind-value="${item.netweight}">
                                 <input class="input1">
                             </iron-input>
                         </div>
@@ -235,7 +370,7 @@ export class ShippingInfoPanel extends PolymerElement {
                     <div class="my-content">
                         <div class="col-xs-3">IncoTerms</div>
                         <div class="col-xs-9 text-right">
-                            <iron-input class="input" bind-value="{{item.incoterms}}">
+                            <iron-input class="input" bind-value="${item.incoterms}">
                                 <input class="input1">
                             </iron-input>
                         </div>
@@ -243,14 +378,14 @@ export class ShippingInfoPanel extends PolymerElement {
                     <div class="my-content">
                         <div class="col-xs-3">Orig. Country</div>
                         <div class="col-xs-9 text-right">
-                            <iron-input class="input" bind-value="{{item.countryoforigin}}">
+                            <iron-input class="input" bind-value="${item.countryoforigin}">
                                 <input class="input1">
                             </iron-input>
                         </div>
                     </div>
                     <div class="my-content">
                         <div class="col-xs-3">
-                            <paper-checkbox class="tax" checked="{{item.display}}">Display</paper-checkbox>
+                            <paper-checkbox class="tax" checked="${item.display}">Display</paper-checkbox>
                         </div>
                         <div class="col-xs-9 text-right">
                         </div>
@@ -267,180 +402,10 @@ export class ShippingInfoPanel extends PolymerElement {
             </div>
         </div>
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="success" on-error="ajaxerror" content-type="application/json"></iron-ajax>
-        <iron-media-query query="(min-width: 767px)" query-matches="{{queryMatches}}"></iron-media-query>
-        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>
-        <iron-ajax id="ajaxSave1" url="{{url}}" method="PUT" on-response="response"></iron-ajax>
+        <iron-media-query query="(min-width: 767px)" query-matches="${queryMatches}"></iron-media-query>
+        <iron-ajax id="ajaxList" url="${url}" method="GET" on-response="successList"></iron-ajax>
+        <iron-ajax id="ajaxSave1" url="${url}" method="PUT" on-response="response"></iron-ajax>
         `
-       }
-
-        static get properties() {
-            return {
-                _inventory: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                model: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                olditem: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                url: {
-                    type: String,
-                    notify: true
-                },
-                queryMatches: {
-                    type: Boolean,
-                    observer: 'mySize'
-                },
-                display: {
-                    type: Boolean,
-                    value: false,
-                    notify: true,
-                },
-                lineitemIndex: {
-                    reflectToAttribute: true,
-                    type: Number
-                },
-                headercolor: {
-                    type: String,
-                    reflectToAttribute: true
-                },
-                item: {
-                    type: Object,
-
-                }
-            }
-        }
-
-
-
-
-        static get observers() {
-            return [
-
-            ]
-        }
-
-
-        constructor() {
-
-            super()
-
-        }
-
-
-
-        addDim(e) {
-            var str = this.item.dimension
-            if (str.includes("Inch(s)")) {
-                return
-            } else {
-                var d = this.$.dimension.value + " inch(s)"
-                this.set('item.dimension', d)
-            }
-        }
-
-        addWeight(weight) {
-            var str = this.item.netweight
-            if (str.includes("Lb(s)")) {
-                return
-            } else {
-                var w = this.$.weight.value + " lb(s)"
-                this.set('item.netweight', w)
-            }
-        }
-
-
-
-        save() {
-            this.item.updatecheck = true;
-            console.log('the large model', this.largeModel)
-                // this.largeModel.year = Number(this.largeModel.year);
-            this.$.ajaxSave1.body = JSON.stringify(this.largeModel);
-            this.$.ajaxSave1.generateRequest();
-
-        }
-
-
-
-        open(url, item, model) {
-
-            console.log('open called', url, item, model)
-            if (typeof url === 'string') this.set('url', url);
-            // this.$.ajaxList.generateRequest();
-            this.set('item', item)
-            console.log('item in so panel', item)
-            this.set('item.display', item.display)
-            this.set('item.useccn', item.useccn);
-            this.set('largeModel', model)
-
-
-
-        }
-
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-
-
-        clean() {
-            this.set('item.serialnumbers', null)
-            this.set('item.hwr', null)
-            this.set('item.useccn', null)
-            this.set('item.hstariff', null)
-            this.set('item.netweight', null)
-            this.set('item.dimension', null)
-            this.set('item.product', null)
-            this.set('item.incoterms', null)
-            this.set('item.countryoforigin', null)
-            this.set('item.other', null)
-        }
-
-
-
-        response(response) {
-            document.querySelector('#toast').text = "Shipping info updated successfully";
-            document.querySelector('#toast').show();
-            this.dispatchEvent(new CustomEvent(this.ender, {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    item: this.item,
-                    model: response.detail.response.results
-                }
-            }))
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-            this.dispatchEvent(new CustomEvent('getPartsList', {
-                bubbles: true,
-                composed: true,
-            }))
-        }
-
-
-        ready() {
-
-            super.ready()
-        }
-
-
     }
-   customElements.define('shippinginfo-panel', ShippingInfoPanel);
+}
+customElements.define('shippinginfo-panel', ShippingInfoPanel);
