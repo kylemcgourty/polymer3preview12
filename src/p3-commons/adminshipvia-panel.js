@@ -5,6 +5,8 @@
     import '../../node_modules/@polymer/iron-ajax/iron-ajax.js'
     import '../../node_modules/@polymer/iron-list/iron-list.js'
     import '../../node_modules/@polymer/iron-input/iron-input.js'
+    import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
+
 
 
 
@@ -104,6 +106,8 @@
            this.shadowRoot.querySelector("#ajaxOption").generateRequest();
         }
         responseOption(request) {
+
+            if(request) {
             var data = request.detail.response.results
 
             console.log('the received data')
@@ -156,6 +160,7 @@
 
             console.log("The data after set", this.data)
         }
+    }
 
         add() {
             this.push('data', {
@@ -165,6 +170,7 @@
 
         openChoice(e) {
 
+            if (e) {
             let choice = e.model.item.ship
 
             this.dispatchEvent(new CustomEvent('shipvia', {
@@ -178,6 +184,7 @@
 
 
             }))
+        }
         }
         toSignIn() {
 
@@ -205,7 +212,10 @@
             super.ready()
         }
 
-render({data, admin}) {
+        theerror(e) {
+            console.log('error',e)
+        }
+render() {
 
         return html`<style include="iron-flex iron-flex-alignment">
         :host {
@@ -506,6 +516,8 @@ render({data, admin}) {
             text-align: right;
         }
         </style>
+        <dom-bind style="display:block!important"">
+        <template>
         <div class="title-rightpaneldraw"> Ship Via </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
@@ -514,13 +526,17 @@ render({data, admin}) {
             </div>
         </div>
         <div class="table-padding">
-            <iron-list items="${data}" scroll-target="document">
+            <iron-list items="{{data}}" scroll-target="document">
                 <template>
                     <div>
                         <div class="my-content layout horizontal">
-                        {{item.ship}}
-                           
-                            <div class="admin" data-admin$="${admin}">
+                         <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="ship" on-click="{{openChoice}}" bind-value="{{item.ship}}">
+                                <input disabled class="input">
+                            </iron-input>
+                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="ship" on-click="{{openChoice}}" bind-value="{{item.ship}}">
+                                <input class="input">
+                            </iron-input>
+                            <div class="admin" data-admin$="{{admin}}">
                                 <paper-icon-button on-tap="remove" class="remove-icons" icon="icons:close"></paper-icon-button>
                             </div>
                         </div>
@@ -529,13 +545,16 @@ render({data, admin}) {
             </iron-list>
             <div>
                 <div class="layout horizontal end">
-                    <div class="submit button-row col-xs-9 admin" data-admin$="${admin}">
+                    <div class="submit button-row col-xs-9 admin" data-admin$="{{admin}}">
                         <paper-button class="button main-button" on-tap="submit" raised>Submit</paper-button>
                     </div>
                 </div>
             </div>
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="{{responseOption}}" on-error="theerror" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
+        </template>
+        </dom-bind>
+
         `
     }
 
