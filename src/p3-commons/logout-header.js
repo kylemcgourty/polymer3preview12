@@ -1,10 +1,56 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
-
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
        
-  export class LogoutHeader extends PolymerElement {
-        static get template() {
-        return ` <style>
+  export class LogoutHeader extends LitElement {
+        
+        static get properties() {
+            return {
+                model: {
+                    type: String,
+                    notify: true
+                },
+            }
+        }
+
+        constructor() {
+            super();
+            // Utils.apply(this);
+        }
+
+        hider(soid) {
+
+            if (soid) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        showError(e) {
+            var msg = e.detail.request.xhr.response.error;
+            if (msg) document.querySelector('#toast').show(msg);
+        }
+        logout() {
+            this.$.ajaxlogout.generateRequest();
+            this.dispatchEvent(new CustomEvent('signoutGoogleLogin', {
+                composed: true,
+                bubbles: true,
+            })) 
+        }
+        response(request) {
+            console.log(request.detail.response)
+            var result = request.detail.response;
+            if (result.auth) {
+                document.querySelector('#toast').text = result.error;
+                document.querySelector('#toast').show();
+            } else {
+                this.dispatchEvent(new CustomEvent('logoutapp', {}));
+                window.location.reload(false);
+                this.set('route.path', '')
+                sessionStorage.clear()
+            }
+        }
+
+        render({}) {
+        return html`<style>
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -72,52 +118,6 @@ import {Element as PolymerElement}
         <app-route route="{{route}}"></app-route>
         <iron-ajax method="GET" id="ajaxlogout" url="/user/logout" handle-as="json" on-response="response" on-error="showError" content-type="application/json"></iron-ajax>`
     }
-        static get properties() {
-            return {
-                model: {
-                    type: String,
-                    notify: true
-                },
-            }
-        }
-
-        constructor() {
-            super();
-            // Utils.apply(this);
-        }
-
-        hider(soid) {
-
-            if (soid) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        showError(e) {
-            var msg = e.detail.request.xhr.response.error;
-            if (msg) document.querySelector('#toast').show(msg);
-        }
-        logout() {
-            this.$.ajaxlogout.generateRequest();
-            this.dispatchEvent(new CustomEvent('signoutGoogleLogin', {
-                composed: true,
-                bubbles: true,
-            })) 
-        }
-        response(request) {
-            console.log(request.detail.response)
-            var result = request.detail.response;
-            if (result.auth) {
-                document.querySelector('#toast').text = result.error;
-                document.querySelector('#toast').show();
-            } else {
-                this.dispatchEvent(new CustomEvent('logoutapp', {}));
-                window.location.reload(false);
-                this.set('route.path', '')
-                sessionStorage.clear()
-            }
-        }
     }
 
  customElements.define('logout-header', LogoutHeader);

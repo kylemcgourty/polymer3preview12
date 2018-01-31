@@ -1,13 +1,104 @@
 
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
 
 
-export class ModuleHeader extends PolymerElement {
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+
+
+export class ModuleHeader extends LitElement {
        
 
-        static get template() {
-        return `
+     
+        static get properties() {
+            return {
+                pageid: String,
+                pageidtext: String,
+                pagename: String,
+                datetext: {
+                    type: String,
+                    value: "Date: "
+                },
+                soidtext: {
+                    type: String,
+                    value: ""
+                },
+                soid: {
+                    type: String
+                },
+                limb: String,
+                date: {
+                    type: String,
+                    value: ''
+                },
+                moreoption: {
+                    type: Boolean,
+                    value: false
+                },
+                viewpage: {
+                    type: Boolean,
+                    value: false
+                },
+                isHidden: {
+                    type: Boolean,
+                    notify: true,
+                    value: true
+                },
+                hidden: {
+                    type: Boolean,
+                    notify: true,
+                    value: false
+                },
+                setting: {
+                    type: Object,
+                    notify: true
+                },
+                model: {
+                    type: Object,
+                    notify: true
+                },
+            }
+        }
+        constructor() {
+            super();
+            this.setting = {};
+            this.model = {}
+            
+        }
+        open(setting) {
+            this.setting = JSON.parse(JSON.stringify(setting))
+
+            this.setting.s_logo= ""
+            this.setting.s_logo=  setting.s_logo
+
+            console.log('the setting in cust new', this.setting)
+
+            this.test = "Dad"
+
+
+        }
+        hider(soid) {
+
+            if (soid) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        show(show) {
+            if (show == true){
+                return "block"
+            } else {
+                return "none"
+            }
+        }
+
+
+        ready() {
+            super.ready()
+        }
+
+render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
+        return html`
            <style>
         #paperToggle {
             min-height: 40px;
@@ -185,49 +276,49 @@ export class ModuleHeader extends PolymerElement {
         <section class="nomargin">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
-                    <div class="my-content" hidden$="{{!isHidden}}">
-                        <img class="logo" src="[[setting.s_logo]]" alt="No logo uploaded">
+                    <div class="my-content">
+                        <img class="logo" src="${setting.s_logo}" alt="No logo uploaded">
                     </div>
-                    <div class="my-content" hidden$="{{!setting.s_address}}">
+                    <div class="my-content" style="display: ${this.show(setting.s_address)}">
                         <div class="bottom">
-                            <div hidden$="{{!model.Headers.Addr.Enabled}}" style="position: initial; margin-top: 5px;">[[setting.address]]</div>
+                            <div  style="position: initial; margin-top: 5px;">${setting.address}</div>
                         </div>
                     </div>
-                    <div class="my-content" hidden$="{{!setting.s_phone}}">
+                    <div class="my-content" style="display: ${this.show(setting.s_phone)}">
                         <div class="bottom">
-                            <div hidden$="{{!model.Headers.Ph.Enabled}}">
-                                Tel: <span>[[setting.ma_phone]]</span>
+                            <div>
+                                Tel: <span>${setting.ma_phone}</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 text-right">
-                    <div class="my-content" hidden$="{{!isHidden}}"></div>
+                    <div class="my-content" hidden$="${!isHidden}"></div>
                     <div class="my-content">
                         <div class="title bottom">
                             <div class="right-icon">
-                                <span data-id='header-pagename' style="font-size:21px">{{pagename}}</span>
+                                <span data-id='header-pagename' style="font-size:21px">${pagename}</span>
                             </div>
                         </div>
                     </div>
                     <div class="my-content">
                         <div class="bottom">
                             <div class="right-icon">
-                                <span>{{pageidtext}}</span>&nbsp;<span class="allcaps">{{pageid}}</span>
+                                <span>${pageidtext}</span>&nbsp;<span class="allcaps">${pageid}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="my-content" hidden$="{{hider(soidtext)}}">
+                    <div class="my-content" hidden$="${this.hider(soidtext)}">
                         <div class="bottom">
                             <div class="right-icon">
-                                <span>{{soidtext}}</span>&nbsp;<span class="allcaps">{{soid}}</span>
+                                <span>${soidtext}</span>&nbsp;<span class="allcaps">${soid}</span>
                             </div>
                         </div>
                     </div>
                     <div class="my-content">
                         <div class="bottom">
                             <div class="right-icon">
-                                <span>{{datetext}}</span>&nbsp;<span data-id='header-pagedate'>{{date}}</span>
+                                <span>${datetext}</span>&nbsp;<span data-id='header-pagedate'>${date}</span>
                             </div>
                         </div>
                     </div>
@@ -235,79 +326,6 @@ export class ModuleHeader extends PolymerElement {
             </div>
         </section>`
     }
-        static get properties() {
-            return {
-                pageid: String,
-                pageidtext: String,
-                pagename: String,
-                datetext: {
-                    type: String,
-                    value: "Date: "
-                },
-                soidtext: {
-                    type: String,
-                    value: ""
-                },
-                soid: {
-                    type: String
-                },
-                limb: String,
-                date: {
-                    type: String,
-                    value: ''
-                },
-                moreoption: {
-                    type: Boolean,
-                    value: false
-                },
-                viewpage: {
-                    type: Boolean,
-                    value: false
-                },
-                isHidden: {
-                    type: Boolean,
-                    notify: true,
-                    value: true
-                },
-                hidden: {
-                    type: Boolean,
-                    notify: true,
-                    value: false
-                },
-                setting: {
-                    type: Object,
-                    notify: true
-                },
-                model: {
-                    type: String,
-                    notify: true
-                },
-            }
-        }
-        constructor() {
-            super();
-        }
-        open(setting) {
-            this.setting = JSON.parse(JSON.stringify(setting))
-
-            this.set('setting.s_logo', "")
-            this.set('setting.s_logo', setting.s_logo)
-
-
-        }
-        hider(soid) {
-
-            if (soid) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-
-        ready() {
-            super.ready()
-        }
     }
 
     customElements.define('module-header', ModuleHeader);
