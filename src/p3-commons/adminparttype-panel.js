@@ -79,13 +79,18 @@ export class AdminPartTypePanel extends LitElement {
 
         this.type= "ptypes"
 
+       console.log('shadowRoot b4 open', this.shadowRoot)
+
+
         this.typemodel = type;
        this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+type;
        this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
        this.shadowRoot.querySelector('#ajaxOption').generateRequest();
+
+       console.log('shadowRoot after open', this.shadowRoot)
     }
     responseOption(request) {
-        console.log('hit reponse option', request)
+        console.log('hit reponse option', request, this.shadowRoot)
 
         if (request){
         var data = request.detail.response.results
@@ -97,7 +102,7 @@ export class AdminPartTypePanel extends LitElement {
             console.log(data)
 
             data.forEach(function(item, index) {
-                this.push('data', {
+                this.data.push({
                     type: item
                 })
             }.bind(this))
@@ -114,7 +119,26 @@ export class AdminPartTypePanel extends LitElement {
             }]
         }
 
-        const types = data => {
+       
+        this.setData()
+
+    }
+}
+    static get observers() {
+        return [
+            // 'adminchange(admin)'
+        ]
+    }
+
+    // adminchange(a) {
+    //     console.log('admin ', a)
+    //    this.shadowRoot.querySelector('#innerchang')e.innerHTML = "";
+    //    this.shadowRoot.querySelector('#innerchang')e.setAttribute("on-tap", "");
+    // }
+
+    setData() {
+
+         const types = data => {
 
             return html`
             <div>
@@ -133,23 +157,15 @@ export class AdminPartTypePanel extends LitElement {
             <div>`;
         }
 
+
+        console.log('the shadowRoot', this.shadowRoot, document.querySelector('#table'), this.shadowRoot)
+
         render(types(this.data), this.shadowRoot.querySelector('#table'))
 
         console.log('hit reponseOption', this.data, this.shadowRoot.querySelector('#table') )
 
-    }
-}
-    static get observers() {
-        return [
-            // 'adminchange(admin)'
-        ]
-    }
 
-    // adminchange(a) {
-    //     console.log('admin ', a)
-    //    this.shadowRoot.querySelector('#innerchang')e.innerHTML = "";
-    //    this.shadowRoot.querySelector('#innerchang')e.setAttribute("on-tap", "");
-    // }
+    }
 
     add() {
         this.push('data', {
@@ -229,6 +245,9 @@ export class AdminPartTypePanel extends LitElement {
        //  render(types(this.data), this.shadowRoot.querySelector('#table'))
 
        //  console.log('hit ready', this.data, this.shadowRoot.querySelector('#table') )
+
+       console.log("shadowRoot in ready", this.shadowRoot)
+
 
         
 
@@ -561,7 +580,7 @@ export class AdminPartTypePanel extends LitElement {
                 </div>
             </div>
             
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption} content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
         `
 
