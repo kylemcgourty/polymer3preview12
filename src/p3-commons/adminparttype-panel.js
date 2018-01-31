@@ -60,7 +60,7 @@ export class AdminPartTypePanel extends LitElement {
                 })
                 this.savemodel =str;
             }
-       this.shadowRoot.querySelector('#ajaxSubmit').url = "/api/optionsetting/option/"+this.typemodel;
+       this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/"+this.typemodel;
        this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
         console.log(this.savemodel)
        this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
@@ -80,11 +80,12 @@ export class AdminPartTypePanel extends LitElement {
         this.type= "ptypes"
 
         this.typemodel = type;
-       this.shadowRoot.querySelector('#ajaxOption').url = "/api/optionsetting/option/"+type;
+       this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+type;
        this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
        this.shadowRoot.querySelector('#ajaxOption').generateRequest();
     }
     responseOption(request) {
+        console.log('hit reponse option')
 
         if (request){
         var data = request.detail.response.results
@@ -112,6 +113,30 @@ export class AdminPartTypePanel extends LitElement {
                 type: "Others"
             }]
         }
+
+        const types = data => {
+
+            return html`
+            <div>
+            ${repeat (
+                 data,
+                 item => item.type,
+                 item => html`
+                 <dom-bind>
+        <template>
+        <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="{{item.type}}">
+                               <input class="input">
+                            </iron-input>
+        </template>
+        </dom-bind>`
+                 )}
+            <div>`;
+        }
+
+        render(types(this.data), this.shadowRoot.querySelector('#table'))
+
+        console.log('hit reponseOption', this.data, this.shadowRoot.querySelector('#table') )
+
     }
 }
     static get observers() {
@@ -173,6 +198,17 @@ export class AdminPartTypePanel extends LitElement {
     ready() {
         super.ready()
 
+        this.data = [{
+                type: "Spare"
+            }, {
+                type: "Component"
+            }, {
+                type: "Product"
+            }, {
+                type: "Others"
+            }]
+        
+
         const types = data => {
 
             return html`
@@ -181,18 +217,21 @@ export class AdminPartTypePanel extends LitElement {
                  data,
                  item => item.type,
                  item => html`
-                 <dom-bind>
-        <template>
-        <iron-input class="col-xs-9 i-input admin1" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-                               <input class="input">
+             
+        <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="${item.type}">
+                               <input disabled class="input">
                             </iron-input>
-        </template>
-        </dom-bind>`
+       `
                  )}
             <div>`;
         }
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
+
+        console.log('hit ready', this.data, this.shadowRoot.querySelector('#table') )
+
+        
+
     }
 
        render({admin}) {
@@ -373,10 +412,7 @@ export class AdminPartTypePanel extends LitElement {
             position: relative;
             width: 127px;
         }
-        
-        .admin {
-            visibility: hidden;
-        }
+     
         
         [data-admin="superuser"] {
             visibility: visible;
@@ -387,9 +423,7 @@ export class AdminPartTypePanel extends LitElement {
             display: none!important;
         }
         
-        .admin1 {
-            display: none;
-        }
+        
         
         .submit {
             width: 100%;
@@ -510,7 +544,7 @@ export class AdminPartTypePanel extends LitElement {
             text-align: right;
         }
         </style>
-        <div class="title-rightpaneldraw"> Type ABC 123 </div>
+        <div class="title-rightpaneldraw"> Type </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap="close">Close</span>
@@ -523,7 +557,6 @@ export class AdminPartTypePanel extends LitElement {
             <div>
                 <div class="layout horizontal end">
                     <div class="submit button-row col-xs-9 admin" data-admin$="${admin}">
-                        <paper-button class="button main-button" on-tap="submit" raised>Submit</paper-button>
                     </div>
                 </div>
             </div>
