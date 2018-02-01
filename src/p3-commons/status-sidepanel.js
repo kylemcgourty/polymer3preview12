@@ -21,20 +21,7 @@ export class StatusSidepanel extends LitElement{
                     return [];
                 },
             },
-            flag: {
-                type: String,
-                reflectToAttribute: true
-            },
-            requireadmin: {
-                type: Boolean,
-                reflectToAttribute: true,
-                notify: true,
-            },
-            admin: {
-                type: Boolean,
-                reflectToAttribute: true,
-                notify: true
-            },
+            
 
             
         }
@@ -60,7 +47,6 @@ export class StatusSidepanel extends LitElement{
 
     open(eventRoute, data) {
 
-        console.log('hit open', eventRoute, data)
 
         this.data = data
         this.eventRoute = eventRoute
