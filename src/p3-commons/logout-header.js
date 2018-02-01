@@ -1,5 +1,6 @@
   import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
-       
+
+
   export class LogoutHeader extends LitElement {
         
         static get properties() {
@@ -29,7 +30,7 @@
             if (msg) document.querySelector('#toast').show(msg);
         }
         logout() {
-            this.$.ajaxlogout.generateRequest();
+            this.shadowRoot.querySelector('#ajaxlogout').generateRequest();
             this.dispatchEvent(new CustomEvent('signoutGoogleLogin', {
                 composed: true,
                 bubbles: true,
@@ -42,9 +43,9 @@
                 document.querySelector('#toast').text = result.error;
                 document.querySelector('#toast').show();
             } else {
-                this.dispatchEvent(new CustomEvent('logoutapp', {}));
-                window.location.reload(false);
-                this.set('route.path', '')
+                this.dispatchEvent(new CustomEvent('logoutapp', {composed: true, bubbles: true}));
+                // window.location.reload(false);
+                // this.route.path = '';
                 sessionStorage.clear()
             }
         }
@@ -111,12 +112,12 @@
             }
         }
         </style>
-        <div class="title" on-tap="logout">
+        <div class="title" on-tap=${this.logout.bind(this)}>
             <div class="signout" style="font-size: 17px;">Sign Out</div>
         </div>
         <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}"></app-route>
-        <iron-ajax method="GET" id="ajaxlogout" url="/user/logout" handle-as="json" on-response="response" on-error="showError" content-type="application/json"></iron-ajax>`
+        <iron-ajax method="GET" id="ajaxlogout" url="/user/logout" handle-as="json" on-response=${this.response.bind(this)} on-error="showError" content-type="application/json"></iron-ajax>`
     }
     }
 
