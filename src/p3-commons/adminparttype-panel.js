@@ -1,8 +1,9 @@
   import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-  import {render} from '../../node_modules/lit-html/lit-html.js'
 
   import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+
+  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
     import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
 
@@ -79,7 +80,6 @@ export class AdminPartTypePanel extends LitElement {
 
         this.type= "ptypes"
 
-       console.log('shadowRoot b4 open', this.shadowRoot)
 
 
         this.typemodel = type;
@@ -87,22 +87,19 @@ export class AdminPartTypePanel extends LitElement {
        this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
        this.shadowRoot.querySelector('#ajaxOption').generateRequest();
 
-       console.log('shadowRoot after open', this.shadowRoot)
     }
     responseOption(request) {
-        console.log('hit reponse option', request, this.shadowRoot)
 
         if (request){
         var data = request.detail.response.results
-        console.log(data)
         if (data != "") {
             this.data = [];
             data = data.split(",")
             data = data.slice(0, -1)
-            console.log(data)
 
             data.forEach(function(item, index) {
                 this.data.push({
+                    id: index,
                     type: item
                 })
             }.bind(this))
@@ -119,29 +116,28 @@ export class AdminPartTypePanel extends LitElement {
             }]
         }
 
+        let handler = (e) => this.openChoice(e);
+
         const types = data => {
 
             return html`
             <div>
             ${repeat (
                  data,
-                 item => item.type,
+                 item => item.id,
                  item => html`
-        
-        <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="${item.type}">
-                               <input class="input">
-                            </iron-input>
-      `
+                    <div> ${item.type} </div>
+                            
+                               <input disabled class="col-xs-9 i-input input" value="${item.type}" on-tap="${(e)=>this.openChoice(e)}">
+                          `
                  )}
             <div>`;
         }
 
-
-        console.log('the shadowRoot', this.shadowRoot, document.querySelector('#table'), this.shadowRoot)
+        console.log('the data', this.data, html, render)
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
 
-        console.log('hit reponseOption', this.data, this.shadowRoot.querySelector('#table') )
 
        
         // this.setData()
