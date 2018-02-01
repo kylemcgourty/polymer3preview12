@@ -52,7 +52,6 @@ export class AdminPartTypePanel extends LitElement {
     }
 
     submit() {
-        console.log(this.data)
 
             if (this.data) {
                 let str = ""
@@ -63,14 +62,12 @@ export class AdminPartTypePanel extends LitElement {
             }
        this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/"+this.typemodel;
        this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
-        console.log(this.savemodel)
        this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
     }
     responseSubmit(request) {
 
         if (request){
         var auth = request.detail.response.auth
-        console.log(auth)
         if (auth){
             this.close();
         }
@@ -133,35 +130,20 @@ export class AdminPartTypePanel extends LitElement {
             <div>`;
         }
 
-        console.log('the data', this.data, html, render)
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
 
 
        
-        // this.setData()
 
     }
 }
     static get observers() {
         return [
-            // 'adminchange(admin)'
         ]
     }
 
-    // adminchange(a) {
-    //     console.log('admin ', a)
-    //    this.shadowRoot.querySelector('#innerchang')e.innerHTML = "";
-    //    this.shadowRoot.querySelector('#innerchang')e.setAttribute("on-tap", "");
-    // }
-
-    setData() {
-
-         
-
-
-    }
-
+ 
     add() {
         this.push('data', {
             type: ""
@@ -170,8 +152,6 @@ export class AdminPartTypePanel extends LitElement {
 
     openChoice(selection) {
 
-        // console.log('choice e', e, e.target.index, this.data)
-        console.log('choice id', selection)
 
 
         this.dispatchEvent(new CustomEvent('parttype', {
@@ -209,41 +189,6 @@ export class AdminPartTypePanel extends LitElement {
 
     ready() {
         super.ready()
-
-       //  this.data = [{
-       //          type: "Spare"
-       //      }, {
-       //          type: "Component"
-       //      }, {
-       //          type: "Product"
-       //      }, {
-       //          type: "Others"
-       //      }]
-        
-
-       //  const types = data => {
-
-       //      return html`
-       //      <div>
-       //      ${repeat (
-       //           data,
-       //           item => item.type,
-       //           item => html`
-             
-       //  <iron-input class="col-xs-9 i-input" id="term" on-tap="openChoice" bind-value="${item.type}">
-       //                         <input disabled class="input">
-       //                      </iron-input>
-       // `
-       //           )}
-       //      <div>`;
-       //  }
-
-       //  render(types(this.data), this.shadowRoot.querySelector('#table'))
-
-       //  console.log('hit ready', this.data, this.shadowRoot.querySelector('#table') )
-
-       console.log("shadowRoot in ready", this.shadowRoot)
-
 
         
 
