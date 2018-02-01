@@ -1,11 +1,72 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+    import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
+
        
-   export class InventoryInfo extends PolymerElement {
+   export class InventoryInfo extends LitElement {
    
 
-        static get template() {
-            return ` <style include="shared-styles">
+        
+
+        static get properties() {
+            return {
+                inventory: {
+                    type: Object,
+                    notify: true,
+                    value: function() {
+                        return {};
+                    }
+                },
+                model: {
+                    type: Object,
+                    notify: true,
+                    value: function() {
+                        return {};
+                    }
+                },
+                url: {
+                    type: String,
+                    notify: true
+                }
+            }
+        }
+        static get observers() {
+            return ['k(model)']
+        }
+        k(m) {
+            console.log('inventory XX inventory', m)
+            this.model = m;
+        }
+        constructor() {
+            super();
+        }
+        close() {
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                bubbles: true,
+                composed: true
+            }))
+        }
+        open(url) {
+            if (typeof url === 'string') this.url = url;
+            this.shadowRoot.querySelector('#ajaxList').generateRequest();
+
+            
+        }
+
+        mathAbs(val) {
+            return Math.abs(val)
+        }
+
+        successList(e) {
+            if (e){
+            this.model= e.detail.response.results;
+            this.model.returnso = this.mathAbs(this.model.returnso)
+            this.model.allocated= this.mathAbs(this.model.allocated)
+            console.log(this.model)
+        }
+        }
+
+        render({}){
+            return html` <style include="shared-styles">
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -226,6 +287,8 @@ import {Element as PolymerElement}
             ;
         }
         </style>
+        <dom-bind>
+        <template>
         <div class="title-rightpaneldraw">
             Inventory
         </div>
@@ -345,61 +408,10 @@ import {Element as PolymerElement}
                 </div>
             </div>
         </div>
-        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>`
-        }
+        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>
+        </templat>
+        </dom-bind>`
 
-        static get properties() {
-            return {
-                inventory: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                model: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                url: {
-                    type: String,
-                    notify: true
-                }
-            }
-        }
-        static get observers() {
-            return ['k(model)']
-        }
-        k(m) {
-            console.log('inventory XX inventory', m)
-            this.set('model', m);
-        }
-        constructor() {
-            super();
-        }
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-        open(url) {
-            if (typeof url === 'string') this.set('url', url);
-            this.$.ajaxList.generateRequest();
-        }
-
-        mathAbs(val) {
-            return Math.abs(val)
-        }
-
-        successList(e) {
-            this.set('model', e.detail.response.results);
-            this.set('model.returnso', this.mathAbs(this.model.returnso))
-            this.set('model.allocated', this.mathAbs(this.model.allocated))
-            console.log(this.model)
         }
     }
    customElements.define('inventory-info', InventoryInfo);

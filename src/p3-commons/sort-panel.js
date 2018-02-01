@@ -43,6 +43,7 @@ export class SortPanel extends LitElement {
 
     constructor() {
         super()
+        this.display0 = ""
     }
 
     open(model, index, showTitle) {
