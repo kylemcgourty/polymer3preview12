@@ -20,6 +20,13 @@ export class TermSidepanel extends LitElement {
                 reflectToAttribute: true,
                 notify: true,
             },
+            item: {
+                type: Object
+            },
+            index: {
+                type: Number
+            },
+
             admin: {
                 type: Boolean,
                 reflectToAttribute: true,
@@ -35,7 +42,12 @@ export class TermSidepanel extends LitElement {
     }
     constructor() {
         super();
+        this.model = []
+        this.admin = false
+        this.title = ""
+        this.subname = ""
         this.titlecolor();
+    
     }
     close() {
         this.dispatchEvent(new CustomEvent('closePanel', {
@@ -140,17 +152,12 @@ export class TermSidepanel extends LitElement {
             }));
         }
     }
-    titlecolor() {
-        this.updateStyles({
-            '--title-background-normal': this.headercolor,
-            '--title-normal': 'white',
-        });
-    }
+
     ready() {
         super.ready()
     }
-    render({ model, flag, requireadmin, admin }) {
-        return html `
+    render({ model, flag, requireadmin, admin, item, subname, index }) {
+        return html`
         <style include="iron-flex iron-flex-alignment">
          :host {
             display: block;
@@ -482,7 +489,7 @@ export class TermSidepanel extends LitElement {
                 </paper-icon-button>
                 <paper-icon-button on-tap="add" class="add-icon admin" data-adminoff$="${admin} icon="icons:add" style="display: none"></paper-icon-button> -->
             </div>
-            <iron-list id="list" items="${model}" scroll-target="document">
+            <iron-list id="list" items="${Object.entries(model)}" scroll-target="document">
                 <template>
                     <div>
                     <div class="my-content layout horizontal">
