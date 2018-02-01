@@ -506,8 +506,8 @@ export class AdminPartTypePanel extends LitElement {
         <div class="title-rightpaneldraw"> Type </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
-                <span on-tap="close">Close</span>
-                <iron-icon icon="close" on-tap="close"></iron-icon>
+                <span on-tap=${this.close.bind(this)}>Close</span>
+                <iron-icon icon="close" on-tap=${this.close.bind(this)}></iron-icon>
             </div>
         </div>
         <div class="table-padding">

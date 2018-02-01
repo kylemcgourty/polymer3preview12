@@ -15,14 +15,6 @@ export class AdminPartCategoryPanel extends LitElement {
     static get properties() {
 
         return {
-            // data: {
-            //     type: Array,
-            //     reflectToAttribute: true,
-            //     notify: true,
-            //      value: function() {
-            //         return []
-            //     }
-            // },
             typemodel: {
                 type: String,
                 reflectToAttribute: true,
@@ -45,33 +37,11 @@ export class AdminPartCategoryPanel extends LitElement {
 
     static get observers() {
         return [
-            // 'adminchange(admin)'
         ]
     }
 
 
-    submit() {
-            if (this.data) {
-                let str = ""
-                this.data.forEach(function(val, index) {
-                    str = str + val.category + ","
-                })
-                this.set('savemodel', str)
-            }
-        console.log("in submoit", this.data)
-
-        this.$.ajaxSubmit.url = "/optionsetting/option/"+this.typemodel;
-        this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
-        console.log(this.savemodel)
-        this.$.ajaxSubmit.generateRequest();
-    }
-    responseSubmit(request) {
-        var auth = request.detail.response.auth
-        console.log(auth)
-        if (auth){
-            this.close();
-        }
-    }
+   
     open(type) {
 
        
@@ -98,7 +68,7 @@ export class AdminPartCategoryPanel extends LitElement {
             data.forEach(function(item, index) {
                 this.data.push({
                     id: index,
-                    type: item
+                    category: item
                 })
             }.bind(this))
 
@@ -123,7 +93,7 @@ export class AdminPartCategoryPanel extends LitElement {
                  item => item.id,
                  item => html`
                             
-                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
+                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.category}" on-tap="${() =>this.openChoice(item)}">
                           `
                  )}
             <div>`;
@@ -136,29 +106,16 @@ export class AdminPartCategoryPanel extends LitElement {
 }
 
     
-    // adminchange(a) {
-    //     console.log('admin ', a)
-    //     this.$.innerchange.innerHTML = "";
-    //     this.$.innerchange.setAttribute("on-tap", "");
-    // }
-
-    add() {
-        this.push('data', {
-            category: ""
-        })
-    }
+   
 
     openChoice(selection) {
-
-
-        console.log('choice e',e , this.data)
-        let choice = e.model.item.category
+     
 
         this.dispatchEvent(new CustomEvent('partcategory',{
             bubbles: true,
             composed: true,
             detail: {
-                item: choice,
+                item: selection.category,
                 categories: this.data
             }
 
@@ -166,28 +123,14 @@ export class AdminPartCategoryPanel extends LitElement {
 
         }))
     }
-    toSignIn() {
-            console.log("tosignin called in partcategorypanel")
 
-        this.dispatchEvent(new CustomEvent('toSignIn', {
-            bubbles: true,
-            composed: true
-        }))
-    }
-
-        close() {
-            console.log("close called in partcategorypanel")
+     close() {
         this.dispatchEvent(new CustomEvent('closePanel', {
             bubbles: true,
             composed: true
         }))
     }
-
-    remove(e) {
-
-        this.splice('data', e.model.index, 1)
-
-    }
+  
 
 
      render({}) {
@@ -507,8 +450,8 @@ export class AdminPartCategoryPanel extends LitElement {
         <div class="title-rightpaneldraw"> Category </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
-                <span on-tap="close">Close</span>
-                <iron-icon icon="close" on-tap="close"></iron-icon>
+                <span on-tap=${this.close.bind(this)}>Close</span>
+                <iron-icon icon="close" on-tap=${this.close.bind(this)}></iron-icon>
             </div>
         </div>
         <div class="table-padding">
