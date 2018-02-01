@@ -126,7 +126,6 @@ export class AdminPartTypePanel extends LitElement {
                  data,
                  item => item.id,
                  item => html`
-                    <div> ${item.type} </div>
                             
                                <input disabled class="col-xs-9 i-input input" value="${item.type}" on-tap="${(e)=>this.openChoice(e)}">
                           `
