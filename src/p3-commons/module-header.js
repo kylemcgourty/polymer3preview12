@@ -265,6 +265,10 @@ export class ModuleHeader extends LitElement {
             font-weight: bold;
             color: blue;
         }
+
+        .top-padding {
+            padding-top: 10px;
+        }
         </style>
         <section class="nomargin">
             <div class="row">
@@ -285,7 +289,7 @@ export class ModuleHeader extends LitElement {
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 text-right">
+                <div class="col-xs-12 col-sm-6 top-padding">
                     <div class="my-content" hidden$="${!isHidden}"></div>
                     <div class="my-content">
                         <div class="title bottom">

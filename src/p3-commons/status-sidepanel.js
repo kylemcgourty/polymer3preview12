@@ -5,115 +5,51 @@
 
   import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
-    import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
 
+export class StatusSidepanel extends LitElement{
+    
+    
 
-
-
-
-export class AdminPartTypePanel extends LitElement {
-
- 
 
     static get properties() {
-
         return {
-            // data: {
-            //     type: Array,
-            //     reflectToAttribute: true,
-            //     notify: true,
-            //      value: function() {
-            //         return []
-            //     }
-            // },
-            typemodel: {
-                type: String,
+            model: {
+                type: Array,
                 reflectToAttribute: true,
-                notify: true,
-                value: "",
+
+                value: function() {
+                    return [];
+                },
             },
-            savemodel: {
-                type: String,
-                reflectToAttribute: true,
-                notify: true,
-                value: "",
-            },
-            admin: {
-                type: String,
-                reflectToAttribute: true,
-                notify: true,
-            }
+            
+
+            
         }
     }
-
+  
+    
     constructor() {
-        super()
-        this.data = [];
+        super();
+        this.data = []
+    }
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
     }
 
-    submit() {
-
-            if (this.data) {
-                let str = ""
-                this.data.forEach(function(val, index) {
-                    str = str + val.type + ","
-                })
-                this.savemodel =str;
-            }
-       this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/"+this.typemodel;
-       this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
-       this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
+    ready(){
+        super.ready()
     }
-    responseSubmit(request) {
-
-        if (request){
-        var auth = request.detail.response.auth
-        if (auth){
-            this.close();
-        }
-    }
-}
-    open(type) {
-
-        this.type= "ptypes"
+  
 
 
-
-        this.typemodel = type;
-       this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+type;
-       this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
-       this.shadowRoot.querySelector('#ajaxOption').generateRequest();
-
-    }
-    responseOption(request) {
-
-        if (request){
-        var data = request.detail.response.results
-        if (data != "") {
-            this.data = [];
-            data = data.split(",")
-            data = data.slice(0, -1)
-
-            data.forEach(function(item, index) {
-                this.data.push({
-                    id: index,
-                    type: item
-                })
-            }.bind(this))
-
-        } else {
-            this.data = [{
-                type: "Spare"
-            }, {
-                type: "Component"
-            }, {
-                type: "Product"
-            }, {
-                type: "Others"
-            }]
-        }
+    open(eventRoute, data) {
 
 
+        this.data = data
+        this.eventRoute = eventRoute
         const types = data => {
 
             return html`
@@ -122,83 +58,35 @@ export class AdminPartTypePanel extends LitElement {
                  data,
                  item => item.id,
                  item => html`
-                            
-                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
-                          `
+                   <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.subname}" on-tap="${() =>this.selected(item)}">
+                  `
                  )}
             <div>`;
         }
 
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
-
+        
+    }
+    selected(item) {
 
        
-
-    }
-}
-    static get observers() {
-        return [
-        ]
-    }
-
- 
-    add() {
-        this.push('data', {
-            type: ""
-        })
-    }
-
-    openChoice(selection) {
-
-
-
-        this.dispatchEvent(new CustomEvent('parttype', {
-            bubbles: true,
-            composed: true,
-            detail: {
-                item: selection.type,
-                types: this.data
-            }
-
-
-
-        }))
-    }
-    toSignIn() {
-
-        this.dispatchEvent(new CustomEvent('toSignIn', {
-            bubbles: true,
-            composed: true
-        }))
-    }
-
-    close() {
-        this.dispatchEvent(new CustomEvent('closePanel', {
-            bubbles: true,
-            composed: true
-        }))
-    }
-
-    remove(e) {
-
-        this.splice('data', e.model.index, 1)
-
-    }
-
-    ready() {
-        super.ready()
-
+       
+            this.dispatchEvent(new CustomEvent(this.eventRoute, {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    name: item.subname
+                }
+            }));
         
-
     }
-
-       render({admin}) {
+    
+   render({}) {
 
         return html`
-
-        <style include="iron-flex iron-flex-alignment">
-     :host {
+                <style include="iron-flex iron-flex-alignment">
+             :host {
             display: block;
         }
         
@@ -371,7 +259,10 @@ export class AdminPartTypePanel extends LitElement {
             position: relative;
             width: 127px;
         }
-     
+        
+        .admin {
+            visibility: hidden;
+        }
         
         [data-admin="superuser"] {
             visibility: visible;
@@ -382,7 +273,9 @@ export class AdminPartTypePanel extends LitElement {
             display: none!important;
         }
         
-        
+        .admin1 {
+            display: none;
+        }
         
         .submit {
             width: 100%;
@@ -503,7 +396,7 @@ export class AdminPartTypePanel extends LitElement {
             text-align: right;
         }
         </style>
-        <div class="title-rightpaneldraw"> Type </div>
+        <div class="title-rightpaneldraw">Status</div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap=${this.close.bind(this)}>Close</span>
@@ -511,39 +404,13 @@ export class AdminPartTypePanel extends LitElement {
             </div>
         </div>
         <div class="table-padding">
-               <div id="table">
-               </div>
-            <div>
-                <div class="layout horizontal end">
-                    <div class="submit button-row col-xs-9 admin" data-admin$="${admin}">
-                    </div>
-                </div>
+            <div id="table">
             </div>
-            
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
+        </div>
+
         `
 
     }
-
-
+   
 }
-customElements.define("adminparttype-panel", AdminPartTypePanel);
-
-// <iron-list items="${data]} scroll-target="document">
-//                 <template>
-//                     <div>
-//                         <div class="my-content layout horizontal">
-//                             <iron-input class="col-xs-9 i-input" data-adminoff$="${admin}" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-//                                 <input disabled class="input">
-//                             </iron-input>
-//                             <iron-input class="col-xs-9 i-input admin1" data-admin$="${admin}" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-//                                 <input class="input">
-//                             </iron-input>
-//                             <div class="admin" data-admin$="${admin}">
-//                                 <paper-icon-button on-tap="remove" class="remove-icons" icon="icons:close"></paper-icon-button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </template>
-//             </iron-list>
+ customElements.define("status-sidepanel", StatusSidepanel);
