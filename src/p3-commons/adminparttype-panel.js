@@ -1,6 +1,5 @@
   import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-  // import {render} from '../../node_modules/lit-html/lit-html.js'
 
   import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
 
@@ -100,6 +99,7 @@ export class AdminPartTypePanel extends LitElement {
 
             data.forEach(function(item, index) {
                 this.data.push({
+                    id: index,
                     type: item
                 })
             }.bind(this))
@@ -116,22 +116,25 @@ export class AdminPartTypePanel extends LitElement {
             }]
         }
 
+        let handler = (e) => this.openChoice(e);
+
         const types = data => {
 
             return html`
             <div>
             ${repeat (
                  data,
-                 item => item.type,
+                 item => item.id,
                  item => html`
-                             <iron-input class="col-xs-9 i-input" id="term" on-click=${(e)=>this.openChoice(e)} bind-value="${item.type}">
-                               <input disabled class="input">
-                            </iron-input>`
+                    <div> ${item.type} </div>
+                            
+                               <input disabled class="col-xs-9 i-input input" value="${item.type}" on-tap="${(e)=>this.openChoice(e)}">
+                          `
                  )}
             <div>`;
         }
 
-
+        console.log('the data', this.data, html, render)
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
 
