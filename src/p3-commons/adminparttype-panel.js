@@ -127,7 +127,7 @@ export class AdminPartTypePanel extends LitElement {
                  item => item.id,
                  item => html`
                             
-                               <input disabled class="col-xs-9 i-input input" value="${item.type}" on-tap="${(e)=>this.openChoice(e)}">
+                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
                           `
                  )}
             <div>`;
@@ -168,16 +168,17 @@ export class AdminPartTypePanel extends LitElement {
         })
     }
 
-    openChoice(e) {
+    openChoice(selection) {
 
-        console.log('choice e', e, this.data)
-        let choice = e.model.item.type
+        // console.log('choice e', e, e.target.index, this.data)
+        console.log('choice id', selection)
+
 
         this.dispatchEvent(new CustomEvent('parttype', {
             bubbles: true,
             composed: true,
             detail: {
-                item: choice,
+                item: selection.type,
                 types: this.data
             }
 
