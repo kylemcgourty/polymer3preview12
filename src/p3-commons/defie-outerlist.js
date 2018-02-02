@@ -5,6 +5,9 @@
   import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
 
   import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+
+  import "../../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js"
+  import "../../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js"
    
    export class DefieOuterList extends LitElement {
 
@@ -430,6 +433,15 @@
 
                 console.log('data before render', this.data, this.shadowRoot.querySelector('#table'))
                   render(datatable(this.data), this.shadowRoot.querySelector('#table')) 
+
+
+                  console.log('the color', this.data[0].color.value)
+
+                  let elem = this.shadowRoot.querySelector('.unit')
+                  console.log('the element', elem)
+
+                  elem.style.setProperty('--title-background-normal', this.data[0].color.value)
+
                 }
             }
         
@@ -606,6 +618,8 @@
         render({}) {
             return html`
                <style include="shared-styles iron-flex iron-flex-alignment">
+
+
          :host {
             display: block;
             --title-background-normal: black;
@@ -1460,6 +1474,7 @@
             margin: auto;
         }
         </style>
+        <div class="layout horizontal"> ABC </div>
         <div class="ilholder">
             <div class="mobileheader"> Items </div>
            <div id="table"></div>
