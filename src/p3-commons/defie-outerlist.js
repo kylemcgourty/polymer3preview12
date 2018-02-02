@@ -400,6 +400,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="notebook-options layout horizontal">
+                                                <div class="group5 layout horizontal wrap">
+                                                    <div class="box5-data layout horizontal">
+                                                        <div class="mobile-icons layout horizontal">
+                                                            <div class="iconholder">
+                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
+                                                            </div>
+                                                            <div class="iconholder">
+                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
+                                                            </div>
+                                                            <div class="iconholder">
+                                                                <paper-icon-button icon="icons:more-vert" on-tap="iconPanel" class="icon1"></paper-icon-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
