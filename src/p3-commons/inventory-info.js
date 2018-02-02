@@ -32,12 +32,9 @@
           }
       }
       static get observers() {
-          return ['k(model)']
+          return []
       }
-      k(m) {
-          console.log('inventory XX inventory', m)
-          this.model = m;
-      }
+    
       constructor() {
           super();
           this.model = {};
@@ -62,7 +59,6 @@
 
       successList(response) {
 
-          console.log('success list called', response)
           if (response) {
               this.model = response.detail.response.results;
               this.model.id = response.detail.response.results.id;
