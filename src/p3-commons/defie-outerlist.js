@@ -246,98 +246,70 @@
                                             <div data-small$="${item.twelve}" data-size$="${item.col0.size}" style="display:${item.col0.display};" class="group2 layout horizontal wrap mobile-part">
                                                 <div class="box2-data layout horizontal">
                                                     <div class="bd2-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col0}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col0}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd2-2">
-                                                        <iron-input class="i-input" bind-value="${item.col0.value}">
-                                                            <input disabled style="color:${item.col0.color}" on-tap="event0" data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
-                                                        </iron-input>
+                                                            <input disabled style="color:${item.col0.color}" value=${item.col0.value} on-tap="event0" data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col1.size}" style="display:${item.col1.display};" class="group1 layout horizontal wrap">
                                                 <div class="box1-data layout horizontal">
                                                     <div class="bd2-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col1}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col1}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd1-1 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col1.value}">
-                                                            <input disabled style="color: ${item.col1.color}" data-align$="${item.col1.textalign}" class="input1" on-tap="event11">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col1.value}" style="color: ${item.col1.color}" data-align$="${item.col1.textalign}" class="input1" on-tap="event11">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col2.size}" style="display:${item.col2.display};" class="group4 layout horizontal wrap">
                                                 <div class="box4-data layout horizontal">
                                                     <div class="bd4-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col2}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col2}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd4-1 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col2.value}">
-                                                            <input disabled data-align$="${item.col2.textalign}" class="input1" style="color:${item.col2.color}" on-tap="event22">
-                                                        </iron-input>
+                                                            <input value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" style="color:${item.col2.color}" on-tap="event22">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col3.size}" style="display:${item.col3.display};" class="group5 layout horizontal wrap ">
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col3}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col3}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd5-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col3.value}">
-                                                            <input disabled data-align$="${item.col3.textalign}" style="color:${item.col3.color}" class="input1 inputnum" on-tap="event33">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col3.value}" data-align$="${item.col3.textalign}" style="color:${item.col3.color}" class="input1 inputnum" on-tap="event33">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col4.size}" style="display:${item.col4.display};" class="group6 layout horizontal wrap">
                                                 <div class="box6-data layout horizontal">
                                                     <div class="bd6-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col4}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col4}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd6-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col4.value}">
-                                                            <input disabled data-align$="${item.col4.textalign}" class="input1 inputnum" on-tap="event44">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 inputnum" on-tap="event44">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col5.size}" style="display:${item.col5.display};" class="group3 layout horizontal wrap">
                                                 <div class="box3-data layout horizontal">
                                                     <div class="bd3-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col5}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col5}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd3-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col5.value}">
-                                                            <input disabled data-align$="${item.col5.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col5.value}" data-align$="${item.col5.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col6.size}" style="display:${item.col6.display};" class="group7 layout horizontal wrap">
                                                 <div class="box7-data layout horizontal">
                                                     <div class="bd7-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col6}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col6}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd7-2 datapoint">
-                                                        <iron-input class="i-input" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
-                                                            <input style="color:${item.col6.color}" disabled data-align$="${item.col6.textalign}" class="input1 inputnum" on-tap="event66">
-                                                        </iron-input>
+                                                            <input style="color:${item.col6.color}" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 inputnum" on-tap="event66">
                                                     </div>
                                                 </div>
                                             </div>
@@ -347,59 +319,41 @@
                                                 </div>
                                                 <div style="display: ${item.col7.noshow}" class="box8-data layout horizontal">
                                                     <div class="bd8-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col7}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col7}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd8-2 datapoint">
-                                                        <iron-input class="i-input" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
-                                                            <input disabled data-align$="${item.col7.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col7.value}" data-align$="${item.col7.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col8.size}" style="display:${item.col8.display};" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col8}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col8}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col8.value}">
-                                                            <input disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col9.size}" style="display:${item.col9.display};" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col9}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col9}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col9.editable)};" class="i-input" bind-value="${item.col9.value}">
-                                                            <input data-align$="${item.col9.textalign}" on-focusout="inputEvent9" class="outline input1 inputnum">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col9.editable)};" class="i-input" bind-value="${item.col9.value}">
-                                                            <input disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input style="display:${this.editableCheck(item.col9.editable)};" value="${item.col9.value}" data-align$="${item.col9.textalign}" on-focusout="inputEvent9" class="outline input1 inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col10.size}" style="display:${item.col10.display};" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col10}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col10}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col10.value}">
-                                                            <input disabled data-align$="${item.col10.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col10.value}" data-align$="${item.col10.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
