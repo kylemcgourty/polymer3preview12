@@ -401,30 +401,32 @@
         
 
 
-        specialevent(e) {
+        specialevent(item) {
             this.dispatchEvent(new CustomEvent('specialevent', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
 
-        event0(e) {
+        event0(item) {
+
+            console.log('item in event', item)
+
             this.dispatchEvent(new CustomEvent('event0', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
         event1(item) {
 
-            console.log('item in event', item)
 
             this.dispatchEvent(new CustomEvent('event1', {
                 bubbles: true,
@@ -543,7 +545,7 @@
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: item
+                    item: item
                 }
             }))
         }
@@ -554,7 +556,7 @@
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
