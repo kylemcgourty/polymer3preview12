@@ -5,135 +5,30 @@
 
   import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-  import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
 
-  export class AdminTermPanel extends LitElement {
+  export class DynamicStatusPanel extends LitElement {
+
+
+
+
       static get properties() {
-
           return {
-              typemodel: {
-                  type: String,
+              model: {
+                  type: Array,
                   reflectToAttribute: true,
-                  notify: true,
-                  value: "",
+
+                  value: function() {
+                      return [];
+                  },
               },
-              savemodel: {
-                  type: String,
-                  reflectToAttribute: true,
-                  notify: true,
-                  value: "",
-              },
-              admin: {
-                  type: String,
-                  reflectToAttribute: true,
-                  notify: true,
-              }
           }
       }
-      static get observers() {
-          return []
+
+
+      constructor() {
+          super();
+          this.data = []
       }
-
-      submit() {
-
-          if (this.data) {
-              let str = ""
-              this.data.forEach(function(val, index) {
-                  str = str + val.type + ","
-              })
-              this.savemodel = str;
-          }
-          this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/" + this.typemodel;
-          this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
-          this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
-      }
-
-      responseSubmit(request) {
-          if (request) {
-              var auth = request.detail.response.auth
-              if (auth) {
-                  this.close();
-              }
-          }
-      }
-      open() {
-          var type = "custterms"
-          this.typemodel = type;
-          this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/" + type;
-          this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
-          this.shadowRoot.querySelector('#ajaxOption').generateRequest();
-      }
-      
-      responseOption(request) {
-          var data = request.detail.response.results
-
-          if (data != "") {
-              this.data = [];
-              data = data.split(",")
-              data = data.slice(0, -1)
-
-
-              data.forEach(function(item, index) {
-                  this.data.push({
-                      id: index,
-                      type: item
-                  })
-              }.bind(this))
-
-          } else {
-              this.data = [{
-                  term: "COD"
-              }, {
-                  term: "Net 1"
-              }, {
-                  term: "Net 30"
-              }, {
-                  term: "Net 60"
-              }]
-          }
-          const types = data => {
-            return html `
-            <div>
-            ${repeat (
-                 data,
-                 item => item.id,
-                 item => html`
-                            
-                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.term}" on-tap="${() =>this.openChoice(item)}">
-                          `
-                 )}
-            <div>`;
-          }
-
-
-          render(types(this.data), this.shadowRoot.querySelector('#table'))
-      }
-
-      add() {
-          this.data.push({
-              term: ""
-          })
-      }
-
-      openChoice(e) {
-          let choice = e.term
-          this.dispatchEvent(new CustomEvent('term', {
-              bubbles: true,
-              composed: true,
-              detail: {
-                  item: choice,
-                  terms: this.data
-              }
-          }))
-      }
-
-      toSignIn() {
-          this.dispatchEvent(new CustomEvent('toSignIn', {
-              bubbles: true,
-              composed: true
-          }))
-      }
-
       close() {
           this.dispatchEvent(new CustomEvent('closePanel', {
               bubbles: true,
@@ -141,16 +36,52 @@
           }))
       }
 
-      remove(e) {
-          this.data.splice(e.model.index, 1)
+      ready() {
+          super.ready()
       }
 
+      open() {
+          this.data = [{
+                  status: "Open"
+              }, {
+                  status: "Partial"
+              }, {
+                  status: "Closed"
+              }, {
+                  status: "Void"
+              }]
 
-    render({admin}) {
+          const types = data => {
+              return html `
+            <div>
+            ${repeat (
+                 data,
+                 item => item.id,
+                 item => html`
+                   <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.status}" on-tap="${() =>this.selected(item)}">
+                  `
+                 )}
+            <div>`;
+          }
+          render(types(this.data), this.shadowRoot.querySelector('#table'))
+      }
+      selected(e) {
+        console.log(e)
+          let choice = e.status
+          this.dispatchEvent(new CustomEvent("status", {
+              composed: true,
+              bubbles: true,
+              detail: {
+                  item: choice
+              }
+          }));
+      }
 
-        return html`
-          <style include="iron-flex iron-flex-alignment">
-        :host {
+      render({}) {
+
+          return html `
+                <style include="iron-flex iron-flex-alignment">
+             :host {
             display: block;
         }
         
@@ -455,7 +386,7 @@
             text-align: right;
         }
         </style>
-        <div class="title-rightpaneldraw"> Term </div>
+        <div class="title-rightpaneldraw">Status</div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap=${this.close.bind(this)}>Close</span>
@@ -463,15 +394,11 @@
             </div>
         </div>
         <div class="table-padding">
-               <div id="table">
-               </div>
-            <div>
-                <div class="layout horizontal end">
-                    <div class="submit button-row col-xs-9 admin" data-admin$="${admin}"></div>
-                </div>
+            <div id="table">
             </div>
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>`
+        </div>
+
+        `
       }
   }
-  customElements.define('adminterm-panel', AdminTermPanel);
+  customElements.define("dynamicstatus-panel", DynamicStatusPanel);

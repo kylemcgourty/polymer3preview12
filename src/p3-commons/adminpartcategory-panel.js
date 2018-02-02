@@ -96,7 +96,7 @@ export class AdminPartCategoryPanel extends LitElement {
                                <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.category}" on-tap="${() =>this.openChoice(item)}">
                           `
                  )}
-            <div>`;
+            </div>`;
         }
 
 
