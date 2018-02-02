@@ -1,11 +1,154 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
+  import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-  
-   export class AdminTermPanel extends PolymerElement {
 
-        static get template() {
-        return `
+  import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+
+  import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
+
+  import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
+
+  export class AdminTermPanel extends LitElement {
+      static get properties() {
+
+          return {
+              typemodel: {
+                  type: String,
+                  reflectToAttribute: true,
+                  notify: true,
+                  value: "",
+              },
+              savemodel: {
+                  type: String,
+                  reflectToAttribute: true,
+                  notify: true,
+                  value: "",
+              },
+              admin: {
+                  type: String,
+                  reflectToAttribute: true,
+                  notify: true,
+              }
+          }
+      }
+      static get observers() {
+          return []
+      }
+
+      submit() {
+
+          if (this.data) {
+              let str = ""
+              this.data.forEach(function(val, index) {
+                  str = str + val.type + ","
+              })
+              this.savemodel = str;
+          }
+          this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/" + this.typemodel;
+          this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
+          this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
+      }
+
+      responseSubmit(request) {
+          if (request) {
+              var auth = request.detail.response.auth
+              if (auth) {
+                  this.close();
+              }
+          }
+      }
+      open() {
+          var type = "custterms"
+          this.typemodel = type;
+          this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/" + type;
+          this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
+          this.shadowRoot.querySelector('#ajaxOption').generateRequest();
+      }
+      
+      responseOption(request) {
+          var data = request.detail.response.results
+
+          if (data != "") {
+              this.data = [];
+              data = data.split(",")
+              data = data.slice(0, -1)
+
+
+              data.forEach(function(item, index) {
+                  this.data.push({
+                      id: index,
+                      type: item
+                  })
+              }.bind(this))
+
+          } else {
+              this.data = [{
+                  term: "COD"
+              }, {
+                  term: "Net 1"
+              }, {
+                  term: "Net 30"
+              }, {
+                  term: "Net 60"
+              }]
+          }
+          const types = data => {
+            return html `
+            <div>
+            ${repeat (
+                 data,
+                 item => item.id,
+                 item => html`
+                            
+                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.term}" on-tap="${() =>this.openChoice(item)}">
+                          `
+                 )}
+            <div>`;
+          }
+
+
+          render(types(this.data), this.shadowRoot.querySelector('#table'))
+      }
+
+      add() {
+          this.data.push({
+              term: ""
+          })
+      }
+
+      openChoice(e) {
+          let choice = e.term
+          this.dispatchEvent(new CustomEvent('term', {
+              bubbles: true,
+              composed: true,
+              detail: {
+                  item: choice,
+                  terms: this.data
+              }
+          }))
+      }
+
+      toSignIn() {
+          this.dispatchEvent(new CustomEvent('toSignIn', {
+              bubbles: true,
+              composed: true
+          }))
+      }
+
+      close() {
+          this.dispatchEvent(new CustomEvent('closePanel', {
+              bubbles: true,
+              composed: true
+          }))
+      }
+
+      remove(e) {
+          this.data.splice(e.model.index, 1)
+      }
+
+
+    render({admin}) {
+
+        return html`
           <style include="iron-flex iron-flex-alignment">
         :host {
             display: block;
@@ -288,11 +431,6 @@ import {Element as PolymerElement}
             float: left;
         }
         
-     
-        
-     
-        
-        
         .i-input {
             width: 100%;
         }
@@ -320,190 +458,20 @@ import {Element as PolymerElement}
         <div class="title-rightpaneldraw"> Term </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
-                <span on-tap="close">Close</span>
-                <iron-icon icon="close" on-tap="close"></iron-icon>
+                <span on-tap=${this.close.bind(this)}>Close</span>
+                <iron-icon icon="close" on-tap=${this.close.bind(this)}></iron-icon>
             </div>
         </div>
         <div class="table-padding">
-<!--             <div class="layout horizontal end">
-                
-                <div on-tap="toSignIn" class="manage col-xs-9" id="innerchange" hindden="{{sign}}"> Manage </div>
-                <div on-tap="toSignIn" class="manage col-xs-9" id="innerchange"> Manage </div>
-                <paper-icon-button style="display: none" on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add"></paper-icon-button>
-                <paper-icon-button style="display: none" on-tap="add" class="add-icon admin" data-adminoff$="[[admin]]" icon="icons:add"></paper-icon-button>
-            </div>  -->
-            <iron-list items="[[data]]" scroll-target="document">
-                <template>
-                    <div>
-                        <div class="my-content layout horizontal">
-                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
-                                <input disabled class="input">
-                            </iron-input>
-                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
-                                <input class="input">
-                            </iron-input>
-                            <div class="admin" data-admin$="[[admin]]">
-                                <paper-icon-button on-tap="remove" class="remove-icons" icon="icons:close"></paper-icon-button>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </iron-list>
+               <div id="table">
+               </div>
             <div>
                 <div class="layout horizontal end">
-                    <div class="submit button-row col-xs-9 admin" data-admin$="[[admin]]">
-                        <paper-button class="button main-button" on-tap="submit" raised>Submit</paper-button>
-                    </div>
+                    <div class="submit button-row col-xs-9 admin" data-admin$="${admin}"></div>
                 </div>
             </div>
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>`
-    }
-      
-        static get properties() {
-
-            return {
-                typemodel: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: "",
-                },
-                savemodel: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: "",
-                },
-                admin: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                }
-            }
-        }
-        static get observers() {
-            return []
-        }
-
-          submit() {
-
-            console.log("inside submit")
-
-            if (this.data) {
-                let str = ""
-                this.data.forEach(function(val, index) {
-                    str = str + val.term + ","
-                })
-                this.set('savemodel', str)
-            }
-            this.$.ajaxSubmit.url = "/optionsetting/option/"+this.typemodel;
-            this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
-
-            this.$.ajaxSubmit.generateRequest();
-        }
-        responseSubmit(request) {
-
-            console.log("in resoinse sybmit...", request.detail.response)
-
-            var auth = request.detail.response.auth
-
-            console.log("the auth", auth)
-            if (auth){
-                console.log("inside ifauth obvi", this)
-                this.close();
-            }
-        }
-        open() {
-
-            if (this.lock == true) {
-                this.set('admin', "")
-                this.set("lock", false)
-                this.updateStyles();
-
-            }
-            if (this.admin == "superuser") {
-                this.lock = true
-            }
-
-            var type = "custterms"
-            this.typemodel = type;
-            this.$.ajaxOption.url = "/optionsetting/option/"+type;
-            this.$.ajaxOption.body = JSON.stringify(this.model);
-            this.$.ajaxOption.generateRequest();
-        }
-        responseOption(request) {
-            var data = request.detail.response.results
-
-            if (data != "") {
-                this.data = [];
-                data = data.split(",")
-                data = data.slice(0, -1)
-
-
-                data.forEach(function(item, index) {
-                    this.push('data', {
-                        term: item
-                    })
-                }.bind(this))
-
-            } else {
-                this.data = [{
-                    term: "COD"
-                }, {
-                    term: "Net 1"
-                }, {
-                    term: "Net 30"
-                }, {
-                    term: "Net 60"
-                }]
-            }
-        }
-
-        add() {
-            this.push('data', {
-                term: ""
-            })
-        }
-
-        openChoice(e) {
-
-            let choice = e.model.item.term
-
-            this.dispatchEvent(new CustomEvent('term', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    item: choice,
-                    terms: this.data
-                }
-
-
-
-            }))
-        }
-        toSignIn() {
-
-            this.dispatchEvent(new CustomEvent('toSignIn', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        remove(e) {
-
-            this.splice('data', e.model.index, 1)
-
-        }
-
-
-    }
-    customElements.define('adminterm-panel', AdminTermPanel);
-
+      }
+  }
+  customElements.define('adminterm-panel', AdminTermPanel);

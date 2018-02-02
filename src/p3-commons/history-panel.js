@@ -1,6 +1,8 @@
 import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
-class HistoryPanel extends LitElement {
+export class HistoryPanel extends LitElement {
     
     static get properties() {
         return {
@@ -48,6 +50,7 @@ class HistoryPanel extends LitElement {
 
         // url - /servicename/GetHistory
         // route - servicename
+        console.log('Open history-panel')
 
         this.scrollTop()
         this.url = url
@@ -63,8 +66,8 @@ class HistoryPanel extends LitElement {
         this.results = [];
         this.profileid = profileid
 
-        this.$.ajaxHistory.url = this.url1;
-        this.$.ajaxHistory.generateRequest();
+        this.shadowRoot.querySelector("#ajaxHistory").url = this.url1;
+        this.shadowRoot.querySelector("#ajaxHistory").generateRequest();
 
     }
 
@@ -124,26 +127,26 @@ class HistoryPanel extends LitElement {
 
             if (from === "purchaseorder") {
 
-                this.push('data', {
+                this.data.push({
                     idver: this.results[i].idver,
                     company: this.results[i].to.companyname,
                     total: this.usd(this.results[i].sototals.total)
                 });
             } else if (from === "vendor" || from == "customer") {
 
-                this.push('data', {
+                this.data.push({
                     idver: this.results[i].idver,
                     company: this.results[i].companyname
                 });
             } else if (from == "profile") {
-                this.push('data', {
+                this.data.push({
                     idver: this.results[i].idver,
                     company: this.results[i].ma_company,
                     total: this.results[i].ma_street + ", " + this.results[i].ma_city + ", " + this.results[i].ma_state + ", " + this.results[i].ma_zip + ", " + this.results[i].ma_country
                 })
             } else {
 
-                this.push('data', {
+                this.data.push({
                     idver: this.results[i].idver,
                     company: this.results[i].companyname,
                     total: this.usd(this.results[i].total)
@@ -159,7 +162,7 @@ class HistoryPanel extends LitElement {
             total == "Total"
         }
 
-        this.push('data', {
+        this.data.push({
             idver: this.name,
             company: this.title,
             total: total
@@ -175,6 +178,28 @@ class HistoryPanel extends LitElement {
 
         this.latestidver = this.results[0].idver
 
+        const histlist = data => {
+            return html`
+            <div>
+            ${repeat (
+                data,
+                item => item.id,
+                item => html`
+                        <div class="container">
+                            <div on-tap="${() =>this.getRecord(item)}" class="unit">
+                                <div class="layout horizontal">
+                                    <div class="left"> ${item.idver} </div>
+                                    <div class="middle"> ${item.company} </div>
+                                    <div class="right"> ${item.total} </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                )}
+            </div>`;
+        }
+
+        render(histlist(this.history), this.shadowRoot.querySelector("#parts"));
 
     }
 
@@ -227,6 +252,7 @@ class HistoryPanel extends LitElement {
     }
 
     render({history, url}) {
+        console.log('rendering history-panel');
         return html`<style include="shared-styles iron-flex iron-flex-alignment">
     #paperToggle {
         min-height: 40px;
@@ -337,23 +363,10 @@ class HistoryPanel extends LitElement {
         </div>
         <div class="table-padding">
             <div id="parts" class="results-container layout vertical">
-                <iron-list id="list" items="[[history]]" multi-selection selection-enabled scroll-target="document">
-                    <template>
-                        <div class="container">
-                            <div on-tap="getRecord" class="unit">
-                                <div class="layout horizontal">
-                                    <div class="left"> [[item.idver]] </div>
-                                    <div class="middle"> [[item.company]] </div>
-                                    <div class="right"> [[item.total]] </div>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                </iron-list>
             </div>
         </div>
         <iron-ajax id="ajaxSingle" method="GET" handle-as="json" on-response="receiveSingle" content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxHistory" method="POST" handle-as="json" url="{{url}}" on-response="receiveRecords" content-type="application/json"></iron-ajax>`
+        <iron-ajax id="ajaxHistory" method="POST" handle-as="json" url="{{url}}" on-response="${this.receiveRecords.bind(this)}" content-type="application/json"></iron-ajax>`
     }
 
 
