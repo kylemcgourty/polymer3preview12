@@ -140,7 +140,7 @@
 
             if (coldata) {
 
-
+                this.col0 = coldata["col0"].value
                 this.col1 = coldata["col1"].value
                 this.col2 = coldata["col2"].value
                 this.col3 = coldata["col3"].value
@@ -219,15 +219,11 @@
                                                     <div class="box5-data layout horizontal">
                                                         <div class="bd5-mobile">
                                                             <div>
-                                                                <iron-input class="i-input" bind-value="${this.col0}">
-                                                                    <input disabled class="input1" disabled>
-                                                                </iron-input>
+                                                                    <input disabled value="${this.col0}" class="input1" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="bd5-mobilehead">
-                                                            <iron-input class="i-input" bind-value="${item.col0.value}">
-                                                                <input disabled on-tap="event0" class="input1">
-                                                            </iron-input>
+                                                                <input disabled value="${item.col0.value}" on-tap="${() => this.event0(item)}" class="input1">
                                                         </div>
                                                         <div class="mobile-icons layout horizontal">
                                                             <div class="iconholder">
@@ -357,21 +353,22 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="notebook-options layout horizontal">
-                                                <div class="group5 layout horizontal wrap">
-                                                    <div class="box5-data layout horizontal">
-                                                        <div class="mobile-icons layout horizontal">
-                                                            <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${() => this.event1(item)}" class="icon1"></paper-icon-button>
-                                                            </div>
-                                                            <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${() => this.event2(item)}" class="icon1"></paper-icon-button>
-                                                            </div>
-                                                            <div class="iconholder">
-                                                                <paper-icon-button icon="icons:more-vert" on-tap="${()=>this.iconPanel(item)}" class="icon1"></paper-icon-button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="notebook-options layout horizontal">
+                                    <div class="group5 layout horizontal wrap">
+                                        <div class="box5-data layout horizontal">
+                                            <div class="mobile-icons layout horizontal">
+                                                <div class="iconholder">
+                                                    <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${() => this.event1(item)}" class="icon1"></paper-icon-button>
+                                                </div>
+                                                <div class="iconholder">
+                                                    <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${() => this.event2(item)}" class="icon1"></paper-icon-button>
+                                                </div>
+                                                <div class="iconholder">
+                                                    <paper-icon-button icon="icons:more-vert" on-tap="${()=>this.iconPanel(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                             </div>
                                         </div>
@@ -392,9 +389,13 @@
                   console.log('the color', this.data[0].color.value)
 
                   let elem = this.shadowRoot.querySelector('.unit')
+                  let elem1 = this.shadowRoot.querySelector('.mobileheader')
+
                   console.log('the element', elem)
 
                   elem.style.setProperty('--title-background-normal', this.data[0].color.value)
+                  elem1.style.setProperty('--title-background-normal', this.data[0].color.value)
+
 
                 }
             }
