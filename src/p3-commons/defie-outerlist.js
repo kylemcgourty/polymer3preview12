@@ -249,7 +249,7 @@
                                                             <input disabled value="${this.col0}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd2-2">
-                                                            <input disabled style="color:${item.col0.color}" value=${item.col0.value} on-tap="event0" data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
+                                                            <input disabled style="color:${item.col0.color}" value=${item.col0.value} on-tap="${() => this.event0(item)}" data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -259,7 +259,7 @@
                                                             <input disabled value="${this.col1}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd1-1 datapoint">
-                                                            <input disabled value="${item.col1.value}" style="color: ${item.col1.color}" data-align$="${item.col1.textalign}" class="input1" on-tap="event11">
+                                                            <input disabled value="${item.col1.value}" style="color: ${item.col1.color}" data-align$="${item.col1.textalign}" class="input1" on-tap="${() => this.event11(item)}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -269,7 +269,7 @@
                                                             <input disabled value="${this.col2}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd4-1 datapoint">
-                                                            <input value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" style="color:${item.col2.color}" on-tap="event22">
+                                                            <input value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" style="color:${item.col2.color}" on-tap="${() => this.event22(item)}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,7 +279,7 @@
                                                             <input disabled value="${this.col3}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd5-2 datapoint">
-                                                            <input disabled value="${item.col3.value}" data-align$="${item.col3.textalign}" style="color:${item.col3.color}" class="input1 inputnum" on-tap="event33">
+                                                            <input disabled value="${item.col3.value}" data-align$="${item.col3.textalign}" style="color:${item.col3.color}" class="input1 inputnum" on-tap="${() => this.event33(item)}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -289,7 +289,7 @@
                                                             <input disabled value="${this.col4}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd6-2 datapoint">
-                                                            <input disabled value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 inputnum" on-tap="event44">
+                                                            <input disabled value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 inputnum" on-tap="${() => this.event44(item)}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -309,7 +309,7 @@
                                                             <input disabled value="${this.col6}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd7-2 datapoint">
-                                                            <input style="color:${item.col6.color}" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 inputnum" on-tap="event66">
+                                                            <input style="color:${item.col6.color}" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 inputnum" on-tap="${()=> this.event66(item)}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -342,7 +342,7 @@
                                                             <input disabled value="${this.col9}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                            <input style="display:${this.editableCheck(item.col9.editable)};" value="${item.col9.value}" data-align$="${item.col9.textalign}" on-focusout="inputEvent9" class="outline input1 inputnum">
+                                                            <input style="display:${this.editableCheck(item.col9.editable)};" value="${item.col9.value}" data-align$="${item.col9.textalign}" on-focusout="${() =>this.inputEvent9(item)}" class="outline input1 inputnum">
                                                             <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -362,13 +362,13 @@
                                                     <div class="box5-data layout horizontal">
                                                         <div class="mobile-icons layout horizontal">
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${() => this.event1(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${() => this.event2(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="icons:more-vert" on-tap="iconPanel" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="icons:more-vert" on-tap="${()=>this.iconPanel(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -435,116 +435,115 @@
             }))
         }
 
-        event2(e) {
+        event2(item) {
             this.dispatchEvent(new CustomEvent('event2', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e,
-                    serviceid: this.data[e.model.index].col0.value.split("-")[0],
+                    item: item,
                 }
             }))
         }
-        event3(e) {
+        event3(item) {
             this.dispatchEvent(new CustomEvent('event3', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event4(e) {
+        event4(item) {
             this.dispatchEvent(new CustomEvent('event4', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event5(e) {
+        event5(item) {
           
             this.dispatchEvent(new CustomEvent('event5', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event6(e) {
+        event6(item) {
             this.dispatchEvent(new CustomEvent('event6', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event7(e) {
+        event7(item) {
     
             this.dispatchEvent(new CustomEvent('event7', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        event8(e) {
+        event8(item) {
             this.dispatchEvent(new CustomEvent('event8', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event9(e) {
+        event9(item) {
             this.dispatchEvent(new CustomEvent('event9', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event11(e) {
+        event11(item) {
             this.dispatchEvent(new CustomEvent('event11', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event22(e) {
+        event22(item) {
             this.dispatchEvent(new CustomEvent('event22', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event66(e) {
+        event66(item) {
             this.dispatchEvent(new CustomEvent('event66', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        inputEvent9(e) {
+        inputEvent9(item) {
             this.dispatchEvent(new CustomEvent('inputEvent9', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    event: item
                 }
             }))
         }
@@ -561,12 +560,6 @@
         }
 
 
-        toggleLeft() {
-            this.dispatchEvent(new CustomEvent('CloseMenuEvent', {
-                composed: true,
-                bubbles: true
-            }));
-        }
 
 
         render({}) {
