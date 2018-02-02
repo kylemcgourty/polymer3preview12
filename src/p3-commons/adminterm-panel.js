@@ -63,6 +63,7 @@
           this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
           this.shadowRoot.querySelector('#ajaxOption').generateRequest();
       }
+      
       responseOption(request) {
           var data = request.detail.response.results
 
