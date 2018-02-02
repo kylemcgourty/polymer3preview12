@@ -182,31 +182,31 @@
                                     <div class="layout horizontal wrap">
                                         
                                         <div class="iconholder" style="display:${item.icons.firstdisplay}!important; visibility: ${item.icons.firstvisibility}!important">
-                                            <paper-icon-button  disabled="${item.icons.firstdisabler}" icon="${item.icons.first}" on-tap="event1" class="icon1"></paper-icon-button>
+                                            <paper-icon-button  disabled="${item.icons.firstdisabler}" icon="${item.icons.first}" on-tap="${() => this.event1(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.seconddisplay}!important; visibility: ${item.icons.secondvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.seconddisabler}" icon="${item.icons.second}" on-tap="event2" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.seconddisabler}" icon="${item.icons.second}" on-tap="${() => this.event2(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.thirddisplay}!important; visibility: ${item.icons.thirdvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.thirddisabler}" icon="${item.icons.third}" on-tap="event3" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.thirddisabler}" icon="${item.icons.third}" on-tap="${() => this.event3(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.fourthdisplay}!important; visibility: ${item.icons.fourthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.fourthdisabler}" icon="${item.icons.fourth}" on-tap="event4" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.fourthdisabler}" icon="${item.icons.fourth}" on-tap="${() => this.event4(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.fifthdisplay}!important; visibility: ${item.icons.fifthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.fifthdisabler}" icon="${item.icons.fifth}" on-tap="event5" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.fifthdisabler}" icon="${item.icons.fifth}" on-tap="${() => this.event5(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.sixthdisplay}!important; visibility: ${item.icons.sixthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.sixthdisabler}" icon="${item.icons.sixth}" on-tap="event6" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.sixthdisabler}" icon="${item.icons.sixth}" on-tap="${() => this.event6(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.seventhdisplay}!important; visibility: ${item.icons.seventhvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.seventhdisabler}" icon="${item.icons.seventh}" on-tap="event7" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.seventhdisabler}" icon="${item.icons.seventh}" on-tap="${() => this.event7(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.eighthdisplay}!important; visibility: ${item.icons.eighthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.eighthdisabler}" icon="${item.icons.eighth}" on-tap="event8" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.eighthdisabler}" icon="${item.icons.eighth}" on-tap="${() => this.event8(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.ninthdisplay}!important; visibility: ${item.icons.ninthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.ninthdisabler}" icon="${item.icons.ninth}" on-tap="event9" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.ninthdisabler}" icon="${item.icons.ninth}" on-tap="${() => this.event9(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
@@ -422,15 +422,15 @@
             }))
         }
 
-        event1(e) {
+        event1(item) {
 
-            console.log("this.$", this.$)
+            console.log('item in event', item)
 
             this.dispatchEvent(new CustomEvent('event1', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
