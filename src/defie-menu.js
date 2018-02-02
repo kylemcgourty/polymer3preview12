@@ -670,6 +670,12 @@ export class DefieMenu extends PolymerElement {
         this.addEventListener('RBOtoWONew', e => {
             this.set('rbotowo', e.detail.model)
         });
+        this.addEventListener('logoutapp', e => {
+            this.set('route.path', "")
+        this.showMenu = false;
+
+        });
+
     }
 
 
