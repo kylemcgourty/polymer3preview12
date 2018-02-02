@@ -6,13 +6,13 @@ export class SortPanel extends LitElement {
                 type: Object,
                 reflectToAttribute: true,
                 notify: true,
-                value: function() {
-                    return {
-                        display0: "block",
-                        display1: "hidden",
-                        tableTitle: "",
-                    }
-                }
+                // value: function() {
+                //     return {
+                //         display0: "block",
+                //         display1: "hidden",
+                //         tableTitle: "",
+                //     }
+                // }
             },
             history: {
                 type: Array,
@@ -43,7 +43,8 @@ export class SortPanel extends LitElement {
 
     constructor() {
         super()
-        this.display0 = ""
+        this.showTitle = {};
+        this.showTitle.display0 = "";
     }
 
     open(model, index, showTitle) {
