@@ -1284,6 +1284,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             font-size: 13px;
+            padding-right: 5px;
         }
 
         .desktop-only {
