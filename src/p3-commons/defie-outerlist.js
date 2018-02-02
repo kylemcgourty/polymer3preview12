@@ -382,16 +382,13 @@
                     </div>`;
                 }
 
-                console.log('data before render', this.data, this.shadowRoot.querySelector('#table'))
                   render(datatable(this.data), this.shadowRoot.querySelector('#table')) 
 
 
-                  console.log('the color', this.data[0].color.value)
 
                   let elem = this.shadowRoot.querySelector('.unit')
                   let elem1 = this.shadowRoot.querySelector('.mobileheader')
 
-                  console.log('the element', elem)
 
                   elem.style.setProperty('--title-background-normal', this.data[0].color.value)
                   elem1.style.setProperty('--title-background-normal', this.data[0].color.value)
@@ -415,7 +412,6 @@
 
         event0(item) {
 
-            console.log('item in event', item)
 
             this.dispatchEvent(new CustomEvent('event0', {
                 bubbles: true,
