@@ -174,7 +174,7 @@
                         item => item.id,
                         item => html`
 
-                   <div> abc </div>
+                   <div></div>
                     <div class="unit">
                         <div class="layout vertical">
                             <div class="data-container layout horizontal">
@@ -1650,7 +1650,6 @@
             margin: auto;
         }
         </style>
-        <div class="layout horizontal"> ABC </div>
         <div class="ilholder">
             <div class="mobileheader"> Items </div>
            <div id="table"></div>
