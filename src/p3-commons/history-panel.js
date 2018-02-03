@@ -32,6 +32,21 @@ export class HistoryPanel extends LitElement {
         this.history = [];
     }
 
+    propByString(o, s) {
+        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        s = s.replace(/^\./, '');           // strip a leading dot
+        var a = s.split('.');
+        for (var i = 0, n = a.length; i < n; ++i) {
+            var k = a[i];
+            if (k in o) {
+                o = o[k];
+            } else {
+                return;
+            }
+        }
+        return o;
+    }
+
     open(cols, getHistoryUrl, getSingleUrlPrefix, selectedEventName) {
 
         this.scrollTop()
@@ -104,17 +119,15 @@ export class HistoryPanel extends LitElement {
     receiveRecords(e) {
         this.results = e.detail.response.results
 
-
-        var from = e.detail.url.split("/")[1];
-
+        console.log('receiveRecords results ', this.results);
 
         for (var i = 0; i < this.results.length; i++) {
             this.data.push({
                 id: this.results[i].id,
                 idver: this.results[i].idver,
-                col1: this.col1formatter(this.results[i][this.col1name]),
-                col2: this.col2formatter(this.results[i][this.col2name]),
-                col3: this.col3formatter(this.results[i][this.col3name])
+                col1: this.col1formatter(this.propByString(this.results[i], this.col1name)),
+                col2: this.col2formatter(this.propByString(this.results[i], this.col2name)),
+                col3: this.col3formatter(this.propByString(this.results[i], this.col3name))
             });
         }
 
