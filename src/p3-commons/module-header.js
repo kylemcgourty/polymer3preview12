@@ -69,7 +69,7 @@ export class ModuleHeader extends LitElement {
 
         }
         hider(soid) {
-
+            console.log('This hider called ', soid);
             if (soid) {
                 return false;
             } else {
@@ -93,6 +93,10 @@ export class ModuleHeader extends LitElement {
     render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
         return html`
            <style>
+        .my-content[hidden='true'] {
+            display: none;
+        }
+
         #paperToggle {
             min-height: 40px;
             min-width: 40px;

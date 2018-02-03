@@ -19,6 +19,9 @@ export class HistoryPanel extends LitElement {
                     return []
                 }
             },
+            pageTitle: {
+                type: String,
+            }
         }
     }
 
@@ -30,6 +33,7 @@ export class HistoryPanel extends LitElement {
     constructor() {
         super();
         this.history = [];
+        this.pageTitle = "Unset";
     }
 
     propByString(o, s) {
@@ -47,7 +51,7 @@ export class HistoryPanel extends LitElement {
         return o;
     }
 
-    open(cols, getHistoryUrl, getSingleUrlPrefix, selectedEventName) {
+    open(cols, getHistoryUrl, getSingleUrlPrefix, selectedEventName, pageTitle='History') {
 
         this.scrollTop()
 
@@ -77,6 +81,7 @@ export class HistoryPanel extends LitElement {
         // End column definitions
 
         this.selectedEventName = selectedEventName;
+        this.pageTitle = pageTitle;
 
         this.shadowRoot.querySelector("#ajaxHistory").url = getHistoryUrl;
         this.shadowRoot.querySelector("#ajaxHistory").generateRequest();
@@ -289,7 +294,7 @@ export class HistoryPanel extends LitElement {
         </style>
         <div class="page">
             <div id="top"></div>
-            <div class="title-rightpaneldraw">History </div>
+            <div class="title-rightpaneldraw">${this.pageTitle} </div>
             <div style="background-color: #e6e6e6;">
                 <div class="close-interface">
                     <span on-tap="close">Close</span>
