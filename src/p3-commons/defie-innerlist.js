@@ -674,7 +674,7 @@
 
             if (collection){
 
-            collection.serials ? collection = collection.serials : collection
+            collection.serials || collection.serials == "" ? collection = collection.serials : collection
 
             console.log('the collection', collection)
 
