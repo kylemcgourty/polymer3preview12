@@ -187,103 +187,69 @@
                                             <div data-size$="${item.col0.size}" class="group2 layout horizontal wrap mobile-part">
                                                 <div class="box2-data layout horizontal">
                                                     <div class="bd2-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col0}">
-                                                            <input disabled class="input1" disabled>
+                                                        <iron-input class="i-input" bind->
+                                                            <input disabled class="input1" value="${this.col0}" disabled>
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd2-2">
-                                                        <iron-input style="display:${this.editableCheck(item.col0.editable)};" class="i-input" on-focusout="event00" bind-value="${item.col0.value}">
-                                                            <input data-align$="${item.col0.textalign}" class="input1 col0input inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col0.editable)};" class="i-input" bind-value="${item.col0.value}">
-                                                            <input disabled data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
-                                                        </iron-input>
+                                                            <input style="display:${this.editableCheck(item.col0.editable)};" value="${item.col0.value}" data-align$="${item.col0.textalign}" class="input1 col0input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col0.editable)};" value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                              <div data-size$="${item.col1.size}" class="group1 layout horizontal wrap">
                                                 <div class="box1-data layout horizontal">
                                                     <div class="bd2-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col1}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled class="input1"  value="${this.col1}" disabled>
                                                     </div>
                                                     <div class="bd1-1 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col1.editable)};" class="i-input" on-focusout="event11" bind-value="${item.col1.value}">
-                                                            <input data-align$="${item.col1.textalign}" class="input1  inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col1.editable)};" class="i-input" bind-value="${item.col1.value}">
-                                                            <input disabled data-align$="${item.col1.textalign}" class=" inputnum input1">
-                                                        </iron-input>
+                                                        <input style="display:${this.editableCheck(item.col1.editable)};" value="${item.col1.value}" data-align$="${item.col1.textalign}" class="input1 col1input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col1.editable)};" value="${item.col1.value}" disabled data-align$="${item.col1.textalign}" class="input1 col1input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-size$="${item.col2.size}" class="group4 layout horizontal wrap">
                                                 <div class="box4-data layout horizontal">
                                                     <div class="bd4-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col2}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                        <input disabled class="input1"  value="${this.col2}" disabled>
                                                     </div>
                                                     <div class="bd4-1 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col2.editable)};" class="i-input" on-focusout="event22" bind-value="${item.col2.value}">
-                                                            <input data-align$="${item.col2.textalign}" class="inputnum input1 outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col2.editable)};" class="i-input" bind-value="${item.col2.value}">
-                                                            <input disabled data-align$="[[item.col2.textalign]]" class="inputnum input1">
-                                                        </iron-input>
+                                                        <input style="display:${this.editableCheck(item.col2.editable)};" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 col2input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col2.editable)};" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1 col2input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col3}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                        <input disabled class="input1"  value="${this.col3}" disabled>
                                                     </div>
                                                     <div class="bd5-2 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col3.editable)};" class="i-input" on-focusout="event33" bind-value="${item.col3.value}">
-                                                            <input data-align$="${item.col3.textalign}" class="input1 inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col3.editable)};" class="i-input" bind-value="${item.col3.value}">
-                                                            <input disabled data-align$="${item.col3.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                        <input style="display:${this.editableCheck(item.col3.editable)};" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 col3input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col3.editable)};" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 col3input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col4.display}" data-size$="${item.col4.size}" class="group6 layout horizontal wrap">
                                                 <div class="box6-data layout horizontal">
                                                     <div class="bd6-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col4}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                        <input disabled class="input1"  value="${this.col4}" disabled>
                                                     </div>
                                                     <div class="bd6-2 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col4.editable)};" class="i-input" on-focusout="event44" bind-value="${item.col4.value}">
-                                                            <input data-align$="${item.col4.textalign}" class="input1 inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col4.editable)};" class="i-input" bind-value="${item.col4.value}">
-                                                            <input disabled data-align$="${item.col4.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                        <input style="display:${this.editableCheck(item.col4.editable)};" value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 col4input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col4.editable)};" value="${item.col4.value}" disabled data-align$="${item.col4.textalign}" class="input1 col4input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col5.display}" data-size$="${item.col5.size}" class="group3 layout horizontal wrap">
                                                 <div class="box3-data layout horizontal">
                                                     <div class="bd3-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col5}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                        <input disabled class="input1"  value="${this.col5}" disabled>
                                                     </div>
                                                     <div class="bd3-2  datapoint">
                                                         <div style="width: 100%; display: ${item.col5.input};" on-tap="tapevent55">
-                                                            <iron-input style="display:${this.editableCheck(item.col5.editable)};" class="i-input" on-focusout="event55" bind-value="${item.col5.value}">
-                                                                <input data-align$="${item.col5.textalign}" style="color:${item.col5.color}" class="input1 inputnum outline">
-                                                            </iron-input>
-                                                            <iron-input style="display:${this.editableCheck1(item.col5.editable)};" class="i-input" bind-value="${item.col5.value}">
-                                                                <input disabled data-align$="${item.col5.textalign}" style="color:${item.col5.color}" class="input1 inputnum">
-                                                            </iron-input>
+                                                            <input style="display:${this.editableCheck(item.col5.editable)};" value="${item.col5.value}" data-align$="${item.col5.textalign}" class="input1 col5input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col5.editable)};" value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" class="input1 col5input inputnum">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -291,64 +257,45 @@
                                             <div style="display: ${item.col6.display}" data-size$="${item.col6.size}" class="group7 layout horizontal wrap">
                                                 <div class="box7-data layout horizontal">
                                                     <div class="bd7-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col6}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                        <input disabled class="input1"  value="${this.col6}" disabled>
                                                     </div>
                                                     <div class="bd7-2 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col6.editable)};" class="i-input" on-focusout="event66" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
-                                                            <input data-align$="${item.col6.textalign}" style="color:${item.col6.color}" class="input1 inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col6.editable)};" class="i-input" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
-                                                            <input disabled data-align$="${item.col6.textalign}" style="color:${item.col6.color}" class="input1 inputnum">
-                                                        </iron-input>
+                                                        <input style="display:${this.editableCheck(item.col6.editable)};" value="${item.col6.value}" data-align$="${item.col6.textalign}" class="input1 col6input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col6.editable)};" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 col6input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                              <div style="display: ${item.col7.display}" data-size$="${item.col7.size}" class="group8 layout horizontal wrap">
                                                 <div class="box8-data layout horizontal">
                                                     <div class="bd8-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col7}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                        <input disabled class="input1"  value="${this.col7}" disabled>
                                                     </div>
                                                     <div class="bd8-2 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col7.editable)};" class="i-input" on-focusout="event77" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
-                                                            <input data-align$="${item.col7.textalign}" class="input1 inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col7.editable)};" class="i-input" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
-                                                            <input disabled data-align$="${item.col7.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                        <input style="display:${this.editableCheck(item.col7.editable)};" value="${item.col7.value}" data-align$="${item.col7.textalign}" class="input1 col7input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col7.editable)};" value="${item.col7.value}" disabled data-align$="${item.col7.textalign}" class="input1 col7input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col8.display}" data-size$="${item.col8.size}" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col8}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                        <input disabled class="input1"  value="${this.col8}" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col8.editable)};" class="i-input" on-focusout="event88" bind-value="${item.col8.value}">
-                                                            <input data-align$="${item.col8.textalign}" class="input1 inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col8.editable)};" class="i-input" bind-value="${item.col8.value}">
-                                                            <input disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                        <input style="display:${this.editableCheck(item.col8.editable)};" value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 col8input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 col8input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col9.display}" data-size$="${item.col9.size}" class="group10 layout horizontal wrap">
                                                 <div class="box10-data layout horizontal">
                                                     <div class="bd10-2">
-                                                        <div class="bd10-1head"> ${this.col9}</div>
-                                                        <iron-input style="display:${this.editableCheck(item.col9.editable)};" class="i-input" on-focusout="event99" bind-value="${item.col9.value}">
-                                                            <input data-align$="${item.col9.textalign}" class="input1 inputnum outline">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col9.editable)};" class="i-input" bind-value="${item.col9.value}">
-                                                            <input disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                        <div class="bd10-1head"> 
+                                                        <input disabled class="input1"  value="${this.col9}" disabled>
+
+                                                        </div>
+                                                        <input style="display:${this.editableCheck(item.col9.editable)};" value="${item.col9.value}" data-align$="${item.col9.textalign}" class="input1 col9input inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 col9input inputnum">
                                                     </div>
                                                 </div>
                                             </div> 
