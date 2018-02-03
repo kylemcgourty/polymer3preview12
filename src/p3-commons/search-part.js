@@ -2,8 +2,6 @@ import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-el
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js'
 
-import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
-
 export class SearchPart extends LitElement {
     static get properties() {
         return {
