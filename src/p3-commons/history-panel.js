@@ -32,13 +32,9 @@ export class HistoryPanel extends LitElement {
         this.history = [];
     }
 
-    open({company, companyId, profileId}, cols, getHistoryUrl, getSingleUrlPrefix, selectedEventName) {
+    open(cols, getHistoryUrl, getSingleUrlPrefix, selectedEventName) {
 
         this.scrollTop()
-
-        this.profileId = profileId;
-        this.companyId = companyId;
-        this.company = company;
 
         this.data = [];
         this.results = [];
