@@ -707,16 +707,22 @@
 
         showTitle2(display) {
 
-            if (display) {
-
-         display.display ? display = display.display : display
-            if (!display) {
+            if (!display){
                 return "none"
-            } else {
-                return ""
             }
 
-        }}
+            console.log('the display', display)
+
+            if (display.display) {
+
+         
+            return ""
+
+        } else {
+            return "none"
+        }
+
+    }
 
 
 
@@ -1367,7 +1373,6 @@
         }
 
         .bd9-2 .input1 {
-            padding-right: 2px;
             box-sizing: border-box;
         }
 
@@ -1702,6 +1707,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             font-size: 14px;
+            padding-right: 5px;
         }
 
         .desktop-only {
@@ -1747,6 +1753,7 @@
         .outline {
             outline: #545659 auto 5px;
             outline-offset: -2px;
+            width: 95%;
         }
 
         .notebook-options {
@@ -1916,6 +1923,10 @@
 
             .appendages span, .appendages div {
                 font-size: 13px!important
+            }
+
+            .outline {
+                width: 92%!important;
             }
         }
 
