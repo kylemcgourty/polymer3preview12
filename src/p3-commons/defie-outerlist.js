@@ -6,8 +6,7 @@
 
   import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
-  import "../../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js"
-  import "../../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js"
+
    
    export class DefieOuterList extends LitElement {
 
