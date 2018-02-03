@@ -1,72 +1,180 @@
-  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
-    import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
+  import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
+  import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
 
-       
-   export class InventoryInfo extends LitElement {
-   
+  import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-        
 
-        static get properties() {
-            return {
-                inventory: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                model: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                url: {
-                    type: String,
-                    notify: true
-                }
-            }
-        }
-        static get observers() {
-            return ['k(model)']
-        }
-        k(m) {
-            console.log('inventory XX inventory', m)
-            this.model = m;
-        }
-        constructor() {
-            super();
-        }
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-        open(url) {
-            if (typeof url === 'string') this.url = url;
-            this.shadowRoot.querySelector('#ajaxList').generateRequest();
+  export class InventoryInfo extends LitElement {
 
+
+
+
+      static get properties() {
+          return {
+              inventory: {
+                  type: Object,
+                  notify: true,
+                  value: function() {
+                      return {};
+                  }
+              },
+              model: {
+                  type: Object,
+                  notify: true,
+                  value: function() {
+                      return {};
+                  }
+              },
+              url: {
+                  type: String,
+                  notify: true
+              }
+          }
+      }
+      static get observers() {
+          return []
+      }
+    
+      constructor() {
+          super();
+          this.model = {};
+      }
+      close() {
+          this.dispatchEvent(new CustomEvent('closePanel', {
+              bubbles: true,
+              composed: true
+          }))
+      }
+      open(url) {
+          if (typeof url === 'string') this.url = url;
+          this.shadowRoot.querySelector('#ajaxList').url = this.url
+          this.shadowRoot.querySelector('#ajaxList').generateRequest();
+
+
+      }
+
+      mathAbs(val) {
+          return Math.abs(val)
+      }
+
+      successList(response) {
+
+          if (response) {
+              this.model = response.detail.response.results;
+              this.model.id = response.detail.response.results.id;
+
+              this.model.returnso = this.mathAbs(this.model.returnso)
+              this.model.allocated = this.mathAbs(this.model.allocated)
+
+
+              const inventory = data => {
+
+                  return html `
+            <div>
+            <div class="my-content">
+                <div class="col-xs-3" style="font-weight:bold">PN id:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" disabled value="${data.id}" style="font-weight:bold">
+                    </iron-input>
+                </div>
+            </div>
+            <div class="my-content" style="font-weight:bold">
+                <div class="col-xs-3" style="font-weight:bold">PN:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" disabled value="${data.mfgpn}" style="font-weight:bold">
+                    
+                </div>
+            </div>
+            <div class="my-content" style="font-weight:bold">
+                <div class="col-xs-3" style="font-weight:bold">Brand:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" disabled value="${data.mfgname}" style="font-weight:bold">
+                    </iron-input>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">Available:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.available}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">On Hand:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.onhand}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">Allocated:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.allocated}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">On Order:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.onorder}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">WIP:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.wip}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">FG:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.finishedgoods}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">Received:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.received}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">Shipped:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.shipped}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">Return PO:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.returnpo}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">Return SO:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.returnso}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">CRMA:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.customerrma}" disabled>
+                </div>
+            </div>
+            <div class="my-content">
+                <div class="col-xs-3">VRMA:</div>
+                <div class="text-right">
+                        <input class="input col-xs-9" value="${data.vendorrma}" disabled>
+                </div>
+            </div>
             
-        }
+            <div>`;
+              }
 
-        mathAbs(val) {
-            return Math.abs(val)
-        }
 
-        successList(e) {
-            if (e){
-            this.model= e.detail.response.results;
-            this.model.returnso = this.mathAbs(this.model.returnso)
-            this.model.allocated= this.mathAbs(this.model.allocated)
-            console.log(this.model)
-        }
-        }
+              render(inventory(this.model), this.shadowRoot.querySelector('#table'))
+          }
+      }
 
-        render({}){
-            return html` <style include="shared-styles">
+      render({ model }) {
+          return html ` <style include="shared-styles">
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -287,8 +395,6 @@
             ;
         }
         </style>
-        <dom-bind>
-        <template>
         <div class="title-rightpaneldraw">
             Inventory
         </div>
@@ -298,121 +404,12 @@
                 <iron-icon icon="close" on-tap="close"></iron-icon>
             </div>
         </div>
-        <div class="title-style side-padding">
-            <div class="my-content">
-                <div class="col-xs-3" style="font-weight:bold">PN id:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.id}}">
-                        <input class="input" disabled style="font-weight:bold">
-                    </iron-input>
-                </div>
-            </div>
-            <div class="my-content" style="font-weight:bold">
-                <div class="col-xs-3" style="font-weight:bold">PN:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.mfgpn}}">
-                        <input class="input" disabled style="font-weight:bold">
-                    </input>
-                </div>
-            </div>
-            <div class="my-content" style="font-weight:bold">
-                <div class="col-xs-3" style="font-weight:bold">Brand:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.mfgname}}">
-                        <input class="input" disabled style="font-weight:bold">
-                    </iron-input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">Available:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.available}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">On Hand:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.onhand}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">Allocated:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.allocated}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">On Order:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.onorder}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">WIP:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.wip}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">FG:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.finishedgoods}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">Received:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.received}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">Shipped:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.shipped}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">Return PO:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.returnpo}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">Return SO:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.returnso}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">CRMA:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.customerrma}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
-            <div class="my-content">
-                <div class="col-xs-3">VRMA:</div>
-                <div class="text-right">
-                    <iron-input class="col-xs-9" bind-value="{{model.vendorrma}}">
-                        <input class="input" disabled></input>
-                </div>
-            </div>
+        <div id="table" class="title-style side-padding">
+            
         </div>
-        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>
-        </templat>
-        </dom-bind>`
+        <iron-ajax id="ajaxList" method="GET" handle-as="json" content-type="application/json" on-response=${this.successList.bind(this)}></iron-ajax>
+     `
 
-        }
-    }
-   customElements.define('inventory-info', InventoryInfo);
-
+      }
+  }
+  customElements.define('inventory-info', InventoryInfo);

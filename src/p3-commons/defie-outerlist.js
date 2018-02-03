@@ -5,6 +5,8 @@
   import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
 
   import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+
+
    
    export class DefieOuterList extends LitElement {
 
@@ -137,7 +139,7 @@
 
             if (coldata) {
 
-
+                this.col0 = coldata["col0"].value
                 this.col1 = coldata["col1"].value
                 this.col2 = coldata["col2"].value
                 this.col3 = coldata["col3"].value
@@ -171,7 +173,7 @@
                         item => item.id,
                         item => html`
 
-                   <div> abc </div>
+                   <div></div>
                     <div class="unit">
                         <div class="layout vertical">
                             <div class="data-container layout horizontal">
@@ -179,31 +181,31 @@
                                     <div class="layout horizontal wrap">
                                         
                                         <div class="iconholder" style="display:${item.icons.firstdisplay}!important; visibility: ${item.icons.firstvisibility}!important">
-                                            <paper-icon-button  disabled="${item.icons.firstdisabler}" icon="${item.icons.first}" on-tap="event1" class="icon1"></paper-icon-button>
+                                            <paper-icon-button  disabled="${item.icons.firstdisabler}" icon="${item.icons.first}" on-tap="${() => this.event1(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.seconddisplay}!important; visibility: ${item.icons.secondvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.seconddisabler}" icon="${item.icons.second}" on-tap="event2" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.seconddisabler}" icon="${item.icons.second}" on-tap="${() => this.event2(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.thirddisplay}!important; visibility: ${item.icons.thirdvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.thirddisabler}" icon="${item.icons.third}" on-tap="event3" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.thirddisabler}" icon="${item.icons.third}" on-tap="${() => this.event3(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.fourthdisplay}!important; visibility: ${item.icons.fourthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.fourthdisabler}" icon="${item.icons.fourth}" on-tap="event4" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.fourthdisabler}" icon="${item.icons.fourth}" on-tap="${() => this.event4(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.fifthdisplay}!important; visibility: ${item.icons.fifthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.fifthdisabler}" icon="${item.icons.fifth}" on-tap="event5" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.fifthdisabler}" icon="${item.icons.fifth}" on-tap="${() => this.event5(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.sixthdisplay}!important; visibility: ${item.icons.sixthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.sixthdisabler}" icon="${item.icons.sixth}" on-tap="event6" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.sixthdisabler}" icon="${item.icons.sixth}" on-tap="${() => this.event6(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.seventhdisplay}!important; visibility: ${item.icons.seventhvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.seventhdisabler}" icon="${item.icons.seventh}" on-tap="event7" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.seventhdisabler}" icon="${item.icons.seventh}" on-tap="${() => this.event7(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.eighthdisplay}!important; visibility: ${item.icons.eighthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.eighthdisabler}" icon="${item.icons.eighth}" on-tap="event8" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.eighthdisabler}" icon="${item.icons.eighth}" on-tap="${() => this.event8(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="display:${item.icons.ninthdisplay}!important; visibility: ${item.icons.ninthvisibility}!important">
-                                            <paper-icon-button disabled="${item.icons.ninthdisabler}" icon="${item.icons.ninth}" on-tap="event9" class="icon1"></paper-icon-button>
+                                            <paper-icon-button disabled="${item.icons.ninthdisabler}" icon="${item.icons.ninth}" on-tap="${() => this.event9(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
@@ -216,15 +218,11 @@
                                                     <div class="box5-data layout horizontal">
                                                         <div class="bd5-mobile">
                                                             <div>
-                                                                <iron-input class="i-input" bind-value="${this.col0}">
-                                                                    <input disabled class="input1" disabled>
-                                                                </iron-input>
+                                                                    <input disabled value="${this.col0}" class="input1" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="bd5-mobilehead">
-                                                            <iron-input class="i-input" bind-value="${item.col0.value}">
-                                                                <input disabled on-tap="event0" class="input1">
-                                                            </iron-input>
+                                                                <input disabled value="${item.col0.value}" on-tap="${() => this.event0(item)}" class="input1">
                                                         </div>
                                                         <div class="mobile-icons layout horizontal">
                                                             <div class="iconholder">
@@ -243,98 +241,70 @@
                                             <div data-small$="${item.twelve}" data-size$="${item.col0.size}" style="display:${item.col0.display};" class="group2 layout horizontal wrap mobile-part">
                                                 <div class="box2-data layout horizontal">
                                                     <div class="bd2-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col0}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col0}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd2-2">
-                                                        <iron-input class="i-input" bind-value="${item.col0.value}">
-                                                            <input disabled style="color:${item.col0.color}" on-tap="event0" data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
-                                                        </iron-input>
+                                                            <input disabled style="color:${item.col0.color}" value=${item.col0.value} on-tap="${() => this.event0(item)}" data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col1.size}" style="display:${item.col1.display};" class="group1 layout horizontal wrap">
                                                 <div class="box1-data layout horizontal">
                                                     <div class="bd2-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col1}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col1}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd1-1 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col1.value}">
-                                                            <input disabled style="color: ${item.col1.color}" data-align$="${item.col1.textalign}" class="input1" on-tap="event11">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col1.value}" style="color: ${item.col1.color}" data-align$="${item.col1.textalign}" class="input1" on-tap="${() => this.event11(item)}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col2.size}" style="display:${item.col2.display};" class="group4 layout horizontal wrap">
                                                 <div class="box4-data layout horizontal">
                                                     <div class="bd4-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col2}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col2}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd4-1 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col2.value}">
-                                                            <input disabled data-align$="${item.col2.textalign}" class="input1" style="color:${item.col2.color}" on-tap="event22">
-                                                        </iron-input>
+                                                            <input value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" style="color:${item.col2.color}" on-tap="${() => this.event22(item)}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col3.size}" style="display:${item.col3.display};" class="group5 layout horizontal wrap ">
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col3}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col3}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd5-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col3.value}">
-                                                            <input disabled data-align$="${item.col3.textalign}" style="color:${item.col3.color}" class="input1 inputnum" on-tap="event33">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col3.value}" data-align$="${item.col3.textalign}" style="color:${item.col3.color}" class="input1 inputnum" on-tap="${() => this.event33(item)}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col4.size}" style="display:${item.col4.display};" class="group6 layout horizontal wrap">
                                                 <div class="box6-data layout horizontal">
                                                     <div class="bd6-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col4}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col4}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd6-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col4.value}">
-                                                            <input disabled data-align$="${item.col4.textalign}" class="input1 inputnum" on-tap="event44">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 inputnum" on-tap="${() => this.event44(item)}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col5.size}" style="display:${item.col5.display};" class="group3 layout horizontal wrap">
                                                 <div class="box3-data layout horizontal">
                                                     <div class="bd3-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col5}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col5}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd3-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col5.value}">
-                                                            <input disabled data-align$="${item.col5.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col5.value}" data-align$="${item.col5.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col6.size}" style="display:${item.col6.display};" class="group7 layout horizontal wrap">
                                                 <div class="box7-data layout horizontal">
                                                     <div class="bd7-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col6}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col6}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd7-2 datapoint">
-                                                        <iron-input class="i-input" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
-                                                            <input style="color:${item.col6.color}" disabled data-align$="${item.col6.textalign}" class="input1 inputnum" on-tap="event66">
-                                                        </iron-input>
+                                                            <input style="color:${item.col6.color}" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 inputnum" on-tap="${()=> this.event66(item)}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -344,77 +314,60 @@
                                                 </div>
                                                 <div style="display: ${item.col7.noshow}" class="box8-data layout horizontal">
                                                     <div class="bd8-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col7}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col7}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd8-2 datapoint">
-                                                        <iron-input class="i-input" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
-                                                            <input disabled data-align$="${item.col7.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col7.value}" data-align$="${item.col7.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col8.size}" style="display:${item.col8.display};" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col8}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col8}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col8.value}">
-                                                            <input disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col9.size}" style="display:${item.col9.display};" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col9}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col9}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input style="display:${this.editableCheck(item.col9.editable)};" class="i-input" bind-value="${item.col9.value}">
-                                                            <input data-align$="${item.col9.textalign}" on-focusout="inputEvent9" class="outline input1 inputnum">
-                                                        </iron-input>
-                                                        <iron-input style="display:${this.editableCheck1(item.col9.editable)};" class="i-input" bind-value="${item.col9.value}">
-                                                            <input disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input style="display:${this.editableCheck(item.col9.editable)};" value="${item.col9.value}" data-align$="${item.col9.textalign}" on-focusout="${() =>this.inputEvent9(item)}" class="outline input1 inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col10.size}" style="display:${item.col10.display};" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
-                                                        <iron-input class="i-input" bind-value="${this.col10}">
-                                                            <input disabled class="input1" disabled>
-                                                        </iron-input>
+                                                            <input disabled value="${this.col10}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input class="i-input" bind-value="${item.col10.value}">
-                                                            <input disabled data-align$="${item.col10.textalign}" class="input1 inputnum">
-                                                        </iron-input>
+                                                            <input disabled value="${item.col10.value}" data-align$="${item.col10.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="notebook-options layout horizontal">
-                                                <div class="group5 layout horizontal wrap">
-                                                    <div class="box5-data layout horizontal">
-                                                        <div class="mobile-icons layout horizontal">
-                                                            <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
-                                                            </div>
-                                                            <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
-                                                            </div>
-                                                            <div class="iconholder">
-                                                                <paper-icon-button icon="icons:more-vert" on-tap="iconPanel" class="icon1"></paper-icon-button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="notebook-options layout horizontal">
+                                    <div class="group5 layout horizontal wrap">
+                                        <div class="box5-data layout horizontal">
+                                            <div class="mobile-icons layout horizontal">
+                                                <div class="iconholder">
+                                                    <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${() => this.event1(item)}" class="icon1"></paper-icon-button>
+                                                </div>
+                                                <div class="iconholder">
+                                                    <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${() => this.event2(item)}" class="icon1"></paper-icon-button>
+                                                </div>
+                                                <div class="iconholder">
+                                                    <paper-icon-button icon="icons:more-vert" on-tap="${()=>this.iconPanel(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                             </div>
                                         </div>
@@ -428,157 +381,167 @@
                     </div>`;
                 }
 
-                console.log('data before render', this.data, this.shadowRoot.querySelector('#table'))
                   render(datatable(this.data), this.shadowRoot.querySelector('#table')) 
+
+
+
+                  let elem = this.shadowRoot.querySelector('.unit')
+                  let elem1 = this.shadowRoot.querySelector('.mobileheader')
+
+
+                  elem.style.setProperty('--title-background-normal', this.data[0].color.value)
+                  elem1.style.setProperty('--title-background-normal', this.data[0].color.value)
+
+
                 }
             }
         
 
 
-        specialevent(e) {
+        specialevent(item) {
             this.dispatchEvent(new CustomEvent('specialevent', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
 
-        event0(e) {
+        event0(item) {
+
+
             this.dispatchEvent(new CustomEvent('event0', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        event1(e) {
+        event1(item) {
 
-            console.log("this.$", this.$)
 
             this.dispatchEvent(new CustomEvent('event1', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        event2(e) {
+        event2(item) {
             this.dispatchEvent(new CustomEvent('event2', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e,
-                    serviceid: this.data[e.model.index].col0.value.split("-")[0],
+                    item: item,
                 }
             }))
         }
-        event3(e) {
+        event3(item) {
             this.dispatchEvent(new CustomEvent('event3', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event4(e) {
+        event4(item) {
             this.dispatchEvent(new CustomEvent('event4', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event5(e) {
+        event5(item) {
           
             this.dispatchEvent(new CustomEvent('event5', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event6(e) {
+        event6(item) {
             this.dispatchEvent(new CustomEvent('event6', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event7(e) {
+        event7(item) {
     
             this.dispatchEvent(new CustomEvent('event7', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        event8(e) {
+        event8(item) {
             this.dispatchEvent(new CustomEvent('event8', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event9(e) {
+        event9(item) {
             this.dispatchEvent(new CustomEvent('event9', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event11(e) {
+        event11(item) {
             this.dispatchEvent(new CustomEvent('event11', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event22(e) {
+        event22(item) {
             this.dispatchEvent(new CustomEvent('event22', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event66(e) {
+        event66(item) {
             this.dispatchEvent(new CustomEvent('event66', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        inputEvent9(e) {
+        inputEvent9(item) {
             this.dispatchEvent(new CustomEvent('inputEvent9', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
@@ -589,28 +552,200 @@
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
 
-        toggleLeft() {
-            this.dispatchEvent(new CustomEvent('CloseMenuEvent', {
-                composed: true,
-                bubbles: true
-            }));
-        }
 
 
         render({}) {
             return html`
                <style include="shared-styles iron-flex iron-flex-alignment">
+
+
          :host {
             display: block;
             --title-background-normal: black;
             --title-normal: white;
         }
+
+
+
+
+/*  //////////////FLEX BOX/////////  */
+
+.layout.horizontal,
+      .layout.vertical {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+      }
+
+      .layout.inline {
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+      }
+
+      .layout.horizontal {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+      }
+
+      .layout.vertical {
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .layout.wrap {
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .layout.no-wrap {
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .flex {
+        -ms-flex: 1 1 0.000000001px;
+        -webkit-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 0.000000001px;
+        flex-basis: 0.000000001px;
+      }
+
+      .flex-auto {
+        -ms-flex: 1 1 auto;
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+      }
+
+      .flex-none {
+        -ms-flex: none;
+        -webkit-flex: none;
+        flex: none;
+      }
+
+      .layout.start {
+        -ms-flex-align: start;
+        -webkit-align-items: flex-start;
+        align-items: flex-start;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.end {
+        -ms-flex-align: end;
+        -webkit-align-items: flex-end;
+        align-items: flex-end;
+      }
+
+      .layout.baseline {
+        -ms-flex-align: baseline;
+        -webkit-align-items: baseline;
+        align-items: baseline;
+      }
+
+      /**
+       * Alignment in main axis.
+       */
+      .layout.start-justified {
+        -ms-flex-pack: start;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .layout.end-justified {
+        -ms-flex-pack: end;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+      }
+
+      .layout.around-justified {
+        -ms-flex-pack: distribute;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+      }
+
+      .layout.justified {
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+      }
+
+     
+      /**
+       * multi-line alignment in main axis.
+       */
+      .layout.start-aligned {
+        -ms-flex-line-pack: start;  /* IE10 */
+        -ms-align-content: flex-start;
+        -webkit-align-content: flex-start;
+        align-content: flex-start;
+      }
+
+      .layout.end-aligned {
+        -ms-flex-line-pack: end;  /* IE10 */
+        -ms-align-content: flex-end;
+        -webkit-align-content: flex-end;
+        align-content: flex-end;
+      }
+
+      .layout.center-aligned {
+        -ms-flex-line-pack: center;  /* IE10 */
+        -ms-align-content: center;
+        -webkit-align-content: center;
+        align-content: center;
+      }
+
+      .layout.between-aligned {
+        -ms-flex-line-pack: justify;  /* IE10 */
+        -ms-align-content: space-between;
+        -webkit-align-content: space-between;
+        align-content: space-between;
+      }
+
+      .layout.around-aligned {
+        -ms-flex-line-pack: distribute;  /* IE10 */
+        -ms-align-content: space-around;
+        -webkit-align-content: space-around;
+        align-content: space-around;
+      }
+
+      /* ////////////////END FLEXBOX /////////////// */
 
         .unit:nth-child(2) {
             background-color: var(--title-background-normal);
@@ -1140,6 +1275,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             font-size: 13px;
+            padding-right: 5px;
         }
 
         .desktop-only {
