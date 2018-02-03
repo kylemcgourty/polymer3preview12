@@ -201,7 +201,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-size$="${item.col1.size}" class="group1 layout horizontal wrap">
+                                             <div data-size$="${item.col1.size}" class="group1 layout horizontal wrap">
                                                 <div class="box1-data layout horizontal">
                                                     <div class="bd2-1head">
                                                         <iron-input class="i-input" bind-value="${this.col1}">
@@ -305,7 +305,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="display: ${item.col7.display}" data-size$="${item.col7.size}" class="group8 layout horizontal wrap">
+                                             <div style="display: ${item.col7.display}" data-size$="${item.col7.size}" class="group8 layout horizontal wrap">
                                                 <div class="box8-data layout horizontal">
                                                     <div class="bd8-1head">
                                                         <iron-input class="i-input" bind-value="${this.col7}">
@@ -339,7 +339,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- <div style="display: ${item.col9.display}" data-size$="${item.col9.size}" class="group10 layout horizontal wrap">
+                                            <div style="display: ${item.col9.display}" data-size$="${item.col9.size}" class="group10 layout horizontal wrap">
                                                 <div class="box10-data layout horizontal">
                                                     <div class="bd10-2">
                                                         <div class="bd10-1head"> ${this.col9}</div>
@@ -351,7 +351,7 @@
                                                         </iron-input>
                                                     </div>
                                                 </div>
-                                            </div> -->
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>
@@ -379,24 +379,19 @@
                             <div style="display: ${this.showTitle(item.serials)}" class="layout horizontal appendages">
                                 <div>
                                     <div style="display: ${this.showTitle(item.serials)}" class="serialtitle show" on-tap="ILSerials"> Serial Numbers: </div>
-                                    <!-- <div style="display: ${this.showTitle(item.hwrnumbers)}" id="HWRlabel-[[index]]" class="serialtitle serials2 show"> Other SNs: </div> -->
                                 </div>
-                                <div id="serials-[[index]]" class="serials desktop show">
+                                <div id$="serials-${item.id}" class="serials desktop show">
                                     <div style="display: ${this.showTitle(item.serials)}" class="group10">
                                         <div class="bd10-1 dot">
                                             ${item.serials ? item.serials.serials : ""}
                                         </div>
                                     </div>
-                                    <!-- <div style="display: ${this.showTitle(item.hwrnumbers)}" class="group11 serials2 show" id="serials2-[[index]]">
-                                        <div class="bd11-1 dot">
-                                            ${item.hwrnumbers}
-                                        </div>
-                                    </div> -->
+                                    
                                 </div>
                             </div>
                             <div style="display: ${this.showTitle2(item.shipping)}" class="layout horizontal appendages">
                                 <div class="serialtitle" on-tap="ILShipping"> Shipping </div>
-                                <div id="shipping-[[index]]" class="group12 show">
+                                <div id$="shipping-${item.id}" class="group12 show">
                                     <div>
                                         <div class="bd12-1">
                                             <span class="bd12-1head">Tracking Number</span>${item.shipping ? item.shipping.tracking: ""}
@@ -435,7 +430,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>`
+                    </div>
+                                          
+                                `
 
                     )}
             </div>`
