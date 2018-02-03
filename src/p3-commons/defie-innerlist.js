@@ -111,7 +111,6 @@
                 this.col7 = coldata["col7"].value
                 this.col8 = coldata["col8"].value
                 this.col9 = coldata["col9"].value
-                this.col10 = coldata["col10"].value
 
 
                 let temp = []
@@ -236,7 +235,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-size$="[[item.col3.size]]" class="group5 layout horizontal wrap ">
+                                            <div data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-1head">
                                                         <iron-input class="i-input" bind-value="${this.col3}">
@@ -244,16 +243,16 @@
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd5-2 datapoint">
-                                                        <iron-input style="display:[[editableCheck(item.col3.editable)]];" class="i-input" on-focusout="event33" bind-value="${item.col3.value}">
-                                                            <input data-align$="[[item.col3.textalign]]" class="input1 inputnum outline">
+                                                        <iron-input style="display:${this.editableCheck(item.col3.editable)};" class="i-input" on-focusout="event33" bind-value="${item.col3.value}">
+                                                            <input data-align$="${item.col3.textalign}" class="input1 inputnum outline">
                                                         </iron-input>
-                                                        <iron-input style="display:[[editableCheck1(item.col3.editable)]];" class="i-input" bind-value="${item.col3.value}">
-                                                            <input disabled data-align$="[[item.col3.textalign]]" class="input1 inputnum">
+                                                        <iron-input style="display:${this.editableCheck1(item.col3.editable)};" class="i-input" bind-value="${item.col3.value}">
+                                                            <input disabled data-align$="${item.col3.textalign}" class="input1 inputnum">
                                                         </iron-input>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="display: [[item.col4.display]]" data-size$="[[item.col4.size]]" class="group6 layout horizontal wrap">
+                                            <div style="display: ${item.col4.display}" data-size$="${item.col4.size}" class="group6 layout horizontal wrap">
                                                 <div class="box6-data layout horizontal">
                                                     <div class="bd6-1head">
                                                         <iron-input class="i-input" bind-value="${this.col4}">
@@ -261,16 +260,16 @@
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd6-2 datapoint">
-                                                        <iron-input style="display:[[editableCheck(item.col4.editable)]];" class="i-input" on-focusout="event44" bind-value="${item.col4.value}">
-                                                            <input data-align$="[[item.col4.textalign]]" class="input1 inputnum outline">
+                                                        <iron-input style="display:${this.editableCheck(item.col4.editable)};" class="i-input" on-focusout="event44" bind-value="${item.col4.value}">
+                                                            <input data-align$="${item.col4.textalign}" class="input1 inputnum outline">
                                                         </iron-input>
-                                                        <iron-input style="display:[[editableCheck1(item.col4.editable)]];" class="i-input" bind-value="${item.col4.value}">
-                                                            <input disabled data-align$="[[item.col4.textalign]]" class="input1 inputnum">
+                                                        <iron-input style="display:${this.editableCheck1(item.col4.editable)};" class="i-input" bind-value="${item.col4.value}">
+                                                            <input disabled data-align$="${item.col4.textalign}" class="input1 inputnum">
                                                         </iron-input>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="display: [[item.col5.display]]" data-size$="[[item.col5.size]]" class="group3 layout horizontal wrap">
+                                            <div style="display: ${item.col5.display}" data-size$="${item.col5.size}" class="group3 layout horizontal wrap">
                                                 <div class="box3-data layout horizontal">
                                                     <div class="bd3-1head">
                                                         <iron-input class="i-input" bind-value="${this.col5}">
@@ -278,22 +277,18 @@
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd3-2  datapoint">
-                                                        <div style="width: 100%; display: [[item.col5.input]];" on-tap="tapevent55">
-                                                            <iron-input style="display:[[editableCheck(item.col5.editable)]];" class="i-input" on-focusout="event55" bind-value="${item.col5.value}">
-                                                                <input data-align$="[[item.col5.textalign]]" style="color:[[item.col5.color]]" class="input1 inputnum outline">
+                                                        <div style="width: 100%; display: ${item.col5.input};" on-tap="tapevent55">
+                                                            <iron-input style="display:${this.editableCheck(item.col5.editable)};" class="i-input" on-focusout="event55" bind-value="${item.col5.value}">
+                                                                <input data-align$="${item.col5.textalign}" style="color:${item.col5.color}" class="input1 inputnum outline">
                                                             </iron-input>
-                                                            <iron-input style="display:[[editableCheck1(item.col5.editable)]];" class="i-input" bind-value="${item.col5.value}">
-                                                                <input disabled data-align$="[[item.col5.textalign]]" style="color:[[item.col5.color]]" class="input1 inputnum">
+                                                            <iron-input style="display:${this.editableCheck1(item.col5.editable)};" class="i-input" bind-value="${item.col5.value}">
+                                                                <input disabled data-align$="${item.col5.textalign}" style="color:${item.col5.color}" class="input1 inputnum">
                                                             </iron-input>
                                                         </div>
-                                                        <!-- <div class="checkboxholder" style="display: [[item.col5.checkbox]]; " data-align$="[[item.col5.textalign]]" on-tap="togglecheckbox"> -->
-                                                        <!--  <paper-checkbox class="tax" style="display:[[editableCheck(item.col5.editable)]];" checked="${item.col5.value}" on-change="checkbox"></paper-checkbox> -->
-                                                        <!--  <paper-checkbox checked="{{checkBoxChecker}}" on-tap="togglecheckbox"></paper-checkbox> -->
-                                                        <!-- </div> -->
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="display: [[item.col6.display]]" data-size$="[[item.col6.size]]" class="group7 layout horizontal wrap">
+                                            <div style="display: ${item.col6.display}" data-size$="${item.col6.size}" class="group7 layout horizontal wrap">
                                                 <div class="box7-data layout horizontal">
                                                     <div class="bd7-1head">
                                                         <iron-input class="i-input" bind-value="${this.col6}">
@@ -301,16 +296,16 @@
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd7-2 datapoint">
-                                                        <iron-input style="display:[[editableCheck(item.col6.editable)]];" class="i-input" on-focusout="event66" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
-                                                            <input data-align$="[[item.col6.textalign]]" style="color:[[item.col6.color]]" class="input1 inputnum outline">
+                                                        <iron-input style="display:${this.editableCheck(item.col6.editable)};" class="i-input" on-focusout="event66" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
+                                                            <input data-align$="${item.col6.textalign}" style="color:${item.col6.color}" class="input1 inputnum outline">
                                                         </iron-input>
-                                                        <iron-input style="display:[[editableCheck1(item.col6.editable)]];" class="i-input" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
-                                                            <input disabled data-align$="[[item.col6.textalign]]" style="color:[[item.col6.color]]" class="input1 inputnum">
+                                                        <iron-input style="display:${this.editableCheck1(item.col6.editable)};" class="i-input" on-focusout="doCalculateMargin" bind-value="${item.col6.value}">
+                                                            <input disabled data-align$="${item.col6.textalign}" style="color:${item.col6.color}" class="input1 inputnum">
                                                         </iron-input>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="display: [[item.col7.display]]" data-size$="[[item.col7.size]]" class="group8 layout horizontal wrap">
+                                            <div style="display: ${item.col7.display}" data-size$="${item.col7.size}" class="group8 layout horizontal wrap">
                                                 <div class="box8-data layout horizontal">
                                                     <div class="bd8-1head">
                                                         <iron-input class="i-input" bind-value="${this.col7}">
@@ -318,16 +313,16 @@
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd8-2 datapoint">
-                                                        <iron-input style="display:[[editableCheck(item.col7.editable)]];" class="i-input" on-focusout="event77" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
-                                                            <input data-align$="[[item.col7.textalign]]" class="input1 inputnum outline">
+                                                        <iron-input style="display:${this.editableCheck(item.col7.editable)};" class="i-input" on-focusout="event77" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
+                                                            <input data-align$="${item.col7.textalign}" class="input1 inputnum outline">
                                                         </iron-input>
-                                                        <iron-input style="display:[[editableCheck1(item.col7.editable)]];" class="i-input" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
-                                                            <input disabled data-align$="[[item.col7.textalign]]" class="input1 inputnum">
+                                                        <iron-input style="display:${this.editableCheck1(item.col7.editable)};" class="i-input" on-focusout="doCalculatePrice" bind-value="${item.col7.value}">
+                                                            <input disabled data-align$="${item.col7.textalign}" class="input1 inputnum">
                                                         </iron-input>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="display: [[item.col8.display]]" data-size$="[[item.col8.size]]" class="group9 layout horizontal wrap">
+                                            <div style="display: ${item.col8.display}" data-size$="${item.col8.size}" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal">
                                                     <div class="bd9-1head">
                                                         <iron-input class="i-input" bind-value="${this.col8}">
@@ -335,24 +330,24 @@
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <iron-input style="display:[[editableCheck(item.col8.editable)]];" class="i-input" on-focusout="event88" bind-value="${item.col8.value}">
-                                                            <input data-align$="[[item.col8.textalign]]" class="input1 inputnum outline">
+                                                        <iron-input style="display:${this.editableCheck(item.col8.editable)};" class="i-input" on-focusout="event88" bind-value="${item.col8.value}">
+                                                            <input data-align$="${item.col8.textalign}" class="input1 inputnum outline">
                                                         </iron-input>
-                                                        <iron-input style="display:[[editableCheck1(item.col8.editable)]];" class="i-input" bind-value="${item.col8.value}">
-                                                            <input disabled data-align$="[[item.col8.textalign]]" class="input1 inputnum">
+                                                        <iron-input style="display:${this.editableCheck1(item.col8.editable)};" class="i-input" bind-value="${item.col8.value}">
+                                                            <input disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                         </iron-input>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- <div style="display: [[item.col9.display]]" data-size$="[[item.col9.size]]" class="group10 layout horizontal wrap">
+                                            <!-- <div style="display: ${item.col9.display}" data-size$="${item.col9.size}" class="group10 layout horizontal wrap">
                                                 <div class="box10-data layout horizontal">
                                                     <div class="bd10-2">
                                                         <div class="bd10-1head"> ${this.col9}</div>
-                                                        <iron-input style="display:[[editableCheck(item.col9.editable)]];" class="i-input" on-focusout="event99" bind-value="${item.col9.value}">
-                                                            <input data-align$="[[item.col9.textalign]]" class="input1 inputnum outline">
+                                                        <iron-input style="display:${this.editableCheck(item.col9.editable)};" class="i-input" on-focusout="event99" bind-value="${item.col9.value}">
+                                                            <input data-align$="${item.col9.textalign}" class="input1 inputnum outline">
                                                         </iron-input>
-                                                        <iron-input style="display:[[editableCheck1(item.col9.editable)]];" class="i-input" bind-value="${item.col9.value}">
-                                                            <input disabled data-align$="[[item.col9.textalign]]" class="input1 inputnum">
+                                                        <iron-input style="display:${this.editableCheck1(item.col9.editable)};" class="i-input" bind-value="${item.col9.value}">
+                                                            <input disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                         </iron-input>
                                                     </div>
                                                 </div>
@@ -365,76 +360,76 @@
                                         <div class="box5-data layout horizontal">
                                             <div class="mobile-icons layout horizontal">
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="[[item.icons.first]]" style="display: [[item.icons.firstdisplay]]" on-tap="event1" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
                                                 </div>
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="[[item.icons.second]]" style="display: [[item.icons.seconddisplay]]" on-tap="event2" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
                                                 </div>
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="[[item.icons.third]]" style="display: [[item.icons.thirddisplay]]" on-tap="event3" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="event3" class="icon1"></paper-icon-button>
                                                 </div>
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="[[item.icons.fourth]]" style="display: [[item.icons.fourthdisplay]]" on-tap="event4" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="event4" class="icon1"></paper-icon-button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style="display: [[showTitle(item.serials.serials)]]" class="layout horizontal appendages">
+                            <div style="display: ${this.showTitle(item.serials)}" class="layout horizontal appendages">
                                 <div>
-                                    <div style="display: [[showTitle(item.serials.serials)]]" class="serialtitle show" on-tap="ILSerials"> Serial Numbers: </div>
-                                    <!-- <div style="display: [[showTitle(item.hwrnumbers)]]" id="HWRlabel-[[index]]" class="serialtitle serials2 show"> Other SNs: </div> -->
+                                    <div style="display: ${this.showTitle(item.serials)}" class="serialtitle show" on-tap="ILSerials"> Serial Numbers: </div>
+                                    <!-- <div style="display: ${this.showTitle(item.hwrnumbers)}" id="HWRlabel-[[index]]" class="serialtitle serials2 show"> Other SNs: </div> -->
                                 </div>
                                 <div id="serials-[[index]]" class="serials desktop show">
-                                    <div style="display: [[showTitle(item.serials.serials)]]" class="group10">
+                                    <div style="display: ${this.showTitle(item.serials)}" class="group10">
                                         <div class="bd10-1 dot">
-                                            {{item.serials.serials}}
+                                            ${item.serials ? item.serials.serials : ""}
                                         </div>
                                     </div>
-                                    <!-- <div style="display: [[showTitle(item.hwrnumbers)]]" class="group11 serials2 show" id="serials2-[[index]]">
+                                    <!-- <div style="display: ${this.showTitle(item.hwrnumbers)}" class="group11 serials2 show" id="serials2-[[index]]">
                                         <div class="bd11-1 dot">
-                                            {{item.hwrnumbers)}}
+                                            ${item.hwrnumbers}
                                         </div>
                                     </div> -->
                                 </div>
                             </div>
-                            <div style="display: [[showTitle2(item.shipping.display)]]" class="layout horizontal appendages">
+                            <div style="display: ${this.showTitle2(item.shipping)}" class="layout horizontal appendages">
                                 <div class="serialtitle" on-tap="ILShipping"> Shipping </div>
                                 <div id="shipping-[[index]]" class="group12 show">
                                     <div>
                                         <div class="bd12-1">
-                                            <span class="bd12-1head">Tracking Number</span>[[item.shipping.tracking]]
+                                            <span class="bd12-1head">Tracking Number</span>${item.shipping ? item.shipping.tracking: ""}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="bd12-2">
-                                            <span class="bd12-2head">US ECCN</span>[[item.shipping.useccn]]
+                                            <span class="bd12-2head">US ECCN</span>${item.shipping ? item.shipping.useccn: ""}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="bd12-3">
-                                            <span class="bd12-3head">HS Tariff</span>[[item.shipping.hstariff]]
+                                            <span class="bd12-3head">HS Tariff</span>${item.shipping ? item.shipping.hstariff: ""}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="bd12-4">
-                                            <span class="bd12-4head">Dim (HxWxD)</span>[[item.shipping.dimension]]
+                                            <span class="bd12-4head">Dim (HxWxD)</span>${item.shipping ? item.shipping.dimension: ""}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="bd12-5">
-                                            <span class="bd12-5head">Weight</span>[[item.shipping.netweight]]
+                                            <span class="bd12-5head">Weight</span>${item.shipping ? item.shipping.netweight: ""}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="bd12-6">
-                                            <span class="bd12-6head">Incoterms</span>[[item.shipping.incoterms]]
+                                            <span class="bd12-6head">Incoterms</span>${item.shipping ? item.shipping.incoterms: ""}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="bd12-7">
-                                            <span class="bd12-7head">Orig. Country</span>[[item.shipping.countryoforigin]]
+                                            <span class="bd12-7head">Orig. Country</span>${item.shipping ? item.shipping.countryoforigin: ""}
                                         </div>
                                     </div>
                                 </div>
@@ -733,6 +728,10 @@
 
         showTitle(collection) {
 
+            if (collection){
+
+            collection.serials ? collection = collection.serials : collection
+
             console.log('the collection', collection)
 
             if (collection == undefined || collection.length == 0) {
@@ -758,18 +757,22 @@
 
                 return "none"
             }
+        }
 
         }
 
         showTitle2(display) {
 
+            if (display) {
+
+         display.display ? display = display.display : display
             if (!display) {
                 return "none"
             } else {
                 return ""
             }
 
-        }
+        }}
 
 
 
@@ -1056,6 +1059,179 @@
             --title-background-normal: black;
             --title-normal: white;
         }
+
+        /*  //////////////FLEX BOX/////////  */
+
+.layout.horizontal,
+      .layout.vertical {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+      }
+
+      .layout.inline {
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+      }
+
+      .layout.horizontal {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+      }
+
+      .layout.vertical {
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .layout.wrap {
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .layout.no-wrap {
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .flex {
+        -ms-flex: 1 1 0.000000001px;
+        -webkit-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 0.000000001px;
+        flex-basis: 0.000000001px;
+      }
+
+      .flex-auto {
+        -ms-flex: 1 1 auto;
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+      }
+
+      .flex-none {
+        -ms-flex: none;
+        -webkit-flex: none;
+        flex: none;
+      }
+
+      .layout.start {
+        -ms-flex-align: start;
+        -webkit-align-items: flex-start;
+        align-items: flex-start;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.end {
+        -ms-flex-align: end;
+        -webkit-align-items: flex-end;
+        align-items: flex-end;
+      }
+
+      .layout.baseline {
+        -ms-flex-align: baseline;
+        -webkit-align-items: baseline;
+        align-items: baseline;
+      }
+
+      /**
+       * Alignment in main axis.
+       */
+      .layout.start-justified {
+        -ms-flex-pack: start;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .layout.end-justified {
+        -ms-flex-pack: end;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+      }
+
+      .layout.around-justified {
+        -ms-flex-pack: distribute;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+      }
+
+      .layout.justified {
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+      }
+
+     
+      /**
+       * multi-line alignment in main axis.
+       */
+      .layout.start-aligned {
+        -ms-flex-line-pack: start;  /* IE10 */
+        -ms-align-content: flex-start;
+        -webkit-align-content: flex-start;
+        align-content: flex-start;
+      }
+
+      .layout.end-aligned {
+        -ms-flex-line-pack: end;  /* IE10 */
+        -ms-align-content: flex-end;
+        -webkit-align-content: flex-end;
+        align-content: flex-end;
+      }
+
+      .layout.center-aligned {
+        -ms-flex-line-pack: center;  /* IE10 */
+        -ms-align-content: center;
+        -webkit-align-content: center;
+        align-content: center;
+      }
+
+      .layout.between-aligned {
+        -ms-flex-line-pack: justify;  /* IE10 */
+        -ms-align-content: space-between;
+        -webkit-align-content: space-between;
+        align-content: space-between;
+      }
+
+      .layout.around-aligned {
+        -ms-flex-line-pack: distribute;  /* IE10 */
+        -ms-align-content: space-around;
+        -webkit-align-content: space-around;
+        align-content: space-around;
+      }
+
+      /* ////////////////END FLEXBOX /////////////// */
 
         .unit:nth-child(2) {
             background-color: var(--title-background-normal);
