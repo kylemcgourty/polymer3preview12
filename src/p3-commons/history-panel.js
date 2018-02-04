@@ -124,8 +124,6 @@ export class HistoryPanel extends LitElement {
     receiveRecords(e) {
         this.results = e.detail.response.results
 
-        console.log('receiveRecords results ', this.results);
-
         for (var i = 0; i < this.results.length; i++) {
             this.data.push({
                 id: this.results[i].id,
