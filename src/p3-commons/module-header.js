@@ -63,13 +63,10 @@ export class ModuleHeader extends LitElement {
             this.setting.s_logo= ""
             this.setting.s_logo=  setting.s_logo
 
-            console.log('the setting in cust new', this.setting)
-
             this.test = "Dad"
 
         }
         hider(soid) {
-            console.log('This hider called ', soid);
             if (soid) {
                 return false;
             } else {
