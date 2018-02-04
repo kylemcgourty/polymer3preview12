@@ -97,6 +97,10 @@ export class ModuleHeader extends LitElement {
             display: none;
         }
 
+        .my-content[hidden='false'] {
+            display: block;
+        }
+
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
