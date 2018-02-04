@@ -1,265 +1,290 @@
-  import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
+
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+
+import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
-  import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+export class CombinedpanelList extends LitElement {
+    static get properties() {
+        return {
+            panelname: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+                value: "",
+            },
+            arrayvalues: {
+                type: Array,
+                reflectToAttribute: true,
+                notify: true,
+                value: function() {
+                    return [
 
-  import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
+                    ]
+                },
+            },
 
+            listpage: {
+                type: Boolean,
+                value: false,
 
-  export class CombinedpanelList extends LitElement {
-      static get properties() {
-          return {
-              panelname: {
-                  type: String,
-                  reflectToAttribute: true,
-                  notify: true,
-                  value: "",
-              },
-              arrayvalues: {
-                  type: Array,
-                  reflectToAttribute: true,
-                  notify: true,
-                  value: function() {
-                      return [
+                reflectToAttribute: true
+            },
+            editpage: {
+                type: Boolean,
+                value: false,
 
-                      ]
-                  },
-              },
+                reflectToAttribute: true
+            },
+            flag: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true
+            },
+            newpage: {
+                type: Boolean,
+                value: false,
 
-              listpage: {
-                  type: Boolean,
-                  value: false,
+                reflectToAttribute: true
+            },
+            model: {
+                type: Array,
+                notify: true,
+                value: function() {
+                    return [];
+                }
+            },
+            largeModel: {
+                type: Object,
+                notify: true,
+                reflectToAttribute: true,
+                value: function() {
+                    return {};
+                }
+            },
+            temporaryHolder: {
+                type: Object,
+                value: function() {
+                    return {}
+                }
+            },
+            billing: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return { //call return function
+                        name: "",
+                        attention: "",
+                        fax: "",
+                        phone: "",
+                        street: "",
+                        zip: "",
+                        city: "",
+                        state: "",
+                        country: "",
+                        email: "",
+                        visibility4: "",
+                        status: true
+                    };
+                }
+            },
 
-                  reflectToAttribute: true
-              },
-              editpage: {
-                  type: Boolean,
-                  value: false,
+            url: {
+                type: String,
+                notify: true
+            },
+            searchurl: {
+                type: String,
+                notify: true
+            },
+            populate: {
+                type: String,
+                notify: true
+            },
+            searchstring: {
+                type: String,
+                notify: true,
+                value: function() {
+                    return "";
+                }
+            },
+            queryMatches: {
+                type: String
+            },
+            from: {
+                type: String
+            },
+            status: {
+                type: String,
+                value: "true"
+            },
+            searchoption: {
+                type: String,
+                value: ""
+            },
+            singleObject: {
+                type: Object,
+                notify: true,
+                value: function() {
+                    return {};
+                }
+            },
+            noneditable: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true
+            }
+        }
+    }
 
-                  reflectToAttribute: true
-              },
-              flag: {
-                  type: Boolean,
-                  value: false,
-                  reflectToAttribute: true
-              },
-              newpage: {
-                  type: Boolean,
-                  value: false,
+    constructor() {
+        super();
+    }
 
-                  reflectToAttribute: true
-              },
-              model: {
-                  type: Array,
-                  notify: true,
-                  value: function() {
-                      return [];
-                  }
-              },
-              largeModel: {
-                  type: Object,
-                  notify: true,
-                  reflectToAttribute: true,
-                  value: function() {
-                      return {};
-                  }
-              },
-              temporaryHolder: {
-                  type: Object,
-                  value: function() {
-                      return {}
-                  }
-              },
-              billing: {
-                  type: Object,
-                  notify: true,
-                  value: function() {
-                      return { //call return function
-                          name: "",
-                          attention: "",
-                          fax: "",
-                          phone: "",
-                          street: "",
-                          zip: "",
-                          city: "",
-                          state: "",
-                          country: "",
-                          email: "",
-                          visibility4: "",
-                          status: true
-                      };
-                  }
-              },
+    generateSearch(e, pass, retrieveAll) {
+        if (e) {
+            if (e.keyCode !== 13 && e.type == "keypress") {
+                return
+            }
+        }
+        let query = this.$.searchQuery.value.trim();
+        if (retrieveAll) {
+            query = ""
+            this.searchoption = 'id'
+        }
+        let querypackage = {
+            query: query.toString().toLowerCase(),
+            option: this.searchoption,
+            type: this.panelname.toLowerCase()
+        }
 
-              url: {
-                  type: String,
-                  notify: true
-              },
-              searchurl: {
-                  type: String,
-                  notify: true
-              },
-              populate: {
-                  type: String,
-                  notify: true
-              },
-              searchstring: {
-                  type: String,
-                  notify: true,
-                  value: function() {
-                      return "";
-                  }
-              },
-              queryMatches: {
-                  type: String
-              },
-              from: {
-                  type: String
-              },
-              status: {
-                  type: String,
-                  value: "true"
-              },
-              searchoption: {
-                  type: String,
-                  value: ""
-              },
-              singleObject: {
-                  type: Object,
-                  notify: true,
-                  value: function() {
-                      return {};
-                  }
-              },
-              noneditable: {
-                  type: Boolean,
-                  value: false,
-                  reflectToAttribute: true
-              }
-          }
-      }
+        console.log("here is the query package", querypackage)
 
-      constructor() {
-          super();
-      }
-
-      generateSearch(e, pass, retrieveAll) {
-          if (e) {
-              if (e.keyCode !== 13 && e.type == "keypress") {
-                  return
-              }
-          }
-          let query = this.$.searchQuery.value.trim();
-          if (retrieveAll) {
-              query = ""
-              this.searchoption = 'id'
-          }
-          let querypackage = {
-              query: query.toString().toLowerCase(),
-              option: this.searchoption,
-              type: this.panelname.toLowerCase()
-          }
-
-          console.log("here is the query package", querypackage)
-
-          this.$.ajaxSearch.body = JSON.stringify(querypackage)
-          this.$.ajaxSearch.generateRequest();
-      }
+        this.$.ajaxSearch.body = JSON.stringify(querypackage)
+        this.$.ajaxSearch.generateRequest();
+    }
 
 
 
-      setSearchOption(e) {
-          e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
+    setSearchOption(e) {
+        e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
 
-          if (this.$.searchQuery.value) {
-              this.generateSearch()
-          }
-      }
+        if (this.$.searchQuery.value) {
+            this.generateSearch()
+        }
+    }
 
-      statusChange(e) {
+    statusChange(e) {
 
-          var status = e.path[0].id
+        var status = e.path[0].id
 
-          this.status = this.filter[e.path[0].id]
-          var data = this.searched || this.model
-          this.responselist(data, true)
-      }
-      open3() {
-          let querypackage = {
-              query: "",
-              option: "idver"
-          }
-          this.$.ajaxSearch.body = JSON.stringify(querypackage)
-          this.$.ajaxSearch.generateRequest();
+        this.status = this.filter[e.path[0].id]
+        var data = this.searched || this.model
+        this.responselist(data, true)
+    }
+    open3() {
+        let querypackage = {
+            query: "",
+            option: "idver"
+        }
+        this.$.ajaxSearch.body = JSON.stringify(querypackage)
+        this.$.ajaxSearch.generateRequest();
 
-      }
-      populateObject(e) {
+    }
+    populateObject(item) {
+        console.log(item)
+        var customListener = "new" + this.panelname;
 
-          var customListener = "new" + this.panelname;
+        var newObj = {}
 
-          var newObj = {}
+        this.singleObject = item;
 
-          this.singleObject = e.model.item;
+        this.arrayvalues.map((key, index) => {
+            var newNumber = parseInt(index) + 1
+            var fieldName = 'fieldvalue' + newNumber
+            newObj[key] = this.singleObject[fieldName]
+        })
 
-          this.arrayvalues.map((key, index) => {
-              var newNumber = parseInt(index) + 1
-              var fieldName = 'fieldvalue' + newNumber
-              newObj[key] = this.singleObject[fieldName]
-          })
+        this.singleObject = {}
+        this.singleObject = newObj
 
-          this.singleObject = {}
-          this.singleObject = newObj
+        console.log("this.singleObject in populateObject", this.singleObject)
 
-          console.log("this.singleObject in populateObject", this.singleObject)
+        console.log("`${customListener}`", customListener)
 
-          console.log("`${customListener}`", customListener)
+        this.dispatchEvent(new CustomEvent(`${customListener}`, {
+            composed: true,
+            bubbles: true,
+            detail: {
+                billing: this.singleObject,
+                shipping: this.singleObject,
+                contact: this.singleObject,
+                bank: this.singleObject,
+                trade: this.singleObject,
+            }
+        }));
+    }
+    open1(url, panelname, displaylist, fieldnamelist, singleObject) {
 
-          this.dispatchEvent(new CustomEvent(`${customListener}`, {
-              composed: true,
-              bubbles: true,
-              detail: {
-                  billing: this.singleObject,
-                  shipping: this.singleObject,
-                  contact: this.singleObject,
-                  bank: this.singleObject,
-                  trade: this.singleObject,
+        this.newpage = false
+        this.editpage = true
+        this.listpage = true
 
-              }
-          }));
-      }
-      open1(url, panelname, displaylist, fieldnamelist, singleObject) {
-
-          this.panelname = panelname
-          this.displaylist = displaylist
-          this.fieldnamelist = fieldnamelist
-          this.singleObject = {}
-
-          var BElocation = this.panelname.toLowerCase()
-
-          console.log("BElocation asdfkjdashfkdas", BElocation)
-
-          if (typeof url === 'string') this.url = url;
-          let baseurl = this.url.split("/")
-
-
-          this.shadowRoot.querySelector("#searchQuery").value = ""
-          this.searchoption = this.searchkeyindexes["searchkeyindex1"]
+        this.panelname = panelname
+        this.displaylist = displaylist
+        this.fieldnamelist = fieldnamelist
+        this.singleObject = {}
+        this.singleObject.fieldvalue1 = ""
+        this.singleObject.fieldvalue2 = ""
+        this.singleObject.fieldvalue3 = ""
+        this.singleObject.fieldvalue4 = ""
+        this.singleObject.fieldvalue5 = ""
+        this.singleObject.fieldvalue6 = ""
+        this.singleObject.fieldvalue7 = ""
+        this.singleObject.fieldvalue8 = ""
+        this.singleObject.fieldvalue9 = ""
+        this.singleObject.fieldvalue10 = ""
+        this.singleObject.id = Number
+        this.singleObject.status = Boolean
 
 
-          console.log("her would be the baseYURL", baseurl[5])
+        var BElocation = this.panelname.toLowerCase()
 
-          if (baseurl[2] == "vendor") {
-              this.searchurl = "/vendor/search/" + `${BElocation}` + "/" + baseurl[5]
-              // this.set('searchoption', "vendorid")
-          } else if (baseurl[2] = "customer") {
-              this.searchurl = "/customer/search/" + `${BElocation}` + "/" + baseurl[5]
+        console.log("BElocation asdfkjdashfkdas", BElocation)
 
-              console.log("this.searchurl in open1", this.searchurl)
-          }
-          console.log("here is the searchurl", this.searchurl)
+        if (typeof url === 'string') this.url = url;
+        let baseurl = this.url.split("/")
 
-          const datatable = item => {
-              return html` 
+
+        // this.shadowRoot.querySelector("#searchQuery").value = ""
+        // this.searchoption = this.searchkeyindexes["searchkeyindex1"]
+
+
+        console.log("her would be the baseYURL", baseurl[5])
+
+        if (baseurl[2] == "vendor") {
+            this.searchurl = "/vendor/search/" + `${BElocation}` + "/" + baseurl[5]
+            // this.set('searchoption', "vendorid")
+        } else if (baseurl[2] = "customer") {
+            this.searchurl = "/customer/search/" + `${BElocation}` + "/" + baseurl[5]
+
+            console.log("this.searchurl in open1", this.searchurl)
+        }
+        console.log("here is the searchurl", this.searchurl)
+        console.log("here is the searchurl", this.newpage)
+
+        if (this.panelname == "Billing" || this.panelname == "Shipping"){
+            this.spacer = "margin-top:220px"
+        } else if (this.panelname == "Trade"){
+            this.spacer = "margin-top:120px"
+        } else {
+            this.spacer = "margin-top:160px"
+        }
+
+        const datatable = (item, newpage, spacer) => {
+            return html ` 
+
                     <div class="title-rightpaneldraw">
                         New ${ panelname } Info
                     </div>
@@ -272,82 +297,82 @@
                     <div class="title-style side-padding">
                         <div class="my-content" style="display: ${ displaylist.displayfield1 }">
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue1 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input id="fieldvalue1" class="input" value="${ item.fieldvalue1 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield2 }">
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue2 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue2 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield3 }">
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue3 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue3 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield4 }">
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue4 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue4 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield5 }">
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue5 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue5 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield6 }">
                             <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue6 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue6 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield7 }">
                             <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue7 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue7 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield8 }">
                             <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue8 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue8 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield9 }">
                             <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue9 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue9 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content" style="display: ${ displaylist.displayfield10 }">
                             <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="${ item.fieldvalue10 }">
-                                    <input class="input">
-                                </iron-input>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue10 }">
+                                </div>
                             </div>
                         </div>
                         <div class="my-content">
@@ -355,410 +380,723 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-11"></div>
                             <div class="col-xs-12 col-md-11">
-                                <div class="spacer my-content button-row text-right">
-                                    <paper-button on-tap="${() => this.save1(item)}" class="button main-button" raised>Save</paper-button>
+                                <div class="my-content button-row text-right" style="${ spacer }">
+                                    <paper-button on-tap="${(item) => this.save1(item)}" class="button main-button" raised>Save</paper-button>
                                     <paper-button class="button" on-tap="${() => this.close1(item)}" raised>Cancel</paper-button>
                                 </div>
                             </div>
                         </div>
                     </div>
             `;
-          }
-
-          render(datatable(this.singleObject), this.shadowRoot.querySelector('#newpage'))
-
-
-      }
-      close1() {
-          this.billing.name = ""
-          this.billing.attention = ""
-          this.billing.fax = ""
-          this.billing.phone = ""
-          this.billing.street = ""
-          this.billing.zip = ""
-          this.billing.city = ""
-          this.billing.state = ""
-          this.billing.country = ""
-          this.billing.email = ""
-          this.dispatchEvent(new CustomEvent('closePanel', {
-              composed: true,
-              bubbles: true
-          }));
-      }
-
-      close1() {
-
-          this.singleObject = ""
-
-          this.dispatchEvent(new CustomEvent('closePanel', {
-              composed: true,
-              bubbles: true
-          }));
-      }
+        }
+
+        render(datatable(this.singleObject, this.newpage, this.spacer), this.shadowRoot.querySelector('#newpage'))
+
+
+    }
+    close1() {
+        this.billing.name = ""
+        this.billing.attention = ""
+        this.billing.fax = ""
+        this.billing.phone = ""
+        this.billing.street = ""
+        this.billing.zip = ""
+        this.billing.city = ""
+        this.billing.state = ""
+        this.billing.country = ""
+        this.billing.email = ""
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            composed: true,
+            bubbles: true
+        }));
+    }
+
+    close1() {
+
+        this.singleObject = ""
+
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            composed: true,
+            bubbles: true
+        }));
+    }
+
+
+    save1(item) {
+        console.log("this.event in save1", item)
+        console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx")
+   
+        console.log("this.event in save1", this.shadowRoot.querySelector('#fieldvalue1'))
+        console.log("this.singleObject in save1", this.singleObject)
+        if (this.singleObject.status == "on") {
+            this.singleObject.status = true
+        }
+
+        var newObj = {}
+        console.log("this.arrayvalues insides save1", this.arrayvalues)
+        this.arrayvalues.map((key, index) => {
+            console.log("here is key")
+            var newNumber = parseInt(index) + 1
+            var fieldName = 'fieldvalue' + newNumber
+            console.log("here is value", this.singleObject[fieldName])
+            newObj[key] = this.singleObject[fieldName]
+        })
+
+        console.log("newObj before flush", newObj)
+
+        this.singleObject = {}
+        this.singleObject = newObj
+        console.log("RIGHT BEFORE SAVING singleObject", this.singleObject);
 
 
-      save1(e) {
-          console.log("this.event in save1", e)
-          console.log("this.singleObject in save1", this.singleObject)
-          if (this.singleObject.status == "on") {
-              this.singleObject.status = true
-          }
+        this.$.ajax1.url = this.url;
+        this.$.ajax1.body = JSON.stringify(this.singleObject);
+        this.$.ajax1.generateRequest();
+        this.close1();
+    }
 
-          var newObj = {}
-          console.log("this.arrayvalues insides save1", this.arrayvalues)
-          this.arrayvalues.map((key, index) => {
-              console.log("here is key")
-              var newNumber = parseInt(index) + 1
-              var fieldName = 'fieldvalue' + newNumber
-              console.log("here is value", this.singleObject[fieldName])
-              newObj[key] = this.singleObject[fieldName]
-          })
 
-          console.log("newObj before flush", newObj)
 
-          this.singleObject = {}
-          this.singleObject = newObj
-          console.log("RIGHT BEFORE SAVING singleObject", this.singleObject);
+    success1(request) {
+        var result = request.detail.response;
+        if (result.error) {
+            document.querySelector('#toast').text = result.error;
+            document.querySelector('#toast').show();
+        } else {
+            document.querySelector('#toast').text = "Saved successfully.";
+            document.querySelector('#toast').show();
+        }
+        this.billing.name = ""
+        this.billing.attention = ""
+        this.billing.fax = ""
+        this.billing.phone = ""
+        this.billing.street = ""
+        this.billing.zip = ""
+        this.billing.city = ""
+        this.billing.state = ""
+        this.billing.country = ""
+        this.billing.email = ""
 
+        this.singleObject = {}
+
+        this.listpage = false;
+        this.editpage = true;
+        this.newpage = true;
+    }
+    ajaxerror1() {
+        document.querySelector('#toast').show("Error saving contact.");
+    }
+
+
+
 
-          this.$.ajax1.url = this.url;
-          this.$.ajax1.body = JSON.stringify(this.singleObject);
-          this.$.ajax1.generateRequest();
-          this.close1();
-      }
+    open(url, populate, panelname, displaylist, fieldnamelist, singleObject, noneditable = false) {
 
+        this.newpage = true
+        this.editpage = true
+        this.listpage = false
 
+        this.panelname = panelname
+        this.displaylist = displaylist
+        this.fieldnamelist = fieldnamelist
+        this.singleObject = {}
+        console.log("page", this.listpage, this.editpage, this.newpage)
+        // console.log("here in panelname function combinedplist", panelname)
+        console.log("here in this.panelname function combinedplist", this.panelname)
+        console.log("here in this.panelname function combinedplist", this.arrayvalues)
+        console.log("here in this.panelname function combinedplist", this.searchfields)
+        console.log("here in this.panelname function combinedplist", this.arrayvalues)
 
-      success1(request) {
-          var result = request.detail.response;
-          if (result.error) {
-              document.querySelector('#toast').text = result.error;
-              document.querySelector('#toast').show();
-          } else {
-              document.querySelector('#toast').text = "Saved successfully.";
-              document.querySelector('#toast').show();
-          }
-          this.billing.name = ""
-          this.billing.attention = ""
-          this.billing.fax = ""
-          this.billing.phone = ""
-          this.billing.street = ""
-          this.billing.zip = ""
-          this.billing.city = ""
-          this.billing.state = ""
-          this.billing.country = ""
-          this.billing.email = ""
+        console.log("here in url function combinedplist", url)
+        console.log("here in populate function combinedplist", populate)
+        console.log("here in populate function combinedplist", populate)
 
-          this.singleObject = {}
+        this.populate = populate
+        console.log(this.populate)
 
-          this.listpage = false;
-          this.editpage = true;
-          this.newpage = true;
-      }
-      ajaxerror1() {
-          document.querySelector('#toast').show("Error saving contact.");
-      }
 
+        console.log("searchkeyindexes", this.searchkeyindexes)
+        console.log("searchkeyindexes", this.searchkeyindexes["searchkeyindex1"])
 
+        this.searchoption = this.searchkeyindexes["searchkeyindex1"]
 
 
-      open(url, populate, noneditable = false) {
-          console.log("page", this.listpage, this.editpage, this.newpage)
-          // console.log("here in panelname function combinedplist", panelname)
-          console.log("here in this.panelname function combinedplist", this.panelname)
-          console.log("here in this.panelname function combinedplist", this.arrayvalues)
-          console.log("here in this.panelname function combinedplist", this.searchfields)
-          console.log("here in this.panelname function combinedplist", this.arrayvalues)
+        var BElocation = this.panelname.toLowerCase()
+        console.log("BElocation asdfkjdashfkdas", BElocation)
 
-          console.log("here in url function combinedplist", url)
-          console.log("here in populate function combinedplist", populate)
-          console.log("here in populate function combinedplist", populate)
 
-          this.populate = populate
-          console.log(this.populate)
+        if (typeof url === 'string') this.url = url
+        let baseurl = this.url.split("/")
 
+        console.log("BElocation asdfkjdashfkdas", baseurl)
 
-          console.log("searchkeyindexes", this.searchkeyindexes)
-          console.log("searchkeyindexes", this.searchkeyindexes["searchkeyindex1"])
+        console.log("her would be the baseYURL", baseurl[5])
 
-          this.searchoption = this.searchkeyindexes["searchkeyindex1"]
 
+        if (baseurl[2] == "vendor") {
+            this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
+        } else if (baseurl[2] = "customer") {
+            this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
 
-          var BElocation = this.panelname.toLowerCase()
-          console.log("BElocation asdfkjdashfkdas", BElocation)
+            console.log("this.searchurl in open", this.searchurl)
+        }
+        console.log("here right before generate earch is called... SEARCHURL", this.searchurl)
+        this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
+        this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
+        this.shadowRoot.querySelector('#ajaxList').generateRequest()
+    }
 
 
-          if (typeof url === 'string') this.url = url
-          let baseurl = this.url.split("/")
 
 
-          console.log("her would be the baseYURL", baseurl[5])
-
-
-          if (baseurl[2] == "vendor") {
-              this.searchurl = "/vendor/search/" + `${BElocation}` + "/" + baseurl[5]
-          } else if (baseurl[2] = "customer") {
-              this.searchurl = "/customer/search/" + `${BElocation}` + "/" + baseurl[5]
-
-              console.log("this.searchurl in open", this.searchurl)
-          }
-          console.log("here right before generate earch is called... SEARCHURL", this.searchurl)
-          this.$.ajaxList.generateRequest();
-      }
-
-
-
-
-
-      close() {
-          this.dispatchEvent(new CustomEvent('closePanel', {
-              bubbles: true,
-              composed: true
-          }))
-      }
-
-      cancel() {
-          this.listpage = false;
-          this.editpage = true;
-          this.newpage = true;
-          for (let i = 0; i < this.model.length; i++) {
-              if (this.temporaryHolder.id === this.model[i].id) {
-                  this.model[i] = this.temporaryHolder
-              }
-          }
-
-      }
-
-      successList(e, ir) {
-          console.log("here in successlist, e and ir", e, ir)
-          console.log("here in successlist, this.arrayvalues", this.arrayvalues)
-          console.log("the results", ir.response.results)
-          this.model = []
-
-
-          if (ir.response.results === null && !this.shadowRoot.getElementById('noMatchesError')) {
-              var error = document.createElement("div")
-              error.textContent = "No matching results"
-              error.style = "Color: red";
-              error.id = "noMatchesError"
-              this.$.options.insertBefore(error, this.$.ilcontainer)
-              this.setList([], true, true)
-              return
-          }
-
-          if (ir.response.results === null && this.shadowRoot.getElementById('noMatchesError')) {
-              return
-          }
-          if (this.shadowRoot.getElementById('noMatchesError')) {
-              this.shadowRoot.getElementById('noMatchesError').remove()
-          }
-
-
-
-          ir.response.results.map((item) => {
-
-              console.log(item)
-              var newObj = {};
-              this.arrayvalues.map(function(fieldname, index) {
-                  var newNumber = parseInt(index) + 1
-                  var newValue = 'fieldvalue' + newNumber
-                  newObj[newValue] = item[fieldname]
-              })
-              // newObj[companyid] = item[companyid]
-              newObj["id"] = item["id"]
-              // newObj[idver] = item[idver]
-
-              this.model.push(newObj)
-          });
-
-
-          // var holder = []
-          // this.set'holder', this.model)
-          // this.set('model', [])
-          // this.set('model', this.holder)
-
-
-          var length = ir.response.results.length
-
-          console.log("RGITHEBFORE the id checker")
-
-
-          if (this.panelname === "Billing") {
-              if (this.model[length - 1].id === 1000) {
-                  console.log("inside the id checker")
-                  this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                  this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                  this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                  this.notifyPath('model.' + (length - 1) + '.visibility2')
-                  this.notifyPath('model.' + (length - 1) + '.visibility3')
-                  this.notifyPath('model.' + (length - 1) + '.visibility4')
-              }
-          } else if (this.panelname === "Shipping") {
-              if (this.model[length - 1].id === 10000) {
-                  console.log("inside the id checker")
-                  this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                  this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                  this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                  this.notifyPath('model.' + (length - 1) + '.visibility2')
-                  this.notifyPath('model.' + (length - 1) + '.visibility3')
-                  this.notifyPath('model.' + (length - 1) + '.visibility4')
-              }
-          } else if (this.panelname === "Contact") {
-              if (this.model[length - 1].id === 100000) {
-                  console.log("inside the id checker")
-                  this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                  this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                  this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                  this.notifyPath('model.' + (length - 1) + '.visibility2')
-                  this.notifyPath('model.' + (length - 1) + '.visibility3')
-                  this.notifyPath('model.' + (length - 1) + '.visibility4')
-              }
-          }
-
-
-          console.log("this.model after map", this.model)
-
-          // this.set('model', this.model)
-
-          console.log("this.url", this.url)
-          console.log("this.searchurl", this.searchurl)
-          console.log(this.shadowRoot.querySelector('iron-list'))
-
-          setTimeout(() => {
-              this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-                  bubbles: true,
-                  composed: true
-              }));
-
-
-          }, 100)
-      }
-
-      edit(e) {
-
-          console.log("e inside the edit function", e)
-
-
-          this.listpage = true;
-          this.editpage = false;
-          this.newpage = true;
-          var id = e.model.item.id;
-
-          console.log("id inside edit", id)
-
-          var singleObject = this.model.filter(function(x) {
-              return x.id == id;
-          })[0];
-          if (singleObject) {
-              this.singleObject = singleObject
-              this.singleObject.status = true
-              var tempSingleObject = (JSON.parse(JSON.stringify(this.singleObject)));
-              this.temporaryHolder = tempSingleObject
-          }
-      }
-      delete(e) {
-          var item = e.model.item;
-          var id = item.id;
-
-          console.log("e", e)
-          console.log("e.model.item", e.model.item)
-
-          var billing = this.model.filter(function(x) {
-              return x.id == id;
-          })[0];
-
-          if (this.largeModel.billing) {
-              for (let i = 0; i < this.largeModel.billing.length; i++) {
-                  if (this.largeModel.billing[i].id === id) {
-                      this.splice('largeModel.billing', i, 1);
-                  }
-              }
-          }
-
-          this.$.ajaxDelete.url = this.url + "/" + e.model.item.id;
-          this.$.ajaxDelete.body = JSON.stringify(billing);
-          this.$.ajaxDelete.generateRequest();
-      }
-
-      responseDelete(request) {
-          var result = request.detail.response;
-          if (result) {
-              document.querySelector('#toast').text = "Removed successfully, refreshing in 2s.";
-              document.querySelector('#toast').show();
-              setTimeout(function() {
-                  document.querySelector('#toast').text = "Removed successfully, refreshing in 1s.";
-                  document.querySelector('#toast').show();
-              }, 1000);
-              setTimeout(function() {
-                  document.querySelector('#toast').text = "Removed successfully, refreshing now.";
-                  document.querySelector('#toast').show();
-              }, 2000);
-              setTimeout(this.$.ajaxList.generateRequest.bind(this.$.ajaxList), 2000);
-          } else {
-              document.querySelector('#toast').text = "Error removing.";
-              document.querySelector('#toast').show();
-          }
-      }
-
-      save(e) {
-          var newObj = {}
-
-          console.log("this.arrayvalues insides save", this.arrayvalues)
-          this.arrayvalues.map((key, index) => {
-              console.log("here is key")
-              var newNumber = parseInt(index) + 1
-              var fieldName = 'fieldvalue' + newNumber
-              console.log("here is value", this.singleObject[fieldName])
-              newObj[key] = this.singleObject[fieldName]
-          })
-
-          newObj["id"] = this.singleObject.id
-          console.log("this.singleObject before flush inside save", this.singleObject)
-
-          this.singleObject = {}
-          this.singleObject = newObj
-          console.log("RIGHT BEFORE SAVING singleObject", this.singleObject);
-
-          this.$.ajaxSave.url = this.url + "/" + this.singleObject.id;
-          this.$.ajaxSave.body = JSON.stringify(this.singleObject);
-          this.$.ajaxSave.generateRequest();
-      }
-
-      responseAction(request) {
-          var result = request.detail.response;
-          if (result.error) {
-              document.querySelector('#toast').text = result.error;
-              document.querySelector('#toast').show();
-          } else {
-              document.querySelector('#toast').text = "Saved successfully.";
-              document.querySelector('#toast').show();
-              this.$.ajaxList.generateRequest();
-              this.listpage = false;
-              this.editpage = true;
-              this.newpage = true;
-          }
-      }
-
-      isNoneditable(item) {
-          if (this.noneditable) {
-              return true;
-          }
-
-          if (item.id && (item.id == 1000 || item.id == 10000)) {
-              return true;
-          }
-
-          return false;
-      }
-      getPopulateObjectIconClass(item) {
-          if (this.isNoneditable(item)) {
-              return "right-icon2";
-          }
-          return "right-icon4";
-      }
-
-      render({ admin }) {
-          return html `
+
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+    }
+
+    cancel() {
+        this.listpage = false;
+        this.editpage = true;
+        this.newpage = true;
+        for (let i = 0; i < this.model.length; i++) {
+            if (this.temporaryHolder.id === this.model[i].id) {
+                this.model[i] = this.temporaryHolder
+            }
+        }
+
+    }
+
+    successList(e, ir) {
+        console.log("here in successlist, e and ir", e, ir)
+        console.log("here in successlist, this.arrayvalues", this.arrayvalues)
+        console.log("the results", e.detail.response.results)
+        this.model = []
+
+        if (ir) {
+            if (ir.response.results === null && !this.shadowRoot.getElementById('noMatchesError')) {
+                var error = document.createElement("div")
+                error.textContent = "No matching results"
+                error.style = "Color: red";
+                error.id = "noMatchesError"
+                this.$.options.insertBefore(error, this.$.ilcontainer)
+                this.setList([], true, true)
+                return
+            }
+
+            if (ir.response.results === null && this.shadowRoot.getElementById('noMatchesError')) {
+                return
+            }
+            if (this.shadowRoot.getElementById('noMatchesError')) {
+                this.shadowRoot.getElementById('noMatchesError').remove()
+            }
+
+
+
+            ir.response.results.map((item) => {
+
+                console.log(item)
+                var newObj = {};
+                this.arrayvalues.map(function(fieldname, index) {
+                    var newNumber = parseInt(index) + 1
+                    var newValue = 'fieldvalue' + newNumber
+                    newObj[newValue] = item[fieldname]
+                })
+                // newObj[companyid] = item[companyid]
+                newObj["id"] = item["id"]
+                // newObj[idver] = item[idver]
+
+                this.model.push(newObj)
+            });
+            var length = ir.response.results.length
+
+        } else {
+            e.detail.response.results.map((item) => {
+
+                console.log(item)
+                var newObj = {};
+                this.arrayvalues.map(function(fieldname, index) {
+                    var newNumber = parseInt(index) + 1
+                    var newValue = 'fieldvalue' + newNumber
+                    newObj[newValue] = item[fieldname]
+                })
+                // newObj[companyid] = item[companyid]
+                newObj["id"] = item["id"]
+                // newObj[idver] = item[idver]
+
+                this.model.push(newObj)
+            });
+            var length = e.detail.response.results.length
+        }
+
+
+        console.log("RGITHEBFORE the id checker")
+
+
+        if (this.panelname === "Billing") {
+            console.log("insidebilling")
+            this.model[length - 1].visibility2 = false
+            this.model[length - 1].visibility3 = false
+            this.model[length - 1].visibility4 = false
+            if (this.model[length - 1].id === 1000) {
+                this.model[length - 1].visibility2 = false
+                this.model[length - 1].visibility3 = true
+                this.model[length - 1].visibility4 = true
+                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                // this.notifyPath('model.' + (length - 1) + '.visibility4')
+            }
+        } else if (this.panelname === "Shipping") {
+            this.model[length - 1].visibility2 = false
+            this.model[length - 1].visibility3 = false
+            this.model[length - 1].visibility4 = false
+            if (this.model[length - 1].id === 10000) {
+                this.model[length - 1].visibility2 = false
+                this.model[length - 1].visibility3 = true
+                this.model[length - 1].visibility4 = true
+                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                // this.notifyPath('model.' + (length - 1) + '.visibility4')
+            }
+        } else if (this.panelname === "Contact") {
+            this.model[length - 1].visibility2 = false
+            this.model[length - 1].visibility3 = false
+            this.model[length - 1].visibility4 = false
+            if (this.model[length - 1].id === 100000) {
+                this.model[length - 1].visibility2 = false
+                this.model[length - 1].visibility3 = true
+                this.model[length - 1].visibility4 = true
+                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                // this.notifyPath('model.' + (length - 1) + '.visibility4')
+            }
+        }
+
+
+        console.log("this.model after map", this.model)
+
+        // this.set('model', this.model)
+
+        console.log("this.url", this.url)
+        console.log("this.searchurl", this.searchurl)
+
+
+        const datatable = (items, listpage, panelname, searchdisplay, searchkeyindexes, searchfields, displaylist, fieldnamelist) => {
+            return html ` 
+
+                <div class="title-rightpaneldraw">
+                    ${ panelname } List
+                </div>
+                <div style="background-color: #e6e6e6;">
+                    <div class="close-interface">
+                        <span on-tap="close">Close</span>
+                        <iron-icon icon="close" on-tap="close"></iron-icon>
+                    </div>
+                </div>
+                <div id="container" class="table-padding">
+                    <div style="display: ${ searchdisplay.display }; padding-bottom:24px">
+                        <div class="search-flex layout horizontal">
+                            <div class="search-container">
+                                <iron-input class="search" slot="input">
+                                    <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="generateSearch" on-focusout="generateSearch">
+                                </iron-input>
+                                <div on-tap="generateSearch" class="search-icon">
+                                    <paper-icon-button class="search-icon" icon="search"></paper-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="options-container">
+                            <div class="searchoptions layout horizontal">
+                                <div class="searchcontainer layout vertical">
+                                    <div class="s-container1 layout horizontal">
+                                        <div>
+                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex1 }" name="searchoptions" class="listoptions" type="radio" checked>${ searchfields.searchfield1 }
+                                        </div>
+                                        <div>
+                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex2 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield2 }
+                                        </div>
+                                        <div>
+                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex3 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield3 }
+                                        </div>
+                                        <div>
+                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex4 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield4 }
+                                        </div>
+                                    </div>
+                                    <div class="s-container2 layout horizontal">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="s-container2 layout horizontal">
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                    <section id="options">
+                        <div id="ilcontainer">
+                        </div>
+                    </section>
+                     ${repeat (
+                        items,
+                        item => item.id,
+                        item => html`
+
+                <div style="padding-bottom:24px">
+                    <div class="row layout horizontal">
+                        <div class="my-content"></div>
+                        <div class="layout vertical" style="width: 100%;">
+                            <div class="my-content" style="display: ${ displaylist.displayfield1 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname1 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                   <div class="layout horizontal">
+                                    <input disabled class="iconinput input" value="${ item.fieldvalue1 }" >
+                                    <paper-icon-button hidden=${ item.visibility2 } class="right-icon1 smalleranimation" icon="icons:settings-overscan" on-tap="${() => this.populateObject(item)}"></paper-icon-button>
+                                    <paper-icon-button hidden=${ item.visibility3 } class="right-icon2 smalleranimation" icon="create" on-tap="${() => this.edit(item)}"></paper-icon-button>
+                                    <paper-icon-button hidden=${ item.visibility4 } class="right-icon3 smalleranimation" icon="icons:close" on-tap="${() => this.delete(item)}"></paper-icon-button>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield2 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname2 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue2 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield3 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname3 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue3 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield4 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname4 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue4 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield5 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname5 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue5 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield6 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue6 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield7 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue7 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield8 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue8 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield9 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue9 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield10 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue10 }">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    
+                        `)}
+                   `;
+        }
+
+        render(datatable(this.model, this.listpage, this.panelname, this.searchdisplay, this.searchkeyindexes, this.searchfields, this.displaylist, this.fieldnamelist), this.shadowRoot.querySelector('#listpage'))
+
+
+    }
+
+    edit(item) {
+
+        console.log("e inside the edit function", item)
+
+
+        this.listpage = true;
+        this.editpage = false;
+        this.newpage = true;
+        var id = item.id;
+
+
+        var singleObject = this.model.filter(function(x) {
+            return x.id == id;
+        })[0];
+        if (singleObject) {
+            this.singleObject = singleObject
+            this.singleObject.status = true
+            var tempSingleObject = (JSON.parse(JSON.stringify(this.singleObject)));
+            this.temporaryHolder = tempSingleObject
+        }
+        console.log("singleObject  ", singleObject)
+        if (this.panelname == "Billing" || this.panelname == "Shipping"){
+            this.spacer = "margin-top:220px"
+        } else if (this.panelname == "Trade"){
+            this.spacer = "margin-top:120px"
+        } else {
+            this.spacer = "margin-top:160px"
+        }
+
+        const datatable = (item, panelname, displaylist, fieldnamelist, spacer) => {
+            return html ` 
+                    <div class="title-rightpaneldraw">
+                        Edit ${ panelname } Info
+                    </div>
+                    <div style="background-color: #e6e6e6;">
+                        <div class="close-interface">
+                            <span on-tap="close">Close</span>
+                            <iron-icon icon="close" on-tap="close"></iron-icon>
+                        </div>
+                    </div>
+                    <div class="title-style side-padding">
+                        <div class="my-content" style="display: ${ displaylist.displayfield1 }">
+                            <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue1 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield2 }">
+                            <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue2 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield3 }">
+                            <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue3 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield4 }">
+                            <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue4 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield5 }">
+                            <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue5 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield6 }">
+                            <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue6 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield7 }">
+                            <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue7 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield8 }">
+                            <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue8 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield9 }">
+                            <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue9 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${ displaylist.displayfield10 }">
+                            <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
+                            <div class="text-right col-xs-9" style="float:right">
+                                <div>
+                                    <input class="input" value="${ item.fieldvalue10 }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-11"></div>
+                            <div class="col-xs-12 col-md-11">
+                                <div class="my-content button-row text-right" style="${ spacer }">
+                                <paper-button on-tap="${(item) => this.save(item)}" class="button main-button" raised>Save</paper-button>
+                                <paper-button class="button" on-tap="${() => this.cancel(item)}" raised>Cancel</paper-button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+            `;
+        }
+
+        render(datatable(this.singleObject, this.panelname, this.displaylist, this.fieldnamelist, this.spacer), this.shadowRoot.querySelector('#editpage'))
+
+
+    }
+    delete(e) {
+        var item = e.model.item;
+        var id = item.id;
+
+        console.log("e", e)
+        console.log("e.model.item", e.model.item)
+
+        var billing = this.model.filter(function(x) {
+            return x.id == id;
+        })[0];
+
+        if (this.largeModel.billing) {
+            for (let i = 0; i < this.largeModel.billing.length; i++) {
+                if (this.largeModel.billing[i].id === id) {
+                    this.splice('largeModel.billing', i, 1);
+                }
+            }
+        }
+
+        this.$.ajaxDelete.url = this.url + "/" + e.model.item.id;
+        this.$.ajaxDelete.body = JSON.stringify(billing);
+        this.$.ajaxDelete.generateRequest();
+    }
+
+    responseDelete(request) {
+        var result = request.detail.response;
+        if (result) {
+            document.querySelector('#toast').text = "Removed successfully, refreshing in 2s.";
+            document.querySelector('#toast').show();
+            setTimeout(function() {
+                document.querySelector('#toast').text = "Removed successfully, refreshing in 1s.";
+                document.querySelector('#toast').show();
+            }, 1000);
+            setTimeout(function() {
+                document.querySelector('#toast').text = "Removed successfully, refreshing now.";
+                document.querySelector('#toast').show();
+            }, 2000);
+            setTimeout(this.$.ajaxList.generateRequest.bind(this.$.ajaxList), 2000);
+        } else {
+            document.querySelector('#toast').text = "Error removing.";
+            document.querySelector('#toast').show();
+        }
+    }
+
+    save(e) {
+        var newObj = {}
+
+        console.log("this.arrayvalues insides save", this.arrayvalues)
+        this.arrayvalues.map((key, index) => {
+            console.log("here is key")
+            var newNumber = parseInt(index) + 1
+            var fieldName = 'fieldvalue' + newNumber
+            console.log("here is value", this.singleObject[fieldName])
+            newObj[key] = this.singleObject[fieldName]
+        })
+
+        newObj["id"] = this.singleObject.id
+        console.log("this.singleObject before flush inside save", this.singleObject)
+
+        this.singleObject = {}
+        this.singleObject = newObj
+        console.log("RIGHT BEFORE SAVING singleObject", this.singleObject);
+
+        this.$.ajaxSave.url = this.url + "/" + this.singleObject.id;
+        this.$.ajaxSave.body = JSON.stringify(this.singleObject);
+        this.$.ajaxSave.generateRequest();
+    }
+
+    responseAction(request) {
+        var result = request.detail.response;
+        if (result.error) {
+            document.querySelector('#toast').text = result.error;
+            document.querySelector('#toast').show();
+        } else {
+            document.querySelector('#toast').text = "Saved successfully.";
+            document.querySelector('#toast').show();
+            this.$.ajaxList.generateRequest();
+            this.listpage = false;
+            this.editpage = true;
+            this.newpage = true;
+        }
+    }
+
+    // isNoneditable(item) {
+    //     console.log(item)
+    //     if (this.noneditable) {
+    //         return true;
+    //     }
+
+    //     if (item.id && (item.id == 1000 || item.id == 10000)) {
+    //         return true;
+    //     }
+
+    //     return false;
+    // }
+    // getPopulateObjectIconClass(item) {
+    //     if (this.isNoneditable(item)) {
+    //         return "right-icon2";
+    //     }
+    //     return "right-icon4";
+    // }
+
+    render({ admin, newpage, editpage, listpage }) {
+        return html `
        <style include="iron-flex iron-flex-alignment">
 
        /*  //////////////FLEX BOX/////////  */
@@ -1220,7 +1558,7 @@
        
 
         .iconinput {
-            padding-right: 122px;
+            // padding-right: 122px;
             box-sizing: border-box;
         }
 
@@ -1425,29 +1763,18 @@
 
         .right-icon1 {
             position: absolute;
-            right: 0;
-            bottom: 0px;
+            right: 0px;
             z-index: 0;
-            padding-right: 52px;
-            padding-top: 22px;
-            padding-left: 0px;
-            padding-bottom: 0px;
-            display: block;
         }
-
         .right-icon2 {
             position: absolute;
-            right: -1px;
-            /*bottom: -7px;*/
-            bottom: -9px;
+            right: 36px;
             z-index: 0;
         }
 
         .right-icon3 {
             position: absolute;
-            right: 39px;
-            /*bottom: -7px;*/
-            bottom: -9px;
+            right: 72px;
             z-index: 0;
         }
 
@@ -1458,281 +1785,22 @@
             bottom: -9px;
             z-index: 0;
         }
-        .spacer {
-            margin-top: 20px;
+
+        .smalleranimation, host {
+          padding: 0px;
+          height: 19px;
+          width: 24px;
         }
         </style>
-        <div id="listpage" hidden="{{listpage}}">
-            <div class="title-rightpaneldraw">
-                {{panelname}} List
-            </div>
-            <div style="background-color: #e6e6e6;">
-                <div class="close-interface">
-                    <span on-tap="close">Close</span>
-                    <iron-icon icon="close" on-tap="close"></iron-icon>
-                </div>
-            </div>
-            <div id="container" class="table-padding">
-
-                <div style="display: {{searchdisplay.display}}; padding-bottom:24px">
-                    <div class="search-flex layout horizontal">
-                        <div class="search-container">
-                            <iron-input class="search" slot="input">
-                                <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="generateSearch" on-focusout="generateSearch">
-                            </iron-input>
-                            <div on-tap="generateSearch" class="search-icon">
-                                <paper-icon-button class="search-icon" icon="search"></paper-icon-button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="options-container">
-                        <div class="searchoptions layout horizontal">
-                            <div class="searchcontainer layout vertical">
-                                <div class="s-container1 layout horizontal">
-                                    <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="{{searchkeyindexes.searchkeyindex1}}" name="searchoptions" class="listoptions" type="radio" checked>{{searchfields.searchfield1}}
-                                    </div>
-                                    <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="{{searchkeyindexes.searchkeyindex2}}" name="searchoptions" class="listoptions" type="radio">{{searchfields.searchfield2}}
-                                    </div>
-                                    <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="{{searchkeyindexes.searchkeyindex3}}" name="searchoptions" class="listoptions" type="radio">{{searchfields.searchfield3}}
-                                    </div>
-                                    <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="{{searchkeyindexes.searchkeyindex4}}" name="searchoptions" class="listoptions" type="radio">{{searchfields.searchfield4}}
-                                    </div>
-                                </div>
-                                <div class="s-container2 layout horizontal">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="s-container2 layout horizontal">
-                        <div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <section id="options">
-                    <div id="ilcontainer">
-                    </div>
-                </section> 
-
-                
-                <iron-list id="list" items="[[model]]" scroll-target="listpage">
-                    <template>
-                        <div style="padding-bottom:24px">
-                            <!-- <div class="my-content"></div> -->
-                            <div class="row layout horizontal">
-                                <div class="my-content"></div>
-                                <div class="layout vertical" style="width: 100%;">
-                                    <div class="my-content" style="display: [[displaylist.displayfield1]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname1}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue1}}">
-                                                <input disabled class="iconinput input">
-                                            </iron-input>
-                                            <paper-icon-button class$="{{getPopulateObjectIconClass(item)}}" icon="icons:settings-overscan" on-tap="populateObject"></paper-icon-button>
-                                            <paper-icon-button hidden={{isNoneditable(item)}} class="right-icon3" icon="create" on-tap="edit"></paper-icon-button>
-                                            <paper-icon-button hidden={{isNoneditable(item)}} class="right-icon2" icon="icons:close" on-tap="delete"></paper-icon-button>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield2]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname2}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue2}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield3]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname3}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue3}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield4]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname4}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue4}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield5]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname5}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue5}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield6]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname6}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue6}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield7]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname7}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue7}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield8]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname8}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue8}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield9]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname9}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue9}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" style="display: [[displaylist.displayfield10]]">
-                                        <div class="col-xs-3">{{fieldnamelist.fieldname10}}</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.fieldvalue10}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                </iron-list>
-            </div>
-        </div>
-        <div id="edit" hidden="{{editpage}}">
-            <div class="title-rightpaneldraw">
-                <span>Edit {{panelname}} Info</span>
-            </div>
-            <div style="background-color: #e6e6e6;">
-                <div class="close-interface">
-                    <span on-tap="close">Close</span>
-                    <iron-icon icon="close" on-tap="close"></iron-icon>
-                </div>
-            </div>
-            <div class="row-style side-padding">
-                <div class="col-xs-12">
-                    <div class="my-content" style="display: [[displaylist.displayfield1]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname1}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue1}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield2]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname2}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue2}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield3]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname3}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue3}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield4]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname4}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue4}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield5]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname5}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue5}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield6]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname6}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue6}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield7]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname7}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue7}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield8]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname8}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue8}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield9]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname9}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue9}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                    <div class="my-content" style="display: [[displaylist.displayfield10]]">
-                        <div class="col-xs-3">{{fieldnamelist.fieldname10}}</div>
-                        <div class="text-right">
-                            <iron-input class="col-xs-9" bind-value="{{singleObject.fieldvalue10}}">
-                                <input class="input">
-                            </iron-input>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="my-content">
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-11"></div>
-                <div class="col-xs-12 col-md-11">
-                    <div class="spacer my-content button-row text-right">
-                        <paper-button on-tap="save" class="button main-button" raised>Save</paper-button>
-                        <paper-button class="button" on-tap="cancel" raised>Cancel</paper-button>
-                    </div>
-                </div>
-            </div>
-            <confirm-box id="confirmbox"></confirm-box>
-        </div>
-        <div id="listpage"></div>
-        <div id="editpage"></div>
-        <div id="newpage"></div>
+        <div id="listpage" hidden=${ listpage }></div>
+        <div id="editpage" hidden="${ editpage }"></div>
+        <div id="newpage" hidden=${ newpage }></div>
         <iron-ajax id="ajaxSearch" method="POST" handle-as="json" url="{{searchurl}}" on-response="successList" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajax1" method="POST" on-response="success1" on-error="ajaxerror1"></iron-ajax>
-        <iron-ajax id="ajaxList" url="{{url}}" method="GET" on-response="successList"></iron-ajax>
+        <iron-ajax id="ajaxList" method="GET" handle-as="json" content-type="application/json" on-response=${this.successList.bind(this)}></iron-ajax>
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="responseAction" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxDelete" method="DELETE" handle-as="json" on-response="responseDelete"></iron-ajax>
         `
-      }
-  }
-  customElements.define("combinedpanel-list", CombinedpanelList);
+    }
+}
+customElements.define("combinedpanel-list", CombinedpanelList);
