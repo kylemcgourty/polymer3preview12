@@ -63,13 +63,10 @@ export class ModuleHeader extends LitElement {
             this.setting.s_logo= ""
             this.setting.s_logo=  setting.s_logo
 
-            console.log('the setting in cust new', this.setting)
-
             this.test = "Dad"
 
         }
         hider(soid) {
-
             if (soid) {
                 return false;
             } else {
@@ -93,6 +90,14 @@ export class ModuleHeader extends LitElement {
     render({setting, model, isHidden, pagename, pageidtext, pageid, soidtext, soid, datetext, date}) {
         return html`
            <style>
+        .my-content[hidden='true'] {
+            display: none;
+        }
+
+        .my-content[hidden='false'] {
+            display: block;
+        }
+
         #paperToggle {
             min-height: 40px;
             min-width: 40px;

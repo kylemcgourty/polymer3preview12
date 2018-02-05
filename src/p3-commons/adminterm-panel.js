@@ -5,7 +5,6 @@
 
   import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-  import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
 
   export class AdminTermPanel extends LitElement {
       static get properties() {

@@ -1,5 +1,4 @@
   import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
-  import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
 
   import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 

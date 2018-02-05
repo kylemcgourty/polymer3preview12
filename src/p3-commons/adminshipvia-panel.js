@@ -2,8 +2,6 @@
   import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
   import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-  import '../../node_modules/@polymer/polymer/lib/elements/dom-bind.js'
-
   export class AdminShipVia extends LitElement {
 
       static get properties() {
