@@ -290,8 +290,8 @@ export class CombinedpanelList extends LitElement {
                     </div>
                     <div style="background-color: #e6e6e6;">
                         <div class="close-interface">
-                            <span on-tap="close">Close</span>
-                            <iron-icon icon="close" on-tap="close"></iron-icon>
+                            <span on-tap="${() => this.close()}">Close</span>
+                            <iron-icon icon="close" on-tap="${() => this.close()}"></iron-icon>
                         </div>
                     </div>
                     <div class="title-style side-padding">
@@ -299,7 +299,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input id="fieldvalue1" class="input" value="${ item.fieldvalue1 }">
+                                    <input class="input" value="${ item.fieldvalue1 }">
                                 </div>
                             </div>
                         </div>
@@ -700,8 +700,8 @@ export class CombinedpanelList extends LitElement {
                 </div>
                 <div style="background-color: #e6e6e6;">
                     <div class="close-interface">
-                        <span on-tap="close">Close</span>
-                        <iron-icon icon="close" on-tap="close"></iron-icon>
+                        <span on-tap="${() => this.close()}">Close</span>
+                        <iron-icon icon="close" on-tap="${() => this.close()}"></iron-icon>
                     </div>
                 </div>
                 <div id="container" class="table-padding">
@@ -889,8 +889,8 @@ export class CombinedpanelList extends LitElement {
                     </div>
                     <div style="background-color: #e6e6e6;">
                         <div class="close-interface">
-                            <span on-tap="close">Close</span>
-                            <iron-icon icon="close" on-tap="close"></iron-icon>
+                            <span on-tap="${() => this.close()}">Close</span>
+                            <iron-icon icon="close" on-tap="${() => this.close()}"></iron-icon>
                         </div>
                     </div>
                     <div class="title-style side-padding">
