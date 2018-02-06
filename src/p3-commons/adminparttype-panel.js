@@ -547,4 +547,4 @@ export class AdminPartTypePanel extends PolymerElement {
 
 
 }
-customElements.define("dminparttype-panel", AdminPartTypePanel);
+customElements.define("adminparttype-panel", AdminPartTypePanel);
