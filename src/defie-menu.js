@@ -982,7 +982,7 @@ export class DefieMenu extends PolymerElement {
         let ur = sessionStorage.getItem("UR")
 
 
-        this.$.userajax.url = "/api/user/services/" + ur
+        this.$.userajax.url = "/user/services/" + ur
         this.$.userajax.generateRequest()
         this.showMenu = true;
 
