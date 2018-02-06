@@ -248,20 +248,10 @@ export class CombinedpanelList extends LitElement {
         this.singleObject.id = Number
         this.singleObject.status = Boolean
 
-
         var BElocation = this.panelname.toLowerCase()
-
-        console.log("BElocation asdfkjdashfkdas", BElocation)
 
         if (typeof url === 'string') this.url = url;
         let baseurl = this.url.split("/")
-
-
-        // this.shadowRoot.querySelector("#searchQuery").value = ""
-        // this.searchoption = this.searchkeyindexes["searchkeyindex1"]
-
-
-        console.log("her would be the baseYURL", baseurl[5])
 
         if (baseurl[2] == "vendor") {
             this.searchurl = "/vendor/search/" + `${BElocation}` + "/" + baseurl[5]
@@ -269,14 +259,11 @@ export class CombinedpanelList extends LitElement {
         } else if (baseurl[2] = "customer") {
             this.searchurl = "/customer/search/" + `${BElocation}` + "/" + baseurl[5]
 
-            console.log("this.searchurl in open1", this.searchurl)
         }
-        console.log("here is the searchurl", this.searchurl)
-        console.log("here is the searchurl", this.newpage)
 
-        if (this.panelname == "Billing" || this.panelname == "Shipping"){
+        if (this.panelname == "Billing" || this.panelname == "Shipping") {
             this.spacer = "margin-top:220px"
-        } else if (this.panelname == "Trade"){
+        } else if (this.panelname == "Trade") {
             this.spacer = "margin-top:120px"
         } else {
             this.spacer = "margin-top:160px"
@@ -299,7 +286,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue1 }">
+                                    <input class="input" id="newfieldvalue1" value="${ item.fieldvalue1 }">
                                 </div>
                             </div>
                         </div>
@@ -307,7 +294,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue2 }">
+                                    <input class="input" id="newfieldvalue2" value="${ item.fieldvalue2 }">
                                 </div>
                             </div>
                         </div>
@@ -315,7 +302,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue3 }">
+                                    <input class="input" id="newfieldvalue3" value="${ item.fieldvalue3 }">
                                 </div>
                             </div>
                         </div>
@@ -323,7 +310,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue4 }">
+                                    <input class="input" id="newfieldvalue4" value="${ item.fieldvalue4 }">
                                 </div>
                             </div>
                         </div>
@@ -331,7 +318,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue5 }">
+                                    <input class="input" id="newfieldvalue5" value="${ item.fieldvalue5 }">
                                 </div>
                             </div>
                         </div>
@@ -339,7 +326,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue6 }">
+                                    <input class="input" id="newfieldvalue6" value="${ item.fieldvalue6 }">
                                 </div>
                             </div>
                         </div>
@@ -347,7 +334,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue7 }">
+                                    <input class="input" id="newfieldvalue7" value="${ item.fieldvalue7 }">
                                 </div>
                             </div>
                         </div>
@@ -355,7 +342,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue8 }">
+                                    <input class="input" id="newfieldvalue8" value="${ item.fieldvalue8 }">
                                 </div>
                             </div>
                         </div>
@@ -363,7 +350,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue9 }">
+                                    <input class="input" id="newfieldvalue9" value="${ item.fieldvalue9 }">
                                 </div>
                             </div>
                         </div>
@@ -371,7 +358,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue10 }">
+                                    <input class="input" id="newfieldvalue10" value="${ item.fieldvalue10 }">
                                 </div>
                             </div>
                         </div>
@@ -394,26 +381,10 @@ export class CombinedpanelList extends LitElement {
 
 
     }
-    close1() {
-        this.billing.name = ""
-        this.billing.attention = ""
-        this.billing.fax = ""
-        this.billing.phone = ""
-        this.billing.street = ""
-        this.billing.zip = ""
-        this.billing.city = ""
-        this.billing.state = ""
-        this.billing.country = ""
-        this.billing.email = ""
-        this.dispatchEvent(new CustomEvent('closePanel', {
-            composed: true,
-            bubbles: true
-        }));
-    }
 
     close1() {
 
-        this.singleObject = ""
+        this.singleObject = {}
 
         this.dispatchEvent(new CustomEvent('closePanel', {
             composed: true,
@@ -423,35 +394,32 @@ export class CombinedpanelList extends LitElement {
 
 
     save1(item) {
-        console.log("this.event in save1", item)
-        console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx")
-   
-        console.log("this.event in save1", this.shadowRoot.querySelector('#fieldvalue1'))
-        console.log("this.singleObject in save1", this.singleObject)
-        if (this.singleObject.status == "on") {
-            this.singleObject.status = true
-        }
+        this.singleObject.fieldvalue1 = this.shadowRoot.querySelector('#newfieldvalue1').value
+        this.singleObject.fieldvalue2 = this.shadowRoot.querySelector('#newfieldvalue2').value
+        this.singleObject.fieldvalue3 = this.shadowRoot.querySelector('#newfieldvalue3').value
+        this.singleObject.fieldvalue4 = this.shadowRoot.querySelector('#newfieldvalue4').value
+        this.singleObject.fieldvalue5 = this.shadowRoot.querySelector('#newfieldvalue5').value
+        this.singleObject.fieldvalue6 = this.shadowRoot.querySelector('#newfieldvalue6').value
+        this.singleObject.fieldvalue7 = this.shadowRoot.querySelector('#newfieldvalue7').value
+        this.singleObject.fieldvalue8 = this.shadowRoot.querySelector('#newfieldvalue8').value
+        this.singleObject.fieldvalue9 = this.shadowRoot.querySelector('#newfieldvalue9').value
+        this.singleObject.fieldvalue10 = this.shadowRoot.querySelector('#newfieldvalue10').value
+        this.singleObject.status = true
 
         var newObj = {}
-        console.log("this.arrayvalues insides save1", this.arrayvalues)
         this.arrayvalues.map((key, index) => {
-            console.log("here is key")
             var newNumber = parseInt(index) + 1
             var fieldName = 'fieldvalue' + newNumber
-            console.log("here is value", this.singleObject[fieldName])
             newObj[key] = this.singleObject[fieldName]
         })
 
-        console.log("newObj before flush", newObj)
-
         this.singleObject = {}
         this.singleObject = newObj
-        console.log("RIGHT BEFORE SAVING singleObject", this.singleObject);
 
+        this.shadowRoot.querySelector('#ajax1').url = this.url
+        this.shadowRoot.querySelector('#ajax1').body = JSON.stringify(this.singleObject)
+        this.shadowRoot.querySelector('#ajax1').generateRequest()
 
-        this.$.ajax1.url = this.url;
-        this.$.ajax1.body = JSON.stringify(this.singleObject);
-        this.$.ajax1.generateRequest();
         this.close1();
     }
 
@@ -466,16 +434,6 @@ export class CombinedpanelList extends LitElement {
             document.querySelector('#toast').text = "Saved successfully.";
             document.querySelector('#toast').show();
         }
-        this.billing.name = ""
-        this.billing.attention = ""
-        this.billing.fax = ""
-        this.billing.phone = ""
-        this.billing.street = ""
-        this.billing.zip = ""
-        this.billing.city = ""
-        this.billing.state = ""
-        this.billing.country = ""
-        this.billing.email = ""
 
         this.singleObject = {}
 
@@ -501,7 +459,6 @@ export class CombinedpanelList extends LitElement {
         this.fieldnamelist = fieldnamelist
         this.singleObject = {}
         console.log("page", this.listpage, this.editpage, this.newpage)
-        // console.log("here in panelname function combinedplist", panelname)
         console.log("here in this.panelname function combinedplist", this.panelname)
         console.log("here in this.panelname function combinedplist", this.arrayvalues)
         console.log("here in this.panelname function combinedplist", this.searchfields)
@@ -570,9 +527,6 @@ export class CombinedpanelList extends LitElement {
     }
 
     successList(e, ir) {
-        console.log("here in successlist, e and ir", e, ir)
-        console.log("here in successlist, this.arrayvalues", this.arrayvalues)
-        console.log("the results", e.detail.response.results)
         this.model = []
 
         if (ir) {
@@ -597,7 +551,6 @@ export class CombinedpanelList extends LitElement {
 
             ir.response.results.map((item) => {
 
-                console.log(item)
                 var newObj = {};
                 this.arrayvalues.map(function(fieldname, index) {
                     var newNumber = parseInt(index) + 1
@@ -615,7 +568,6 @@ export class CombinedpanelList extends LitElement {
         } else {
             e.detail.response.results.map((item) => {
 
-                console.log(item)
                 var newObj = {};
                 this.arrayvalues.map(function(fieldname, index) {
                     var newNumber = parseInt(index) + 1
@@ -631,12 +583,7 @@ export class CombinedpanelList extends LitElement {
             var length = e.detail.response.results.length
         }
 
-
-        console.log("RGITHEBFORE the id checker")
-
-
         if (this.panelname === "Billing") {
-            console.log("insidebilling")
             this.model[length - 1].visibility2 = false
             this.model[length - 1].visibility3 = false
             this.model[length - 1].visibility4 = false
@@ -681,20 +628,40 @@ export class CombinedpanelList extends LitElement {
                 // this.notifyPath('model.' + (length - 1) + '.visibility3')
                 // this.notifyPath('model.' + (length - 1) + '.visibility4')
             }
+        } else if (this.panelname === "Bank"){
+            this.model[length - 1].visibility2 = false
+            this.model[length - 1].visibility3 = false
+            this.model[length - 1].visibility4 = false
+            if (this.model[length - 1].id === 101) {
+                this.model[length - 1].visibility2 = false
+                this.model[length - 1].visibility3 = true
+                this.model[length - 1].visibility4 = true
+                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                // this.notifyPath('model.' + (length - 1) + '.visibility4')
+            }  
+        } else if (this.panelname === "Trade"){
+            this.model[length - 1].visibility2 = false
+            this.model[length - 1].visibility3 = false
+            this.model[length - 1].visibility4 = false
+            if (this.model[length - 1].id === 1001) {
+                this.model[length - 1].visibility2 = false
+                this.model[length - 1].visibility3 = true
+                this.model[length - 1].visibility4 = true
+                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                // this.notifyPath('model.' + (length - 1) + '.visibility4')
+            }  
         }
-
-
-        console.log("this.model after map", this.model)
-
-        // this.set('model', this.model)
-
-        console.log("this.url", this.url)
-        console.log("this.searchurl", this.searchurl)
-
 
         const datatable = (items, listpage, panelname, searchdisplay, searchkeyindexes, searchfields, displaylist, fieldnamelist) => {
             return html ` 
-
                 <div class="title-rightpaneldraw">
                     ${ panelname } List
                 </div>
@@ -709,9 +676,9 @@ export class CombinedpanelList extends LitElement {
                         <div class="search-flex layout horizontal">
                             <div class="search-container">
                                 <iron-input class="search" slot="input">
-                                    <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="generateSearch" on-focusout="generateSearch">
+                                    <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="${(item) => this.generateSearch(item)}" on-focusout="${(item) => this.generateSearch(item)}">
                                 </iron-input>
-                                <div on-tap="generateSearch" class="search-icon">
+                                <div on-tap="${(item) => this.generateSearch(item)}" class="search-icon">
                                     <paper-icon-button class="search-icon" icon="search"></paper-icon-button>
                                 </div>
                             </div>
@@ -855,9 +822,6 @@ export class CombinedpanelList extends LitElement {
 
     edit(item) {
 
-        console.log("e inside the edit function", item)
-
-
         this.listpage = true;
         this.editpage = false;
         this.newpage = true;
@@ -873,10 +837,10 @@ export class CombinedpanelList extends LitElement {
             var tempSingleObject = (JSON.parse(JSON.stringify(this.singleObject)));
             this.temporaryHolder = tempSingleObject
         }
-        console.log("singleObject  ", singleObject)
-        if (this.panelname == "Billing" || this.panelname == "Shipping"){
+
+        if (this.panelname == "Billing" || this.panelname == "Shipping") {
             this.spacer = "margin-top:220px"
-        } else if (this.panelname == "Trade"){
+        } else if (this.panelname == "Trade") {
             this.spacer = "margin-top:120px"
         } else {
             this.spacer = "margin-top:160px"
@@ -898,7 +862,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue1 }">
+                                    <input class="input" id="editfieldvalue1" value="${ item.fieldvalue1 }">
                                 </div>
                             </div>
                         </div>
@@ -906,7 +870,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue2 }">
+                                    <input class="input" id="editfieldvalue2" value="${ item.fieldvalue2 }">
                                 </div>
                             </div>
                         </div>
@@ -914,7 +878,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue3 }">
+                                    <input class="input" id="editfieldvalue3" value="${ item.fieldvalue3 }">
                                 </div>
                             </div>
                         </div>
@@ -922,7 +886,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue4 }">
+                                    <input class="input" id="editfieldvalue4" value="${ item.fieldvalue4 }">
                                 </div>
                             </div>
                         </div>
@@ -930,7 +894,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue5 }">
+                                    <input class="input" id="editfieldvalue5" value="${ item.fieldvalue5 }">
                                 </div>
                             </div>
                         </div>
@@ -938,7 +902,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue6 }">
+                                    <input class="input" id="editfieldvalue6" value="${ item.fieldvalue6 }">
                                 </div>
                             </div>
                         </div>
@@ -946,7 +910,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue7 }">
+                                    <input class="input" id="editfieldvalue7" value="${ item.fieldvalue7 }">
                                 </div>
                             </div>
                         </div>
@@ -954,7 +918,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue8 }">
+                                    <input class="input" id="editfieldvalue8" value="${ item.fieldvalue8 }">
                                 </div>
                             </div>
                         </div>
@@ -962,7 +926,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue9 }">
+                                    <input class="input" id="editfieldvalue9" value="${ item.fieldvalue9 }">
                                 </div>
                             </div>
                         </div>
@@ -970,7 +934,7 @@ export class CombinedpanelList extends LitElement {
                             <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
                             <div class="text-right col-xs-9" style="float:right">
                                 <div>
-                                    <input class="input" value="${ item.fieldvalue10 }">
+                                    <input class="input" id="editfieldvalue10" value="${ item.fieldvalue10 }">
                                 </div>
                             </div>
                         </div>
@@ -993,12 +957,8 @@ export class CombinedpanelList extends LitElement {
 
 
     }
-    delete(e) {
-        var item = e.model.item;
+    delete(item) {
         var id = item.id;
-
-        console.log("e", e)
-        console.log("e.model.item", e.model.item)
 
         var billing = this.model.filter(function(x) {
             return x.id == id;
@@ -1011,10 +971,9 @@ export class CombinedpanelList extends LitElement {
                 }
             }
         }
-
-        this.$.ajaxDelete.url = this.url + "/" + e.model.item.id;
-        this.$.ajaxDelete.body = JSON.stringify(billing);
-        this.$.ajaxDelete.generateRequest();
+        this.shadowRoot.querySelector('#ajaxDelete').url = this.url + "/" + item.id
+        this.shadowRoot.querySelector('#ajaxDelete').body = JSON.stringify(this.singleObject)
+        this.shadowRoot.querySelector('#ajaxDelete').generateRequest()
     }
 
     responseDelete(request) {
@@ -1030,7 +989,7 @@ export class CombinedpanelList extends LitElement {
                 document.querySelector('#toast').text = "Removed successfully, refreshing now.";
                 document.querySelector('#toast').show();
             }, 2000);
-            setTimeout(this.$.ajaxList.generateRequest.bind(this.$.ajaxList), 2000);
+            setTimeout(this.shadowRoot.querySelector('#ajaxList').generateRequest.bind(this.shadowRoot.querySelector('#ajaxList')), 2000);
         } else {
             document.querySelector('#toast').text = "Error removing.";
             document.querySelector('#toast').show();
@@ -1038,27 +997,36 @@ export class CombinedpanelList extends LitElement {
     }
 
     save(e) {
+
+        this.singleObject.fieldvalue1 = this.shadowRoot.querySelector('#editfieldvalue1').value
+        this.singleObject.fieldvalue2 = this.shadowRoot.querySelector('#editfieldvalue2').value
+        this.singleObject.fieldvalue3 = this.shadowRoot.querySelector('#editfieldvalue3').value
+        this.singleObject.fieldvalue4 = this.shadowRoot.querySelector('#editfieldvalue4').value
+        this.singleObject.fieldvalue5 = this.shadowRoot.querySelector('#editfieldvalue5').value
+        this.singleObject.fieldvalue6 = this.shadowRoot.querySelector('#editfieldvalue6').value
+        this.singleObject.fieldvalue7 = this.shadowRoot.querySelector('#editfieldvalue7').value
+        this.singleObject.fieldvalue8 = this.shadowRoot.querySelector('#editfieldvalue8').value
+        this.singleObject.fieldvalue9 = this.shadowRoot.querySelector('#editfieldvalue9').value
+        this.singleObject.fieldvalue10 = this.shadowRoot.querySelector('#editfieldvalue10').value
+        this.singleObject.status = true
+
+
         var newObj = {}
 
-        console.log("this.arrayvalues insides save", this.arrayvalues)
         this.arrayvalues.map((key, index) => {
-            console.log("here is key")
             var newNumber = parseInt(index) + 1
             var fieldName = 'fieldvalue' + newNumber
-            console.log("here is value", this.singleObject[fieldName])
             newObj[key] = this.singleObject[fieldName]
         })
 
         newObj["id"] = this.singleObject.id
-        console.log("this.singleObject before flush inside save", this.singleObject)
 
         this.singleObject = {}
         this.singleObject = newObj
-        console.log("RIGHT BEFORE SAVING singleObject", this.singleObject);
 
-        this.$.ajaxSave.url = this.url + "/" + this.singleObject.id;
-        this.$.ajaxSave.body = JSON.stringify(this.singleObject);
-        this.$.ajaxSave.generateRequest();
+        this.shadowRoot.querySelector('#ajaxSave').url = this.url + "/" + this.singleObject.id
+        this.shadowRoot.querySelector('#ajaxSave').body = JSON.stringify(this.singleObject)
+        this.shadowRoot.querySelector('#ajaxSave').generateRequest()
     }
 
     responseAction(request) {
@@ -1069,31 +1037,13 @@ export class CombinedpanelList extends LitElement {
         } else {
             document.querySelector('#toast').text = "Saved successfully.";
             document.querySelector('#toast').show();
-            this.$.ajaxList.generateRequest();
+            console.log(this.singleObject.fieldvalue1 = this.shadowRoot.querySelector('#editfieldvalue1').value)
+            this.shadowRoot.querySelector('#ajaxList').generateRequest()
             this.listpage = false;
             this.editpage = true;
             this.newpage = true;
         }
     }
-
-    // isNoneditable(item) {
-    //     console.log(item)
-    //     if (this.noneditable) {
-    //         return true;
-    //     }
-
-    //     if (item.id && (item.id == 1000 || item.id == 10000)) {
-    //         return true;
-    //     }
-
-    //     return false;
-    // }
-    // getPopulateObjectIconClass(item) {
-    //     if (this.isNoneditable(item)) {
-    //         return "right-icon2";
-    //     }
-    //     return "right-icon4";
-    // }
 
     render({ admin, newpage, editpage, listpage }) {
         return html `
@@ -1796,10 +1746,10 @@ export class CombinedpanelList extends LitElement {
         <div id="editpage" hidden="${ editpage }"></div>
         <div id="newpage" hidden=${ newpage }></div>
         <iron-ajax id="ajaxSearch" method="POST" handle-as="json" url="{{searchurl}}" on-response="successList" content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajax1" method="POST" on-response="success1" on-error="ajaxerror1"></iron-ajax>
-        <iron-ajax id="ajaxList" method="GET" handle-as="json" content-type="application/json" on-response=${this.successList.bind(this)}></iron-ajax>
-        <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="responseAction" content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxDelete" method="DELETE" handle-as="json" on-response="responseDelete"></iron-ajax>
+        <iron-ajax id="ajax1" method="POST" on-response="${this.success1.bind(this)}" on-error="${this.ajaxerror1.bind(this)}"></iron-ajax>
+        <iron-ajax id="ajaxList" method="GET" handle-as="json" content-type="application/json" on-response="${this.successList.bind(this)}"></iron-ajax>
+        <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="${this.responseAction.bind(this)}" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxDelete" method="DELETE" handle-as="json" on-response="${this.responseDelete.bind(this)}"></iron-ajax>
         `
     }
 }
