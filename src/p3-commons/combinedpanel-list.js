@@ -143,12 +143,13 @@ export class CombinedpanelList extends LitElement {
     }
 
     generateSearch(e, pass, retrieveAll) {
+        console.log(e)
         if (e) {
             if (e.keyCode !== 13 && e.type == "keypress") {
                 return
             }
         }
-        let query = this.$.searchQuery.value.trim();
+        let query = this.shadowRoot.querySelector('#searchQuery').value.trim();
         if (retrieveAll) {
             query = ""
             this.searchoption = 'id'
@@ -160,17 +161,21 @@ export class CombinedpanelList extends LitElement {
         }
 
         console.log("here is the query package", querypackage)
+        let spliturl = this.searchurl.split("/")
+        this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
 
-        this.$.ajaxSearch.body = JSON.stringify(querypackage)
-        this.$.ajaxSearch.generateRequest();
+        this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
+        this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
+        this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
     }
 
 
 
-    setSearchOption(e) {
-        e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
+    setSearchOption(item) {
+        console.log(item)
+        item.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = item.path[0].id
 
-        if (this.$.searchQuery.value) {
+        if (this.shadowRoot.querySelector('#searchQuery').value) {
             this.generateSearch()
         }
     }
@@ -188,9 +193,12 @@ export class CombinedpanelList extends LitElement {
             query: "",
             option: "idver"
         }
-        this.$.ajaxSearch.body = JSON.stringify(querypackage)
-        this.$.ajaxSearch.generateRequest();
+        let spliturl = this.searchurl.split("/")
+        this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
 
+        this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
+        this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
+        this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
     }
     populateObject(item) {
         console.log(item)
@@ -628,7 +636,7 @@ export class CombinedpanelList extends LitElement {
                 // this.notifyPath('model.' + (length - 1) + '.visibility3')
                 // this.notifyPath('model.' + (length - 1) + '.visibility4')
             }
-        } else if (this.panelname === "Bank"){
+        } else if (this.panelname === "Bank") {
             this.model[length - 1].visibility2 = false
             this.model[length - 1].visibility3 = false
             this.model[length - 1].visibility4 = false
@@ -642,8 +650,8 @@ export class CombinedpanelList extends LitElement {
                 // this.notifyPath('model.' + (length - 1) + '.visibility2')
                 // this.notifyPath('model.' + (length - 1) + '.visibility3')
                 // this.notifyPath('model.' + (length - 1) + '.visibility4')
-            }  
-        } else if (this.panelname === "Trade"){
+            }
+        } else if (this.panelname === "Trade") {
             this.model[length - 1].visibility2 = false
             this.model[length - 1].visibility3 = false
             this.model[length - 1].visibility4 = false
@@ -657,7 +665,7 @@ export class CombinedpanelList extends LitElement {
                 // this.notifyPath('model.' + (length - 1) + '.visibility2')
                 // this.notifyPath('model.' + (length - 1) + '.visibility3')
                 // this.notifyPath('model.' + (length - 1) + '.visibility4')
-            }  
+            }
         }
 
         const datatable = (items, listpage, panelname, searchdisplay, searchkeyindexes, searchfields, displaylist, fieldnamelist) => {
@@ -688,16 +696,16 @@ export class CombinedpanelList extends LitElement {
                                 <div class="searchcontainer layout vertical">
                                     <div class="s-container1 layout horizontal">
                                         <div>
-                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex1 }" name="searchoptions" class="listoptions" type="radio" checked>${ searchfields.searchfield1 }
+                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex1 }" name="searchoptions" class="listoptions" type="radio" checked>${ searchfields.searchfield1 }
                                         </div>
                                         <div>
-                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex2 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield2 }
+                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex2 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield2 }
                                         </div>
                                         <div>
-                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex3 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield3 }
+                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex3 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield3 }
                                         </div>
                                         <div>
-                                            <input on-change="setSearchOption" on-keypress="setSearchOption" id="${ searchkeyindexes.searchkeyindex4 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield4 }
+                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex4 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield4 }
                                         </div>
                                     </div>
                                     <div class="s-container2 layout horizontal">
@@ -1745,7 +1753,7 @@ export class CombinedpanelList extends LitElement {
         <div id="listpage" hidden=${ listpage }></div>
         <div id="editpage" hidden="${ editpage }"></div>
         <div id="newpage" hidden=${ newpage }></div>
-        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" url="{{searchurl}}" on-response="successList" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" on-response="${this.successList.bind(this)}" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajax1" method="POST" on-response="${this.success1.bind(this)}" on-error="${this.ajaxerror1.bind(this)}"></iron-ajax>
         <iron-ajax id="ajaxList" method="GET" handle-as="json" content-type="application/json" on-response="${this.successList.bind(this)}"></iron-ajax>
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="${this.responseAction.bind(this)}" content-type="application/json"></iron-ajax>
