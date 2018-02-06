@@ -2,7 +2,7 @@ import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-el
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js'
 
-export class SearchInnerPart extends LitElement {
+export class SearchInner extends LitElement {
     static get properties() {
         return {
             checked: {
@@ -820,4 +820,4 @@ export class SearchInnerPart extends LitElement {
         `
     }
 }
-customElements.define('search-innerpart', SearchInnerPart)
+customElements.define('search-inner', SearchInner)

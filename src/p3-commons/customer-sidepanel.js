@@ -1,10 +1,456 @@
- import {Element as PolymerElement}
-    from '../../node_modules/@polymer/polymer/polymer-element.js'
+import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
- export class CustomerSidepanel extends PolymerElement {
-        static get template() {
-            return `
-                 <style include="iron-flex iron-flex-alignment">
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+
+import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
+
+import '../../src/p3-commons/search-innerpart.js'
+
+export class CustomerSidepanel extends LitElement {
+    static get properties() {
+        return {
+            searchfields: {
+                type: Object,
+                notify: true,
+                reflectToAttribute: true,
+                value: function() {
+                    return {
+                    }
+                }
+            },
+            searchkeyindexes: {
+                type: Object,
+                notify: true,
+                reflectToAttribute: true,
+                value: function() {
+                    return {
+                    }
+                }
+            },
+            searchdisplay: {
+                type: Object,
+                notify: true,
+                reflectToAttribute: true,
+                value: function() {
+                    return {
+                        display: "block",
+                    }
+                }
+            },
+            status: {
+                type: Boolean,
+                value: true
+            },
+            searchoption: {
+                type: String,
+                value: "idver"
+            },
+            profileid: {
+                type: String,
+                reflectToAttribute: true,
+            }
+        }
+    }
+
+    constructor() {
+        super()
+    }
+
+    selectCustomer(e) {
+        console.log('here is e', e);
+        var customer = e.model.item;
+        var company = customer.companyname;
+        var customerid = customer.id;
+        this.dispatchEvent(new CustomEvent('CustomerEvent', {
+            composed: true,
+            bubbles: true,
+            detail: {
+                id: customerid,
+                company: company,
+                routeData: customer
+            }
+        }));
+    }
+
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+    }
+
+    open() {
+        this.searchfields.searchfield1 = "Customer id"
+        this.searchfields.searchfield2 = "Company"
+        this.searchfields.searchfield3 = "Address"
+        this.searchfields.searchfield4 = "Contact"
+
+        this.searchkeyindexes.searchkeyindex1 = "idver"
+        this.searchkeyindexes.searchkeyindex2 = "b_name_l"
+        this.searchkeyindexes.searchkeyindex3 = "f_address_l"
+        this.searchkeyindexes.searchkeyindex4 = "f_contact_l"
+
+        this.searchdisplay.display = "block"
+
+        this.generateSearch(false, false, true)
+    }
+
+    generateSearch(e, pass, retrieveAll) {
+
+        console.log("this.searcheoption", this.searchoption)
+
+        if (e) {
+            if (this.$.searchQuery.value === "") {
+                retrieveAll = true;
+
+            } else if (e.keyCode !== 13 && e.type == "keyup") {
+                return
+            }
+        }
+        let query = e.detail.inputValue;
+        if (retrieveAll) {
+            console.log("inside retriveall")
+            query = ""
+            this.searchoption = 'idver'
+        }
+
+        let querypackage = {
+            query: query.toString().toLowerCase(),
+            option: this.searchoption
+        }
+        console.log("here is the query package", querypackage)
+
+        this.shadowRoot.querySelector('#ajaxSearch').url = "/customer/search/" + this.profileid
+        this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
+        this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
+    }
+
+    receiveQueryResults(response) {
+        console.log(response)
+        this.dataarray = [];
+        this.searched = response.detail.response.results
+        this.responselist(response.detail.response.results, true)
+    }
+
+
+    setSearchOption(e) {
+        console.log('option', e.path[0].id)
+        console.log('option', e)
+        e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
+
+        if (this.$.searchQuery.value) {
+            this.generateSearch()
+        }
+    }
+
+    statusChange() {
+        var data = this.searched || this.model
+        this.responselist(data, true)
+    }
+
+    responselist(data, fromquery) {
+        if (fromquery) {
+            this.data = data
+
+            const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
+                return html ` 
+                <div class="title-rightpaneldraw">
+                    Search Customers
+                </div>
+                <div style="background-color: #e6e6e6;">
+                    <div class="close-interface">
+                        <span on-tap="${() => this.close()}">Close</span>
+                        <iron-icon icon="close" on-tap="${() => this.close()}"></iron-icon>
+                    </div>
+                </div>
+                <div id="container" class="table-padding">
+                     <search-innerpart searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-innerpart>
+                     ${repeat (
+                        items,
+                        item => item.id,
+                        item => html`
+                        <div style="padding-bottom:24px">
+                            <div class="row layout horizontal">
+                                <div class="my-content"></div>
+                                <div on-tap="${() => this.selectCustomer(item)}" class="layout vertical" style="width: 100%;">
+                                    <div class="my-content">
+                                        <div class="col-xs-3">Customer:</div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.billing.name }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">Customer id:</div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.idver }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">Street:</div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.billing.street }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">City</div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.billing.city }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">State</div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.billing.state }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">Zip Code:</div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.billing.zip }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">Phone:</div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.billing.phone }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">Admin: </div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.contact.name }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">Admin email: </div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.contact.email }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="my-content" >
+                                        <div class="col-xs-3">Sales: </div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.accountmanager.name }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-content" >
+                                        <div class="col-xs-3">Sales email: </div>
+                                        <div class="text-right col-xs-9" style="float:right">
+                                            <div>
+                                                <input disabled class="input" value="${ item.info.email }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `)}
+            </div>
+                   `;
+            }
+
+            render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.querySelector('#listpage'))
+
+        }
+    }
+
+
+    render() {
+        return html `
+        <style include="iron-flex iron-flex-alignment">
+
+      /*  //////////////FLEX BOX/////////  */
+      .layout.horizontal,
+      .layout.vertical {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+      }
+
+      .layout.inline {
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+      }
+
+      .layout.horizontal {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+      }
+
+      .layout.vertical {
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .layout.wrap {
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .layout.no-wrap {
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .flex {
+        -ms-flex: 1 1 0.000000001px;
+        -webkit-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 0.000000001px;
+        flex-basis: 0.000000001px;
+      }
+
+      .flex-auto {
+        -ms-flex: 1 1 auto;
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+      }
+
+      .flex-none {
+        -ms-flex: none;
+        -webkit-flex: none;
+        flex: none;
+      }
+
+      .layout.start {
+        -ms-flex-align: start;
+        -webkit-align-items: flex-start;
+        align-items: flex-start;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.end {
+        -ms-flex-align: end;
+        -webkit-align-items: flex-end;
+        align-items: flex-end;
+      }
+
+      .layout.baseline {
+        -ms-flex-align: baseline;
+        -webkit-align-items: baseline;
+        align-items: baseline;
+      }
+
+      /**
+       * Alignment in main axis.
+       */
+      .layout.start-justified {
+        -ms-flex-pack: start;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .layout.end-justified {
+        -ms-flex-pack: end;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+      }
+
+      .layout.around-justified {
+        -ms-flex-pack: distribute;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+      }
+
+      .layout.justified {
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+      }
+
+     
+      /**
+       * multi-line alignment in main axis.
+       */
+      .layout.start-aligned {
+        -ms-flex-line-pack: start;  /* IE10 */
+        -ms-align-content: flex-start;
+        -webkit-align-content: flex-start;
+        align-content: flex-start;
+      }
+
+      .layout.end-aligned {
+        -ms-flex-line-pack: end;  /* IE10 */
+        -ms-align-content: flex-end;
+        -webkit-align-content: flex-end;
+        align-content: flex-end;
+      }
+
+      .layout.center-aligned {
+        -ms-flex-line-pack: center;  /* IE10 */
+        -ms-align-content: center;
+        -webkit-align-content: center;
+        align-content: center;
+      }
+
+      .layout.between-aligned {
+        -ms-flex-line-pack: justify;  /* IE10 */
+        -ms-align-content: space-between;
+        -webkit-align-content: space-between;
+        align-content: space-between;
+      }
+
+      .layout.around-aligned {
+        -ms-flex-line-pack: distribute;  /* IE10 */
+        -ms-align-content: space-around;
+        -webkit-align-content: space-around;
+        align-content: space-around;
+      }
+
+      /* ////////////////END FLEXBOX /////////////// */
+
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -536,356 +982,9 @@
             }
         }
         </style>
-        <div id="page">
-            <div class="title-rightpaneldraw">Search Customers</div>
-            <div style="background-color: #e6e6e6;">
-                <div class="close-interface">
-                    <span on-tap="close">Close</span>
-                    <iron-icon icon="close" on-tap="close"></iron-icon>
-                </div>
-            </div>
-            <div id="container" class="table-padding layout vertical">
-                <div class="search-flex layout horizontal">
-                    <div class="search-container">
-                        <!-- <paper-input-container auto-validate$="[[autoValidate]]"> -->
-                        <!-- <label slot="label"> Search </label> -->
-                        <iron-input class="search" slot="input">
-                            <input class="input1" placeholder="Show All" id="searchQuery" on-keyup="generateSearch">
-                        </iron-input>
-                        <!-- </paper-input-container> -->
-                        <div class="search-icon">
-                            <paper-icon-button class="search-icon" on-tap="generateSearch" icon="search"></paper-icon-button>
-                        </div>
-                    </div>
-                    <!-- <div class="dropdown">
-                        <paper-dropdown-menu no-label-float selected-item id="status" label="Active">
-                            <paper-listbox id="drop-down" class="dropdown-content">
-                                <paper-item on-tap="statusChange" id="active" focused>Active</paper-item>
-                                <paper-item on-tap="statusChange" id="inactive">Inactive</paper-item>
-                                <paper-item on-tap="statusChange" id="all">All</paper-item>
-                            </paper-listbox>
-                        </paper-dropdown-menu>
-                    </div> -->
-                </div>
-                <div class="options-container">
-                    <div class="searchoptions layout horizontal">
-                        <div class="searchcontainer layout vertical">
-                            <div class="s-container1 layout horizontal">
-                                <!-- <div>
-                                    <input checked on-change="setSearchOption" on-keypress="setSearchOption" id="keyword" value="Active" name="searchoptions" class="listoptions" type="radio">Keyword
-                                </div> -->
-                                <div>
-                                    <input on-change="setSearchOption" on-keypress="setSearchOption" id="idver" value="Active" name="searchoptions" class="listoptions" type="radio" checked>Customer id
-                                </div>
-                                <div>
-                                    <input on-change="setSearchOption" on-keypress="setSearchOption" id="b_name_l" value="Void" name="searchoptions" class="listoptions" type="radio">Company
-                                </div>
-                                <div>
-                                    <input on-change="setSearchOption" on-keypress="setSearchOption" id="f_address_l" value="Active" name="searchoptions" class="listoptions" type="radio">Address
-                                </div>
-                                <div>
-                                    <input on-change="setSearchOption" on-keypress="setSearchOption" id="f_contact_l" value="Active" name="searchoptions" class="listoptions" type="radio"> Contact
-                                </div>
-                            </div>
-                            <div class="s-container2 layout horizontal">
-<!--                                 <div>
-                                    <input on-change="setSearchOption" on-keypress="setSearchOption" id="acctm_l" value="Active" name="searchoptions" class="listoptions" type="radio">Acct. Mgr
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="results-container fit">
-                    <iron-list id="list" items="[[data]]" scroll-target="results-container" selection-enabled multi-selection>
-                        <template>
-                            <div on-tap="selectCustomer">
-                                <div class="ilrow layout vertical">
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Customer:</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.billing.name}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Customer id:</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.idver}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Street:</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.billing.street}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">City</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.billing.city}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">State</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.billing.state}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Zip Code:</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.billing.zip}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Phone:</div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.billing.phone}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Admin: </div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.contact.name}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Admin email: </div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.contact.email}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                     <div class="my-content" >
-                                        <div class="col-xs-3">Sales: </div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.accountmanager.name}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-                                    <div class="my-content" >
-                                        <div class="col-xs-3">Sales email: </div>
-                                        <div class="text-right">
-                                            <iron-input class="col-xs-9" bind-value="{{item.info.email}}">
-                                                <input disabled class="input">
-                                            </iron-input>
-                                        </div>
-                                    </div>
-
-
-                                    </div>
-                                    <!-- </div> -->
-                                </div>
-                                <!-- <div style="clear: both";></div> -->
-                                <!-- <div class="group-header" hidden$="[[!_hasGroup(index)]]">[[item.state]]</div>
-                                                            <div class="group-item">
-                                                                <iron-image class="avatar" sizing="contain" src="[[item.image]]"></iron-image>
-                                                                <div class="pad">
-                                                                    <span class="primary">[[item.name]]</span> <span class="secondary">[[item.shortText]]</span>
-                                                                </div>
-                                                            </div> -->
-                            </div>
-                        </template>
-                    </iron-list>
-                </div>
-                <!--             <iron-data-table details-enabled id="partGrid" selection-enabled items="{{customers}}">
-                <data-table-column name="Company" flex="0" width="[[companyW]]" filter-by="companyname">
-                    <template>
-                        <div class="nooverflow" on-tap="partSelector">[[item.companyname]]</div>
-                    </template>
-                </data-table-column>
-                <data-table-column name="Address" flex="0" width="[[addressW]]" filter-by="address">
-                    <template>
-                        <div on-tap="partSelector" class="nooverflow">
-                            [[item.address]]
-                        </div>
-                    </template>
-                </data-table-column>
-            </iron-data-table> -->
-            </div>
-        </div>
-        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" on-response="receiveQueryResults" content-type="application/json"></iron-ajax>
+        <div id="customerpanel"></div>
+        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" on-response="${this.receiveQueryResults.bind(this)}" content-type="application/json"></iron-ajax>
             `
-        }
-        static get properties() {
-            return {
-              
-                status: {
-                    type: Boolean,
-                    value: true
-                },
-                searchoption: {
-                    type: String,
-                    value: "idver"
-                },
-                     profileid: {
-                    type: String,
-                    reflectToAttribute: true,
-                }
-
-
-
-            }
-        }
-
-        static get observers() {
-            return [
-                "statusChange(status)"
-
-            ]
-        }
-
-        constructor() {
-            super()
-           
-        }
-
-
-
-
-        selectCustomer(e) {
-            console.log('here is e', e);
-            var customer = e.model.item;
-            var company = customer.companyname;
-            var customerid = customer.id;
-            this.dispatchEvent(new CustomEvent('CustomerEvent', {
-                composed: true,
-                bubbles: true,
-                detail: {
-                    id: customerid,
-                    company: company,
-                    routeData: customer
-                }
-            }));
-            // this.set('data',[])
-        }
-
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-        open() {
-
-
-            console.log("this.$ inside open", this.$)
-            console.log("this.$.idver inside open", this.$.idver)
-            this.set('$.idver.checked', true)
-
-            console.log("this.$.searchQuery.value", this.$.searchQuery.value)
-            this.set('$.searchQuery.value', '')
-            console.log("this.$.searchQuery.value", this.$.searchQuery.value)
-
-
-            this.generateSearch(false, false, true)
-            // let querypackage = {
-            //     query: "",
-            //     option: "idver"
-            // }
-            // this.$.ajaxSearch.body = JSON.stringify(querypackage)
-            // this.$.ajaxSearch.generateRequest();
-        }
-
-        // generateSearch(e) {
-        //     if (e.keyCode === 13) {
-        //         let query = this.$.searchQuery.value;
-
-        //         let querypackage = {
-        //             query: query.toString(),
-        //             option: this.searchoption
-        //         }
-
-        //         console.log("the qp", querypackage)
-
-        //         this.$.ajaxSearch.body = JSON.stringify(querypackage)
-        //         this.$.ajaxSearch.generateRequest();
-
-        //     }
-        // }
-
-        generateSearch(e, pass, retrieveAll) {
-            let query
-
-            console.log("this.searcheoption", this.searchoption)
-
-            if (e) {
-                if (this.$.searchQuery.value === "") {
-                    retrieveAll = true;
-
-                } else if (e.keyCode !== 13 && e.type == "keyup") {
-                    return
-                }
-            }
-            query = this.$.searchQuery.value.trim();
-            if (retrieveAll) {
-                console.log("inside retriveall")
-                query = ""
-                this.searchoption = 'idver'
-            }
-
-            let querypackage = {
-                query: query.toString().toLowerCase(),
-                option: this.searchoption
-            }
-            this.$.ajaxSearch.url = "/customer/search/" + this.profileid
-            this.$.ajaxSearch.body = JSON.stringify(querypackage)
-            this.$.ajaxSearch.generateRequest();
-        }
-
-        receiveQueryResults(response) {
-            this.dataarray = [];
-            this.searched = response.detail.response.results
-            this.responselist(response.detail.response.results, true)
-        }
-
-
-        setSearchOption(e) {
-            console.log('option', e.path[0].id)
-            console.log('option', e)
-            e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
-
-             if (this.$.searchQuery.value) {
-                this.generateSearch()
-            }
-        }
-
-        statusChange() {
-            var data = this.searched || this.model
-            this.responselist(data, true)
-        }
-
-        responselist(data, fromquery) {
-            if (fromquery) {
-                this.data = data
-
-                       setTimeout(()=> { this.$.list.dispatchEvent(new CustomEvent('iron-resize'), {
-                        composed: true,
-                        bubbles: true,
-                    })
-               }, 5)
-
-
-            }
-        }
-
     }
-    customElements.define('customer-sidepanel', CustomerSidepanel);
-
+}
+customElements.define('customer-sidepanel', CustomerSidepanel);

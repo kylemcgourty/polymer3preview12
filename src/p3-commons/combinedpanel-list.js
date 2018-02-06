@@ -4,7 +4,7 @@ import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-import '../../src/p3-commons/search-innerpart.js'
+import '../../src/p3-commons/search-inner.js'
 
 
 export class CombinedpanelList extends LitElement {
@@ -690,7 +690,7 @@ export class CombinedpanelList extends LitElement {
                     </div>
                 </div>
                 <div id="container" class="table-padding">
-                     <search-innerpart searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-innerpart>
+                     <search-inner searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-inner>
                      ${repeat (
                         items,
                         item => item.id,
