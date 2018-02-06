@@ -115,7 +115,7 @@ export class DefieMenu extends PolymerElement {
     static get template() {
         return `
  
-        <style include="shared-styles iron-flex iron-flex-alignment">
+        <style include=" iron-flex iron-flex-alignment">
          :host {
             --app-primary-color: #4cc3d9;
             --app-secondary-color: black;
@@ -397,7 +397,8 @@ export class DefieMenu extends PolymerElement {
             </iron-pages>
             
         </app-drawer-layout>
-        <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
+        <iron-ajax id="userajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
+        <iron-ajax id="serviceajax" on-response="serviceResponse" on-error="serviceerror"></iron-ajax>
         <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSetting1" method="GET" handle-as="json" on-response="responseSetting1" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSetting2" method="GET" handle-as="json" on-response="responseSetting2" content-type="application/json"></iron-ajax>
@@ -568,6 +569,22 @@ export class DefieMenu extends PolymerElement {
                 }
             },
 
+            importList: {
+                type: Object,
+                value: function() {
+                    return {
+                    "users": "/users/src/users-shell.js",
+                    "user-new": "/users/src/users-shell.js",
+                    "partnumbers": "/inventorys/src/partnumbers-shell.js",
+                    "partnumber-new":"/inventorys/src/partnumbers-shell.js",
+                    "salesorders": "/salesorders/src/salesorders-shell.js",
+                    "salesorder-new": "/salesorders/src/salesorders-shell.js",
+                    "customers": "/customers/src/customers-shell.js",
+                    "customer-new": "/customers/src/customers-shell.js"
+                    }
+                }
+            },
+
 
             stylekeeper: {
                 type: Array,
@@ -695,7 +712,12 @@ export class DefieMenu extends PolymerElement {
 
         this.lazyloader
         let choice
-        this.set('option', this.ServicesList[route])
+
+        let module = this.importList[route]
+
+        import(module).then((mod) =>{
+            this.set('option', this.ServicesList[route])
+        })
     }
 
 
@@ -793,47 +815,39 @@ export class DefieMenu extends PolymerElement {
 
     userResponse(e) {
 
-        // this.showMenu = true;
+        
 
+        this.set('leftservices', e.detail.response.results)
+
+
+    }
+
+    serviceResponse(e) {
         this.set('leftservices', e.detail.response.results.services)
 
         this.getSetting(sessionStorage.getItem("PR"))
-
-        // this.set('leftservices', e.detail.response.results)
-
-        // this.leftservices.map((micro) => {
-        //     if (micro.privileges == "View") {
-        //         micro.transportapps.map((app) => {
-
-        //             if (this.PermissionMap[app.link]) {
-        //                 this.set(this.PermissionMap[app.link], "View")
-        //             }
-        //         })
-        //     }
-        // })
-
-
     }
 
     toWelcomePage(e) {
 
-        this.tempMenu();
         this.set('route.path', '/welcome');
         this.showMenu = true;
         this.set('leftservices', e.detail.services)
+        this.getSetting(sessionStorage.getItem("PR"))
+
         // this.$.serviceajax.generateRequest();
     }
 
 
-    tempMenu() {
-        let ur = sessionStorage.getItem("UR")
-        ur == undefined || ur == null ? ur = 0 : ur
-        this.$.serviceajax.url = "/service/leftservice"
-        // this.$.serviceajax.url = "/api/user/services/0" 
-        this.$.serviceajax.generateRequest()
-        this.showMenu = true;
+    // tempMenu() {
+    //     let ur = sessionStorage.getItem("UR")
+    //     ur == undefined || ur == null ? ur = 0 : ur
+    //     this.$.serviceajax.url = "/service/leftservice"
+    //     // this.$.serviceajax.url = "/api/user/services/0" 
+    //     this.$.serviceajax.generateRequest()
+    //     this.showMenu = true;
 
-    }
+    // }
 
 
 
@@ -958,15 +972,23 @@ export class DefieMenu extends PolymerElement {
         this.$.serviceajax.url = "/service/leftservice"
 
 
-        // this.$.serviceajax.url = "/api/user/services/" + ur
-        this.$.serviceajax.generateRequest()
+        // // this.$.serviceajax.url = "/api/user/services/" + ur
+        // this.$.serviceajax.generateRequest()
+        // this.showMenu = true;
+
+
+        document.querySelector('defie-menu').addEventListener('userservices', e => {
+
+        let ur = sessionStorage.getItem("UR")
+
+
+        this.$.userajax.url = "/user/services/" + ur
+        this.$.userajax.generateRequest()
         this.showMenu = true;
 
 
-        // this.$.serviceajax.url = "/api/user/services/" + ur
-        this.$.serviceajax.generateRequest()
-        // this.showMenu = true;
 
+        })
 
 
         document.querySelector('defie-menu').addEventListener('leftservice', e => {
