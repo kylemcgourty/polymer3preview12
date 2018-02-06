@@ -4,6 +4,8 @@ import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
+import '../../src/p3-commons/search-innerpart.js'
+
 
 export class CombinedpanelList extends LitElement {
     static get properties() {
@@ -141,15 +143,23 @@ export class CombinedpanelList extends LitElement {
     constructor() {
         super();
     }
-
+    ready(){
+        super.ready();
+        this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
+            this.generateSearch(e);
+        });
+        this.shadowRoot.addEventListener('selectedSearchOption', e => {
+            this.setSearchOption(e);
+        });
+    }
     generateSearch(e, pass, retrieveAll) {
         console.log(e)
-        if (e) {
-            if (e.keyCode !== 13 && e.type == "keypress") {
+        if (e.detail) {
+            if (e.detail.keyCode !== 13 && e.detail.type == "keypress") {
                 return
             }
         }
-        let query = this.shadowRoot.querySelector('#searchQuery').value.trim();
+        let query = e.detail.inputValue;
         if (retrieveAll) {
             query = ""
             this.searchoption = 'id'
@@ -171,12 +181,12 @@ export class CombinedpanelList extends LitElement {
 
 
 
-    setSearchOption(item) {
-        console.log(item)
-        item.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = item.path[0].id
+    setSearchOption(e) {
+        console.log(e)
+        e.path[0].id === "all" ? this.generateSearch(e, undefined, 'id') : this.searchoption = e.path[0].id
 
-        if (this.shadowRoot.querySelector('#searchQuery').value) {
-            this.generateSearch()
+        if (e.detail) {
+            this.generateSearch(e)
         }
     }
 
@@ -680,48 +690,7 @@ export class CombinedpanelList extends LitElement {
                     </div>
                 </div>
                 <div id="container" class="table-padding">
-                    <div style="display: ${ searchdisplay.display }; padding-bottom:24px">
-                        <div class="search-flex layout horizontal">
-                            <div class="search-container">
-                                <iron-input class="search" slot="input">
-                                    <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="${(item) => this.generateSearch(item)}" on-focusout="${(item) => this.generateSearch(item)}">
-                                </iron-input>
-                                <div on-tap="${(item) => this.generateSearch(item)}" class="search-icon">
-                                    <paper-icon-button class="search-icon" icon="search"></paper-icon-button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="options-container">
-                            <div class="searchoptions layout horizontal">
-                                <div class="searchcontainer layout vertical">
-                                    <div class="s-container1 layout horizontal">
-                                        <div>
-                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex1 }" name="searchoptions" class="listoptions" type="radio" checked>${ searchfields.searchfield1 }
-                                        </div>
-                                        <div>
-                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex2 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield2 }
-                                        </div>
-                                        <div>
-                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex3 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield3 }
-                                        </div>
-                                        <div>
-                                            <input on-change="${(item) => this.setSearchOption(item)}" on-keypress="${(item) => this.setSearchOption(item)}" id="${ searchkeyindexes.searchkeyindex4 }" name="searchoptions" class="listoptions" type="radio">${ searchfields.searchfield4 }
-                                        </div>
-                                    </div>
-                                    <div class="s-container2 layout horizontal">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="s-container2 layout horizontal">
-                            <div>
-                            </div>
-                        </div>
-                    </div>
-                    <section id="options">
-                        <div id="ilcontainer">
-                        </div>
-                    </section>
+                     <search-innerpart searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-innerpart>
                      ${repeat (
                         items,
                         item => item.id,
@@ -731,7 +700,7 @@ export class CombinedpanelList extends LitElement {
                     <div class="row layout horizontal">
                         <div class="my-content"></div>
                         <div class="layout vertical" style="width: 100%;">
-                            <div class="my-content" style="display: ${ displaylist.displayfield1 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield1 }; height:19px">
                                 <div class="col-xs-3">${ fieldnamelist.fieldname1 }</div>
                                 <div class="text-right col-xs-9" style="float:right">
                                    <div class="layout horizontal">
@@ -817,9 +786,8 @@ export class CombinedpanelList extends LitElement {
                         </div>
                     </div>
                 </div>
-            </div>
-                    
                         `)}
+            </div>
                    `;
         }
 
