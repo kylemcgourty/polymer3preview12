@@ -5,7 +5,7 @@
 
 
 
-export class AdminPartTypePanel extends LitElement {
+export class PartTypePanel extends LitElement {
 
  
 
@@ -479,4 +479,4 @@ export class AdminPartTypePanel extends LitElement {
 
 
 }
-customElements.define("adminparttype-panel", AdminPartTypePanel);
+customElements.define("parttype-panel", PartTypePanel);
