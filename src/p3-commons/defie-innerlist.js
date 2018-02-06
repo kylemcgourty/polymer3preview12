@@ -140,16 +140,16 @@
                                     <div class="layout horizontal">
                                         <div class="opt1"> ${item.id} </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${()=> this.event1(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${()=> this.event2(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="event3" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${()=> this.event3(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="event4" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${()=> this.event4(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
@@ -168,16 +168,16 @@
                                                         </div>
                                                         <div class="mobile-icons layout horizontal">
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${()=> this.event1(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${()=> this.event2(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="event3" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${()=> this.event3(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="event4" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${()=> this.event4(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -192,7 +192,7 @@
                                                         </iron-input>
                                                     </div>
                                                     <div class="bd2-2">
-                                                            <input style="display:${this.editableCheck(item.col0.editable)};" value="${item.col0.value}" data-align$="${item.col0.textalign}" class="input1 col0input inputnum outline">
+                                                            <input style="display:${this.editableCheck(item.col0.editable)};" id$="item00-${item.id}"  on-focusout="${()=> this.event00(item)}" value="${item.col0.value}" data-align$="${item.col0.textalign}" class="input1 col0input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col0.editable)};" value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
@@ -203,7 +203,7 @@
                                                             <input disabled class="input1"  value="${this.col1}" disabled>
                                                     </div>
                                                     <div class="bd1-1 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col1.editable)};" value="${item.col1.value}" data-align$="${item.col1.textalign}" class="input1 col1input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col1.editable)};" id$="item11-${item.id}" on-focusout="${()=> this.event11(item)}" value="${item.col1.value}" data-align$="${item.col1.textalign}" class="input1 col1input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col1.editable)};" value="${item.col1.value}" disabled data-align$="${item.col1.textalign}" class="input1 col1input inputnum">
                                                     </div>
                                                 </div>
@@ -214,7 +214,7 @@
                                                         <input disabled class="input1"  value="${this.col2}" disabled>
                                                     </div>
                                                     <div class="bd4-1 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col2.editable)};" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 col2input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col2.editable)};" id$="item22-${item.id}" on-focusout="${()=> this.event22(item)}" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 col2input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col2.editable)};" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1 col2input inputnum">
                                                     </div>
                                                 </div>
@@ -225,7 +225,7 @@
                                                         <input disabled class="input1"  value="${this.col3}" disabled>
                                                     </div>
                                                     <div class="bd5-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col3.editable)};" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 col3input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col3.editable)};" id$="item33-${item.id}" on-focusout="${()=> this.event33(item)}" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 col3input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col3.editable)};" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 col3input inputnum">
                                                     </div>
                                                 </div>
@@ -236,7 +236,7 @@
                                                         <input disabled class="input1"  value="${this.col4}" disabled>
                                                     </div>
                                                     <div class="bd6-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col4.editable)};" value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 col4input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col4.editable)};" id$="item44-${item.id}" on-focusout="${()=> this.event44(item)}" value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 col4input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col4.editable)};" value="${item.col4.value}" disabled data-align$="${item.col4.textalign}" class="input1 col4input inputnum">
                                                     </div>
                                                 </div>
@@ -248,7 +248,7 @@
                                                     </div>
                                                     <div class="bd3-2  datapoint">
                                                         <div style="width: 100%; display: ${item.col5.input};" on-tap="tapevent55">
-                                                            <input style="display:${this.editableCheck(item.col5.editable)};" value="${item.col5.value}" data-align$="${item.col5.textalign}" class="input1 col5input inputnum outline">
+                                                            <input style="display:${this.editableCheck(item.col5.editable)};" id$="item55-${item.id}" on-focusout="${()=> this.event55(item)}" value="${item.col5.value}" data-align$="${item.col5.textalign}" class="input1 col5input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col5.editable)};" value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" class="input1 col5input inputnum">
                                                         </div>
                                                     </div>
@@ -260,7 +260,7 @@
                                                         <input disabled class="input1"  value="${this.col6}" disabled>
                                                     </div>
                                                     <div class="bd7-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col6.editable)};" value="${item.col6.value}" data-align$="${item.col6.textalign}" class="input1 col6input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col6.editable)};" id$="item66-${item.id}" on-focusout="${()=> this.event66(item)}" value="${item.col6.value}" data-align$="${item.col6.textalign}" class="input1 col6input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col6.editable)};" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 col6input inputnum">
                                                     </div>
                                                 </div>
@@ -271,7 +271,7 @@
                                                         <input disabled class="input1"  value="${this.col7}" disabled>
                                                     </div>
                                                     <div class="bd8-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col7.editable)};" value="${item.col7.value}" data-align$="${item.col7.textalign}" class="input1 col7input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col7.editable)};" id$="item77-${item.id}" on-focusout="${()=> this.event77(item)}" value="${item.col7.value}" data-align$="${item.col7.textalign}" class="input1 col7input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col7.editable)};" value="${item.col7.value}" disabled data-align$="${item.col7.textalign}" class="input1 col7input inputnum">
                                                     </div>
                                                 </div>
@@ -282,7 +282,7 @@
                                                         <input disabled class="input1"  value="${this.col8}" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col8.editable)};" value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 col8input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col8.editable)};" id$="item88-${item.id}" on-focusout="${()=> this.event88(item)}" value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 col8input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 col8input inputnum">
                                                     </div>
                                                 </div>
@@ -294,7 +294,7 @@
                                                         <input disabled class="input1"  value="${this.col9}" disabled>
 
                                                         </div>
-                                                        <input style="display:${this.editableCheck(item.col9.editable)};" value="${item.col9.value}" data-align$="${item.col9.textalign}" class="input1 col9input inputnum outline">
+                                                        <input style="display:${this.editableCheck(item.col9.editable)};" id$="item99-${item.id}" on-focusout="${()=> this.event99(item)}" value="${item.col9.value}" data-align$="${item.col9.textalign}" class="input1 col9input inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 col9input inputnum">
                                                     </div>
                                                 </div>
@@ -307,16 +307,16 @@
                                         <div class="box5-data layout horizontal">
                                             <div class="mobile-icons layout horizontal">
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${()=>this.event1(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${()=>this.event2(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="event3" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${()=>this.event3(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                                 <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="event4" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${()=>this.event4(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                             </div>
                                         </div>
@@ -416,136 +416,188 @@
             }
         }
 
-        event1(e) {
+        event1(item) {
             this.dispatchEvent(new CustomEvent('event1', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        event2(e) {
+        event2(item) {
             this.dispatchEvent(new CustomEvent('event2', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event3(e) {
+        event3(item) {
             this.dispatchEvent(new CustomEvent('event3', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event4(e) {
+        event4(item) {
             this.dispatchEvent(new CustomEvent('event4', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event00(e) {
-            this.dispatchEvent(new CustomEvent('event00', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event00(item) {
+                    let id = item.id
+
+
+                   item.col0.value = this.shadowRoot.querySelector('#item00-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event00', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event11(e) {
-            this.dispatchEvent(new CustomEvent('event11', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event11(item) {
+                    let id = item.id
+
+                   item.col1.value = this.shadowRoot.querySelector('#item11-'+id).value 
+
+                   console.log('the id and vluae', id, item.col1.value)
+
+                    this.dispatchEvent(new CustomEvent('event11', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event22(e) {
-            console.log("e in SOdefieInnerlist", e)
-            console.log("this.col2.value", this.col2.value)
-            console.log("this", this)
-            this.dispatchEvent(new CustomEvent('event22', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event22(item) {
+                    let id = item.id
+
+                   item.col2.value = this.shadowRoot.querySelector('#item22-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event22', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event33(e) {
-            this.dispatchEvent(new CustomEvent('event33', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event33(item) {
+                    let id = item.id
+
+                   item.col3.value = this.shadowRoot.querySelector('#item33-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event33', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event44(e) {
-            this.dispatchEvent(new CustomEvent('event44', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event44(item) {
+                    let id = item.id
+
+                   item.col4.value = this.shadowRoot.querySelector('#item44-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event44', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event55(e) {
-            this.dispatchEvent(new CustomEvent('event55', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event55(item) {
+                    let id = item.id
+
+                   item.col5.value = this.shadowRoot.querySelector('#item55-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event55', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event66(e) {
-            this.dispatchEvent(new CustomEvent('event66', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event66(item) {
+                    let id = item.id
+
+                   item.col6.value = this.shadowRoot.querySelector('#item66-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event66', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event77(e) {
-            this.dispatchEvent(new CustomEvent('event77', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event77(item) {
+                    let id = item.id
+
+                   item.col7.value = this.shadowRoot.querySelector('#item77-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event77', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event88(e) {
-            this.dispatchEvent(new CustomEvent('event88', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event88(item) {
+                    let id = item.id
+
+                   item.col8.value = this.shadowRoot.querySelector('#item88-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event88', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event99(e) {
-            this.dispatchEvent(new CustomEvent('event99', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event99(item) {
+                    let id = item.id
+
+                   item.col9.value = this.shadowRoot.querySelector('#item99-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event99', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
+
+        
         tapevent55(e) {
             this.dispatchEvent(new CustomEvent('tapevent55', {
                 bubbles: true,
@@ -654,13 +706,7 @@
             }));
         }
 
-        edit() {
-            this.set('route.path', "salesorders/" + this.model.billto.companyname + '/' + this.model.idver + "/edit")
-        }
-        edithistory() {
-            this.model.savehistory = true;
-            this.set('route.path', "salesorders/" + this.model.billto.companyname + '/' + this.model.idver + "/edit")
-        }
+   
 
         showSN(item, selected) {
             if (window.innerWidth > 479) {
@@ -762,239 +808,14 @@
             }
         }
 
-        cancel() {
-            this.set("route.path", "/salesorders")
-        }
-
+   
         showDetails(item, selected) {
             return selected ? "expanded" : "nil"
         }
-        adjustPanelProps(props) {
-            var args = Array.prototype.slice.call(arguments, 1);
-            var self = this;
+      
 
-            props.forEach(function(item) {
-                var newVal = !args.includes(item);
-                self.set(item, newVal);
-            });
-        }
-
-        goprint() {
-            var printurl = "/salesorder/print/" + this.model.soinfo.companyid + "/" + this.model.id;
-            this.printurl = printurl
-            this.$.ajaxPrint.url = printurl
-            this.$.ajaxPrint.generateRequest()
-        }
-        responsePrint(response) {
-
-            this.printTemplate(this.printurl)
-        }
-        changepanel(e) {
-            console.log('ete ', e)
-            if (e.path[0].id == 'showemail') {
-                var from = e.path[0].id;
-            } else {
-                var from = e.path[2].id;
-            }
-            var id = this.model.soinfo.companyid;
-            var soid = this.model.id;
-            console.log(from)
-
-            switch (from) {
-                case "showemail":
-                    window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
-                    // this.set('drawerwidth', '640px')
-                    this.adjustPanelProps(this.panelprops, "showemail");
-
-                    console.log("changpenal showmail , this.model", this.model);
-
-                    var filename = this.model.settingscompany + "_Sales_Order_" + this.model.idver;
-                    var posturl = '/salesorder/email/send/' + this.model.soinfo.companyid + "/" + this.model.id;
-                    var searchurl = "/customer/type/contact/" + this.model.soinfo.companyid;
-                    this.$.email.open(filename, posturl, searchurl);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "showloginfo":
-                    var url = "/salesorder/internalnotes/" + this.model.billto.companyname + "/" + this.model.year + "/" + soid;
-                    this.$.logs.open(this.model.billto.companyname, this.year, soid, url);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "serialnumberlist":
-                    window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
-                    // this.set('drawerwidth', '640px')
-
-                    this.adjustPanelProps(this.panelprops, "showserialnumberlist");
-
-
-                    var item = e.target.item;
-                    var index = e.model.index - 1;
-                    this.lineitemIndex = index;
-                    this.qty = this.model.lineitems[index].qty;
-                    this.toServerTypes();
-                    this.starter = "SOVSaveSN";
-                    this.ender = "SOVupdateIL";
-                    this.mid = "SOVmid";
-                    this.launch = "SOVlaunch"
-                    this.hwrretrieve = "SOVhwrretrieve"
-                    this.panelurl = "/salesorder/" + this.model.soinfo.companyid + "/" + soid;
-                    this.$.serialnumberdoor.open(this.panelurl, item, this.model);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "shippinginfopanel":
-                    window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
-                    // this.set('drawerwidth', '640px')
-
-                    this.adjustPanelProps(this.panelprops, "shippinginfopanel");
-
-                    var index = e.model.index - 1;
-                    this.lineitemIndex = index;
-
-                    this.ender = "SOVsl"
-                    this.toServerTypes();
-
-                    this.panelurl = "/salesorder/" + this.model.soinfo.companyid + "/" + soid;
-                    this.$.shippinginfopanel.open(this.panelurl, this.model.lineitems[index], this.model);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "inventorylist":
-                    this.set('drawerwidth', '320px');
-
-                    this.adjustPanelProps(this.panelprops, "showinventorylist");
-                    var id = e.model.item.id;
-                    this.panelurl = "/api/inventory/stock/" + id;
-                    this.$.inventorydoor.open(this.panelurl);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-            }
-        }
-        calculate() {
-            // debounce
-            if (this.$.ajaxCalc.activeRequests.length > 0) return this._debouncer = Polymer.Debouncer.debounce(this._debouncer, Polymer.Async.timeOut.after(100), () => {
-                this.calculate()
-            });
-            this.toServerTypes();
-            // generate request
-            this.$.ajaxCalc.body = JSON.stringify(this.model);
-            this.$.ajaxCalc.generateRequest();
-        }
-
-        toServerTypes() {
-
-            if (this.model.lineitems) {
-                for (let i = 0; i < this.model.lineitems.length; i++) {
-                    this.model.lineitems[i].margin = float(this.model.lineitems[i].margin);
-                    this.model.lineitems[i].qty = float(this.model.lineitems[i].qty);
-                    this.model.lineitems[i].cost = float(this.model.lineitems[i].cost);
-                    this.model.lineitems[i].price = float(this.model.lineitems[i].price);
-                    this.model.lineitems[i].extprice = float(this.model.lineitems[i].extprice);
-
-                }
-                for (let k in this.model.sototals) {
-                    if (k === 'approval') continue;
-                    this.model.sototals[k] = float(this.model.sototals[k]);
-                }
-                this.model.soinfo.tax = float(this.model.soinfo.tax);
-            }
-        }
-
-        fromServerTypes(m) {
-
-            for (let j = 1; j < this.data.length; j++) {
-                this.set('data.' + j + '.margin', this.pct(m.lineitems[j - 1].margin));
-                this.set('data.' + j + '.cost', this.usd(m.lineitems[j - 1].cost))
-                this.set('data.' + j + '.price', this.usd(m.lineitems[j - 1].price))
-                this.set('data.' + j + '.extprice', this.usd(m.lineitems[j - 1].extprice))
-
-                this.set('model.lineitems.' + [j - 1] + '.margin', this.pct(m.lineitems[j - 1].margin));
-                this.set('model.lineitems.' + [j - 1] + '.cost', this.usd(m.lineitems[j - 1].cost));
-                this.set('model.lineitems.' + [j - 1] + '.price', this.usd(m.lineitems[j - 1].price));
-                this.set('model.lineitems.' + [j - 1] + '.extprice', this.usd(m.lineitems[j - 1].extprice));
-
-            }
-
-
-            for (let k in m.sototals) {
-                if (typeof m.sototals[k] !== 'number') continue;
-                if (k === 'profitmargin') this.set('model.sototals.' + k, this.pct(m.sototals[k]));
-                else this.set('model.sototals.' + k, m.sototals[k].usd());
-            }
-            this.set('model.soinfo.tax', this.pct(m.soinfo.tax));
-
-
-
-            // this.set('model', m);
-            this.set('model.calmargin', false);
-            this.set('model.calprice', false);
-        }
-
-        responseCalc(e) {
-            // if (this.isDebouncerActive('calculate')) return;
-            var m = e.detail.response;
-            if (typeof m !== 'object') return console.error('Calc API did not return expected data');
-            this.fromServerTypes(m);
-        }
-
-        doCalculate() {
-            this.calculate();
-        }
-        doCalculateTax() {
-            this.model.soinfo.tax = float(this.model.soinfo.tax).pct();
-            if (this.model.soinfo.tax != "0") {
-                for (let i = 0; i < this.model.lineitems.length; i++) {
-                    this.set('model.lineitems.' + i + '.tax', true);
-                    this.set('data.' + [i + 1] + '.tax', true);
-                }
-            } else {
-                for (let i = 0; i < this.model.lineitems.length; i++) {
-                    this.set('model.lineitems.' + i + '.tax', false);
-                    this.set('data.' + [i + 1] + '.tax', false);
-                }
-            }
-            this.calculate();
-        }
-        doCalculateTaxable(e) {
-            console.log(e)
-            console.log(e.model.index)
-            var index = e.model.index;
-            this.set('data.' + [index + 1] + '.tax', !this.model.lineitems[index].tax)
-            this.set('model.lineitems.' + index + '.tax', !this.model.lineitems[index].tax)
-            var count = 0;
-            for (var i = 0; i < this.model.lineitems.length; i++) {
-                if (this.model.lineitems[i].tax == true) {
-                    count = count + 1;
-                }
-            }
-            console.log("count    is   ", count)
-            if (count == "0") {
-                this.set('model.soinfo.tax', 0)
-                document.querySelector('#toast').text = 'All item is nontax';
-                document.querySelector('#toast').show();
-            }
-            this.calculate();
-        }
-
-        doCalculateMargin(e) {
-            this.set('model.calmargin', true);
-            this.calculate();
-        }
-
-        doCalculatePrice(e) {
-            console.log("doCalculatePrice")
-
-            this.set('model.indexselected', e.model.index);
-            this.set('model.calprice', true);
-            this.calculate();
-        }
-
-        scrollTop() {
-            this.shadowRoot.getElementById('top').scrollIntoView()
-
-        }
+    
+        
         ready() {
             super.ready()
             // this.titlecolor();

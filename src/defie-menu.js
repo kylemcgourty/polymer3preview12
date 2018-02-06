@@ -115,7 +115,7 @@ export class DefieMenu extends PolymerElement {
     static get template() {
         return `
  
-        <style include="shared-styles iron-flex iron-flex-alignment">
+        <style include=" iron-flex iron-flex-alignment">
          :host {
             --app-primary-color: #4cc3d9;
             --app-secondary-color: black;
@@ -397,7 +397,8 @@ export class DefieMenu extends PolymerElement {
             </iron-pages>
             
         </app-drawer-layout>
-        <iron-ajax id="serviceajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
+        <iron-ajax id="userajax" on-response="userResponse" on-error="serviceerror"></iron-ajax>
+        <iron-ajax id="serviceajax" on-response="serviceResponse" on-error="serviceerror"></iron-ajax>
         <iron-ajax id="ajaxSetting" method="GET" handle-as="json" on-response="responseSetting" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSetting1" method="GET" handle-as="json" on-response="responseSetting1" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSetting2" method="GET" handle-as="json" on-response="responseSetting2" content-type="application/json"></iron-ajax>
@@ -568,6 +569,93 @@ export class DefieMenu extends PolymerElement {
                 }
             },
 
+            importList: {
+                type: Object,
+                value: function() {
+                    return {
+                    "users": "/users/src/users-shell.js",
+                    "user-new": "/users/src/users-shell.js",
+                    "partnumbers": "/inventorys/src/partnumbers-shell.js",
+                    "partnumber-new":"/inventorys/src/partnumbers-shell.js",
+                    "salesorders": "/salesorders/src/salesorders-shell.js",
+                    "salesorder-new": "/salesorders/src/salesorders-shell.js",
+                    "customers": "/customers/src/customers-shell.js",
+                    "customer-new": "/customers/src/customers-shell.js",
+                    "licensors": "/licensors/src/licensors-shell.js",
+                    "licensor-new": "/licensors/src/licensors-shell.js",
+                    "services": "/services/src/services-shell.js",
+                    "service-new": "/services/src/services-shell.js",
+                    "profiles": "/profiles/src/profiles-shell.js",
+                    "profile-new": "/profiles/src/profiles-shell.js",
+                    "apdistributedaccounts-new": "/apdistributedaccounts/src/apdistributedaccounts-shell.js",
+                    "apchartofaccounts-new": "/apchartofaccounts/src/apchartofaccounts-shell.js",
+                    "accountspayable": "/accountspayables/src/accountspayable-shell.js",
+                    "ap-vendors": "/accountspayables/src/accountspayable-shell.js",
+                    "accountsreceivable": "/accountsreceivables/src/accountsreceivable-shell.js",
+                    "ar-customers": "/accountsreceivables/src/accountsreceivable-shell.js",
+                    "customerrma-new": "/customerrmas/src/customerrmas-shell.js",
+                    "customerrmas": "/customerrmas/src/customerrmas-shell.js",
+                    "customershiprma-new": "/customershiprmas/src/customershiprmas-shell.js",
+                    "customershiprmas": "/customershiprmas/src/customershiprmas-shell.js",
+                    "customerreceiverma-new": "/customerreceivermas/src/customerreceivermas-shell.js",
+                    "customerreceivermas": "/customerreceivermas/src/customerreceivermas-shell.js",
+                    "vendorrma-new": "/vendorrmas/src/vendorrmas-shell.js",
+                    "vendorrmas": "/vendorrmas/src/vendorrmas-shell.js",
+                    "vendorshiprma-new": "/vendorshiprmas/src/vendorshiprmas-shell.js",
+                    "vendorshiprmas": "/vendorshiprmas/src/vendorshiprmas-shell.js",
+                    "vendorreceiverma-new": "/vendorreceivermas/src/vendorreceivermas-shell.js",
+                    "vendorreceivermas": "/vendorreceivermas/src/vendorreceivermas-shell.js",
+                    "shipreturnpo-new": "/shipreturnpos/src/shipreturnpos-shell.js",
+                    "shipreturnpos": "/shipreturnpos/src/shipreturnpos-shell.js",
+                    "purchaseorder-new": "/purchaseorders/src/purchaseorders-shell.js",
+                    "purchaseorders": "/purchaseorders/src/purchaseorders-shell.js",
+                    "receivepo-new": "/receivepos/src/receivepos-shell.js",
+                    "receivepos": "/receivepos/src/receivepos-shell.js",
+                    "returnpo-new": "/returnpos/src/returnpos-shell.js",
+                    "returnpos":"/returnpos/src/returnpos-shell.js",
+                    "returnso-new": "/returnsos/src/returnsos-shell.js",
+                    "returnsos":"/returnsos/src/returnsos-shell.js",
+                    "creditmemo-new": "/creditmemos/src/creditmemos-shell.js",
+                    "creditmemos": "/creditmemos/src/creditmemos-shell.js",
+                    "createcreditmemo-new": "/createcreditmemos/src/createcreditmemos-shell.js",
+                    "createcreditmemos": "/createcreditmemos/src/createcreditmemos-shell.js",
+                    "licuser-new": "/licuser/src/licusers-shell.js",
+                    "licusers": "/licuser/src/licusers-shell.js",
+                    "createinvoice-new": "/createinvoices/src/createinvoices-shell.js",
+                    "createinvoices": "/createinvoices/src/createinvoices-shell.js",
+                    "invoice-new": "/invoices/src/invoices-shell.js",
+                    "invoices": "/invoices/src/invoices-shell.js",
+                    "boms": "/boms/src/boms-shell.js",
+                    "bom-new": "/boms/src/boms-shell.js",
+                    "releasedboms": "/releasedboms/src/releasedboms-shell.js",
+                    "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
+                    "buildorders": "/buildorders/src/buildorders-shell.js",
+                    "buildorder-new": "/buildorders/src/buildorders-shell.js",
+                    "releasedbuildorders": "/releasedbuildorders/src/releasedbuildorders-shell.js",
+                    "releasebuildorder-new": "/releasedbuildorders/src/releasedbuildorders-shell.js",
+                    "workorders": "/workorders/src/workorders-shell.js",
+                    "workorder-new": "/workorders/src/workorders-shell.js",
+                    "finishworkorders": "/finishworkorders/src/finishworkorders-shell.js",
+                    "finishworkorder-new": "/finishworkorders/src/finishworkorders-shell.js",
+                    "vendor-new": "/vendors/src/vendors-shell.js",
+                    "vendors": "/vendors/src/vendors-shell.js",
+                    "quote-new": "/quotes/src/quotes-shell.js",
+                    "quotes": "/quotes/src/quotes-shell.js",
+                    "accountspayable-new": "accountspayable",
+                    "accountspayable": "/accountspayables/src/accountspayable-shell.js",
+                    "ap-status": "/accountspayables/src/accountspayable-shell.js",
+                    "ap-vendors": "/accountspayables/src/accountspayable-shell.js",
+                    "approvetopay-new": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay-new": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay-check": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
+                    "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
+                    "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
+                    }
+                }
+            },
+
 
             stylekeeper: {
                 type: Array,
@@ -695,7 +783,12 @@ export class DefieMenu extends PolymerElement {
 
         this.lazyloader
         let choice
-        this.set('option', this.ServicesList[route])
+
+        let module = this.importList[route]
+
+        import(module).then((mod) =>{
+            this.set('option', this.ServicesList[route])
+        })
     }
 
 
@@ -793,47 +886,39 @@ export class DefieMenu extends PolymerElement {
 
     userResponse(e) {
 
-        // this.showMenu = true;
+        
 
+        this.set('leftservices', e.detail.response.results)
+
+
+    }
+
+    serviceResponse(e) {
         this.set('leftservices', e.detail.response.results.services)
 
         this.getSetting(sessionStorage.getItem("PR"))
-
-        // this.set('leftservices', e.detail.response.results)
-
-        // this.leftservices.map((micro) => {
-        //     if (micro.privileges == "View") {
-        //         micro.transportapps.map((app) => {
-
-        //             if (this.PermissionMap[app.link]) {
-        //                 this.set(this.PermissionMap[app.link], "View")
-        //             }
-        //         })
-        //     }
-        // })
-
-
     }
 
     toWelcomePage(e) {
 
-        this.tempMenu();
         this.set('route.path', '/welcome');
         this.showMenu = true;
         this.set('leftservices', e.detail.services)
+        this.getSetting(sessionStorage.getItem("PR"))
+
         // this.$.serviceajax.generateRequest();
     }
 
 
-    tempMenu() {
-        let ur = sessionStorage.getItem("UR")
-        ur == undefined || ur == null ? ur = 0 : ur
-        this.$.serviceajax.url = "/service/leftservice"
-        // this.$.serviceajax.url = "/api/user/services/0" 
-        this.$.serviceajax.generateRequest()
-        this.showMenu = true;
+    // tempMenu() {
+    //     let ur = sessionStorage.getItem("UR")
+    //     ur == undefined || ur == null ? ur = 0 : ur
+    //     this.$.serviceajax.url = "/service/leftservice"
+    //     // this.$.serviceajax.url = "/api/user/services/0" 
+    //     this.$.serviceajax.generateRequest()
+    //     this.showMenu = true;
 
-    }
+    // }
 
 
 
@@ -963,10 +1048,18 @@ export class DefieMenu extends PolymerElement {
         this.showMenu = true;
 
 
-        // this.$.serviceajax.url = "/api/user/services/" + ur
-        this.$.serviceajax.generateRequest()
-        // this.showMenu = true;
+        document.querySelector('defie-menu').addEventListener('userservices', e => {
 
+        let ur = sessionStorage.getItem("UR")
+
+
+        this.$.userajax.url = "/user/services/" + ur
+        this.$.userajax.generateRequest()
+        this.showMenu = true;
+
+
+
+        })
 
 
         document.querySelector('defie-menu').addEventListener('leftservice', e => {
