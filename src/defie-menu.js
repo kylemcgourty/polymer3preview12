@@ -1047,7 +1047,7 @@ export class DefieMenu extends PolymerElement {
 
         // this.$.serviceajax.url = "/api/user/services/" + ur
         this.$.serviceajax.generateRequest()
-        this.showMenu = true;
+        // this.showMenu = true;
 
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {
