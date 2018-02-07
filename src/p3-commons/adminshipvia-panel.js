@@ -1,183 +1,10 @@
-  import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
-  import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
-  import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
+import {Element as PolymerElement}
+  from '../../node_modules/@polymer/polymer/polymer-element.js'
 
-  export class AdminShipVia extends LitElement {
-
-      static get properties() {
-          return {
-              typemodel: {
-                  type: String,
-                  reflectToAttribute: true,
-                  notify: true,
-                  value: "",
-              },
-              savemodel: {
-                  type: String,
-                  reflectToAttribute: true,
-                  notify: true,
-                  value: "",
-              },
-              admin: {
-                  type: String,
-                  reflectToAttribute: true,
-                  notify: true,
-                  value: false
-              },
-          }
-      }
-      constructor() {
-          super();
-      }
-
-      submit() {
-          if (this.data) {
-              let str = ""
-              this.data.forEach(function(val, index) {
-                  str = str + val.ship + ","
-              })
-              this.savemodel = str;
-          }
-          this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/" + this.typemodel;
-          this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
-          this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
-      }
-
-      responseSubmit(request) {
-          if (request) {
-              var auth = request.detail.response.auth
-              if (auth) {
-                  this.close();
-              }
-          }
-      }
-
-      open() {
-          var type = "custshipvia"
-          this.typemodel = type;
-          this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/" + type;
-          this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
-          this.shadowRoot.querySelector('#ajaxOption').generateRequest();
-      }
-
-      responseOption(request) {
-          if (request) {
-              var data = request.detail.response.results
-              if (data != "") {
-                  this.data = [];
-                  data = data.split(",")
-                  data = data.slice(0, -1)
-
-
-                  data.forEach(function(item, index) {
-                      this.data.push({
-                          id: index,
-                          type: item
-                      })
-                  }.bind(this))
-
-              } else {
-                  this.data = [
-                      { ship: "Will Call" },
-                      { ship: "Deliver" },
-                      { ship: "Trucking" },
-                      { ship: "Other Freight" },
-                      { ship: "UPS Ground" },
-                      { ship: "UPS 3 day Select" },
-                      { ship: "UPS 2 day Air" },
-                      { ship: "UPS 2 Day Air Early AM" },
-                      { ship: "UPS Next day Saver" },
-                      { ship: "UPS Next day Air" },
-                      { ship: "UPS Next day Air Early AM" },
-                      { ship: "UPS Worldwide Express Plus" },
-                      { ship: "UPS Worldwide Express" },
-                      { ship: "UPS Worldwide Saver (Express)" },
-                      { ship: "UPS Worldwide Expedited" },
-                      { ship: "FedEx Ground" },
-                      { ship: "FedEx 3 Day Freight" },
-                      { ship: "FedEx Express Saver" },
-                      { ship: "FedEx 2 Day Freight" },
-                      { ship: "FedEx 1 Day freight" },
-                      { ship: "FedEx 2 Day" },
-                      { ship: "FedEx Standard Overnight" },
-                      { ship: "FedEx Priority Overnight" },
-                      { ship: "FedEx First Overnight" },
-                      { ship: "FedEx International Priority" },
-                      { ship: "FedEx International Freight" },
-                      { ship: "FedEx International Economy Freight" },
-                      { ship: "FedEx International Economy" },
-                  ]
-              }
-              const types = data => {
-                  return html `
-            <div>
-            ${repeat (
-                 data,
-                 item => item.id,
-                 item => html`
-                            
-                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.ship}" on-tap="${() =>this.openChoice(item)}">
-                          `
-                 )}
-            <div>`;
-              }
-
-
-              render(types(this.data), this.shadowRoot.querySelector('#table'))
-
-          }
-      }
-
-      add() {
-          this.data.push({
-              term: ""
-          })
-      }
-
-      openChoice(e) {
-          if (e) {
-              let choice = e.ship
-              this.dispatchEvent(new CustomEvent('shipvia', {
-                  bubbles: true,
-                  composed: true,
-                  detail: {
-                      item: choice,
-                      ships: this.data
-                  }
-              }))
-          }
-      }
-
-      toSignIn() {
-          this.dispatchEvent(new CustomEvent('toSignIn', {
-              bubbles: true,
-              composed: true
-          }))
-      }
-
-      close() {
-          this.dispatchEvent(new CustomEvent('closePanel', {
-              bubbles: true,
-              composed: true
-          }))
-      }
-
-      remove(e) {
-          this.data.splice(e.model.index, 1)
-      }
-
-      ready() {
-          super.ready()
-      }
-
-      theerror(e) {
-          console.log('error', e)
-      }
-
-      render({ admin }) {
-
-          return html `
-          <style include="iron-flex iron-flex-alignment">
+ 
+    export class AdminShipViaPanel extends PolymerElement {
+        static get template() {
+        return `  <style include="iron-flex iron-flex-alignment">
         :host {
             display: block;
         }
@@ -194,17 +21,16 @@
         
         .i-input {
             width: 100%;
+            margin-top: 7px;
         }
         
         .input {
-            width: 100%;
+            width: 150%;
             text-align: initial;
             border: none;
             background-color: #eee;
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
             width: 100%;
-            font-size: 13.3px;
-
         }
         
         .col-xs-9 {
@@ -213,19 +39,21 @@
             padding-left: 0px;
             padding-right: 0px;
             width: 100%;
-       
+            margin-top: 0px;
+            margin-bottom: 3px;
         }
         
         .text-right {
             text-align: right;
         }
-       
-          .my-content {
+        
+        .my-content {
             display: block;
+            min-height: 24px;
             position: relative;
             word-wrap: break-word;
+            font-size: 14px;
         }
-        
         
         .right {
             margin-left: auto;
@@ -254,7 +82,14 @@
             margin: 0px;
         }
         
-        
+        .input {
+            text-align: initial;
+            border: none;
+            background-color: #eee;
+            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
+            font-size: 14px;
+            width: 94%;
+        }
         
         paper-dialog.deskStyles {
             top: 0px;
@@ -276,7 +111,7 @@
             background-color: #e6e6e6;
             padding-left: 5%;
             padding-bottom: 0%;
-            padding-top: 3%;
+            padding-top: 6%;
         }
         
         .close-interface {
@@ -434,7 +269,7 @@
             background-color: #e6e6e6;
             padding-left: 5%;
             padding-bottom: 0%;
-            padding-top: 3%;
+            padding-top: 6%;
         }
         
         .title-rightpaneldraw-list {
@@ -450,8 +285,38 @@
             line-height: 2.7;
         }
         
-      
-      
+        .col-xs-3 {
+            position: relative;
+            min-height: 1px;
+            padding-left: 0px;
+            padding-right: 0px;
+            width: 100%;
+            float: left;
+        }
+        
+        .input {
+            /*min-height: 24px;*/
+            text-align: initial;
+            border: none;
+            background-color: #eee;
+            /*border-color: #eee;*/
+            /*border-bottom: 1px solid rgba(155, 155, 155, 0.5);*/
+            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
+            width: 100%;
+        }
+        
+        .col-xs-9 {
+            position: relative;
+            min-height: 1px;
+            padding-left: 0px;
+            padding-right: 0px;
+            width: 100%;
+        }
+        
+        .my-content {
+            margin-top: 6px;
+        }
+        
         .i-input {
             width: 100%;
         }
@@ -479,21 +344,204 @@
         <div class="title-rightpaneldraw"> Ship Via </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
-                <span on-tap=${this.close.bind(this)}>Close</span>
-                <iron-icon icon="close" on-tap=${this.close.bind(this)}></iron-icon>
+                <span on-tap="close">Close</span>
+                <iron-icon icon="close" on-tap="close"></iron-icon>
             </div>
         </div>
         <div class="table-padding">
-            <div id="table">
+            <div class="layout horizontal end">
+                <paper-icon-button style="display: none" on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add"></paper-icon-button>
+                <paper-icon-button style="display: none" on-tap="add" class="add-icon admin" data-adminoff$="[[admin]]" icon="icons:add"></paper-icon-button>
             </div>
+            <iron-list items="[[data]]" scroll-target="document">
+                <template>
+                    <div>
+                        <div class="layout horizontal">
+                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="ship" on-tap="openChoice" bind-value="{{item.ship}}">
+                                <input disabled class="input">
+                            </iron-input>
+                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="ship" on-tap="openChoice" bind-value="{{item.ship}}">
+                                <input class="input">
+                            </iron-input>
+                            <div class="admin" data-admin$="[[admin]]">
+                                <paper-icon-button on-tap="remove" class="remove-icons" icon="icons:close"></paper-icon-button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </iron-list>
             <div>
                 <div class="layout horizontal end">
-                    <div class="submit button-row col-xs-9 admin" data-admin$="${admin}"></div>
+                    <div class="submit button-row col-xs-9 admin" data-admin$="[[admin]]">
+                        <paper-button class="button main-button" on-tap="submit" raised>Submit</paper-button>
+                    </div>
                 </div>
             </div>
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
-        `
-      }
-  }
-  customElements.define('adminshipvia-panel', AdminShipVia);
+        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>`
+    }
+
+        static get properties() {
+
+            return {
+                typemodel: {
+                    type: String,
+                    reflectToAttribute: true,
+                    notify: true,
+                    value: "",
+                },
+                savemodel: {
+                    type: String,
+                    reflectToAttribute: true,
+                    notify: true,
+                    value: "",
+                },
+                admin: {
+                    type: String,
+                    reflectToAttribute: true,
+                    notify: true,
+                },
+            }
+        }
+        static get observers() {
+            return []
+        }
+
+        submit() {
+
+            if (this.data) {
+                let str = ""
+                this.data.forEach(function(val, index) {
+                    str = str + val.ship + ","
+                })
+                this.set('savemodel', str)
+            }
+
+            console.log("this.typemodel", this.typemodel)
+
+            this.$.ajaxSubmit.url = "/optionsetting/option/"+this.typemodel;
+            this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
+
+            this.$.ajaxSubmit.generateRequest();
+        }
+        responseSubmit(request) {
+            var auth = request.detail.response.auth
+
+
+            if (auth){
+                 document.querySelector('#toast').text = 'Saved successfully.';
+                document.querySelector('#toast').show();
+                this.close();
+            }
+        }
+        open(branchname) {
+
+            this.admin = 'superuser';
+
+            if (branchname == "customer"){
+                this.typemodel = "custshipvia"
+            } else if (branchname == "vendor"){
+                this.typemodel = "vendshipvia"
+            }
+
+            this.$.ajaxOption.url = "/optionsetting/option/"+this.typemodel;
+            this.$.ajaxOption.body = JSON.stringify(this.model);
+            this.$.ajaxOption.generateRequest();
+        }
+        responseOption(request) {
+            var data = request.detail.response.results
+          
+            if (data != "") {
+                this.data = [];
+                data = data.split(",")
+                data = data.slice(0, -1)
+
+
+                data.forEach(function(item, index) {
+                    this.push('data', {
+                        ship: item
+                    })
+                }.bind(this))
+
+            } else {
+                this.data = [
+                {ship:"Will Call" },
+                    {ship:"Deliver" },
+                    {ship:"Trucking" },
+                    {ship:"Other Freight" },
+                  {ship:"UPS Ground" },
+                    {ship:"UPS 3 day Select" },
+                    {ship:"UPS 2 day Air" },
+                    {ship:"UPS 2 Day Air Early AM" },
+                    {ship:"UPS Next day Saver" },
+                    {ship:"UPS Next day Air" },
+                    {ship:"UPS Next day Air Early AM" },
+                    {ship:"UPS Worldwide Express Plus" },
+                    {ship:"UPS Worldwide Express" },
+                    {ship:"UPS Worldwide Saver (Express)" },
+                    {ship:"UPS Worldwide Expedited" },
+                    {ship:"FedEx Ground" },
+                    {ship:"FedEx 3 Day Freight" },
+                    {ship:"FedEx Express Saver" },
+                    {ship:"FedEx 2 Day Freight" },
+                    {ship:"FedEx 1 Day freight" },
+                    {ship:"FedEx 2 Day" },
+                    {ship:"FedEx Standard Overnight" },
+                    {ship:"FedEx Priority Overnight" },
+                    {ship:"FedEx First Overnight" },
+                    {ship:"FedEx International Priority" },
+                    {ship:"FedEx International Freight" },
+                    {ship:"FedEx International Economy Freight" },
+                    {ship:"FedEx International Economy" },
+                  
+                ]
+            }
+        }
+
+        add() {
+            this.push('data', {
+                ship: ""
+            })
+        }
+
+        openChoice(e) {
+
+            let choice = e.model.item.ship
+
+            this.dispatchEvent(new CustomEvent('shipvia', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    item: choice,
+                    ships: this.data
+                }
+
+
+
+            }))
+        }
+        toSignIn() {
+
+            this.dispatchEvent(new CustomEvent('toSignIn', {
+                bubbles: true,
+                composed: true
+            }))
+        }
+
+        close() {
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                bubbles: true,
+                composed: true
+            }))
+        }
+
+        remove(e) {
+
+            this.splice('data', e.model.index, 1)
+
+        }
+
+
+    }
+    customElements.define('adminshipvia-panel', AdminShipViaPanel);
+

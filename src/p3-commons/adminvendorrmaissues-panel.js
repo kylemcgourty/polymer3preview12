@@ -1,14 +1,12 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
 
+      import { Element as PolymerElement }
+ from '../../node_modules/@polymer/polymer/polymer-element.js'
 
+   export class AdminVendorRMAIssuesPanel extends PolymerElement {
+       
 
-export class AdminPartCategoryPanel extends PolymerElement {
-
-    static get template() {
-
-        return `
-                    <style include="iron-flex iron-flex-alignment">
+        static get template() {
+            return `<style include="iron-flex iron-flex-alignment">
             :host {
                 display: block;
             }
@@ -213,7 +211,6 @@ export class AdminPartCategoryPanel extends PolymerElement {
                 margin-top: 17px;
                 /*margin-right: 18px;*/
             }
-
                     #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -324,13 +321,13 @@ export class AdminPartCategoryPanel extends PolymerElement {
             width: 100%;
         }
 
- /*         #list {
+/*         #list {
             width: 100%;
             flex: 1 1 auto;
         }
         */
         iron-list {
-            /* flex: 1 1 auto; */
+            /*flex: 1 1 auto;*/
         }
         
         .spacer {
@@ -338,16 +335,13 @@ export class AdminPartCategoryPanel extends PolymerElement {
         }
 
        .manage {
-        /*    color: blue;
+            color: blue;
             width: 100%;
             margin-bottom: 10px;
             text-align: right;
-            */
         }
-
-
         </style>
-        <div class="title-rightpaneldraw"> Category </div>
+        <div class="title-rightpaneldraw"> Issues </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap="close">Close</span>
@@ -363,10 +357,10 @@ export class AdminPartCategoryPanel extends PolymerElement {
                 <template>
                     <div>
                         <div class="layout horizontal">
-                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.category}}">
+                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.issue}}">
                                 <input disabled class="input">
                             </iron-input>
-                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.category}}">
+                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.issue}}">
                                 <input class="input">
                             </iron-input>
                             <div class="admin" data-admin$="[[admin]]">
@@ -379,184 +373,205 @@ export class AdminPartCategoryPanel extends PolymerElement {
             <div>
                 <div class="layout horizontal end">
                     <div class="submit button-row col-xs-9 admin" data-admin$="[[admin]]">
+                        <!-- <paper-button class="button main-button" on-tap="authenticate" raised>Submit</paper-button> -->
                         <paper-button class="button main-button" on-tap="submit" raised>Submit</paper-button>
                     </div>
                 </div>
             </div>
         <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
+            <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>`
+        }
 
-        `
+        static get properties() {
 
-    }
-
-
-    static get properties() {
-
-        return {
-            // data: {
-            //     type: Array,
-            //     reflectToAttribute: true,
-            //     notify: true,
-            //      value: function() {
-            //         return []
-            //     }
-            // },
-            typemodel: {
-                type: String,
-                reflectToAttribute: true,
-                notify: true,
-                value: "",
-            },
-            savemodel: {
-                type: String,
-                reflectToAttribute: true,
-                notify: true,
-                value: "",
-            },
-            admin: {
-                type: String,
-                reflectToAttribute: true,
-                notify: true,
+            return {
+                data: {
+                    type: Array,
+                    reflectToAttribute: true,
+                    notify: true,
+                     value: function() {
+                        return []
+                    }
+                },
+                typemodel: {
+                    type: String,
+                    reflectToAttribute: true,
+                    notify: true,
+                    value: "",
+                },
+                savemodel: {
+                    type: String,
+                    reflectToAttribute: true,
+                    notify: true,
+                    value: "",
+                },
+                admin: {
+                    type: String,
+                    reflectToAttribute: true,
+                    notify: true,
+                }
             }
         }
-    }
-
-    static get observers() {
-        return [
-            // 'adminchange(admin)'
-        ]
-    }
-
-
-    submit() {
+        submit() {
             if (this.data) {
                 let str = ""
                 this.data.forEach(function(val, index) {
-                    str = str + val.category + ","
+                    str = str + val.issue + ","
                 })
                 this.set('savemodel', str)
             }
-        console.log("in submoit", this.data)
+            this.$.ajaxSubmit.url = "/optionsetting/option/"+this.typemodel;
+            this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
 
-        this.$.ajaxSubmit.url = "/optionsetting/option/"+this.typemodel;
-        this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
-        console.log(this.savemodel)
-        this.$.ajaxSubmit.generateRequest();
-    }
-    responseSubmit(request) {
-        var auth = request.detail.response.auth
-        console.log(auth)
-        if (auth){
-             document.querySelector('#toast').text = 'Saved successfully.';
+            this.$.ajaxSubmit.generateRequest();
+        }
+
+
+
+        responseSubmit(request) {
+            var auth = request.detail.response.auth
+            console.log("the auth", auth)
+            if (auth){
+
+                 document.querySelector('#toast').text = 'Saved successfully.';
                 document.querySelector('#toast').show();
-            this.close();
+                console.log("inside ifauth obvi", this)
+                this.close();
+            }
         }
-    }
-    open(branchname) {
-        this.admin = 'superuser';
 
-         if (branchname == "customer"){
-                this.typemodel = "custcategories"
+
+
+        // open(data) {
+
+        //     if (data) {
+
+        //         this.data = [];
+        //         data = data.split(",")
+        //         data = data.slice(0, -1)
+        //         console.log(data)
+
+        //         data.forEach(function(item, index) {
+        //             this.push('data', {
+        //                 issue: item
+        //             })
+        //         }.bind(this))
+
+        //     } else {
+        //         this.data = [{
+        //             issue: "DOA"
+        //         }, {
+        //             issue: "Defective"
+        //         }, {
+        //             issue: "Physical Damage"
+        //         }, {
+        //             issue: "Wrong Product"
+        //         }]
+        //     }
+        // }
+        
+
+
+        open(branchname) {
+
+           if (branchname == "customer"){
+                this.typemodel = "custissues"
             } else if (branchname == "vendor"){
-                this.typemodel = "vendcategories"
-            } else if (branchname == "individual"){
-                this.typemodel = "categories"
+                this.typemodel = "vendissues"
             }
 
-       
-
-        this.$.ajaxOption.url = "/optionsetting/option/"+ this.typemodel;
-        this.$.ajaxOption.body = JSON.stringify(this.model);
-        this.$.ajaxOption.generateRequest();
-    }
-    responseOption(request) {
-        var data = request.detail.response.results
-
-console.log("here in response option", request.detail.response.results)
-console.log("here in response option", request.detail.response)
-console.log("here in response option", request.detail)
-
-        console.log("here in response option", data)
-        if (data != "") {
-            this.data = [];
-            data = data.split(",")
-            data = data.slice(0, -1)
-            console.log(data)
-
-            data.forEach(function(item, index) {
-                this.push('data', {
-                    category: item
-                })
-            }.bind(this))
-
-        } else {
-            this.data = [{
-                category: "Hardware"
-            }, {
-                category: "Software"
-            }, {
-                category: "Service"
-            }, {
-                category: "Others"
-            }]
+            this.$.ajaxOption.url = "/optionsetting/option/"+this.typemodel;
+            this.$.ajaxOption.body = JSON.stringify(this.model);
+            this.$.ajaxOption.generateRequest();
         }
-    }
-
-    
-    // adminchange(a) {
-    //     console.log('admin ', a)
-    //     this.$.innerchange.innerHTML = "";
-    //     this.$.innerchange.setAttribute("on-tap", "");
-    // }
-
-    add() {
-        this.push('data', {
-            category: ""
-        })
-    }
-
-    openChoice(e) {
+        responseOption(request) {
+            var data = request.detail.response.results
 
 
-        console.log('choice e',e , this.data)
-        let choice = e.model.item.category
+            if (data != "") {
+                this.data = [];
+                data = data.split(",")
+                data = data.slice(0, -1)
 
-        this.dispatchEvent(new CustomEvent('partcategory',{
-            bubbles: true,
-            composed: true,
-            detail: {
-                item: choice,
-                categories: this.data
+
+                data.forEach(function(item, index) {
+                    this.push('data', {
+                        issue: item
+                    })
+                }.bind(this))
+
+            } else {
+                this.data = [{
+                    issue: "DOA"
+                }, {
+                    issue: "Defective"
+                }, {
+                    issue: "Physical Damage"
+                }, {
+                    issue: "Wrong Product"
+                }]
             }
 
 
+        }
 
-        }))
-    }
-    toSignIn() {
-            console.log("tosignin called in partcategorypanel")
 
-        this.dispatchEvent(new CustomEvent('toSignIn', {
-            bubbles: true,
-            composed: true
-        }))
-    }
+
+
+        static get observers() {
+            return ['adminchange(admin)']
+        }
+
+        // adminchange(a) {
+        //     console.log('admin ', a)
+        //     this.$.innerchange.innerHTML = "Add more";
+        //     this.$.innerchange.setAttribute("on-tap", "");
+        // }
+
+        add() {
+            this.push('data', {
+                issue: ""
+            })
+        }
+
+        openChoice(e) {
+
+            console.log('choice e',e , this.data)
+            let choice = e.model.item.issue
+
+            this.dispatchEvent(new CustomEvent('vrmaissues',{
+                bubbles: true,
+                composed: true,
+                detail: {
+                    item: choice,
+                    issues: this.data
+                }
+
+
+
+            }))
+        }
+        toSignIn() {
+
+            this.dispatchEvent(new CustomEvent('toSignIn', {
+                bubbles: true,
+                composed: true
+            }))
+        }
 
         close() {
-            console.log("close called in partcategorypanel")
-        this.dispatchEvent(new CustomEvent('closePanel', {
-            bubbles: true,
-            composed: true
-        }))
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                bubbles: true,
+                composed: true
+            }))
+        }
+
+        remove(e) {
+
+            this.splice('data', e.model.index, 1)
+
+        }
+
+
     }
-
-    remove(e) {
-
-        this.splice('data', e.model.index, 1)
-
-    }
-
-
-}
-customElements.define("adminpartcategory-panel", AdminPartCategoryPanel);
+customElements.define('adminvendorrmaissues-panel', AdminVendorRMAIssuesPanel);

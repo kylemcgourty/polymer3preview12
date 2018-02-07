@@ -653,6 +653,7 @@ export class DefieMenu extends PolymerElement {
                     "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
                     "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
                     "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
+
                     }
                 }
             },
@@ -1044,9 +1045,9 @@ export class DefieMenu extends PolymerElement {
         this.$.serviceajax.url = "/service/leftservice"
 
 
-        // this.$.serviceajax.url = "/api/user/services/" + ur
-        this.$.serviceajax.generateRequest()
-        this.showMenu = true;
+        // // this.$.serviceajax.url = "/api/user/services/" + ur
+        // this.$.serviceajax.generateRequest()
+        // this.showMenu = true;
 
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {

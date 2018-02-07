@@ -1,13 +1,25 @@
-import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
-export class AdminPartTypePanel extends LitElement {
+
+
+export class PartTypePanel extends LitElement {
+
+ 
 
     static get properties() {
 
         return {
+            // data: {
+            //     type: Array,
+            //     reflectToAttribute: true,
+            //     notify: true,
+            //      value: function() {
+            //         return []
+            //     }
+            // },
             typemodel: {
                 type: String,
                 reflectToAttribute: true,
@@ -20,11 +32,6 @@ export class AdminPartTypePanel extends LitElement {
                 notify: true,
                 value: "",
             },
-            admin: {
-                type: String,
-                reflectToAttribute: true,
-                notify: true,
-            }
         }
     }
 
@@ -33,78 +40,47 @@ export class AdminPartTypePanel extends LitElement {
         this.data = [];
     }
 
-    submit() {
-
-        let self=this;
-
-        if (this.data) {
-            let str = ""
-            this.data.forEach(function(val, index) {
-                let newVal = self.shadowRoot.querySelector("#input" + index).value;
-                str = str + newVal + ","
-            })
-            this.savemodel = str;
-        }
-        this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/"+this.typemodel;
-        this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
-        this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
-    }
-    responseSubmit(request) {
-
-        var auth = request.detail.response.auth
-        if (auth){
-             document.querySelector('#toast').text = 'Saved successfully.';
-                document.querySelector('#toast').show();
-            this.close();
-        }
-    }
     open(type) {
-        this.admin = 'superuser';
 
         this.type= "ptypes"
-         
+
+
+
         this.typemodel = type;
         this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+type;
         this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
         this.shadowRoot.querySelector('#ajaxOption').generateRequest();
+
     }
     responseOption(request) {
 
-        if (request) {
-            var data = request.detail.response.results
-            if (data != "") {
-                this.data = [];
-                data = data.split(",")
-                data = data.slice(0, -1)
+        if (request){
+        var data = request.detail.response.results
+        if (data != "") {
+            this.data = [];
+            data = data.split(",")
+            data = data.slice(0, -1)
 
-                data.forEach(function(item, index) {
-                    this.data.push({
-                        type: item
-                    })
-                }.bind(this))
-            } else {
-                this.data = [{
-                    type: "Spare"
-                }, {
-                    type: "Component"
-                }, {
-                    type: "Product"
-                }, {
-                    type: "Others"
-                }]
-            }
+            data.forEach(function(item, index) {
+                this.data.push({
+                    id: index,
+                    type: item
+                })
+            }.bind(this))
 
-
-            this.renderItems();
+        } else {
+            this.data = [{
+                type: "Spare"
+            }, {
+                type: "Component"
+            }, {
+                type: "Product"
+            }, {
+                type: "Others"
+            }]
         }
-    }
 
-    static get observers() {
-        return [
-        ]
-    }
 
-    renderItems() {
         const types = data => {
 
             return html`
@@ -113,34 +89,33 @@ export class AdminPartTypePanel extends LitElement {
                  data,
                  item => item.id,
                  item => html`
-                            <div class="layout horizontal">
-                                <input disabled=${!item.editable} class="col-xs-9 i-input input" id$="input${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
-                                <paper-icon-button on-tap="${() => this.remove(item)}" class="remove-icons" icon="icons:close"></paper-icon-button>
-                            </div>
+                            
+                               <input disabled class="col-xs-9 i-input input" id$="${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
                           `
                  )}
             <div>`;
         }
 
-        this.data.forEach(function(item, index){
-            item.id = index;
-        });
-        
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
+
+    }
+}
+    static get observers() {
+        return [
+        ]
     }
 
+ 
     add() {
-        this.data.push({
-            id: this.data.length,
-            type: "",
-            editable: true
+        this.push('data', {
+            type: ""
         })
-
-        this.renderItems();
     }
 
     openChoice(selection) {
+
+
 
         this.dispatchEvent(new CustomEvent('parttype', {
             bubbles: true,
@@ -149,6 +124,8 @@ export class AdminPartTypePanel extends LitElement {
                 item: selection.type,
                 types: this.data
             }
+
+
 
         }))
     }
@@ -168,17 +145,24 @@ export class AdminPartTypePanel extends LitElement {
     }
 
     remove(e) {
-        this.data.splice(e.id, 1);
 
-        this.renderItems();
+        this.splice('data', e.model.index, 1)
+
     }
 
-    render({admin}) {
+    ready() {
+        super.ready()
+
+        
+
+    }
+
+       render() {
 
         return html`
 
         <style include="iron-flex iron-flex-alignment">
-        :host {
+     :host {
             display: block;
         }
         
@@ -194,16 +178,17 @@ export class AdminPartTypePanel extends LitElement {
         
         .i-input {
             width: 100%;
-            margin-top: 7px;
         }
         
         .input {
-            width: 150%;
+            width: 100%;
             text-align: initial;
             border: none;
             background-color: #eee;
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
             width: 100%;
+            font-size: 13.3px;
+
         }
         
         .col-xs-9 {
@@ -212,20 +197,17 @@ export class AdminPartTypePanel extends LitElement {
             padding-left: 0px;
             padding-right: 0px;
             width: 100%;
-            margin-top:0px;
-            margin-bottom: 3px;
+       
         }
         
         .text-right {
             text-align: right;
         }
-        
-        .my-content {
+       
+          .my-content {
             display: block;
-            min-height: 24px;
             position: relative;
             word-wrap: break-word;
-            font-size: 14px;
         }
         
         .right {
@@ -255,14 +237,7 @@ export class AdminPartTypePanel extends LitElement {
             margin: 0px;
         }
         
-        .input {
-            text-align: initial;
-            border: none;
-            background-color: #eee;
-            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
-            font-size: 14px;
-            width: 94%;
-        }
+      
         
         paper-dialog.deskStyles {
             top: 0px;
@@ -319,7 +294,6 @@ export class AdminPartTypePanel extends LitElement {
             height: 15px;
         }
         
-        
         .table-padding {
             padding-left: 5%;
             padding-right: 5%;
@@ -327,12 +301,11 @@ export class AdminPartTypePanel extends LitElement {
         }
         
         .remove-icons {
-            display: block;
-            margin-top: -20px;
+            margin-left: -17px;
+            margin-top: -10px;
             padding: 0px;
             width: 18px!important;
             height: 18px!important;
-            float: right;
         }
         
         .header {
@@ -343,6 +316,7 @@ export class AdminPartTypePanel extends LitElement {
             position: relative;
             padding-bottom: 0px;
         }
+        
         .add-icon {
             padding: 0px;
             width: 18px!important;
@@ -354,7 +328,7 @@ export class AdminPartTypePanel extends LitElement {
             color: blue;
             width: 100%;
             margin-bottom: 10px;
-            text-align:right;
+            text-align: right;
         }
         
         .add-icon-container {
@@ -362,26 +336,13 @@ export class AdminPartTypePanel extends LitElement {
             width: 127px;
         }
         
-        .admin {
-            visibility: hidden;
-        }
-        
-        [data-admin="superuser"] {
-            visibility: visible;
-            display: block!important;
-        }
-        [data-adminoff="superuser"] {
-            display: none;
-        }
-
-        .admin1 {
-            display: none;
-        }
         .submit {
             width: 100%;
             text-align: right;
             margin-top: 17px;
+            /*margin-right: 18px;*/
         }
+
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -411,6 +372,8 @@ export class AdminPartTypePanel extends LitElement {
         .col-xs-12 {
             position: relative;
             min-height: 1px;
+            /*        padding-left: 15px;
+        padding-right: 15px;*/
         }
         
         .table-padding {
@@ -430,6 +393,7 @@ export class AdminPartTypePanel extends LitElement {
         
         .button {
             margin-top: 24px;
+            /*margin-right: 16px;*/
         }
         
         .title-rightpaneldraw {
@@ -437,7 +401,7 @@ export class AdminPartTypePanel extends LitElement {
             background-color: #e6e6e6;
             padding-left: 5%;
             padding-bottom: 0%;
-            padding-top: 6%;
+            padding-top: 3%;
         }
         
         .title-rightpaneldraw-list {
@@ -462,37 +426,29 @@ export class AdminPartTypePanel extends LitElement {
             float: left;
         }
         
-        .input {
-            text-align: initial;
-            border: none;
-            background-color: #eee;
-            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
-            width: 100%;
-        }
+     
         
-        .col-xs-9 {
-            position: relative;
-            min-height: 1px;
-            padding-left: 0px;
-            padding-right: 0px;
-            width: 100%;
-        }
+     
         
-        .my-content {
-            margin-top: 6px;
-        }
         
         .i-input {
             width: 100%;
         }
 
+/*         #list {
+            width: 100%;
+            flex: 1 1 auto;
+        }*/
+        
         iron-list {
+            /*flex: 1 1 auto;*/
         }
         
         .spacer {
+            /*margin-top: 2px;*/
         }
 
-       .manage {
+           .manage {
             color: blue;
             width: 100%;
             margin-bottom: 10px;
@@ -507,40 +463,20 @@ export class AdminPartTypePanel extends LitElement {
             </div>
         </div>
         <div class="table-padding">
-            <div class="layout horizontal end">
-                <paper-icon-button style="display: none" on-tap=${this.add.bind(this)} class="add-icon admin" data-admin$="${admin}" icon="icons:add"></paper-icon-button>
-            </div>
-            <div id="table">
-            </div>
+               <div id="table">
+               </div>
             <div>
                 <div class="layout horizontal end">
-                    <div class="submit button-row col-xs-9 admin" data-admin$="${admin}">
-                        <paper-button class="button main-button" on-tap=${this.submit.bind(this)} raised>Submit</paper-button>
+                    <div class="submit button-row col-xs-9 admin">
                     </div>
                 </div>
             </div>
+            
         <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response=${this.responseSubmit.bind(this)} content-type="application/json"></iron-ajax>
         `
 
     }
-}
-customElements.define("adminparttype-panel", AdminPartTypePanel);
 
-// <iron-list items="[[data]]" scroll-target="document">
-//                 <template>
-//                     <div>
-//                         <div class="layout horizontal">
-//                             <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-//                                 <input disabled class="input">
-//                             </iron-input>
-//                             <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-//                                 <input class="input">
-//                             </iron-input>
-//                             <div class="admin" data-admin$="[[admin]]">
-//                                 <paper-icon-button on-tap="remove" class="remove-icons" icon="icons:close"></paper-icon-button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </template>
-//             </iron-list>
+
+}
+customElements.define("parttype-panel", PartTypePanel);
