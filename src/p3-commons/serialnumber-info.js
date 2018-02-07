@@ -53,11 +53,7 @@ export class SerialNumberInfo extends LitElement {
         }
     }
 
-    static get observers() {
-        return [
-            'gotmid(mid, launch)'
-        ]
-    }
+  
 
     constructor() {
         super()
@@ -106,8 +102,8 @@ export class SerialNumberInfo extends LitElement {
     }
 
     launchModelToDB() {
-        this.$.ajaxSave1.body = JSON.stringify(this.largeModel);
-        this.$.ajaxSave1.generateRequest();
+        this.shadowRoot.querySelector('#ajaxSave1').body = JSON.stringify(this.largeModel);
+        this.shadowRoot.querySelector('#ajaxSave1').generateRequest();
     }
 
 
@@ -119,6 +115,8 @@ export class SerialNumberInfo extends LitElement {
         console.log('the item', this.item, this.launch, this.starter)
         this.olditem = item;
         this.largeModel = model
+
+        this.gotmid()
 
         let module = './serialnumber-list.js'
 
@@ -159,6 +157,8 @@ export class SerialNumberInfo extends LitElement {
     }
 
     save() {
+
+        console.log('starter in save', this.starter)
         this.dispatchEvent(new CustomEvent(this.starter, {
             bubbles: true,
             composed: true
@@ -195,6 +195,7 @@ export class SerialNumberInfo extends LitElement {
     gotmid() {
         this.shadowRoot.addEventListener(this.launch, function() {
             this.launchModelToDB()
+            console.log('got mid called', this.launch)
         }.bind(this));
 
     }
@@ -374,7 +375,7 @@ export class SerialNumberInfo extends LitElement {
                     <div class="col-xs-12">
                         <div class="my-content text-right nomargin" style="right: 56px">
                             <paper-button class="button" on-click="clean" raised>Reset</paper-button>
-                            <paper-button class="button main-button" on-click="save">Update</paper-button>
+                            <paper-button class="button main-button" on-click=${this.save.bind(this)}>Update</paper-button>
                         </div>
                     </div>
                 </div>
@@ -384,7 +385,7 @@ export class SerialNumberInfo extends LitElement {
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="success" on-error="ajaxerror" content-type="application/json"></iron-ajax>
         <iron-media-query query="(min-width: 767px)" query-matches="${this.queryMatches}"></iron-media-query>
         <iron-ajax id="ajaxList" url="${this.url}" method="GET" on-response="successList"></iron-ajax>
-        <iron-ajax id="ajaxSave1" url="${this.url}" method="PUT" on-response="response"></iron-ajax>`
+        <iron-ajax id="ajaxSave1" url="${this.url}" method="PUT" on-response=${this.response.bind(this)}></iron-ajax>`
     }
 }
 customElements.define('serialnumber-info', SerialNumberInfo);

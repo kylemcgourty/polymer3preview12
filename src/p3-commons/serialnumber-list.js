@@ -103,6 +103,8 @@ export class SerialNumberList extends LitElement {
 
         }
 
+        console.log('save called', this.launch, this.piece.serials)
+
         this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
     }
 
@@ -142,13 +144,10 @@ export class SerialNumberList extends LitElement {
 
     }
 
-    renderBase() {
-        
-    }
+   
 
     render() {
 
-        console.log('sn render called')
 
         return html `
           <style include="shared-styles">
