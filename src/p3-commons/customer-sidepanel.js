@@ -54,7 +54,7 @@ export class CustomerSidepanel extends LitElement {
     open() {
         this.searchfields = {}
         this.searchfields.searchfield1 = "Customer id"
-        this.searchfields.searchfield2 = "Company"
+        this.searchfields.searchfield2 = "Customer"
         this.searchfields.searchfield3 = "Address"
         this.searchfields.searchfield4 = "Contact"
 
@@ -84,12 +84,15 @@ export class CustomerSidepanel extends LitElement {
         if (e.detail) {
             if (e.detail.inputValue === "") {
                 retrieveAll = true;
-
             } else if (e.keyCode !== 13 && e.type == "keyup") {
                 return
+            } else {
+                retrieveAll = false
             }
             query = e.detail.inputValue;
         }
+        console.log(retrieveAll)
+        
         if (retrieveAll) {
             console.log("inside retriveall")
             query = ""
@@ -116,11 +119,12 @@ export class CustomerSidepanel extends LitElement {
 
 
     setSearchOption(e) {
-        console.log('option', e.path[0].id)
+        console.log('option XXXXXXXxxx', e.detail.id)
         console.log('option', e)
-        e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
+        e.detail.id === "all" ? this.generateSearch(e, undefined, 'idver') : this.searchoption = e.detail.id
+        console.log(this.searchoption)
 
-        if (this.$.searchQuery.value) {
+        if (e.detail) {
             this.generateSearch(e)
         }
     }
@@ -133,7 +137,20 @@ export class CustomerSidepanel extends LitElement {
     responselist(data, fromquery) {
         if (fromquery) {
             this.data = data
-            console.log(this.data)
+
+            if (this.data == null && !this.shadowRoot.getElementById('noMatchesError')) {
+                var error = document.createElement("div")
+                error.textContent = "No matching results"
+                error.style = "Color: red";
+                error.id = "noMatchesError"
+                this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+                this.data = ""
+            }
+
+            if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
+                this.shadowRoot.getElementById('noMatchesError').remove()
+            }
+
 
             const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
                 return html ` 
@@ -148,6 +165,8 @@ export class CustomerSidepanel extends LitElement {
                 </div>
                 <div id="container" class="table-padding">
                      <search-inner searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-inner>
+                     <div id="ilcontainer" class="row">
+                     </div>
                      ${repeat (
                         items,
                         item => item.id,
