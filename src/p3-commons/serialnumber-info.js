@@ -111,12 +111,12 @@ export class SerialNumberInfo extends LitElement {
 
 
     open(url, item, model) {
-        if (typeof url === 'string') this.set('url', url);
+        if (typeof url === 'string') this.url = url
         this.item = item;
         this.olditem = item;
         this.largeModel = model
 
-        this.$.sn.setQty();
+        this.shadowRoot.querySelector('#sn').setQty();
     }
 
     close() {
@@ -135,16 +135,16 @@ export class SerialNumberInfo extends LitElement {
 
 
     clean() {
-        this.set('item.serialnumbers', null)
-        this.set('item.hwr', null)
-        this.set('item.useccn', null)
-        this.set('item.hstariff', null)
-        this.set('item.netweight', null)
-        this.set('item.dimension', null)
-        this.set('item.product', null)
-        this.set('item.incoterms', null)
-        this.set('item.countryoforigin', null)
-        this.set('item.other', null)
+        this.item.serialnumbers = null
+        this.item.hwr = null
+        this.item.useccn = null
+        this.item.hstariff = null
+        this.item.netweight = null
+        this.item.dimension = null
+        this.item.product = null
+        this.item.incoterms = null
+        this.item.countryoforigin = null
+        this.item.other = null
     }
 
     save() {
@@ -191,7 +191,7 @@ export class SerialNumberInfo extends LitElement {
     ready() {
         super.ready()
     }
-    render({ _inventory, model, olditem, url, queryMatches, display, lineitemIndex, headercolor }) {
+    render() {
         return html `
             <style include="shared-styles">
         #page {
@@ -357,10 +357,7 @@ export class SerialNumberInfo extends LitElement {
                     <iron-icon icon="close" on-tap="close"></iron-icon>
                 </div>
             </div>
-            <serialnumber-list qty="${qty}" id="sn" piece="${item}" launch="${launch}" starter="${starter}"></serialnumber-list>
-         <!--    <template is="dom-if" if="${checkHWRs(item)}">
-                <hwrnumber-list qty="${qty}" id="hwr" piece="${item}" hwrretrieve="${hwrretrieve}" mid="${mid}"></hwrnumber-list>
-            </template> -->
+            <serialnumber-list qty="${this.qty}" id="sn" piece="${this.item}" launch="${this.launch}" starter="${this.starter}"></serialnumber-list>
             <div class="side-padding">
                 <div class="row top-spacing1" id="moveleft">
                     <div class="col-xs-12">
@@ -370,59 +367,13 @@ export class SerialNumberInfo extends LitElement {
                         </div>
                     </div>
                 </div>
-                <!--  <div class="top-spacing2 my-content">
-                <div class="left float-left" style="font-size: 16px; float: left;">Shipping Info</div>
-                <div style="clear: both"></div>
-            </div>
-            <div>
-                <div class="my-content">
-                    <div class="col-xs-3">Product</div>
-                    <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="${item.product}">
-                    </div>
-                </div>
-                <div class="my-content">
-                    <div class="col-xs-3">US ECCN</div>
-                    <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="${item.useccn}">
-                    </div>
-                </div>
-                <div class="my-content">
-                    <div class="col-xs-3">HS Tariff</div>
-                    <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="${item.hstariff}">
-                    </div>
-                </div>
-                <div class="my-content">
-                    <div class="col-xs-3">Dim(HxWxD)</div>
-                    <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" id="dimension" label="x" placeholder="Inches" on-focusout="addDim" bind-value="${item.dimension}">
-                    </div>
-                </div>
-                <div class="my-content">
-                    <div class="col-xs-3">Net Weight</div>
-                    <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" id="weight" placeholder="Lbs" on-focusout="addWeight" bind-value="${item.netweight}">
-                    </div>
-                </div>
-                <div class="my-content">
-                    <div class="col-xs-3">IncoTerms</div>
-                    <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="${item.incoterms}">
-                    </div>
-                </div>
-                <div class="my-content">
-                    <div class="col-xs-3">Orig. Country</div>
-                    <div class="col-xs-9 text-right">
-                        <input is="iron-input" class="input" bind-value="${item.countryoforigin}">
-                    </div>
-                </div> -->
+               
             </div>
         </div>
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="success" on-error="ajaxerror" content-type="application/json"></iron-ajax>
-        <iron-media-query query="(min-width: 767px)" query-matches="${queryMatches}"></iron-media-query>
-        <iron-ajax id="ajaxList" url="${url}" method="GET" on-response="successList"></iron-ajax>
-        <iron-ajax id="ajaxSave1" url="${url}" method="PUT" on-response="response"></iron-ajax>`
+        <iron-media-query query="(min-width: 767px)" query-matches="${this.queryMatches}"></iron-media-query>
+        <iron-ajax id="ajaxList" url="${this.url}" method="GET" on-response="successList"></iron-ajax>
+        <iron-ajax id="ajaxSave1" url="${this.url}" method="PUT" on-response="response"></iron-ajax>`
     }
 }
 customElements.define('serialnumber-info', SerialNumberInfo);

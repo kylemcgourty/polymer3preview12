@@ -8,6 +8,10 @@ export class SerialNumberList extends LitElement {
                 value: function() {
                     return []
                 }
+            },
+            piece: {
+                type: Object, 
+                reflectToAttribute: true,
             }
         }
     }
@@ -20,6 +24,8 @@ export class SerialNumberList extends LitElement {
 
     constructor() {
         super()
+
+        this.piece = {}
     }
 
     computeIndex(val) {
@@ -28,15 +34,16 @@ export class SerialNumberList extends LitElement {
 
     setQty() {
 
+        console.log('the piece', this.piece)
 
         let holder = this.piece.serials.split(',')
 
 
 
         this.serials = []
-        holder.forEach(function(item, val) {
+        holder.forEach(function(item, index) {
 
-            this.push('serials', { sn: item })
+            this.push('serials', { sn: item, id: index })
         }.bind(this))
 
         if (this.piece.qtyorder) {
@@ -46,6 +53,30 @@ export class SerialNumberList extends LitElement {
         if (this.piece.qtyreturn) {
             this.piece.qty = -this.piece.qtyreturn;
         }
+
+         const types = data => {
+
+            return html`
+            <div>
+            ${repeat (
+                 data,
+                 item => item.id,
+                 item => html`
+                    <div id="holder${item.id}" class="my-content"><span class="col-xs-3">${this.computeIndex(item.id)}</span><span class="col-xs-9 text-right"><iron-input class="input" id="input${item.id}" bind-value="${item.sn}"><input class="input1" ><iron-input></span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap="remove"></iron-icon></span></div>
+                          `
+                 )}
+            </div>`;
+        }
+
+
+        render(types(this.serials), this.shadowRoot.querySelector('#table'))
+
+
+
+
+
+
+
     }
 
     remove(e) {
@@ -87,7 +118,7 @@ export class SerialNumberList extends LitElement {
         super.ready()
     }
 
-    render({ serials }) {
+    render() {
         return html `
           <style include="shared-styles">
         #paperToggle {
@@ -187,12 +218,11 @@ export class SerialNumberList extends LitElement {
         </style>
         <div class="border-padding">
             <div class="title-font"> Serial Numbers </div>
-            <div class="my-content"> <span> Product No. </span><span class="piece-results">${piece.mfgpn}</span></div>
-            <div class="my-content"> <span> Qty </span><span class="piece-results1">${qty}</span></div>
+            <div class="my-content"> <span> Product No. </span><span class="piece-results">${this.piece.mfgpn}</span></div>
+            <div class="my-content"> <span> Qty </span><span class="piece-results1">${this.qty}</span></div>
             <div class="sn-topmargin">
-                <template is="dom-repeat" items="${serials}">
-                    <div id="holder${index}" class="my-content"><span class="col-xs-3">${computeIndex(index)}</span><span class="col-xs-9 text-right"><iron-input class="input" id="input${index}" bind-value="${item.sn}"><input class="input1" ><iron-input></span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap="remove"></iron-icon></span></div>
-                </template>
+                <div id="table">
+                </div>
             </div>
         </div> `
     }
