@@ -100,9 +100,9 @@ export class SerialNumberList extends LitElement {
 
             if (this.shadowRoot.querySelector('#input' + i).value) {
 
-                this.piece.serials = this.piece.serials + this.shadowRoot.querySelector('#input' + i).value + ", "
+                this.piece.serials = this.piece.serials + this.shadowRoot.querySelector('#input' + i).value + ","
             } else {
-                this.piece.serials = this.piece.serials + "" + ", "
+                this.piece.serials = this.piece.serials + "" + ","
             }
 
         }
@@ -207,6 +207,7 @@ export class SerialNumberList extends LitElement {
             font-size: 13.3px;
             width: 100%;
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
+            padding-left: 3px;
 
         }
         
