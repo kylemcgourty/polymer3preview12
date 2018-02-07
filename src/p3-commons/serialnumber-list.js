@@ -54,7 +54,6 @@ export class SerialNumberList extends LitElement {
 
 
 
-        console.log('the piece', this.piece)
 
         let holder = this.piece.serials.split(',')
 
@@ -81,7 +80,6 @@ export class SerialNumberList extends LitElement {
     }
 
     removeSN(item) {
-        console.log('removed called', item)
         var index = item.id;
         this.serials[index].sn= ""
         render(this.serialshtml(this.serials), this.shadowRoot.querySelector('#table'))
@@ -107,7 +105,6 @@ export class SerialNumberList extends LitElement {
 
         }
 
-        console.log('save called', this.launch, this.piece.serials)
 
         return
 
@@ -118,7 +115,6 @@ export class SerialNumberList extends LitElement {
         if (!this.attached){
             var fromMA = document.querySelector('defie-menu');
             fromMA.addEventListener(this.starter, () => {
-                console.log('save listenser called')
                 this.save()
                 this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
             });

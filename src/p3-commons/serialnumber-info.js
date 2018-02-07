@@ -112,7 +112,6 @@ export class SerialNumberInfo extends LitElement {
         if (typeof url === 'string') this.url = url
         this.item = item;
 
-        console.log('the item', this.item, this.launch, this.starter)
         this.olditem = item;
         this.largeModel = model
 
@@ -160,7 +159,6 @@ export class SerialNumberInfo extends LitElement {
 
     save() {
 
-        console.log('starter in save', this.starter)
         this.dispatchEvent(new CustomEvent(this.starter, {
             bubbles: true,
             composed: true
@@ -202,7 +200,6 @@ export class SerialNumberInfo extends LitElement {
         if (!this.attached) {
         this.shadowRoot.addEventListener(this.launch, function() {
             this.launchModelToDB()
-            console.log('got mid called', this.launch)
         }.bind(this));
         this.attached = true;
         }
