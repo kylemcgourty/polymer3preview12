@@ -52,7 +52,8 @@ export class SerialNumberList extends LitElement {
 
         this.gotstarter()
 
-        console.log('the piece', this.piece)
+
+
 
         let holder = this.piece.serials.split(',')
 
@@ -78,9 +79,10 @@ export class SerialNumberList extends LitElement {
 
     }
 
-    remove(e) {
-        var index = e.model.index;
-        this.set('serials.' + index + '.sn', "")
+    removeSN(item) {
+        var index = item.id;
+        this.serials[index].sn= ""
+        render(this.serialshtml(this.serials), this.shadowRoot.querySelector('#table'))
     }
 
     save() {
@@ -96,31 +98,40 @@ export class SerialNumberList extends LitElement {
 
             if (this.shadowRoot.querySelector('#input' + i).value) {
 
-                this.piece.serials = this.piece.serials + this.shadowRoot.querySelector('#input' + i).value + ", "
+                this.piece.serials = this.piece.serials + this.shadowRoot.querySelector('#input' + i).value + ","
             } else {
-                this.piece.serials = this.piece.serials + "" + ", "
+                this.piece.serials = this.piece.serials + "" + ","
             }
 
         }
 
-        this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
+
+        return
+
     }
 
     gotstarter(item) {
-        var fromMA = document.querySelector('defie-menu');
-        fromMA.addEventListener(this.starter, function() {
-            this.save();
-        }.bind(this));
+
+        if (!this.attached){
+            var fromMA = document.querySelector('defie-menu');
+            fromMA.addEventListener(this.starter, () => {
+                this.save()
+                this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
+            });
+            this.attached = true;
+        }
     }
 
     ready() {
         super.ready()
 
 
+
+
     }
 
     addSN() {
-           const serials = data => {
+           this.serialshtml = data => {
 
             return html`
             <div>
@@ -130,7 +141,7 @@ export class SerialNumberList extends LitElement {
                  item => html`
                     <div id$="holder${item.id}" class="my-content"><span class="col-xs-3">${this.computeIndex(item.id)}</span><span class="col-xs-9 text-right">
                     <input class="input1" id$="input${item.id}" value="${item.sn}" >
-                   </span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap="remove"></iron-icon></span></div>
+                   </span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap=${()=> this.removeSN(item)}></iron-icon></span></div>
                           `
                  )}
             </div>`;
@@ -138,17 +149,14 @@ export class SerialNumberList extends LitElement {
 
 
 
-                render(serials(this.serials), this.shadowRoot.querySelector('#table'))
+                render(this.serialshtml(this.serials), this.shadowRoot.querySelector('#table'))
 
     }
 
-    renderBase() {
-        
-    }
+   
 
     render() {
 
-        console.log('sn render called')
 
         return html `
           <style include="shared-styles">
@@ -195,6 +203,7 @@ export class SerialNumberList extends LitElement {
             font-size: 13.3px;
             width: 100%;
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
+            padding-left: 3px;
 
         }
         
