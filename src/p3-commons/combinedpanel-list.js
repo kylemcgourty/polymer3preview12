@@ -143,7 +143,7 @@ export class CombinedpanelList extends LitElement {
     constructor() {
         super();
     }
-    ready(){
+    ready() {
         super.ready();
         this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
             this.generateSearch(e);
@@ -153,13 +153,17 @@ export class CombinedpanelList extends LitElement {
         });
     }
     generateSearch(e, pass, retrieveAll) {
-        console.log(e)
+        let query
         if (e.detail) {
-            if (e.detail.keyCode !== 13 && e.detail.type == "keypress") {
+            if (e.detail.inputValue === "") {
+                retrieveAll = true;
+            } else if (e.keyCode !== 13 && e.type == "keyup") {
                 return
+            } else {
+                retrieveAll = false
             }
+            query = e.detail.inputValue;1231
         }
-        let query = e.detail.inputValue;
         if (retrieveAll) {
             query = ""
             this.searchoption = 'id'
@@ -170,7 +174,6 @@ export class CombinedpanelList extends LitElement {
             type: this.panelname.toLowerCase()
         }
 
-        console.log("here is the query package", querypackage)
         let spliturl = this.searchurl.split("/")
         this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
 
@@ -182,8 +185,7 @@ export class CombinedpanelList extends LitElement {
 
 
     setSearchOption(e) {
-        console.log(e)
-        e.path[0].id === "all" ? this.generateSearch(e, undefined, 'id') : this.searchoption = e.path[0].id
+        e.detail.id === "all" ? this.generateSearch(e, undefined, 'id') : this.searchoption = e.detail.id
 
         if (e.detail) {
             this.generateSearch(e)
@@ -211,7 +213,6 @@ export class CombinedpanelList extends LitElement {
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
     }
     populateObject(item) {
-        console.log(item)
         var customListener = "new" + this.panelname;
 
         var newObj = {}
@@ -226,10 +227,6 @@ export class CombinedpanelList extends LitElement {
 
         this.singleObject = {}
         this.singleObject = newObj
-
-        console.log("this.singleObject in populateObject", this.singleObject)
-
-        console.log("`${customListener}`", customListener)
 
         this.dispatchEvent(new CustomEvent(`${customListener}`, {
             composed: true,
@@ -476,46 +473,22 @@ export class CombinedpanelList extends LitElement {
         this.displaylist = displaylist
         this.fieldnamelist = fieldnamelist
         this.singleObject = {}
-        console.log("page", this.listpage, this.editpage, this.newpage)
-        console.log("here in this.panelname function combinedplist", this.panelname)
-        console.log("here in this.panelname function combinedplist", this.arrayvalues)
-        console.log("here in this.panelname function combinedplist", this.searchfields)
-        console.log("here in this.panelname function combinedplist", this.arrayvalues)
-
-        console.log("here in url function combinedplist", url)
-        console.log("here in populate function combinedplist", populate)
-        console.log("here in populate function combinedplist", populate)
 
         this.populate = populate
-        console.log(this.populate)
-
-
-        console.log("searchkeyindexes", this.searchkeyindexes)
-        console.log("searchkeyindexes", this.searchkeyindexes["searchkeyindex1"])
 
         this.searchoption = this.searchkeyindexes["searchkeyindex1"]
 
-
         var BElocation = this.panelname.toLowerCase()
-        console.log("BElocation asdfkjdashfkdas", BElocation)
-
 
         if (typeof url === 'string') this.url = url
         let baseurl = this.url.split("/")
-
-        console.log("BElocation asdfkjdashfkdas", baseurl)
-
-        console.log("her would be the baseYURL", baseurl[5])
-
 
         if (baseurl[2] == "vendor") {
             this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
         } else if (baseurl[2] = "customer") {
             this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
 
-            console.log("this.searchurl in open", this.searchurl)
         }
-        console.log("here right before generate earch is called... SEARCHURL", this.searchurl)
         this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
         this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
         this.shadowRoot.querySelector('#ajaxList').generateRequest()
@@ -583,7 +556,7 @@ export class CombinedpanelList extends LitElement {
             });
             var length = ir.response.results.length
 
-        } else {
+        } else if (e.detail.response.results != null) {
             e.detail.response.results.map((item) => {
 
                 var newObj = {};
@@ -601,80 +574,96 @@ export class CombinedpanelList extends LitElement {
             var length = e.detail.response.results.length
         }
 
-        if (this.panelname === "Billing") {
-            this.model[length - 1].visibility2 = false
-            this.model[length - 1].visibility3 = false
-            this.model[length - 1].visibility4 = false
-            if (this.model[length - 1].id === 1000) {
+        //no match record
+        if (this.model.length == 0 && !this.shadowRoot.getElementById('noMatchesError')) {
+            var error = document.createElement("div")
+            error.textContent = "No matching results"
+            error.style = "Color: red";
+            error.id = "noMatchesError"
+            this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+            this.model = ""
+        }
+
+        if (this.model.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
+            this.shadowRoot.getElementById('noMatchesError').remove()
+        }
+
+        if (this.model.length > 0) {
+            if (this.panelname === "Billing") {
                 this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = true
-                this.model[length - 1].visibility4 = true
-                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                // this.notifyPath('model.' + (length - 1) + '.visibility4')
-            }
-        } else if (this.panelname === "Shipping") {
-            this.model[length - 1].visibility2 = false
-            this.model[length - 1].visibility3 = false
-            this.model[length - 1].visibility4 = false
-            if (this.model[length - 1].id === 10000) {
+                this.model[length - 1].visibility3 = false
+                this.model[length - 1].visibility4 = false
+                if (this.model[length - 1].id === 1000) {
+                    this.model[length - 1].visibility2 = false
+                    this.model[length - 1].visibility3 = true
+                    this.model[length - 1].visibility4 = true
+                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                }
+            } else if (this.panelname === "Shipping") {
                 this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = true
-                this.model[length - 1].visibility4 = true
-                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                // this.notifyPath('model.' + (length - 1) + '.visibility4')
-            }
-        } else if (this.panelname === "Contact") {
-            this.model[length - 1].visibility2 = false
-            this.model[length - 1].visibility3 = false
-            this.model[length - 1].visibility4 = false
-            if (this.model[length - 1].id === 100000) {
+                this.model[length - 1].visibility3 = false
+                this.model[length - 1].visibility4 = false
+                if (this.model[length - 1].id === 10000) {
+                    this.model[length - 1].visibility2 = false
+                    this.model[length - 1].visibility3 = true
+                    this.model[length - 1].visibility4 = true
+                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                }
+            } else if (this.panelname === "Contact") {
                 this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = true
-                this.model[length - 1].visibility4 = true
-                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                // this.notifyPath('model.' + (length - 1) + '.visibility4')
-            }
-        } else if (this.panelname === "Bank") {
-            this.model[length - 1].visibility2 = false
-            this.model[length - 1].visibility3 = false
-            this.model[length - 1].visibility4 = false
-            if (this.model[length - 1].id === 101) {
+                this.model[length - 1].visibility3 = false
+                this.model[length - 1].visibility4 = false
+                if (this.model[length - 1].id === 100000) {
+                    this.model[length - 1].visibility2 = false
+                    this.model[length - 1].visibility3 = true
+                    this.model[length - 1].visibility4 = true
+                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                }
+            } else if (this.panelname === "Bank") {
                 this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = true
-                this.model[length - 1].visibility4 = true
-                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                // this.notifyPath('model.' + (length - 1) + '.visibility4')
-            }
-        } else if (this.panelname === "Trade") {
-            this.model[length - 1].visibility2 = false
-            this.model[length - 1].visibility3 = false
-            this.model[length - 1].visibility4 = false
-            if (this.model[length - 1].id === 1001) {
+                this.model[length - 1].visibility3 = false
+                this.model[length - 1].visibility4 = false
+                if (this.model[length - 1].id === 101) {
+                    this.model[length - 1].visibility2 = false
+                    this.model[length - 1].visibility3 = true
+                    this.model[length - 1].visibility4 = true
+                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                }
+            } else if (this.panelname === "Trade") {
                 this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = true
-                this.model[length - 1].visibility4 = true
-                // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                this.model[length - 1].visibility3 = false
+                this.model[length - 1].visibility4 = false
+                if (this.model[length - 1].id === 1001) {
+                    this.model[length - 1].visibility2 = false
+                    this.model[length - 1].visibility3 = true
+                    this.model[length - 1].visibility4 = true
+                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
+                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
+                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                }
             }
         }
 
@@ -691,6 +680,7 @@ export class CombinedpanelList extends LitElement {
                 </div>
                 <div id="container" class="table-padding">
                      <search-inner searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-inner>
+                     <div id="ilcontainer" class="row">
                      ${repeat (
                         items,
                         item => item.id,
@@ -1013,7 +1003,6 @@ export class CombinedpanelList extends LitElement {
         } else {
             document.querySelector('#toast').text = "Saved successfully.";
             document.querySelector('#toast').show();
-            console.log(this.singleObject.fieldvalue1 = this.shadowRoot.querySelector('#editfieldvalue1').value)
             this.shadowRoot.querySelector('#ajaxList').generateRequest()
             this.listpage = false;
             this.editpage = true;

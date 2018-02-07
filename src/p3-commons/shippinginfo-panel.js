@@ -61,6 +61,8 @@ export class ShippingInfoPanel extends LitElement {
 
     constructor() {
         super()
+        this.item = {};
+        this.url = "";
     }
 
     addDim(e) {

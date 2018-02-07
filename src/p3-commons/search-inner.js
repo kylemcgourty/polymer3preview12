@@ -25,7 +25,6 @@ export class SearchInner extends LitElement {
     }
 
     generateSearch(e) {
-        console.log(e)
         this.dispatchEvent(new CustomEvent("selectedInnerSearchOption", {
             bubbles: true,
             composed: true,
@@ -39,9 +38,7 @@ export class SearchInner extends LitElement {
     }
 
     setSearchOption(e) {
-        console.log(e)
-        console.log(this.shadowRoot.querySelector('input[name="searchoptions"]:checked').id)
-        this.dispatchEvent(new CustomEvent("setSearchOption", {
+        this.dispatchEvent(new CustomEvent("selectedSearchOption", {
             bubbles: true,
             composed: true,
             detail: {
@@ -65,7 +62,7 @@ export class SearchInner extends LitElement {
                     <div class="search-flex layout horizontal">
                         <div class="search-container">
                             <iron-input class="search" slot="input">
-                                <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="${(item) => this.generateSearch(item)}" on-focusout="${(item) => this.generateSearch(item)}">
+                                <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-focusout="${(item) => this.generateSearch(item)}">
                             </iron-input>
                             <div on-tap="${(item) => this.generateSearch(item)}" class="search-icon">
                                 <paper-icon-button class="search-icon" icon="search"></paper-icon-button>

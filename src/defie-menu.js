@@ -22,6 +22,7 @@ import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js'
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js'
 import '../node_modules/@polymer/iron-icon/iron-icon.js'
 import '../node_modules/@polymer/iron-icons/iron-icons.js'
+import '../node_modules/@polymer/iron-icons/editor-icons.js'
 import '../node_modules/@polymer/iron-image/iron-image.js'
 import '../node_modules/@polymer/iron-input/iron-input.js'
 import '../node_modules/@polymer/iron-list/iron-list.js'
@@ -581,7 +582,79 @@ export class DefieMenu extends PolymerElement {
                     "salesorder-new": "/salesorders/src/salesorders-shell.js",
                     "customers": "/customers/src/customers-shell.js",
                     "customer-new": "/customers/src/customers-shell.js",
-                    "licensors": "/licensors/src/licensors-shell.js"
+                    "licensors": "/licensors/src/licensors-shell.js",
+                    "licensor-new": "/licensors/src/licensors-shell.js",
+                    "services": "/services/src/services-shell.js",
+                    "service-new": "/services/src/services-shell.js",
+                    "profiles": "/profiles/src/profiles-shell.js",
+                    "profile-new": "/profiles/src/profiles-shell.js",
+                    "apdistributedaccounts-new": "/apdistributedaccounts/src/apdistributedaccounts-shell.js",
+                    "apchartofaccounts-new": "/apchartofaccounts/src/apchartofaccounts-shell.js",
+                    
+                    "accountsreceivable": "/accountsreceivables/src/accountsreceivable-shell.js",
+                    "ar-customers": "/accountsreceivables/src/accountsreceivable-shell.js",
+                    "customerrma-new": "/customerrmas/src/customerrmas-shell.js",
+                    "customerrmas": "/customerrmas/src/customerrmas-shell.js",
+                    "customershiprma-new": "/customershiprmas/src/customershiprmas-shell.js",
+                    "customershiprmas": "/customershiprmas/src/customershiprmas-shell.js",
+                    "customerreceiverma-new": "/customerreceivermas/src/customerreceivermas-shell.js",
+                    "customerreceivermas": "/customerreceivermas/src/customerreceivermas-shell.js",
+                    "vendorrma-new": "/vendorrmas/src/vendorrmas-shell.js",
+                    "vendorrmas": "/vendorrmas/src/vendorrmas-shell.js",
+                    "vendorshiprma-new": "/vendorshiprmas/src/vendorshiprmas-shell.js",
+                    "vendorshiprmas": "/vendorshiprmas/src/vendorshiprmas-shell.js",
+                    "vendorreceiverma-new": "/vendorreceivermas/src/vendorreceivermas-shell.js",
+                    "vendorreceivermas": "/vendorreceivermas/src/vendorreceivermas-shell.js",
+                    "shipreturnpo-new": "/shipreturnpos/src/shipreturnpos-shell.js",
+                    "shipreturnpos": "/shipreturnpos/src/shipreturnpos-shell.js",
+                    "purchaseorder-new": "/purchaseorders/src/purchaseorders-shell.js",
+                    "purchaseorders": "/purchaseorders/src/purchaseorders-shell.js",
+                    "receivepo-new": "/receivepos/src/receivepos-shell.js",
+                    "receivepos": "/receivepos/src/receivepos-shell.js",
+                    "returnpo-new": "/returnpos/src/returnpos-shell.js",
+                    "returnpos":"/returnpos/src/returnpos-shell.js",
+                    "returnso-new": "/returnsos/src/returnsos-shell.js",
+                    "returnsos":"/returnsos/src/returnsos-shell.js",
+                    "creditmemo-new": "/creditmemos/src/creditmemos-shell.js",
+                    "creditmemos": "/creditmemos/src/creditmemos-shell.js",
+                    "createcreditmemo-new": "/createcreditmemos/src/createcreditmemos-shell.js",
+                    "createcreditmemos": "/createcreditmemos/src/createcreditmemos-shell.js",
+                    "licuser-new": "/licuser/src/licusers-shell.js",
+                    "licusers": "/licuser/src/licusers-shell.js",
+                    "createinvoice-new": "/createinvoices/src/createinvoices-shell.js",
+                    "createinvoices": "/createinvoices/src/createinvoices-shell.js",
+                    "invoice-new": "/invoices/src/invoices-shell.js",
+                    "invoices": "/invoices/src/invoices-shell.js",
+                    "boms": "/boms/src/boms-shell.js",
+                    "bom-new": "/boms/src/boms-shell.js",
+                    "releasedboms": "/releasedboms/src/releasedboms-shell.js",
+                    "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
+                    "buildorders": "/buildorders/src/buildorders-shell.js",
+                    "buildorder-new": "/buildorders/src/buildorders-shell.js",
+                    "releasedbuildorders": "/releasedbuildorders/src/releasedbuildorders-shell.js",
+                    "releasebuildorder-new": "/releasedbuildorders/src/releasedbuildorders-shell.js",
+                    "workorders": "/workorders/src/workorders-shell.js",
+                    "workorder-new": "/workorders/src/workorders-shell.js",
+                    "finishworkorders": "/finishworkorders/src/finishworkorders-shell.js",
+                    "finishworkorder-new": "/finishworkorders/src/finishworkorders-shell.js",
+                    "vendor-new": "/vendors/src/vendors-shell.js",
+                    "vendors": "/vendors/src/vendors-shell.js",
+                    "quote-new": "/quotes/src/quotes-shell.js",
+                    "quotes": "/quotes/src/quotes-shell.js",
+                    "accountspayable-new": "/accountspayables/src/accountspayable-shell.js",
+                    "accountspayable": "/accountspayables/src/accountspayable-shell.js",
+                    "accountspayable": "/accountspayables/src/accountspayable-shell.js",
+                    "ap-vendors": "/accountspayables/src/accountspayable-shell.js",
+                    "ap-status": "/accountspayables/src/accountspayable-shell.js",
+                    "ap-vendors": "/accountspayables/src/accountspayable-shell.js",
+                    "approvetopay-new": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay-new": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay-check": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay": "/approvetopays/src/approvetopay-shell.js",
+                    "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
+                    "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
+                    "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
+
                     }
                 }
             },
@@ -711,7 +784,6 @@ export class DefieMenu extends PolymerElement {
 
         let route = page.base.path.split("/")[1]
 
-        this.lazyloader
         let choice
 
         let module = this.importList[route]
@@ -973,8 +1045,8 @@ export class DefieMenu extends PolymerElement {
         this.$.serviceajax.url = "/service/leftservice"
 
 
-        // // this.$.serviceajax.url = "/api/user/services/" + ur
-        // this.$.serviceajax.generateRequest()
+        // this.$.serviceajax.url = "/api/user/services/" + ur
+        this.$.serviceajax.generateRequest()
         // this.showMenu = true;
 
 
