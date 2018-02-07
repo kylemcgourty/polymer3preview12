@@ -1,6 +1,8 @@
-import { LitElement, html } from '../../../node_modules/@polymer/lit-element/lit-element.js'
+import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-import './serialnumber-list.js'
+import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+
 
 export class SerialNumberInfo extends LitElement {
 
@@ -113,10 +115,19 @@ export class SerialNumberInfo extends LitElement {
     open(url, item, model) {
         if (typeof url === 'string') this.url = url
         this.item = item;
+
+        console.log('the item', this.item, this.launch, this.starter)
         this.olditem = item;
         this.largeModel = model
 
-        this.shadowRoot.querySelector('#sn').setQty();
+        let module = './serialnumber-list.js'
+
+        import(module).then((mod) =>{
+                this.shadowRoot.querySelector('#sn').setQty(this.item, this.qty, this.launch, this.starter)
+        }).then(() => {
+            this.shadowRoot.querySelector('#sn').addSN()
+        })
+
     }
 
     close() {
@@ -357,7 +368,7 @@ export class SerialNumberInfo extends LitElement {
                     <iron-icon icon="close" on-tap="close"></iron-icon>
                 </div>
             </div>
-            <serialnumber-list qty="${this.qty}" id="sn" piece="${this.item}" launch="${this.launch}" starter="${this.starter}"></serialnumber-list>
+            <serialnumber-list  id="sn" ></serialnumber-list>
             <div class="side-padding">
                 <div class="row top-spacing1" id="moveleft">
                     <div class="col-xs-12">

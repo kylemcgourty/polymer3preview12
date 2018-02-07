@@ -1,8 +1,8 @@
-import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { LitElement } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
 
-import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
+import { render, html } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 import '../../src/p3-commons/search-inner.js'
 
@@ -28,8 +28,8 @@ export class CustomerSidepanel extends LitElement {
         super()
     }
 
-    selectCustomer(e) {
-        var customer = e;
+    selectCustomer(item) {
+        var customer = item;
         var company = customer.companyname;
         var customerid = customer.id;
         this.dispatchEvent(new CustomEvent('CustomerEvent', {

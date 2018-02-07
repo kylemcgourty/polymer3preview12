@@ -1,4 +1,7 @@
-import { LitElement, html } from '../../../node_modules/@polymer/lit-element/lit-element.js'
+import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
+
+import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
 
 export class SerialNumberList extends LitElement {
     static get properties() {
@@ -12,27 +15,42 @@ export class SerialNumberList extends LitElement {
             piece: {
                 type: Object, 
                 reflectToAttribute: true,
+                value: function () {
+                    return {
+
+                    }
+                }
             }
         }
     }
 
     static get observers() {
         return [
-            'gotstarter(starter)'
+            
         ]
     }
+
+  
 
     constructor() {
         super()
 
-        this.piece = {}
+        
+
     }
 
     computeIndex(val) {
         return val + 1
     }
 
-    setQty() {
+    setQty(item, qty, launch, starter) {
+
+        this.piece = item
+        this.qty = qty
+        this.launch = launch
+        this.starter = starter
+
+        this.gotstarter()
 
         console.log('the piece', this.piece)
 
@@ -43,7 +61,7 @@ export class SerialNumberList extends LitElement {
         this.serials = []
         holder.forEach(function(item, index) {
 
-            this.push('serials', { sn: item, id: index })
+            this.serials.push({ sn: item, id: index })
         }.bind(this))
 
         if (this.piece.qtyorder) {
@@ -54,26 +72,7 @@ export class SerialNumberList extends LitElement {
             this.piece.qty = -this.piece.qtyreturn;
         }
 
-         const types = data => {
-
-            return html`
-            <div>
-            ${repeat (
-                 data,
-                 item => item.id,
-                 item => html`
-                    <div id="holder${item.id}" class="my-content"><span class="col-xs-3">${this.computeIndex(item.id)}</span><span class="col-xs-9 text-right"><iron-input class="input" id="input${item.id}" bind-value="${item.sn}"><input class="input1" ><iron-input></span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap="remove"></iron-icon></span></div>
-                          `
-                 )}
-            </div>`;
-        }
-
-
-        render(types(this.serials), this.shadowRoot.querySelector('#table'))
-
-
-
-
+      
 
 
 
@@ -116,9 +115,41 @@ export class SerialNumberList extends LitElement {
 
     ready() {
         super.ready()
+
+
+    }
+
+    addSN() {
+           const serials = data => {
+
+            return html`
+            <div>
+            ${repeat (
+                 data,
+                 item => item.id,
+                 item => html`
+                    <div id$="holder${item.id}" class="my-content"><span class="col-xs-3">${this.computeIndex(item.id)}</span><span class="col-xs-9 text-right">
+                    <input class="input1" id$="input${item.id}" value="${item.sn}" >
+                   </span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap="remove"></iron-icon></span></div>
+                          `
+                 )}
+            </div>`;
+        }
+
+
+
+                render(serials(this.serials), this.shadowRoot.querySelector('#table'))
+
+    }
+
+    renderBase() {
+        
     }
 
     render() {
+
+        console.log('sn render called')
+
         return html `
           <style include="shared-styles">
         #paperToggle {
@@ -225,6 +256,9 @@ export class SerialNumberList extends LitElement {
                 </div>
             </div>
         </div> `
+
+        
+        
     }
 }
 customElements.define('serialnumber-list', SerialNumberList);
