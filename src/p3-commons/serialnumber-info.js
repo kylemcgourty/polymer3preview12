@@ -118,6 +118,8 @@ export class SerialNumberInfo extends LitElement {
 
         this.gotmid()
 
+
+
         let module = './serialnumber-list.js'
 
         import(module).then((mod) =>{
@@ -196,15 +198,21 @@ export class SerialNumberInfo extends LitElement {
     }
 
     gotmid() {
+
+        if (!this.attached) {
         this.shadowRoot.addEventListener(this.launch, function() {
             this.launchModelToDB()
             console.log('got mid called', this.launch)
         }.bind(this));
+        this.attached = true;
+        }
 
     }
 
     ready() {
         super.ready()
+
+
     }
     render() {
         return html `

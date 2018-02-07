@@ -52,6 +52,8 @@ export class SerialNumberList extends LitElement {
 
         this.gotstarter()
 
+
+
         console.log('the piece', this.piece)
 
         let holder = this.piece.serials.split(',')
@@ -112,15 +114,22 @@ export class SerialNumberList extends LitElement {
     }
 
     gotstarter(item) {
-        var fromMA = document.querySelector('defie-menu');
-        fromMA.addEventListener(this.starter, () => {
-            this.save()
-            this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
-        });
+
+        if (!this.attached){
+            var fromMA = document.querySelector('defie-menu');
+            fromMA.addEventListener(this.starter, () => {
+                console.log('save listenser called')
+                this.save()
+                this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
+            });
+            this.attached = true;
+        }
     }
 
     ready() {
         super.ready()
+
+
 
 
     }
