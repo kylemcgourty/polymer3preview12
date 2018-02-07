@@ -79,50 +79,55 @@ export class AdminPartTypePanel extends LitElement {
 
                 data.forEach(function(item, index) {
                     this.data.push({
-                        id: index,
                         type: item
                     })
                 }.bind(this))
             } else {
                 this.data = [{
-                    id: 0,
                     type: "Spare"
                 }, {
-                    id: 1,
                     type: "Component"
                 }, {
-                    id: 2,
                     type: "Product"
                 }, {
-                    id: 3,
                     type: "Others"
                 }]
             }
 
 
-            const types = data => {
-
-                return html`
-                <div>
-                ${repeat (
-                     data,
-                     item => item.id,
-                     item => html`
-                                
-                                   <input disabled class="col-xs-9 i-input input" id$="input${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
-                              `
-                     )}
-                <div>`;
-            }
-
-
-            render(types(this.data), this.shadowRoot.querySelector('#table'))
+            this.renderItems();
         }
     }
 
     static get observers() {
         return [
         ]
+    }
+
+    renderItems() {
+        const types = data => {
+
+            return html`
+            <div>
+            ${repeat (
+                 data,
+                 item => item.id,
+                 item => html`
+                            <div class="layout horizontal">
+                                <input disabled=${!item.editable} class="col-xs-9 i-input input" id$="input${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
+                                <paper-icon-button on-tap="${() => this.remove(item)}" class="remove-icons" icon="icons:close"></paper-icon-button>
+                            </div>
+                          `
+                 )}
+            <div>`;
+        }
+
+        this.data.forEach(function(item, index){
+            item.id = index;
+        });
+        
+
+        render(types(this.data), this.shadowRoot.querySelector('#table'))
     }
 
     add() {
@@ -132,22 +137,7 @@ export class AdminPartTypePanel extends LitElement {
             editable: true
         })
 
-        const types = data => {
-
-            return html`
-            <div>
-            ${repeat (
-                 data,
-                 item => item.id,
-                 item => html`
-                            
-                               <input disabled=${!item.editable} class="col-xs-9 i-input input" id$="input${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
-                          `
-                 )}
-            <div>`;
-        }
-
-        render(types(this.data), this.shadowRoot.querySelector('#table'))
+        this.renderItems();
     }
 
     openChoice(selection) {
@@ -178,9 +168,9 @@ export class AdminPartTypePanel extends LitElement {
     }
 
     remove(e) {
+        this.data.splice(e.id, 1);
 
-        this.splice('data', e.model.index, 1)
-
+        this.renderItems();
     }
 
     render({admin}) {
@@ -337,11 +327,12 @@ export class AdminPartTypePanel extends LitElement {
         }
         
         .remove-icons {
-            margin-left: -17px;
-            margin-top: -10px;
+            display: block;
+            margin-top: -20px;
             padding: 0px;
             width: 18px!important;
             height: 18px!important;
+            float: right;
         }
         
         .header {
@@ -518,7 +509,6 @@ export class AdminPartTypePanel extends LitElement {
         <div class="table-padding">
             <div class="layout horizontal end">
                 <paper-icon-button style="display: none" on-tap=${this.add.bind(this)} class="add-icon admin" data-admin$="${admin}" icon="icons:add"></paper-icon-button>
-                <!-- <paper-icon-button style="display: none" on-tap="add" class="add-icon admin" data-adminoff$="[[admin]]" icon="icons:add"></paper-icon-button> -->
             </div>
             <div id="table">
             </div>
