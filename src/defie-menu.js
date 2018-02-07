@@ -580,7 +580,8 @@ export class DefieMenu extends PolymerElement {
                     "salesorders": "/salesorders/src/salesorders-shell.js",
                     "salesorder-new": "/salesorders/src/salesorders-shell.js",
                     "customers": "/customers/src/customers-shell.js",
-                    "customer-new": "/customers/src/customers-shell.js"
+                    "customer-new": "/customers/src/customers-shell.js",
+                    "licensors": "/licensors/src/licensors-shell.js"
                     }
                 }
             },

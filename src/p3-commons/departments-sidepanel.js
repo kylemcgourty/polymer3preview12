@@ -1,13 +1,14 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
+   import { Element as PolymerElement }
+ from '../../node_modules/@polymer/polymer/polymer-element.js'
 
-  
-   export class AdminTermPanel extends PolymerElement {
+
+    export class DepartmentsSidePanel extends PolymerElement {
+      
 
         static get template() {
         return `
-          <style include="iron-flex iron-flex-alignment">
-       :host {
+        <style include="shared-styles iron-flex iron-flex-alignment">
+         :host {
             display: block;
         }
         
@@ -54,7 +55,6 @@ import {Element as PolymerElement}
             position: relative;
             word-wrap: break-word;
             font-size: 13px;
-            height: 22px;
         }
         
         .right {
@@ -200,7 +200,7 @@ import {Element as PolymerElement}
         }
         
         [data-adminoff="superuser"] {
-            display: none!important;
+            display: none;
         }
         
         .admin1 {
@@ -211,141 +211,10 @@ import {Element as PolymerElement}
             width: 100%;
             text-align: right;
             margin-top: 17px;
-            /*margin-right: 18px;*/
-        }
-
-        #paperToggle {
-            min-height: 40px;
-            min-width: 40px;
-        }
-        
-        :host {
-            display: block;
-        }
-        
-        .close-interface {
-            position: relative;
-            top: -27px;
-            text-align: right;
-            left: -14px;
-        }
-        
-        .close-interface span {
-            display: inline-block;
-            height: 25px;
-            width: 50px;
-        }
-        
-        .text-right {
-            text-align: right;
-        }
-        
-        .col-xs-12 {
-            position: relative;
-            min-height: 1px;
-            /*        padding-left: 15px;
-        padding-right: 15px;*/
-        }
-        
-        .table-padding {
-            padding-left: 16px;
-            padding-right: 16px;
-            margin-top: 20px;
-            display: block;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .main-button {
-            background-color: var(--title-background-normal);
-            color: var(--title-normal);
-        }
-        
-        .button {
-            margin-top: 24px;
-            /*margin-right: 16px;*/
-        }
-        
-        .title-rightpaneldraw {
-            font-size: 16px;
-            background-color: #e6e6e6;
-            padding-left: 5%;
-            padding-bottom: 0%;
-            padding-top: 6%;
-        }
-        
-        .title-rightpaneldraw-list {
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        
-        .nooverflow {
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100%;
-            height: 100%;
-            line-height: 2.7;
-        }
-        
-        .col-xs-3 {
-            position: relative;
-            min-height: 1px;
-            padding-left: 0px;
-            padding-right: 0px;
-            width: 100%;
-            float: left;
-        }
-        
-        .input {
-            /*min-height: 24px;*/
-            text-align: initial;
-            border: none;
-            background-color: #eee;
-            /*border-color: #eee;*/
-            /*border-bottom: 1px solid rgba(155, 155, 155, 0.5);*/
-            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
-            width: 100%;
-        }
-        
-        .col-xs-9 {
-            position: relative;
-            min-height: 1px;
-            padding-left: 0px;
-            padding-right: 0px;
-            width: 100%;
-        }
-        
-        .my-content {
-            margin-top: 6px;
-        }
-        
-        .i-input {
-                 width: 71%;
-    margin-left: 13px;
-        }
-
-/*         #list {
-            width: 100%;
-            flex: 1 1 auto;
-        }*/
-        
-        iron-list {
-            /*flex: 1 1 auto;*/
-        }
-        
-        .spacer {
-            /*margin-top: 2px;*/
-        }
-
-           .manage {
-            color: blue;
-            width: 100%;
-            margin-bottom: 10px;
-            text-align: right;
+            margin-right: 18px;
         }
         </style>
-        <div class="title-rightpaneldraw"> Term </div>
+         <div class="title-rightpaneldraw">Departments </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap="close">Close</span>
@@ -353,21 +222,17 @@ import {Element as PolymerElement}
             </div>
         </div>
         <div class="table-padding">
-            <div class="layout horizontal">
-                <paper-icon-button on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add" style="display: none">
-                </paper-icon-button>
-                <paper-icon-button on-tap="add" class="add-icon admin" data-adminoff$="[[admin]] icon="icons:add" style="display: none"></paper-icon-button>
-            
+        <div class="layout horizontal end">
+                <paper-icon-button on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add"></paper-icon-button>
             </div>
             <iron-list items="[[data]]" scroll-target="document">
                 <template>
                     <div>
-                        <div class="layout horizontal">
-                            <span> Net (days) </span>
-                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
+                        <div class="layout horizontal my-content">
+                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="department" on-tap="openChoice" bind-value="{{item.department}}">
                                 <input disabled class="input">
                             </iron-input>
-                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
+                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="department" on-tap="openChoice" bind-value="{{item.department}}">
                                 <input class="input">
                             </iron-input>
                             <div class="admin" data-admin$="[[admin]]">
@@ -384,44 +249,57 @@ import {Element as PolymerElement}
                     </div>
                 </div>
             </div>
-        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>`
-    }
-      
-        static get properties() {
+            <!-- <iron-list id="list" items="{{model}}">
+                <template>
+                    <div class="my-content">
+                        <div class="spacer">
+                            <span class="col-xs-9 text-right"><iron-input  id="input[[index]]" class="i-input" bind-value="{{item.subname}}" on-tap="selected"><input class="input" value="[[item.subname]]" disabled></iron-input></span>
+                            <span class="col-xs-9 text-right"><iron-input  id="input[[index]]" class="i-input" bind-value="{{item}}" on-tap="selected"><input class="input" value="[[item]]" disabled></iron-input></span>
+                        </div>
+                    </div>
+                </template>
+            </iron-list> -->
 
+        <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
+        `
+    }
+        static get properties() {
             return {
-                typemodel: {
+                  flag: {
+                    type: String,
+                    reflectToAttribute: true
+                },
+                  admin: {
                     type: String,
                     reflectToAttribute: true,
                     notify: true,
-                    value: "",
-                },
-                savemodel: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: "",
-                },
-                admin: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                },
+                }
             }
         }
-        static get observers() {
-            return []
+      
+        constructor() {
+            super();
+
+        }
+         toSignIn() {
+
+            this.dispatchEvent(new CustomEvent('toSignIn', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    panel: "showdepartmentspanel"
+                }
+            }))
         }
 
-          submit() {
 
-            console.log("inside submit")
+          submit() {
 
             if (this.data) {
                 let str = ""
                 this.data.forEach(function(val, index) {
-                    str = str + val.term + ","
+                    str = str + val.department + ","
                 })
                 this.set('savemodel', str)
             }
@@ -431,38 +309,19 @@ import {Element as PolymerElement}
             this.$.ajaxSubmit.generateRequest();
         }
         responseSubmit(request) {
-
-            console.log("in resoinse sybmit...", request.detail.response)
-
             var auth = request.detail.response.auth
 
-            console.log("the auth", auth)
+
             if (auth){
                  document.querySelector('#toast').text = 'Saved successfully.';
                 document.querySelector('#toast').show();
-                console.log("inside ifauth obvi", this)
                 this.close();
             }
         }
+
         open(branchname) {
 
-            // if (this.lock == true) {
-            //     this.set('admin', "")
-            //     this.set("lock", false)
-            //     this.updateStyles();
-
-            // }
-            // if (this.admin == "superuser") {
-            //     this.lock = true
-            // }
-            if (branchname == "customer"){
-                this.typemodel = "custterms"
-            } else if (branchname == "vendor"){
-                this.typemodel = "vendterms"
-            } else if (branchname == "profile"){
-                this.typemodel = "profileterms"
-            }
-
+                this.typemodel = "departments"
 
             this.$.ajaxOption.url = "/optionsetting/option/"+this.typemodel;
             this.$.ajaxOption.body = JSON.stringify(this.model);
@@ -479,52 +338,34 @@ import {Element as PolymerElement}
 
                 data.forEach(function(item, index) {
                     this.push('data', {
-                        term: item
+                        department: item
                     })
                 }.bind(this))
 
             } else {
                 this.data = [{
-                    term: "0"
+                    department: "Human Resources"
                 }, {
-                    term: "1"
+                    department: "Engineering"
                 }, {
-                    term: "30"
-                }, {
-                    term: "60"
+                    department: "Sales"
                 }]
             }
         }
 
-        add() {
+         add() {
             this.push('data', {
-                term: ""
+                department: ""
             })
         }
 
-        openChoice(e) {
+           remove(e) {
 
-            let choice = e.model.item.term
+            this.splice('data', e.model.index, 1)
 
-            this.dispatchEvent(new CustomEvent('term', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    item: choice,
-                    terms: this.data
-                }
-
-
-
-            }))
         }
-        toSignIn() {
 
-            this.dispatchEvent(new CustomEvent('toSignIn', {
-                bubbles: true,
-                composed: true
-            }))
-        }
+
 
         close() {
             this.dispatchEvent(new CustomEvent('closePanel', {
@@ -532,14 +373,22 @@ import {Element as PolymerElement}
                 composed: true
             }))
         }
+        openChoice(e) {
 
-        remove(e) {
+            let choice = e.model.item.department
 
-            this.splice('data', e.model.index, 1)
+            this.dispatchEvent(new CustomEvent('department', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    item: choice,
+                    departments: this.data
+                }
 
+
+
+            }))
         }
-
-
     }
-    customElements.define('adminterm-panel', AdminTermPanel);
+customElements.define("departments-sidepanel", DepartmentsSidePanel);
 
