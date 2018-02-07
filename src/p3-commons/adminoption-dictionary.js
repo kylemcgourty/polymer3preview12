@@ -70,7 +70,17 @@ export class AdminOptionDictionary extends LitElement {
             this.close();
         }
     }
-    open() {
+    open(props) {
+
+        if (props) {
+            if (props.title) {
+                this.title = props.title;
+            }
+            if (props.typemodel) {
+                this.typemodel = props.typemodel;
+            }
+        }
+
         this.admin = 'superuser';
         
         this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+this.typemodel;
@@ -92,7 +102,7 @@ export class AdminOptionDictionary extends LitElement {
                     })
                 }.bind(this))
             } else {
-                this.data = defaultData();
+                this.data = this.defaultData();
             }
 
 
@@ -105,8 +115,38 @@ export class AdminOptionDictionary extends LitElement {
 
         switch (this.typemodel) {
             case "ptypes": data = [{word: "Spare"}, {word: "Component"}, {word: "Product"}, {word: "Others"}]; break;
+            case "custcategories":
+            case "vendcategories":
+            case "categories": data = [{word: "Hardware"}, {word: "Software"}, {word: "Service"}, {word: "Others"}]; break;
+            case "vendshipvia":
+            case "custshipvia": data = [{word:"Will Call" },{word:"Deliver" },{word:"Trucking" },{word:"Other Freight" },{word:"UPS Ground" },
+                                        {word:"UPS 3 day Select" },{word:"UPS 2 day Air" },{word:"UPS 2 Day Air Early AM" },{word:"UPS Next day Saver" },
+                                        {word:"UPS Next day Air" },{word:"UPS Next day Air Early AM" },{word:"UPS Worldwide Express Plus" },
+                                        {word:"UPS Worldwide Express" },{word:"UPS Worldwide Saver (Express)" },{word:"UPS Worldwide Expedited" },
+                                        {word:"FedEx Ground" },{word:"FedEx 3 Day Freight" },{word:"FedEx Express Saver" },{word:"FedEx 2 Day Freight" },
+                                        {word:"FedEx 1 Day freight" },{word:"FedEx 2 Day" },{word:"FedEx Standard Overnight" },
+                                        {word:"FedEx Priority Overnight" },{word:"FedEx First Overnight" },{word:"FedEx International Priority" },
+                                        {word:"FedEx International Freight" },{word:"FedEx International Economy Freight" },{word:"FedEx International Economy" }]; break;
+            case "custcreditmethods":
+            case "vendcreditmethods": data = [{word: "Refund"}, {word: "Open Credit"}, {word: "Exchange"}, {word: "Repair"}]; break;
+            case "custproductconditions":
+            case "vendproductconditions": data = [{word: "Unopen"}, {word: "Opened"}, {word: "Miss Parts"}, {word: "Miss Documents"}]; break;
+            case "custreturnreasons":
+            case "vendreturnreasons": data = [{word: "Over Stock"}, {word: "Dead on Arrival"}, {word: "Wrong Part"}, {word: "Damage"}, {word: "No Longer Need"}]; break;
+            case "vendissues":
+            case "custissues": data = [{word: "DOA"}, {word: "Defective"}, {word: "Physical Damage"}, {word: "Wrong Product"}]; break;
+            case "custpriorities":
+            case "vendpriorities": data = [{word: "Urgent"}, {word: "High"}, {word: "Medium"}, {word: "Low"}]; break;
+            case "custrequests":
+            case "vendrequests": data = [{word: "Credit"},{word: "Refund"},{word: "Adv. Replacement"},{word: "Replacement"},{word: "Repair"}]; break;
+            case "custservices":
+            case "vendservices": data = [{word: "Platinum"}, {word: "Gold"}, {word: "Silver"}, {word: "Bronze"}]; break;
+            case "departments": data = [{word: "Human Resources"}, {word: "Engineering"}, {word: "Sales"}]; break;
+            case "groups": data = [{word: "Sales"}, {word: "Engineering"}, {word: "Accounting"}]; break;
             default: data = [];
         }
+
+        return data;
     }
 
     static get observers() {
@@ -124,7 +164,7 @@ export class AdminOptionDictionary extends LitElement {
                  item => item.id,
                  item => html`
                             <div class="layout horizontal">
-                                <input disabled=${!item.editable} class="col-xs-9 i-input input" id$="input${item.id}" value="${item.word}" on-tap="${() =>this.openChoice(item)}">
+                                <input disabled=${!item.editable} class="col-xs-9 i-input input" id$="input${item.id}" value="${item.word}">
                                 <paper-icon-button on-tap="${() => this.remove(item)}" class="remove-icons" icon="icons:close"></paper-icon-button>
                             </div>
                           `
@@ -150,18 +190,18 @@ export class AdminOptionDictionary extends LitElement {
         this.renderItems();
     }
 
-    openChoice(selection) {
+    // openChoice(selection) {
 
-        this.dispatchEvent(new CustomEvent(this.fireevent, {
-            bubbles: true,
-            composed: true,
-            detail: {
-                item: selection.word,
-                types: this.data
-            }
+    //     this.dispatchEvent(new CustomEvent(this.fireevent, {
+    //         bubbles: true,
+    //         composed: true,
+    //         detail: {
+    //             item: selection.word,
+    //             types: this.data
+    //         }
 
-        }))
-    }
+    //     }))
+    // }
     toSignIn() {
 
         this.dispatchEvent(new CustomEvent('toSignIn', {
