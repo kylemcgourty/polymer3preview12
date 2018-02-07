@@ -29,7 +29,6 @@ export class CustomerSidepanel extends LitElement {
     }
 
     selectCustomer(e) {
-        console.log('here is e', e);
         var customer = e;
         var company = customer.companyname;
         var customerid = customer.id;
@@ -80,7 +79,6 @@ export class CustomerSidepanel extends LitElement {
     }
     generateSearch(e, pass, retrieveAll) {
        let query
-        console.log(e)
         if (e.detail) {
             if (e.detail.inputValue === "") {
                 retrieveAll = true;
@@ -91,10 +89,8 @@ export class CustomerSidepanel extends LitElement {
             }
             query = e.detail.inputValue;
         }
-        console.log(retrieveAll)
         
         if (retrieveAll) {
-            console.log("inside retriveall")
             query = ""
             this.searchoption = 'idver'
         }
@@ -103,7 +99,6 @@ export class CustomerSidepanel extends LitElement {
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
-        console.log("here is the query package", querypackage)
 
         this.shadowRoot.querySelector('#ajaxSearch').url = "/customer/search/" + this.profileid
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
@@ -111,7 +106,6 @@ export class CustomerSidepanel extends LitElement {
     }
 
     receiveQueryResults(response) {
-        console.log(response)
         this.dataarray = [];
         this.searched = response.detail.response.results
         this.responselist(response.detail.response.results, true)
@@ -119,10 +113,7 @@ export class CustomerSidepanel extends LitElement {
 
 
     setSearchOption(e) {
-        console.log('option XXXXXXXxxx', e.detail.id)
-        console.log('option', e)
         e.detail.id === "all" ? this.generateSearch(e, undefined, 'idver') : this.searchoption = e.detail.id
-        console.log(this.searchoption)
 
         if (e.detail) {
             this.generateSearch(e)

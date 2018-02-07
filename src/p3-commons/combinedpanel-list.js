@@ -153,13 +153,17 @@ export class CombinedpanelList extends LitElement {
         });
     }
     generateSearch(e, pass, retrieveAll) {
-        console.log(e)
+        let query
         if (e.detail) {
-            if (e.detail.keyCode !== 13 && e.detail.type == "keypress") {
+            if (e.detail.inputValue === "") {
+                retrieveAll = true;
+            } else if (e.keyCode !== 13 && e.type == "keyup") {
                 return
+            } else {
+                retrieveAll = false
             }
+            query = e.detail.inputValue;1231
         }
-        let query = e.detail.inputValue;
         if (retrieveAll) {
             query = ""
             this.searchoption = 'id'
@@ -170,7 +174,6 @@ export class CombinedpanelList extends LitElement {
             type: this.panelname.toLowerCase()
         }
 
-        console.log("here is the query package", querypackage)
         let spliturl = this.searchurl.split("/")
         this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
 
@@ -182,8 +185,7 @@ export class CombinedpanelList extends LitElement {
 
 
     setSearchOption(e) {
-        console.log(e)
-        e.path[0].id === "all" ? this.generateSearch(e, undefined, 'id') : this.searchoption = e.path[0].id
+        e.detail.id === "all" ? this.generateSearch(e, undefined, 'id') : this.searchoption = e.detail.id
 
         if (e.detail) {
             this.generateSearch(e)
@@ -211,7 +213,6 @@ export class CombinedpanelList extends LitElement {
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
     }
     populateObject(item) {
-        console.log(item)
         var customListener = "new" + this.panelname;
 
         var newObj = {}
@@ -226,10 +227,6 @@ export class CombinedpanelList extends LitElement {
 
         this.singleObject = {}
         this.singleObject = newObj
-
-        console.log("this.singleObject in populateObject", this.singleObject)
-
-        console.log("`${customListener}`", customListener)
 
         this.dispatchEvent(new CustomEvent(`${customListener}`, {
             composed: true,
@@ -476,46 +473,22 @@ export class CombinedpanelList extends LitElement {
         this.displaylist = displaylist
         this.fieldnamelist = fieldnamelist
         this.singleObject = {}
-        console.log("page", this.listpage, this.editpage, this.newpage)
-        console.log("here in this.panelname function combinedplist", this.panelname)
-        console.log("here in this.panelname function combinedplist", this.arrayvalues)
-        console.log("here in this.panelname function combinedplist", this.searchfields)
-        console.log("here in this.panelname function combinedplist", this.arrayvalues)
-
-        console.log("here in url function combinedplist", url)
-        console.log("here in populate function combinedplist", populate)
-        console.log("here in populate function combinedplist", populate)
 
         this.populate = populate
-        console.log(this.populate)
-
-
-        console.log("searchkeyindexes", this.searchkeyindexes)
-        console.log("searchkeyindexes", this.searchkeyindexes["searchkeyindex1"])
 
         this.searchoption = this.searchkeyindexes["searchkeyindex1"]
 
-
         var BElocation = this.panelname.toLowerCase()
-        console.log("BElocation asdfkjdashfkdas", BElocation)
-
 
         if (typeof url === 'string') this.url = url
         let baseurl = this.url.split("/")
-
-        console.log("BElocation asdfkjdashfkdas", baseurl)
-
-        console.log("her would be the baseYURL", baseurl[5])
-
 
         if (baseurl[2] == "vendor") {
             this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
         } else if (baseurl[2] = "customer") {
             this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
 
-            console.log("this.searchurl in open", this.searchurl)
         }
-        console.log("here right before generate earch is called... SEARCHURL", this.searchurl)
         this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
         this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
         this.shadowRoot.querySelector('#ajaxList').generateRequest()
@@ -602,7 +575,6 @@ export class CombinedpanelList extends LitElement {
         }
 
         //no match record
-        console.log("this model", this.model.length)
         if (this.model.length == 0 && !this.shadowRoot.getElementById('noMatchesError')) {
             var error = document.createElement("div")
             error.textContent = "No matching results"
@@ -1031,7 +1003,6 @@ export class CombinedpanelList extends LitElement {
         } else {
             document.querySelector('#toast').text = "Saved successfully.";
             document.querySelector('#toast').show();
-            console.log(this.singleObject.fieldvalue1 = this.shadowRoot.querySelector('#editfieldvalue1').value)
             this.shadowRoot.querySelector('#ajaxList').generateRequest()
             this.listpage = false;
             this.editpage = true;

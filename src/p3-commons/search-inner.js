@@ -25,7 +25,6 @@ export class SearchInner extends LitElement {
     }
 
     generateSearch(e) {
-        console.log(e)
         this.dispatchEvent(new CustomEvent("selectedInnerSearchOption", {
             bubbles: true,
             composed: true,
@@ -39,8 +38,6 @@ export class SearchInner extends LitElement {
     }
 
     setSearchOption(e) {
-        console.log(e)
-        console.log(this.shadowRoot.querySelector('input[name="searchoptions"]:checked').id)
         this.dispatchEvent(new CustomEvent("selectedSearchOption", {
             bubbles: true,
             composed: true,
