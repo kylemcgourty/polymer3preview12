@@ -618,26 +618,15 @@
         }
 
         togglecheckbox() {
-            console.log("here", this.checkBoxChecker)
             this.checkBoxChecker ? this.checkBoxChecker = false : this.checkBoxChecker = true
-            console.log("here", this.checkBoxChecker)
 
         }
 
         updateIL(liIndex) {
 
-
-            // var lineitem = e.detail.item;
-            // var idver = e.detail.model.so.idver;
-            // this.set('model.idver', idver);
-            // this.set('model.lineitems.' + this.lineitemIndex, lineitem)
-            // this.model = {};
-            // this.set('model', e.detail.model.so)
-            // this.set('model.changelist', true)
-            // this.setModel(e.detail.model.so)
+   
 
             if (typeof liIndex == "number") {
-                console.log('the liIndex', liIndex)
                 let ind = liIndex + 1
                 let nodes = this.shadowRoot.querySelector('#serials-' + ind).classList
                 let classlist = [...nodes]

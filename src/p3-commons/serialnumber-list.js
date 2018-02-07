@@ -78,9 +78,11 @@ export class SerialNumberList extends LitElement {
 
     }
 
-    remove(e) {
-        var index = e.model.index;
-        this.set('serials.' + index + '.sn', "")
+    removeSN(item) {
+        console.log('removed called', item)
+        var index = item.id;
+        this.serials[index].sn= ""
+        render(this.serialshtml(this.serials), this.shadowRoot.querySelector('#table'))
     }
 
     save() {
@@ -105,14 +107,16 @@ export class SerialNumberList extends LitElement {
 
         console.log('save called', this.launch, this.piece.serials)
 
-        this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
+        return
+
     }
 
     gotstarter(item) {
         var fromMA = document.querySelector('defie-menu');
-        fromMA.addEventListener(this.starter, function() {
-            this.save();
-        }.bind(this));
+        fromMA.addEventListener(this.starter, () => {
+            this.save()
+            this.dispatchEvent(new CustomEvent(this.launch, { bubbles: true, composed: true }))
+        });
     }
 
     ready() {
@@ -122,7 +126,7 @@ export class SerialNumberList extends LitElement {
     }
 
     addSN() {
-           const serials = data => {
+           this.serialshtml = data => {
 
             return html`
             <div>
@@ -132,7 +136,7 @@ export class SerialNumberList extends LitElement {
                  item => html`
                     <div id$="holder${item.id}" class="my-content"><span class="col-xs-3">${this.computeIndex(item.id)}</span><span class="col-xs-9 text-right">
                     <input class="input1" id$="input${item.id}" value="${item.sn}" >
-                   </span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap="remove"></iron-icon></span></div>
+                   </span><span class="icon-holder"><iron-icon icon="icons:close" class="icon-padding" on-tap=${()=> this.removeSN(item)}></iron-icon></span></div>
                           `
                  )}
             </div>`;
@@ -140,7 +144,7 @@ export class SerialNumberList extends LitElement {
 
 
 
-                render(serials(this.serials), this.shadowRoot.querySelector('#table'))
+                render(this.serialshtml(this.serials), this.shadowRoot.querySelector('#table'))
 
     }
 
