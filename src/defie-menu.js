@@ -22,6 +22,7 @@ import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js'
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js'
 import '../node_modules/@polymer/iron-icon/iron-icon.js'
 import '../node_modules/@polymer/iron-icons/iron-icons.js'
+import '../node_modules/@polymer/iron-icons/editor-icons.js'
 import '../node_modules/@polymer/iron-image/iron-image.js'
 import '../node_modules/@polymer/iron-input/iron-input.js'
 import '../node_modules/@polymer/iron-list/iron-list.js'
@@ -835,7 +836,7 @@ export class DefieMenu extends PolymerElement {
         this.set('leftservices', e.detail.services)
         this.getSetting(sessionStorage.getItem("PR"))
 
-        // this.$.serviceajax.generateRequest();
+        this.$.serviceajax.generateRequest();
     }
 
 
@@ -974,7 +975,7 @@ export class DefieMenu extends PolymerElement {
 
         // // this.$.serviceajax.url = "/api/user/services/" + ur
         // this.$.serviceajax.generateRequest()
-        // this.showMenu = true;
+        this.showMenu = true;
 
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {

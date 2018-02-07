@@ -4,39 +4,11 @@ import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-import '../../src/p3-commons/search-innerpart.js'
+import '../../src/p3-commons/search-inner.js'
 
 export class CustomerSidepanel extends LitElement {
     static get properties() {
         return {
-            searchfields: {
-                type: Object,
-                notify: true,
-                reflectToAttribute: true,
-                value: function() {
-                    return {
-                    }
-                }
-            },
-            searchkeyindexes: {
-                type: Object,
-                notify: true,
-                reflectToAttribute: true,
-                value: function() {
-                    return {
-                    }
-                }
-            },
-            searchdisplay: {
-                type: Object,
-                notify: true,
-                reflectToAttribute: true,
-                value: function() {
-                    return {
-                        display: "block",
-                    }
-                }
-            },
             status: {
                 type: Boolean,
                 value: true
@@ -58,7 +30,7 @@ export class CustomerSidepanel extends LitElement {
 
     selectCustomer(e) {
         console.log('here is e', e);
-        var customer = e.model.item;
+        var customer = e;
         var company = customer.companyname;
         var customerid = customer.id;
         this.dispatchEvent(new CustomEvent('CustomerEvent', {
@@ -80,34 +52,44 @@ export class CustomerSidepanel extends LitElement {
     }
 
     open() {
+        this.searchfields = {}
         this.searchfields.searchfield1 = "Customer id"
         this.searchfields.searchfield2 = "Company"
         this.searchfields.searchfield3 = "Address"
         this.searchfields.searchfield4 = "Contact"
 
+        this.searchkeyindexes = {}
         this.searchkeyindexes.searchkeyindex1 = "idver"
         this.searchkeyindexes.searchkeyindex2 = "b_name_l"
         this.searchkeyindexes.searchkeyindex3 = "f_address_l"
         this.searchkeyindexes.searchkeyindex4 = "f_contact_l"
 
+        this.searchdisplay = {}
         this.searchdisplay.display = "block"
 
         this.generateSearch(false, false, true)
     }
-
+    ready(){
+        super.ready();
+        this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
+            this.generateSearch(e);
+        });
+        this.shadowRoot.addEventListener('selectedSearchOption', e => {
+            this.setSearchOption(e);
+        });
+    }
     generateSearch(e, pass, retrieveAll) {
-
-        console.log("this.searcheoption", this.searchoption)
-
-        if (e) {
-            if (this.$.searchQuery.value === "") {
+       let query
+        console.log(e)
+        if (e.detail) {
+            if (e.detail.inputValue === "") {
                 retrieveAll = true;
 
             } else if (e.keyCode !== 13 && e.type == "keyup") {
                 return
             }
+            query = e.detail.inputValue;
         }
-        let query = e.detail.inputValue;
         if (retrieveAll) {
             console.log("inside retriveall")
             query = ""
@@ -139,7 +121,7 @@ export class CustomerSidepanel extends LitElement {
         e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
 
         if (this.$.searchQuery.value) {
-            this.generateSearch()
+            this.generateSearch(e)
         }
     }
 
@@ -151,6 +133,7 @@ export class CustomerSidepanel extends LitElement {
     responselist(data, fromquery) {
         if (fromquery) {
             this.data = data
+            console.log(this.data)
 
             const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
                 return html ` 
@@ -164,7 +147,7 @@ export class CustomerSidepanel extends LitElement {
                     </div>
                 </div>
                 <div id="container" class="table-padding">
-                     <search-innerpart searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-innerpart>
+                     <search-inner searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-inner>
                      ${repeat (
                         items,
                         item => item.id,
@@ -269,7 +252,7 @@ export class CustomerSidepanel extends LitElement {
                    `;
             }
 
-            render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.querySelector('#listpage'))
+            render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.querySelector('#customerpanel'))
 
         }
     }
