@@ -1,13 +1,14 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
+ import { Element as PolymerElement }
+ from '../../node_modules/@polymer/polymer/polymer-element.js'
 
-  
-   export class AdminTermPanel extends PolymerElement {
+        
+
+ export  class AdminCreditMethodPanel extends PolymerElement {
+     
 
         static get template() {
-        return `
-          <style include="iron-flex iron-flex-alignment">
-       :host {
+        return `<style include="iron-flex iron-flex-alignment">
+        :host {
             display: block;
         }
         
@@ -51,10 +52,10 @@ import {Element as PolymerElement}
         
         .my-content {
             display: block;
+            min-height: 24px;
             position: relative;
             word-wrap: break-word;
-            font-size: 13px;
-            height: 22px;
+            font-size: 14px;
         }
         
         .right {
@@ -200,7 +201,7 @@ import {Element as PolymerElement}
         }
         
         [data-adminoff="superuser"] {
-            display: none!important;
+            display: none;
         }
         
         .admin1 {
@@ -214,7 +215,7 @@ import {Element as PolymerElement}
             /*margin-right: 18px;*/
         }
 
-        #paperToggle {
+                #paperToggle {
             min-height: 40px;
             min-width: 40px;
         }
@@ -321,31 +322,32 @@ import {Element as PolymerElement}
         }
         
         .i-input {
-                 width: 71%;
-    margin-left: 13px;
+            width: 100%;
         }
 
-/*         #list {
+ /*         #list {
             width: 100%;
             flex: 1 1 auto;
-        }*/
-        
+        }
+        */
         iron-list {
-            /*flex: 1 1 auto;*/
+            /* flex: 1 1 auto; */
         }
         
         .spacer {
             /*margin-top: 2px;*/
         }
 
-           .manage {
+       .manage {
             color: blue;
             width: 100%;
             margin-bottom: 10px;
             text-align: right;
         }
+
+        
         </style>
-        <div class="title-rightpaneldraw"> Term </div>
+        <div class="title-rightpaneldraw"> Credit Method </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap="close">Close</span>
@@ -353,21 +355,18 @@ import {Element as PolymerElement}
             </div>
         </div>
         <div class="table-padding">
-            <div class="layout horizontal">
-                <paper-icon-button on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add" style="display: none">
-                </paper-icon-button>
-                <paper-icon-button on-tap="add" class="add-icon admin" data-adminoff$="[[admin]] icon="icons:add" style="display: none"></paper-icon-button>
-            
+            <div class="layout horizontal end">
+                <paper-icon-button style="display: none" on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add"></paper-icon-button>
+                <paper-icon-button style="display: none" on-tap="add" class="add-icon admin" data-adminoff$="[[admin]]" icon="icons:add"></paper-icon-button>
             </div>
             <iron-list items="[[data]]" scroll-target="document">
                 <template>
                     <div>
                         <div class="layout horizontal">
-                            <span> Net (days) </span>
-                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
+                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="creditmethod" on-tap="openChoice" bind-value="{{item.creditmethod}}">
                                 <input disabled class="input">
                             </iron-input>
-                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
+                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="creditmethod" on-tap="openChoice" bind-value="{{item.creditmethod}}">
                                 <input class="input">
                             </iron-input>
                             <div class="admin" data-admin$="[[admin]]">
@@ -387,7 +386,7 @@ import {Element as PolymerElement}
         <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>`
     }
-      
+
         static get properties() {
 
             return {
@@ -407,7 +406,7 @@ import {Element as PolymerElement}
                     type: String,
                     reflectToAttribute: true,
                     notify: true,
-                },
+                }
             }
         }
         static get observers() {
@@ -416,12 +415,10 @@ import {Element as PolymerElement}
 
           submit() {
 
-            console.log("inside submit")
-
             if (this.data) {
                 let str = ""
                 this.data.forEach(function(val, index) {
-                    str = str + val.term + ","
+                    str = str + val.creditmethod + ","
                 })
                 this.set('savemodel', str)
             }
@@ -431,38 +428,24 @@ import {Element as PolymerElement}
             this.$.ajaxSubmit.generateRequest();
         }
         responseSubmit(request) {
-
-            console.log("in resoinse sybmit...", request.detail.response)
-
             var auth = request.detail.response.auth
 
-            console.log("the auth", auth)
+
             if (auth){
-                 document.querySelector('#toast').text = 'Saved successfully.';
+
+               document.querySelector('#toast').text = 'Saved successfully.';
                 document.querySelector('#toast').show();
-                console.log("inside ifauth obvi", this)
+
                 this.close();
             }
         }
         open(branchname) {
 
-            // if (this.lock == true) {
-            //     this.set('admin', "")
-            //     this.set("lock", false)
-            //     this.updateStyles();
-
-            // }
-            // if (this.admin == "superuser") {
-            //     this.lock = true
-            // }
             if (branchname == "customer"){
-                this.typemodel = "custterms"
+                this.typemodel = "custcreditmethods"
             } else if (branchname == "vendor"){
-                this.typemodel = "vendterms"
-            } else if (branchname == "profile"){
-                this.typemodel = "profileterms"
+                this.typemodel = "vendcreditmethods"
             }
-
 
             this.$.ajaxOption.url = "/optionsetting/option/"+this.typemodel;
             this.$.ajaxOption.body = JSON.stringify(this.model);
@@ -479,39 +462,39 @@ import {Element as PolymerElement}
 
                 data.forEach(function(item, index) {
                     this.push('data', {
-                        term: item
+                        creditmethod: item
                     })
                 }.bind(this))
 
             } else {
                 this.data = [{
-                    term: "0"
+                    creditmethod: "Refund"
                 }, {
-                    term: "1"
+                    creditmethod: "Open Credit"
                 }, {
-                    term: "30"
+                    creditmethod: "Exchange"
                 }, {
-                    term: "60"
+                    creditmethod: "Repair"
                 }]
             }
         }
 
         add() {
             this.push('data', {
-                term: ""
+                creditmethod: ""
             })
         }
 
         openChoice(e) {
 
-            let choice = e.model.item.term
+            let choice = e.model.item.creditmethod
 
-            this.dispatchEvent(new CustomEvent('term', {
+            this.dispatchEvent(new CustomEvent('creditmethod', {
                 bubbles: true,
                 composed: true,
                 detail: {
                     item: choice,
-                    terms: this.data
+                    creditmethods: this.data
                 }
 
 
@@ -541,5 +524,5 @@ import {Element as PolymerElement}
 
 
     }
-    customElements.define('adminterm-panel', AdminTermPanel);
+customElements.define('admincreditmethod-panel', AdminCreditMethodPanel);
 

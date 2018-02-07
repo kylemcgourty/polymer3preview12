@@ -3,11 +3,17 @@ import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js
 import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
 import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
 
-export class AdminPartTypePanel extends LitElement {
+export class AdminOptionDictionary extends LitElement {
 
     static get properties() {
 
         return {
+            title: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+                value: "",
+            },
             typemodel: {
                 type: String,
                 reflectToAttribute: true,
@@ -19,6 +25,12 @@ export class AdminPartTypePanel extends LitElement {
                 reflectToAttribute: true,
                 notify: true,
                 value: "",
+            },
+            fireevent: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+                value: "",  
             },
             admin: {
                 type: String,
@@ -58,13 +70,10 @@ export class AdminPartTypePanel extends LitElement {
             this.close();
         }
     }
-    open(type) {
+    open() {
         this.admin = 'superuser';
-
-        this.type= "ptypes"
-         
-        this.typemodel = type;
-        this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+type;
+        
+        this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+this.typemodel;
         this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
         this.shadowRoot.querySelector('#ajaxOption').generateRequest();
     }
@@ -79,23 +88,24 @@ export class AdminPartTypePanel extends LitElement {
 
                 data.forEach(function(item, index) {
                     this.data.push({
-                        type: item
+                        word: item
                     })
                 }.bind(this))
             } else {
-                this.data = [{
-                    type: "Spare"
-                }, {
-                    type: "Component"
-                }, {
-                    type: "Product"
-                }, {
-                    type: "Others"
-                }]
+                this.data = defaultData();
             }
 
 
             this.renderItems();
+        }
+    }
+    defaultData() {
+
+        let data = [];
+
+        switch (this.typemodel) {
+            case "ptypes": data = [{word: "Spare"}, {word: "Component"}, {word: "Product"}, {word: "Others"}]; break;
+            default: data = [];
         }
     }
 
@@ -114,7 +124,7 @@ export class AdminPartTypePanel extends LitElement {
                  item => item.id,
                  item => html`
                             <div class="layout horizontal">
-                                <input disabled=${!item.editable} class="col-xs-9 i-input input" id$="input${item.id}" value="${item.type}" on-tap="${() =>this.openChoice(item)}">
+                                <input disabled=${!item.editable} class="col-xs-9 i-input input" id$="input${item.id}" value="${item.word}" on-tap="${() =>this.openChoice(item)}">
                                 <paper-icon-button on-tap="${() => this.remove(item)}" class="remove-icons" icon="icons:close"></paper-icon-button>
                             </div>
                           `
@@ -133,7 +143,7 @@ export class AdminPartTypePanel extends LitElement {
     add() {
         this.data.push({
             id: this.data.length,
-            type: "",
+            word: "",
             editable: true
         })
 
@@ -142,11 +152,11 @@ export class AdminPartTypePanel extends LitElement {
 
     openChoice(selection) {
 
-        this.dispatchEvent(new CustomEvent('parttype', {
+        this.dispatchEvent(new CustomEvent(this.fireevent, {
             bubbles: true,
             composed: true,
             detail: {
-                item: selection.type,
+                item: selection.word,
                 types: this.data
             }
 
@@ -173,7 +183,7 @@ export class AdminPartTypePanel extends LitElement {
         this.renderItems();
     }
 
-    render({admin}) {
+    render({admin, title}) {
 
         return html`
 
@@ -499,7 +509,7 @@ export class AdminPartTypePanel extends LitElement {
             text-align: right;
         }
         </style>
-        <div class="title-rightpaneldraw"> Type </div>
+        <div class="title-rightpaneldraw"> ${this.title} </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap=${this.close.bind(this)}>Close</span>
@@ -525,22 +535,4 @@ export class AdminPartTypePanel extends LitElement {
 
     }
 }
-customElements.define("adminparttype-panel", AdminPartTypePanel);
-
-// <iron-list items="[[data]]" scroll-target="document">
-//                 <template>
-//                     <div>
-//                         <div class="layout horizontal">
-//                             <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-//                                 <input disabled class="input">
-//                             </iron-input>
-//                             <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.type}}">
-//                                 <input class="input">
-//                             </iron-input>
-//                             <div class="admin" data-admin$="[[admin]]">
-//                                 <paper-icon-button on-tap="remove" class="remove-icons" icon="icons:close"></paper-icon-button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </template>
-//             </iron-list>
+customElements.define("adminoption-dictionary", AdminOptionDictionary);

@@ -1,13 +1,13 @@
-import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
+ import { Element as PolymerElement }
+ from '../../node_modules/@polymer/polymer/polymer-element.js'
 
-  
-   export class AdminTermPanel extends PolymerElement {
+ export class SettingsPanel extends PolymerElement {
 
-        static get template() {
-        return `
-          <style include="iron-flex iron-flex-alignment">
-       :host {
+
+     static get template() {
+         return `
+        <style include="iron-flex iron-flex-alignment">
+        :host {
             display: block;
         }
         
@@ -54,7 +54,6 @@ import {Element as PolymerElement}
             position: relative;
             word-wrap: break-word;
             font-size: 13px;
-            height: 22px;
         }
         
         .right {
@@ -211,7 +210,6 @@ import {Element as PolymerElement}
             width: 100%;
             text-align: right;
             margin-top: 17px;
-            /*margin-right: 18px;*/
         }
 
         #paperToggle {
@@ -243,8 +241,6 @@ import {Element as PolymerElement}
         .col-xs-12 {
             position: relative;
             min-height: 1px;
-            /*        padding-left: 15px;
-        padding-right: 15px;*/
         }
         
         .table-padding {
@@ -264,7 +260,6 @@ import {Element as PolymerElement}
         
         .button {
             margin-top: 24px;
-            /*margin-right: 16px;*/
         }
         
         .title-rightpaneldraw {
@@ -298,12 +293,10 @@ import {Element as PolymerElement}
         }
         
         .input {
-            /*min-height: 24px;*/
             text-align: initial;
             border: none;
+            color:blue;
             background-color: #eee;
-            /*border-color: #eee;*/
-            /*border-bottom: 1px solid rgba(155, 155, 155, 0.5);*/
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
             width: 100%;
         }
@@ -321,21 +314,13 @@ import {Element as PolymerElement}
         }
         
         .i-input {
-                 width: 71%;
-    margin-left: 13px;
-        }
-
-/*         #list {
             width: 100%;
-            flex: 1 1 auto;
-        }*/
+        }
         
         iron-list {
-            /*flex: 1 1 auto;*/
         }
         
         .spacer {
-            /*margin-top: 2px;*/
         }
 
            .manage {
@@ -345,7 +330,7 @@ import {Element as PolymerElement}
             text-align: right;
         }
         </style>
-        <div class="title-rightpaneldraw"> Term </div>
+        <div class="title-rightpaneldraw"> {{panelVersion}} </div>
         <div style="background-color: #e6e6e6;">
             <div class="close-interface">
                 <span on-tap="close">Close</span>
@@ -354,192 +339,198 @@ import {Element as PolymerElement}
         </div>
         <div class="table-padding">
             <div class="layout horizontal">
-                <paper-icon-button on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add" style="display: none">
-                </paper-icon-button>
-                <paper-icon-button on-tap="add" class="add-icon admin" data-adminoff$="[[admin]] icon="icons:add" style="display: none"></paper-icon-button>
-            
             </div>
             <iron-list items="[[data]]" scroll-target="document">
                 <template>
                     <div>
                         <div class="layout horizontal">
-                            <span> Net (days) </span>
-                            <iron-input class="col-xs-9 i-input" data-adminoff$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
+                            <iron-input class="col-xs-9 i-input" id="datapoint" on-tap="openChoice" bind-value="{{item.datapoint}}">
                                 <input disabled class="input">
                             </iron-input>
-                            <iron-input class="col-xs-9 i-input admin1" data-admin$="[[admin]]" id="term" on-tap="openChoice" bind-value="{{item.term}}">
-                                <input class="input">
-                            </iron-input>
-                            <div class="admin" data-admin$="[[admin]]">
-                                <paper-icon-button on-tap="remove" class="remove-icons" icon="icons:close"></paper-icon-button>
-                            </div>
                         </div>
                     </div>
                 </template>
             </iron-list>
-            <div>
-                <div class="layout horizontal end">
-                    <div class="submit button-row col-xs-9 admin" data-admin$="[[admin]]">
-                        <paper-button class="button main-button" on-tap="submit" raised>Submit</paper-button>
-                    </div>
-                </div>
-            </div>
         <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response="responseOption" content-type="application/json"></iron-ajax>
-        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>`
-    }
-      
-        static get properties() {
+        <iron-ajax id="ajaxSubmit" method="POST" handle-as="json" on-response="responseSubmit" content-type="application/json"></iron-ajax>
+    `
+     }
 
-            return {
-                typemodel: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: "",
-                },
-                savemodel: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: "",
-                },
-                admin: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                },
-            }
-        }
-        static get observers() {
-            return []
-        }
+     static get properties() {
 
-          submit() {
+         return {
+             typemodel: {
+                 type: String,
+                 reflectToAttribute: true,
+                 notify: true,
+                 value: "",
+             },
+             savemodel: {
+                 type: String,
+                 reflectToAttribute: true,
+                 notify: true,
+                 value: "",
+             },
+             admin: {
+                 type: String,
+                 reflectToAttribute: true,
+                 notify: true,
+             },
+             branchname: {
+                 type: String,
+                 reflectToAttribute: true,
+                 notify: true,
+             },
+             panelVersion: {
+                 type: String,
+                 reflectToAttribute: true,
+                 notify: true,
+             },
+             caller: {
+                 type: Number,
+                 reflectToAttribute: true,
+                 notify: true,
+             },
+         }
+     }
+     static get observers() {
+         return []
+     }
 
-            console.log("inside submit")
+     submit() {
 
-            if (this.data) {
-                let str = ""
-                this.data.forEach(function(val, index) {
-                    str = str + val.term + ","
-                })
-                this.set('savemodel', str)
-            }
-            this.$.ajaxSubmit.url = "/optionsetting/option/"+this.typemodel;
-            this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
 
-            this.$.ajaxSubmit.generateRequest();
-        }
-        responseSubmit(request) {
+         if (this.data) {
+             let str = ""
+             this.data.forEach(function(val, index) {
+                 str = str + val.datapoint + ","
+             })
+             this.set('savemodel', str)
+         }
+         this.$.ajaxSubmit.url = "/optionsetting/option/" + this.typemodel;
+         this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
 
-            console.log("in resoinse sybmit...", request.detail.response)
-
-            var auth = request.detail.response.auth
-
-            console.log("the auth", auth)
-            if (auth){
-                 document.querySelector('#toast').text = 'Saved successfully.';
+         this.$.ajaxSubmit.generateRequest();
+     }
+     responseSubmit(request) {
+         var auth = request.detail.response.auth
+         if (auth) {
+             document.querySelector('#toast').text = 'Saved successfully.';
                 document.querySelector('#toast').show();
-                console.log("inside ifauth obvi", this)
-                this.close();
-            }
-        }
-        open(branchname) {
+             this.close();
+         }
+     }
+     open(panelVersion, settingoption) {
+         console.log("inside setting panel", settingoption)
+         
+             this.data = [];
+             settingoption = settingoption.split(",")
+             settingoption = settingoption.map((item) => {return item.trim()})
+             this.branchname = "";
+             console.log("before split", settingoption)
 
-            // if (this.lock == true) {
-            //     this.set('admin', "")
-            //     this.set("lock", false)
-            //     this.updateStyles();
+             if (settingoption[0] == "cust") {
+                 this.branchname = "customer"
+                  settingoption.splice(0, 1)
+             } else if (settingoption[0] == "vend") {
+                 this.branchname = "vendor"
+                 settingoption.splice(0, 1)
+             } else if (settingoption[0] == "profile") {
+                 this.branchname = "profile"
+                 settingoption.splice(0, 1)
+             } else{
+                 this.branchname = "individual"
+             }
 
-            // }
-            // if (this.admin == "superuser") {
-            //     this.lock = true
-            // }
-            if (branchname == "customer"){
-                this.typemodel = "custterms"
-            } else if (branchname == "vendor"){
-                this.typemodel = "vendterms"
-            } else if (branchname == "profile"){
-                this.typemodel = "profileterms"
-            }
-
-
-            this.$.ajaxOption.url = "/optionsetting/option/"+this.typemodel;
-            this.$.ajaxOption.body = JSON.stringify(this.model);
-            this.$.ajaxOption.generateRequest();
-        }
-        responseOption(request) {
-            var data = request.detail.response.results
-
-            if (data != "") {
-                this.data = [];
-                data = data.split(",")
-                data = data.slice(0, -1)
-
-
-                data.forEach(function(item, index) {
-                    this.push('data', {
-                        term: item
-                    })
-                }.bind(this))
-
-            } else {
-                this.data = [{
-                    term: "0"
-                }, {
-                    term: "1"
-                }, {
-                    term: "30"
-                }, {
-                    term: "60"
-                }]
-            }
-        }
-
-        add() {
-            this.push('data', {
-                term: ""
-            })
-        }
-
-        openChoice(e) {
-
-            let choice = e.model.item.term
-
-            this.dispatchEvent(new CustomEvent('term', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    item: choice,
-                    terms: this.data
-                }
+             settingoption.forEach(function(item, index) {
+                 this.push('data', {
+                     datapoint: item
+                 })
+             }.bind(this))
+         
+         this.set('panelVersion', panelVersion)
+     }
+     responseOption(request) {
 
 
+         var data = request.detail.response.results
 
-            }))
-        }
-        toSignIn() {
-
-            this.dispatchEvent(new CustomEvent('toSignIn', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
-
-        remove(e) {
-
-            this.splice('data', e.model.index, 1)
-
-        }
+         if (data != "") {
+             this.data = [];
+             data = data.split(",")
+             data = data.slice(0, -1)
 
 
-    }
-    customElements.define('adminterm-panel', AdminTermPanel);
+             data.forEach(function(item, index) {
+                 this.push('data', {
+                     datapoint: item
+                 })
+             }.bind(this))
 
+         } else if (this.panelVersion === 'Roles') {
+             this.data = [{
+                 datapoint: "Super Admin"
+             }, {
+                 datapoint: "Group Admin"
+             }, {
+                 datapoint: "User"
+             }]
+         } else if (this.panelVersion === 'Privileges') {
+             this.data = [{
+                 datapoint: "Full"
+             }, {
+                 datapoint: "View"
+             }]
+         } else if (this.panelVersion === 'Type') {
+             this.data = [{
+                 datapoint: "SAAS"
+             }, {
+                 datapoint: "Self-Host"
+             }, {
+                 datapoint: "Cloud Provider"
+             }]
+         }
+     }
+
+     add() {
+         this.push('data', {
+             datapoint: ""
+         })
+     }
+
+     openChoice(e) {
+         console.log(e)
+         let choice = e.model.item.datapoint
+
+         this.dispatchEvent(new CustomEvent('panelOption', {
+             bubbles: true,
+             composed: true,
+             detail: {
+                 item: choice,
+                 datapoint: this.data,
+                 branchname: this.branchname,
+             }
+         }))
+     }
+     toSignIn() {
+
+         this.dispatchEvent(new CustomEvent('toSignIn', {
+             bubbles: true,
+             composed: true
+         }))
+     }
+
+     close() {
+         this.dispatchEvent(new CustomEvent('closePanel', {
+             bubbles: true,
+             composed: true
+         }))
+     }
+
+     remove(e) {
+
+         this.splice('data', e.model.index, 1)
+
+     }
+ }
+ customElements.define('settings-panel', SettingsPanel);
