@@ -89,7 +89,7 @@ export class CustomerSidepanel extends LitElement {
             }
             query = e.detail.inputValue;
         }
-        
+
         if (retrieveAll) {
             query = ""
             this.searchoption = 'idver'
@@ -191,7 +191,7 @@ export class CustomerSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">City</div>
+                                        <div class="col-xs-3">City:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item.billing.city }">
@@ -199,7 +199,7 @@ export class CustomerSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">State</div>
+                                        <div class="col-xs-3">State:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item.billing.state }">
