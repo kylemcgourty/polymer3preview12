@@ -78,6 +78,8 @@ export class OptionDictionary extends LitElement {
 
         let data = [];
 
+        console.log("Getting defaults for ", this.typemodel);
+
         switch (this.typemodel) {
             case "ptypes": data = [{word: "Spare"}, {word: "Component"}, {word: "Product"}, {word: "Others"}]; break;
             case "custcategories":
@@ -108,8 +110,11 @@ export class OptionDictionary extends LitElement {
             case "vendservices": data = [{word: "Platinum"}, {word: "Gold"}, {word: "Silver"}, {word: "Bronze"}]; break;
             case "departments": data = [{word: "Human Resources"}, {word: "Engineering"}, {word: "Sales"}]; break;
             case "groups": data = [{word: "Sales"}, {word: "Engineering"}, {word: "Accounting"}]; break;
+            case "custterms": data = [{word: "COD"}, {word: "Net 1"}, {word: "Net 30"}, {word: "Net 60"}]; break;
             default: data = [];
         }
+
+        console.log("Defaults is ", data);
 
         return data;
     }
@@ -129,7 +134,7 @@ export class OptionDictionary extends LitElement {
                  item => item.id,
                  item => html`
                             <div class="layout horizontal">
-                                <input disabled class="col-xs-9 i-input input" id$="input${item.id}" value="${item.word}" on-tap="${() =>this.openChoice(item)}>
+                                <input disabled class="col-xs-9 i-input input" id$="input${item.id}" value="${item.word}" on-tap="${() =>this.openChoice(item)}">
                             </div>
                           `
                  )}
@@ -203,6 +208,7 @@ export class OptionDictionary extends LitElement {
             background-color: #eee;
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
             width: 100%;
+            cursor: pointer;
         }
         
         .col-xs-9 {
@@ -472,6 +478,7 @@ export class OptionDictionary extends LitElement {
         <div class="table-padding">
             <div id="table">
             </div>
+        </div>
         <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
         `
 
