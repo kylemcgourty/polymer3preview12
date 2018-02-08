@@ -32,6 +32,49 @@ export class OptionDictionary extends LitElement {
     constructor() {
         super()
         this.data = [];
+
+        this.link2typemodel = {
+                        "/partnumber-new": "status2values",
+                        "/partnumbers": "status2values",
+                        "/customer-new": "status2values",
+                        "/customers": "status2values",
+                        "/vendor-new": "status2values",
+                        "/vendors": "status2values",
+                        "/quote-new": "status2values",
+                        "/quotes": "status2values",
+                        "/salesorder-new": "status4values",
+                        "/salesorders": "status4values",
+                        "/invoice-new": "empty",
+                        "/invoices": "empty",
+                        "/returnso-new": "status4values",
+                        "/returnsos": "status4values",
+                        "/creditmemo-new": "empty",
+                        "/creditmemos": "empty",
+                        "/customerreceiverma-new": "status4values",
+                        "/customerreceivermas": "status4values",
+                        "/customershiprma-new": "status4values",
+                        "/customershiprmas": "status4values",
+                        "/customerrma-new": "status4values",
+                        "/customerrmas": "status4values",
+                        "/purchaseorder-new": "status4values",
+                        "/purchaseorders": "status4values",
+                        "/receivepo-new": "status4values",
+                        "/receivepos": "status4values",
+                        "/returnpo-new": "status4values",
+                        "/returnpos": "status4values",
+                        "/shipreturnpo-new": "empty",
+                        "/shipreturnpos": "empty",
+                        "/vendorreceiverma-new": "status4values",
+                        "/vendorreceivermas": "status4values",
+                        "/vendorshiprma-new": "status4values",
+                        "/vendorshiprmas": "status4values",
+                        "/vendorrma-new": "status4values",
+                        "/vendorrmas": "status4values",
+                        "/user-new": "status2values",
+                        "/users": "status2values",
+                        "/profile-new": "empty",
+                        "/profiles": "empty",
+                    };
     }
 
     open(props) {
@@ -39,6 +82,9 @@ export class OptionDictionary extends LitElement {
         if (props) {
             if (props.title) {
                 this.title = props.title;
+            }
+            if (props.link) {
+                this.typemodel = this.link2typemodel[props.link];
             }
             if (props.typemodel) {
                 this.typemodel = props.typemodel;
@@ -111,6 +157,7 @@ export class OptionDictionary extends LitElement {
             case "custterms": data = [{word: "COD"}, {word: "Net 1"}, {word: "Net 30"}, {word: "Net 60"}]; break;
             case "status4values": data = [{word: "Open"}, {word: "Partial"}, {word: "Closed"}, {word: "Void"}]; break;
             case "status2values": data = [{word: "Active"}, {word: "Inactive"}]; break;
+            case "empty": data = []; break;
             default: data = [];
         }
 
