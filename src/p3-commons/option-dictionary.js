@@ -78,8 +78,6 @@ export class OptionDictionary extends LitElement {
 
         let data = [];
 
-        console.log("Getting defaults for ", this.typemodel);
-
         switch (this.typemodel) {
             case "ptypes": data = [{word: "Spare"}, {word: "Component"}, {word: "Product"}, {word: "Others"}]; break;
             case "custcategories":
@@ -115,8 +113,6 @@ export class OptionDictionary extends LitElement {
             case "status2values": data = [{word: "Active"}, {word: "Inactive"}]; break;
             default: data = [];
         }
-
-        console.log("Defaults is ", data);
 
         return data;
     }
