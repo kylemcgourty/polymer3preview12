@@ -111,6 +111,8 @@ export class OptionDictionary extends LitElement {
             case "departments": data = [{word: "Human Resources"}, {word: "Engineering"}, {word: "Sales"}]; break;
             case "groups": data = [{word: "Sales"}, {word: "Engineering"}, {word: "Accounting"}]; break;
             case "custterms": data = [{word: "COD"}, {word: "Net 1"}, {word: "Net 30"}, {word: "Net 60"}]; break;
+            case "status4values": data = [{word: "Open"}, {word: "Partial"}, {word: "Closed"}, {word: "Void"}]; break;
+            case "status2values": data = [{word: "Active"}, {word: "Inactive"}]; break;
             default: data = [];
         }
 
