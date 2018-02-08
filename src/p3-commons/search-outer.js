@@ -2,7 +2,7 @@ import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-el
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js'
 
-export class SearchOutter extends LitElement {
+export class SearchOuter extends LitElement {
     static get properties() {
         return {
             checked: {
@@ -663,4 +663,4 @@ export class SearchOutter extends LitElement {
         </div>`
     }
 }
-customElements.define('search-outter', SearchOutter)
+customElements.define('search-outer', SearchOuter)
