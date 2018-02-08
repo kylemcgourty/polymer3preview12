@@ -276,24 +276,92 @@
                        // this.set('customerlist.'+ (length-1) + '.visibility4', 'hidden')
                     }
 
-                // this.set('customerlist.0.visibility3', 'visible')
-                // this.set('customerlist.0.visibility2', 'hidden')
+    const customers = data => {
 
-                // this.set('data.0.visibility3', 'visible')
-                // this.set('data.0.visibility2', 'hidden')
+            return html`
+            <div>
+            ${repeat (
+                 data,
+                 item => item.id,
+                 item => html`
+                               <div>
+                                <div id=${item.id}} style="padding-bottom: 24px;">
+                                    <div class="my-content"></div>
+                                    <div class="row layout horizontal">
+                                        <!-- <div class="my-content"></div> -->
+                                        <div class="layout vertical" style="width: 100%">
+                                                <div class="my-content">
+                                                    <div class="col-xs-3b">First Name</div>
+                                                    <div class="text-right">
+                                                        <iron-input class="col-xs-9b" bind-value="${item.firstname}}">
+                                                            <input  disabled class="input">
+                                                            <paper-icon-button  class="right-icon4" style="visibility: ${item.visibility4}}" icon="icons:settings-overscan" on-tap="selectContact" id=${item.id}}></paper-icon-button>
+                                                            <paper-icon-button style="visibility: ${item.visibility3}}" class="right-icon3" icon="create" on-tap="edit"></paper-icon-button>
+                                                            <paper-icon-button style="visibility: ${item.visibility2}}" class="right-icon2" icon="icons:close" on-tap="delete" id=${item.id}}></paper-icon-button>
+                                                        </iron-input>
+                                                    </div>
+                                                </div>
 
+                                                <div class="my-content">
+                                                    <div class="col-xs-3b">Last Name</div>
+                                                    <div class="text-right">
+                                                        <iron-input class="col-xs-9b" bind-value="${item.lastname}}">
+                                                            <input  disabled class="input">
+                                                        </iron-input>
+                                                    </div>
+                                                </div>
+                                                <div class="my-content">
+                                                    <div class="col-xs-3b">Title</div>
+                                                    <div class="text-right">
+                                                        <iron-input class="col-xs-9b" bind-value="${item.title}}">
+                                                            <input  disabled class="input">
+                                                        </iron-input>
+                                                    </div>
+                                                </div>
+                                                <div class="my-content">
+                                                    <div class="col-xs-3b">Email</div>
+                                                    <div class="text-right">
+                                                        <iron-input class="col-xs-9b" bind-value="${item.email}}">
+                                                            <input  disabled class="input">
+                                                        </iron-input>
+                                                    </div>
+                                                </div>
+                                                <div class="my-content">
+                                                    <div class="col-xs-3b">Phone</div>
+                                                    <div class="text-right">
+                                                        <iron-input class="col-xs-9b" bind-value="${item.phone}}">
+                                                            <input  disabled class="input">
+                                                        </iron-input>
+                                                    </div>
+                                                </div>
+                                                <div class="my-content">
+                                                    <div class="col-xs-3b">Address</div>
+                                                    <div class="text-right">
+                                                        <iron-input class="col-xs-9b" bind-value="${item.address}}">
+                                                            <input  disabled class="input">
+                                                        </iron-input>
+                                                    </div>
+                                                </div>
+                                                <div class="my-content">
+                                                    <div class="col-xs-3b">Role</div>
+                                                    <div class="text-right">
+                                                        <iron-input class="col-xs-9b" bind-value="${item.role}}">
+                                                            <input  disabled class="input">
+                                                        </iron-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                          `
+                 )}
+            </div>`;
+        }
 
-                        //     this.shadowRoot.dispatchEvent(new CustomEvent('iron-resize', {
-                        //     bubbles: true,
-                        //     composed: true
-                        // }))
-
-                // if(e.detail.baseURI.split('/')[3] == "customers") {
-
-                //     this.model.map(function(x) {
-                //         x.visibility4 = 'hidden'
-                //     })
-                // }
+        render(customers(this.data), this.shadowRoot.querySelector('.results-container'))
+               
+                
 
 
 
