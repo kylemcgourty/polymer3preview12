@@ -223,7 +223,7 @@
             this._email.ishtml = true
 
 
-            this._contact.name= "
+            this._contact.name= ""
             this._contact.address = ""
             this._contact.address1 = ""
             this._contact.address2 = ""

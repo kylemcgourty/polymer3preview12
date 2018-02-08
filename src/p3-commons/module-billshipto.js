@@ -1000,7 +1000,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">Company</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.companyname}" disabled="${this.disabledinput.bmodel1}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.companyname}" disabled="${this.disabledinput.bmodel1}">
                             </div>
                             <div id="${this.searchid.bmodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.bmodel1}">
 
@@ -1010,43 +1010,43 @@
                         <div class="my-content">
                             <div class="col-xs-3">Attention</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.attention}" disabled="${this.disabledinput.bmodel2}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.attention}" disabled="${this.disabledinput.bmodel2}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Street</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.street}" disabled="${this.disabledinput.bmodel3}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.street}" disabled="${this.disabledinput.bmodel3}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">City</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.city}" disabled="${this.disabledinput.bmodel4}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.city}" disabled="${this.disabledinput.bmodel4}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">State</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.state}" disabled="${this.disabledinput.bmodel5}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.state}" disabled="${this.disabledinput.bmodel5}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Zip Code</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.zipcode}" disabled="${this.disabledinput.bmodel6}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.zipcode}" disabled="${this.disabledinput.bmodel6}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Country</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.country}" disabled="${this.disabledinput.bmodel7}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.country}" disabled="${this.disabledinput.bmodel7}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Phone</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.bmodel.phone}" disabled="${this.disabledinput.bmodel8}">
+                                    <input class="input col-xs-9" value="${this.model.bmodel.phone}" disabled="${this.disabledinput.bmodel8}">
                             </div>
                         </div>
                     <div>
@@ -1069,7 +1069,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">Company</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.companyname}" disabled="${this.disabledinput.smodel1}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.companyname}" disabled="${this.disabledinput.smodel1}">
                                 <div id="${this.searchid.smodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.smodel1}">
                                     <paper-icon-button id="${this.searchid.smodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
                                 </div>
@@ -1078,43 +1078,43 @@
                         <div class="my-content">
                             <div class="col-xs-3">Attention</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.attention}" disabled="${this.disabledinput.smodel2}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.attention}" disabled="${this.disabledinput.smodel2}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Street</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.street}" disabled="${this.disabledinput.smodel3}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.street}" disabled="${this.disabledinput.smodel3}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">City</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.city}" disabled="${this.disabledinput.smodel4}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.city}" disabled="${this.disabledinput.smodel4}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">State</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.state}" disabled="${this.disabledinput.smodel5}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.state}" disabled="${this.disabledinput.smodel5}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Zip Code</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.zipcode}" disabled="${this.disabledinput.smodel6}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.zipcode}" disabled="${this.disabledinput.smodel6}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Country</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.country}" disabled="${this.disabledinput.smodel7}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.country}" disabled="${this.disabledinput.smodel7}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Phone</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.smodel.phone}" disabled="${this.disabledinput.smodel8}">
+                                    <input class="input col-xs-9" value="${this.model.smodel.phone}" disabled="${this.disabledinput.smodel8}">
                             </div>
                         </div>
                     </div>
@@ -1134,7 +1134,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info1}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.ainfovalues.ainfo1_value}" disabled="${this.disabledinput.ainfo1}">
+                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo1_value}" disabled="${this.disabledinput.ainfo1}">
                             </div>
                             <div id="${this.searchid.ainfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo1}">
                                 <paper-icon-button id="${this.searchid.ainfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1143,7 +1143,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info2}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.ainfovalues.ainfo2_value}" disabled="${this.disabledinput.ainfo2}">
+                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo2_value}" disabled="${this.disabledinput.ainfo2}">
                             </div>
                             <div id="${this.searchid.ainfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo2}">
                                 <paper-icon-button id="${this.searchid.ainfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1153,7 +1153,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info3}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
+                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
                             </div>
                             <div id="${this.searchid.ainfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo3}">
                                 <paper-icon-button id="${this.searchid.ainfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1163,7 +1163,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info4}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
+                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
                             </div>
                             <div id="${this.searchid.ainfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo4}">
                                 <paper-icon-button id="${this.searchid.ainfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1173,7 +1173,7 @@
                         <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
                             <div class="col-xs-3">${this.ainfo.info5}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
+                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
                             </div>
                             <div id="${this.searchid.ainfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo5}">
                                 <paper-icon-button id="${this.searchid.ainfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1195,7 +1195,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.binfo.info1}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.binfovalues.binfo1_value}" disabled="${this.disabledinput.binfo1}">
+                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo1_value}" disabled="${this.disabledinput.binfo1}">
                             </div>
                             <div id="${this.searchid.binfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo1}">
                                 <paper-icon-button id="${this.searchid.binfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1204,7 +1204,7 @@
                         <div class="my-content" on-tap="openDatePicker">
                             <div class="col-xs-3">${this.binfo.info2}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.binfovalues.binfo2_value}" disabled="${this.disabledinput.binfo2}">
+                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo2_value}" disabled="${this.disabledinput.binfo2}">
                             </div>
                             <div id="${this.searchid.binfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo2}">
                                 <paper-icon-button id="${this.searchid.binfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1214,7 +1214,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.binfo.info3}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
+                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
                             </div>
                             <div id="${this.searchid.binfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo3}">
                                 <paper-icon-button id="${this.searchid.binfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1224,7 +1224,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.binfo.info4}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
+                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
                             </div>
                             <div id="${this.searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo4}">
                                 <paper-icon-button id="${this.searchid.binfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1234,7 +1234,7 @@
                         <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
                             <div class="col-xs-3">${this.binfo.info5}</div>
                             <div class="text-right">
-                                    <input class="input" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
+                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
                             </div>
                             <div id="${this.searchid.binfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo5}">
                                 <paper-icon-button id="${this.searchid.binfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
