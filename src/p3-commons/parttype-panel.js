@@ -471,7 +471,7 @@ export class PartTypePanel extends LitElement {
                     </div>
                 </div>
             </div>
-            
+        </div>
         <iron-ajax id="ajaxOption" method="GET" handle-as="json" on-response=${this.responseOption.bind(this)} content-type="application/json"></iron-ajax>
         `
 
