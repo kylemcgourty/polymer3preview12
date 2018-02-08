@@ -231,12 +231,11 @@
             </div>
             <div class="table-padding">
             <div class="layout horizontal end">
-             
-            </div>
+            </div >
                 <iron-list items="{{statuslist}}" scroll-target="document">
                     <template>
                         <div id="holder[[index]]">
-                                <iron-input class="col-xs-9 i-input" bind-value="{{item.status}}">
+                                <iron-input class="col-xs-9 i-input" bind-value="{{item.status}}" on-tap="changeStatus">
                                 <input disabled class="input">
                             </iron-input>
                         </div>
@@ -343,6 +342,20 @@
         }))
 
        }
+
+         changeStatus(e) {
+             var data = e.model.item
+             console.log(data)
+             this.dispatchEvent(new CustomEvent('StatusEvent', {
+                 composed: true,
+                 bubbles: true,
+                 detail: {
+                     status: data
+                 }
+             }))
+
+         }
+
        open(link) {
 
         this.statuslist = this.microservices[link]
