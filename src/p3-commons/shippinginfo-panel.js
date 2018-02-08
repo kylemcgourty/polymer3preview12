@@ -1,4 +1,8 @@
-import { LitElement, html } from '../../../node_modules/@polymer/lit-element/lit-element.js'
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+
+
+
+  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
 import '../../../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
 
@@ -70,9 +74,14 @@ export class ShippingInfoPanel extends LitElement {
         if (str.includes("Inch(s)")) {
             return
         } else {
-            var d = this.$.dimension.value + " inch(s)"
+            var d = this.shadowRoot.querySelector("#dimension").value + " inch(s)"
             this.item.dimension = d
         }
+
+
+        const newDimension = () =>html` <input class="input1" id="dimension" label="x" placeholder="Inches" on-focusout=${this.addDim.bind(this)} value="${this.item.dimension}">`
+        render(newDimension(), this.shadowRoot.querySelector("#dimensionholder"))
+
     }
 
     addWeight(weight) {
@@ -80,9 +89,14 @@ export class ShippingInfoPanel extends LitElement {
         if (str.includes("Lb(s)")) {
             return
         } else {
-            var w = this.$.weight.value + " lb(s)"
+            var w = this.shadowRoot.querySelector("#netweight").value + " lb(s)"
             this.item.netweight =w
+
         }
+
+        const newWeight = () =>html`<input class="input1" id="netweight" placeholder="Lbs" on-focusout=${this.addWeight.bind(this)} value="${this.item.netweight}">`
+
+        render(newWeight(), this.shadowRoot.querySelector("#netweightholder"))
     }
 
     save() {
@@ -91,8 +105,6 @@ export class ShippingInfoPanel extends LitElement {
         this.largeModel.lineitems[this.modelIndex].useccn = this.shadowRoot.querySelector("#useccn").value
         this.largeModel.lineitems[this.modelIndex].hstariff = this.shadowRoot.querySelector("#hstariff").value
         this.largeModel.lineitems[this.modelIndex].dimension = this.shadowRoot.querySelector("#dimension").value
-
-        console.log('the node',  this.shadowRoot.querySelector("#netweight"), this.shadowRoot)
         this.largeModel.lineitems[this.modelIndex].netweight = this.shadowRoot.querySelector("#netweight").value
         this.largeModel.lineitems[this.modelIndex].incoterms = this.shadowRoot.querySelector("#incoterms").value
         this.largeModel.lineitems[this.modelIndex].countryoforigin = this.shadowRoot.querySelector("#countryoforigin").value
@@ -373,14 +385,14 @@ export class ShippingInfoPanel extends LitElement {
                     </div>
                     <div class="my-content">
                         <div class="col-xs-3">Dim(HxWxD)</div>
-                        <div class="col-xs-9 text-right">
-                                <input class="input1" id="dimension" label="x" placeholder="Inches" on-focusout="addDim" value="${this.item.dimension}">
+                        <div class="col-xs-9 text-right " id="dimensionholder">
+                                <input class="input1" id="dimension" label="x" placeholder="Inches" on-focusout=${this.addDim.bind(this)} value="${this.item.dimension}">
                         </div>
                     </div>
                     <div class="my-content">
                         <div class="col-xs-3">Net Weight</div>
-                        <div class="col-xs-9 text-right">
-                                <input class="input1" id="netweight" placeholder="Lbs" on-focusout="addWeight" value="${this.item.netweight}">
+                        <div class="col-xs-9 text-right" id="netweightholder">
+                                <input class="input1" id="netweight" placeholder="Lbs" on-focusout=${this.addWeight.bind(this)} value="${this.item.netweight}">
                         </div>
                     </div>
                     <div class="my-content">
