@@ -1,14 +1,375 @@
-  import {Element as PolymerElement}
-   from '../../node_modules/@polymer/polymer/polymer-element.js'
+
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+
+
+  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+
+  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
  
 
- export class ModuleBillshipto extends PolymerElement {
+ export class ModuleBillshipto extends LitElement {
       
 
-        static get template() {
-            return `
-             <style include="shared-styles iron-flex iron-flex-alignment">
+
+        static get properties() {
+            return {
+                model: {
+                    type: Object,
+                    reflectToAttribute: true,
+                    notify: true,
+                    value: function() {
+                        return {}
+                    }
+                },
+                showbilling: {
+                    type: Boolean,
+                    notify: true,
+                    value: true,
+                    // isToggle: true
+                },
+                showshipping: {
+                    type: Boolean,
+                    notify: true,
+                    value: true,
+                    isToggle: true
+                },
+                showsoinfo: {
+                    type: Boolean,
+                    notify: true,
+                    value: true,
+                    isToggle: true
+                },
+                showshippinginfo: {
+                    type: Boolean,
+                    notify: true,
+                    value: true,
+                    isToggle: true
+                },
+            }
+        }
+
+        constructor() {
+            super();
+        }
+
+        doCalculateTax() {
+            this.dispatchEvent(new CustomEvent('docalculatetax', {
+                composed: true,
+                bubbles: true,
+            }))
+        }
+
+        display(bool) {
+            if (true){
+                return "block"
+            } else {
+                return "none"
+            }
+        }
+
+        changepanel(e) {
+            console.log("e in changepanel modulebst", e)
+            // var from = e.path[0].id;
+            var from = e.path[2].id;
+
+            console.log("in the changepath function now", e.path[2].id)
+
+
+            console.log(from)
+            switch (from) {
+                case "addbill":
+                    this.dispatchEvent(new CustomEvent('sendaddbill', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "billlist":
+                    this.dispatchEvent(new CustomEvent('sendbilllist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "addship":
+                    this.dispatchEvent(new CustomEvent('sendaddship', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "shiplist":
+                    this.dispatchEvent(new CustomEvent('sendshiplist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "vendorlist":
+                    this.dispatchEvent(new CustomEvent('sendvendorlist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "customerlist":
+                    this.dispatchEvent(new CustomEvent('sendcustomerlist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "shippinginfo":
+                    this.dispatchEvent(new CustomEvent('sendshippinginfo', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "statuslist":
+                    this.dispatchEvent(new CustomEvent('sendstatuslist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "termlist":
+                    this.dispatchEvent(new CustomEvent('sendtermlist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "returnreason":
+                    this.dispatchEvent(new CustomEvent('sendreturnreason', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "productcondition":
+                    this.dispatchEvent(new CustomEvent('sendproductcondition', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "creditmethod":
+                    this.dispatchEvent(new CustomEvent('sendcreditmethod', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "requestlist":
+                    this.dispatchEvent(new CustomEvent('sendrequestlist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "categorylist":
+                    this.dispatchEvent(new CustomEvent('sendcategorylist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "issueslist":
+                    this.dispatchEvent(new CustomEvent('sendissueslist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "serviceslist":
+                    this.dispatchEvent(new CustomEvent('sendserviceslist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+                case "prioritylist":
+                    this.dispatchEvent(new CustomEvent('sendprioritylist', {
+                        composed: true,
+                        bubbles: true,
+                    }))
+                    break;
+            }
+        }
+      
+      
+
+        ready() {
+            super.ready()
+        }
+
+
+        render() {
+           
+        return html`
+
+             <style>
+
+
+                /*  //////////////FLEX BOX/////////  */
+
+      .layout.horizontal,
+      .layout.vertical {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+      }
+
+      .layout.inline {
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+      }
+
+      .layout.horizontal {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+      }
+
+      .layout.vertical {
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .layout.wrap {
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .layout.no-wrap {
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .flex {
+        -ms-flex: 1 1 0.000000001px;
+        -webkit-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 0.000000001px;
+        flex-basis: 0.000000001px;
+      }
+
+      .flex-auto {
+        -ms-flex: 1 1 auto;
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+      }
+
+      .flex-none {
+        -ms-flex: none;
+        -webkit-flex: none;
+        flex: none;
+      }
+
+      .layout.start {
+        -ms-flex-align: start;
+        -webkit-align-items: flex-start;
+        align-items: flex-start;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.end {
+        -ms-flex-align: end;
+        -webkit-align-items: flex-end;
+        align-items: flex-end;
+      }
+
+      .layout.baseline {
+        -ms-flex-align: baseline;
+        -webkit-align-items: baseline;
+        align-items: baseline;
+      }
+
+      /**
+       * Alignment in main axis.
+       */
+      .layout.start-justified {
+        -ms-flex-pack: start;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .layout.end-justified {
+        -ms-flex-pack: end;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+      }
+
+      .layout.around-justified {
+        -ms-flex-pack: distribute;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+      }
+
+      .layout.justified {
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+      }
+
+     
+      /**
+       * multi-line alignment in main axis.
+       */
+      .layout.start-aligned {
+        -ms-flex-line-pack: start;  /* IE10 */
+        -ms-align-content: flex-start;
+        -webkit-align-content: flex-start;
+        align-content: flex-start;
+      }
+
+      .layout.end-aligned {
+        -ms-flex-line-pack: end;  /* IE10 */
+        -ms-align-content: flex-end;
+        -webkit-align-content: flex-end;
+        align-content: flex-end;
+      }
+
+      .layout.center-aligned {
+        -ms-flex-line-pack: center;  /* IE10 */
+        -ms-align-content: center;
+        -webkit-align-content: center;
+        align-content: center;
+      }
+
+      .layout.between-aligned {
+        -ms-flex-line-pack: justify;  /* IE10 */
+        -ms-align-content: space-between;
+        -webkit-align-content: space-between;
+        align-content: space-between;
+      }
+
+      .layout.around-aligned {
+        -ms-flex-line-pack: distribute;  /* IE10 */
+        -ms-align-content: space-around;
+        -webkit-align-content: space-around;
+        align-content: space-around;
+      }
+
+      /* ////////////////END FLEXBOX /////////////// */
+      
         paper-drawer-panel {
             --paper-drawer-panel-right-drawer-container: {
                 position: fixed;
@@ -627,178 +988,136 @@
                 <section class="nomargin nopadding margin-right">
                     <div class="my-content">
                         <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showbilling">[[bmodel.title]]<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showbilling"></paper-icon-button>
+                            <span on-tap="showDropdown" data-id="showbilling">${this.bmodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showbilling"></paper-icon-button>
                                             </span>
-                            <div class="right-icon iron-bottom-positon" style="display: [[displaysearch.bmodelicon]]">
-<!--                                 <iron-icon id="addbill" icon="add-circle" data-dialog="popup-billto" class="hover" on-tap="changepanel"></iron-icon>
-                                <iron-icon id="billlist" icon="editor:format-list-bulleted" class="hover" on-tap="changepanel"></iron-icon> -->
-
-                                <paper-icon-button id="addbill" icon="add-circle" data-dialog="popup-billto" class="hover" on-tap="changepanel"></paper-icon-button>
-                                <paper-icon-button id="billlist" icon="editor:format-list-bulleted" class="hover" on-tap="changepanel"></paper-icon-button>
-
-
+                            <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.bmodelicon}">
+                                <paper-icon-button id="addbill" icon="add-circle" data-dialog="popup-billto" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+                                <paper-icon-button id="billlist" icon="editor:format-list-bulleted" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
                             </div>
                         </div>
                     </div>
-                    <iron-collapse opened="{{showbilling}}">
+                    <div style="display: ${this.display(this.showbilling)}">
                         <div class="my-content">
                             <div class="col-xs-3">Company</div>
                             <div class="text-right">
-                                <iron-input id="billingiron-name" class="col-xs-9" bind-value="{{model.bmodel.companyname}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel1]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.companyname}" disabled="${this.disabledinput.bmodel1}">
                             </div>
-                            <div id="[[searchid.bmodel1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.bmodel1]]">
+                            <div id="${this.searchid.bmodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.bmodel1}">
 
-                                <paper-icon-button id="[[searchid.bmodel1]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                                <paper-icon-button id="${this.searchid.bmodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Attention</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.bmodel.attention}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel2]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.attention}" disabled="${this.disabledinput.bmodel2}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Street</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.bmodel.street}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel3]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.street}" disabled="${this.disabledinput.bmodel3}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">City</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.bmodel.city}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel4]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.city}" disabled="${this.disabledinput.bmodel4}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">State</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.bmodel.state}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel5]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.state}" disabled="${this.disabledinput.bmodel5}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Zip Code</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.bmodel.zipcode}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel6]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.zipcode}" disabled="${this.disabledinput.bmodel6}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Country</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.bmodel.country}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel7]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.country}" disabled="${this.disabledinput.bmodel7}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Phone</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.bmodel.phone}}">
-                                    <input class="input" disabled="[[disabledinput.bmodel8]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.bmodel.phone}" disabled="${this.disabledinput.bmodel8}">
                             </div>
                         </div>
-                    </iron-collapse>
+                    <div>
                 </section>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <section class="nomargin nopadding margin-left">
                     <div class="my-content">
                         <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showshipping" class="title-row bottom-left">[[smodel.title]]<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshipping"></paper-icon-button>
+                            <span on-tap="showDropdown" data-id="showshipping" class="title-row bottom-left">${this.smodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshipping"></paper-icon-button>
                                             </span>
-                            <div class="right-icon iron-bottom-positon" style="display: [[displaysearch.smodelicon]]">
- <!--                                <iron-icon icon="add-circle" data-dialog="popup-shipto" class="hover" id="addship" on-tap="changepanel"></iron-icon>
-                                <iron-icon icon="editor:format-list-bulleted" class="hover" id="shiplist" on-tap="changepanel"></iron-icon>
- -->
-                                <paper-icon-button icon="add-circle" data-dialog="popup-shipto" class="hover" id="addship" on-tap="changepanel"></paper-icon-button>
-                                <paper-icon-button icon="editor:format-list-bulleted" class="hover" id="shiplist" on-tap="changepanel"></paper-icon-button>
-
+                            <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.smodelicon}">
+                                <paper-icon-button icon="add-circle" data-dialog="popup-shipto" class="hover" id="addship" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+                                <paper-icon-button icon="editor:format-list-bulleted" class="hover" id="shiplist" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
 
                             </div>
                         </div>
                     </div>
-                    <iron-collapse opened="{{showshipping}}">
+                    <div style="display: ${this.display(this.showshipping)}">
                         <div class="my-content">
                             <div class="col-xs-3">Company</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.companyname}}">
-                                    <input class="input" disabled="[[disabledinput.smodel1]]">
-                                </iron-input>
-                                <div id="[[searchid.smodel1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.smodel1]]">
-                                    <!-- <iron-icon id="[[searchid.smodel1]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                    <paper-icon-button id="[[searchid.smodel1]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                                    <input class="input" value="${this.model.smodel.companyname}" disabled="${this.disabledinput.smodel1}">
+                                <div id="${this.searchid.smodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.smodel1}">
+                                    <paper-icon-button id="${this.searchid.smodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
                                 </div>
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Attention</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.attention}}">
-                                    <input class="input" disabled="[[disabledinput.smodel2]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.smodel.attention}" disabled="${this.disabledinput.smodel2}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Street</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.street}}">
-                                    <input class="input" disabled="[[disabledinput.smodel3]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.smodel.street}" disabled="${this.disabledinput.smodel3}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">City</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.city}}">
-                                    <input class="input" disabled="[[disabledinput.smodel4]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.smodel.city}" disabled="${this.disabledinput.smodel4}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">State</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.state}}">
-                                    <input class="input" disabled="[[disabledinput.smodel5]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.smodel.state}" disabled="${this.disabledinput.smodel5}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Zip Code</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.zipcode}}">
-                                    <input class="input" disabled="[[disabledinput.smodel6]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.smodel.zipcode}" disabled="${this.disabledinput.smodel6}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Country</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.country}}">
-                                    <input class="input" disabled="[[disabledinput.smodel7]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.smodel.country}" disabled="${this.disabledinput.smodel7}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Phone</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.smodel.phone}}">
-                                    <input class="input" disabled="[[disabledinput.smodel8]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.smodel.phone}" disabled="${this.disabledinput.smodel8}">
                             </div>
                         </div>
-                    </iron-collapse>
+                    </div>
                 </section>
             </div>
         </div>
@@ -807,337 +1126,127 @@
                 <section class="nomargin nopadding margin-right">
                     <div class="my-content">
                         <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showsoinfo">[[ainfo.title]]<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showsoinfo"></paper-icon-button>
+                            <span on-tap="showDropdown" data-id="showsoinfo">${this.ainfo.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showsoinfo"></paper-icon-button>
                             </span>
                         </div>
                     </div>
-                    <iron-collapse opened="{{showsoinfo}}">
+                    <div style="display: ${this.display(this.showsoinfo)}">
                         <div class="my-content">
-                            <div class="col-xs-3">[[ainfo.info1]]</div>
+                            <div class="col-xs-3">${this.ainfo.info1}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.ainfovalues.ainfo1_value}}">
-                                    <input class="input" disabled="[[disabledinput.ainfo1]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.ainfovalues.ainfo1_value}" disabled="${this.disabledinput.ainfo1}">
                             </div>
-                            <div id="[[searchid.ainfo1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.ainfo1]]">
-                                <!-- <iron-icon id="[[searchid.ainfo1]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.ainfo1]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.ainfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo1}">
+                                <paper-icon-button id="${this.searchid.ainfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
                             </div>
                         </div>
                         <div class="my-content">
-                            <div class="col-xs-3">[[ainfo.info2]]</div>
+                            <div class="col-xs-3">${this.ainfo.info2}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.ainfovalues.ainfo2_value}}">
-                                    <input class="input" disabled="[[disabledinput.ainfo2]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.ainfovalues.ainfo2_value}" disabled="${this.disabledinput.ainfo2}">
                             </div>
-                            <div id="[[searchid.ainfo2]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.ainfo2]]">
-                                <!-- <iron-icon id="[[searchid.ainfo2]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.ainfo2]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.ainfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo2}">
+                                <paper-icon-button id="${this.searchid.ainfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
                         <div class="my-content">
-                            <div class="col-xs-3">[[ainfo.info3]]</div>
+                            <div class="col-xs-3">${this.ainfo.info3}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.ainfovalues.ainfo3_value}}" on-focusout="doCalculateTax">
-                                    <input class="input" disabled="[[disabledinput.ainfo3]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
                             </div>
-                            <div id="[[searchid.ainfo3]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.ainfo3]]">
-                                <!-- <iron-icon id="[[searchid.ainfo3]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.ainfo3]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.ainfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo3}">
+                                <paper-icon-button id="${this.searchid.ainfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
                         <div class="my-content">
-                            <div class="col-xs-3">[[ainfo.info4]]</div>
+                            <div class="col-xs-3">${this.ainfo.info4}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.ainfovalues.ainfo4_value}}">
-                                    <input class="input" disabled="[[disabledinput.ainfo4]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
                             </div>
-                            <div id="[[searchid.ainfo4]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.ainfo4]]">
-                                <!-- <iron-icon id="[[searchid.ainfo4]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.ainfo4]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.ainfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo4}">
+                                <paper-icon-button id="${this.searchid.ainfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
-                        <div class="my-content" style="display: [[displaysearch.truncatelist]]">
-                            <div class="col-xs-3">[[ainfo.info5]]</div>
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
+                            <div class="col-xs-3">${this.ainfo.info5}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.ainfovalues.ainfo5_value}}">
-                                    <input class="input" disabled="[[disabledinput.ainfo5]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
                             </div>
-                            <div id="[[searchid.ainfo5]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.ainfo5]]">
-                                <!-- <iron-icon id="[[searchid.ainfo5]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.ainfo5]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.ainfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo5}">
+                                <paper-icon-button id="${this.searchid.ainfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
-                    </iron-collapse>
+                    </div>
                 </section>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <section class="nopadding nomargin margin-left">
                     <div class="my-content">
                         <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showshippinginfo">[[binfo.title]]<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshippinginfo"></paper-icon-button>
+                            <span on-tap="showDropdown" data-id="showshippinginfo">${this.binfo.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshippinginfo"></paper-icon-button>
                                             </span>
                         </div>
                     </div>
-                    <iron-collapse opened="{{showshippinginfo}}">
+                    <div style="display: ${this.display(this.showshippinginfo)}">
                         <div class="my-content">
-                            <div class="col-xs-3">[[binfo.info1]]</div>
+                            <div class="col-xs-3">${this.binfo.info1}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo1_value}}">
-                                    <input class="input" disabled="[[disabledinput.binfo1]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.binfovalues.binfo1_value}" disabled="${this.disabledinput.binfo1}">
                             </div>
-                            <div id="[[searchid.binfo1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo1]]">
-                                <!-- <iron-icon id="[[searchid.binfo1]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.binfo1]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.binfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo1}">
+                                <paper-icon-button id="${this.searchid.binfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
                             </div>
                         </div>
                         <div class="my-content" on-tap="openDatePicker">
-                            <div class="col-xs-3">[[binfo.info2]]</div>
+                            <div class="col-xs-3">${this.binfo.info2}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo2_value}}">
-                                    <input class="input" disabled="[[disabledinput.binfo2]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.binfovalues.binfo2_value}" disabled="${this.disabledinput.binfo2}">
                             </div>
-                            <div id="[[searchid.binfo2]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo2]]">
-                                <!-- <iron-icon id="[[searchid.binfo2]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.binfo2]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.binfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo2}">
+                                <paper-icon-button id="${this.searchid.binfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
                         <div class="my-content">
-                            <div class="col-xs-3">[[binfo.info3]]</div>
+                            <div class="col-xs-3">${this.binfo.info3}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo3_value}}">
-                                    <input class="input" disabled="[[disabledinput.binfo3]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
                             </div>
-                            <div id="[[searchid.binfo3]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo3]]">
-                                <!-- <iron-icon id="[[searchid.binfo3]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.binfo3]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.binfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo3}">
+                                <paper-icon-button id="${this.searchid.binfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
                         <div class="my-content">
-                            <div class="col-xs-3">[[binfo.info4]]</div>
+                            <div class="col-xs-3">${this.binfo.info4}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo4_value}}">
-                                    <input class="input" disabled="[[disabledinput.binfo4]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
                             </div>
-                            <div id="[[searchid.binfo4]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo4]]">
-                                <!-- <iron-icon id="[[searchid.binfo4]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.binfo4]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo4}">
+                                <paper-icon-button id="${this.searchid.binfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
-                        <div class="my-content" style="display: [[displaysearch.truncatelist]]">
-                            <div class="col-xs-3">[[binfo.info5]]</div>
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
+                            <div class="col-xs-3">${this.binfo.info5}</div>
                             <div class="text-right">
-                                <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo5_value}}">
-                                    <input class="input" disabled="[[disabledinput.binfo5]]">
-                                </iron-input>
+                                    <input class="input" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
                             </div>
-                            <div id="[[searchid.binfo5]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo5]]">
-                                <!-- <iron-icon id="[[searchid.binfo5]]" on-tap="changepanel" icon="search" class="hover"></iron-icon> -->
-                                <paper-icon-button id="[[searchid.binfo5]]" on-tap="changepanel" icon="search" class="hover"></paper-icon-button>
+                            <div id="${this.searchid.binfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo5}">
+                                <paper-icon-button id="${this.searchid.binfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
 
                             </div>
                         </div>
-                    </iron-collapse>
+                    </div>
                 </section>
             </div>
         </div>`
         }
-        static get properties() {
-            return {
-                model: {
-                    type: Object,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: function() {
-                        return {}
-                    }
-                },
-                showbilling: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    // isToggle: true
-                },
-                showshipping: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    isToggle: true
-                },
-                showsoinfo: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    isToggle: true
-                },
-                showshippinginfo: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    isToggle: true
-                },
-            }
-        }
 
-        constructor() {
-            super();
-        }
-
-        doCalculateTax() {
-            this.dispatchEvent(new CustomEvent('docalculatetax', {
-                composed: true,
-                bubbles: true,
-            }))
-        }
-
-        changepanel(e) {
-            console.log("e in changepanel modulebst", e)
-            // var from = e.path[0].id;
-            var from = e.path[2].id;
-
-            console.log("in the changepath function now", e.path[2].id)
-
-
-            console.log(from)
-            switch (from) {
-                case "addbill":
-                    this.dispatchEvent(new CustomEvent('sendaddbill', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "billlist":
-                    this.dispatchEvent(new CustomEvent('sendbilllist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "addship":
-                    this.dispatchEvent(new CustomEvent('sendaddship', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "shiplist":
-                    this.dispatchEvent(new CustomEvent('sendshiplist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "vendorlist":
-                    this.dispatchEvent(new CustomEvent('sendvendorlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "customerlist":
-                    this.dispatchEvent(new CustomEvent('sendcustomerlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "shippinginfo":
-                    this.dispatchEvent(new CustomEvent('sendshippinginfo', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "statuslist":
-                    this.dispatchEvent(new CustomEvent('sendstatuslist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "termlist":
-                    this.dispatchEvent(new CustomEvent('sendtermlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "returnreason":
-                    this.dispatchEvent(new CustomEvent('sendreturnreason', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "productcondition":
-                    this.dispatchEvent(new CustomEvent('sendproductcondition', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "creditmethod":
-                    this.dispatchEvent(new CustomEvent('sendcreditmethod', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "requestlist":
-                    this.dispatchEvent(new CustomEvent('sendrequestlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "categorylist":
-                    this.dispatchEvent(new CustomEvent('sendcategorylist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "issueslist":
-                    this.dispatchEvent(new CustomEvent('sendissueslist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "serviceslist":
-                    this.dispatchEvent(new CustomEvent('sendserviceslist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "prioritylist":
-                    this.dispatchEvent(new CustomEvent('sendprioritylist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-            }
-        }
-        connectedCallback() {
-
-            if (this.hidden === true) {
-                this.set('isHidden', false);
-            }
-        }
-        response(request) {
-            var result = request.detail.response;
-            if (result.error) {
-                document.querySelector('#toast').text = result.error;
-                document.querySelector('#toast').show();
-            } else {
-                this.model = result.results;
-            }
-        }
-
-        ready() {
-            super.ready()
-        }
     }
 
     customElements.define('module-billshipto', ModuleBillshipto);
