@@ -830,8 +830,10 @@
 
             this.hideOverlay();
         }
-        open() {
+        open(to, customerlist) {
             console.log('open in ef called')
+            this.label = to;
+            this.modelCustomerlist1 = customerlist
             this.searchstring = "";
             this.oldlen = 0;
             this.tags = [];

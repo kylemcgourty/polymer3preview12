@@ -1,15 +1,792 @@
 
-   import {Element as PolymerElement}
-     from '../../node_modules/@polymer/polymer/polymer-element.js'
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+
+
+  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+
+  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
    import './emailfilter.js'
    import './emailfiltercc.js'
 
-   export class SendEmail extends PolymerElement {
-        static get template() {
+   export class SendEmail extends LitElement {
+       
+       
+        static get properties() {
+            return {
+                _contact: {
+                    type: Object,
+                    notify: true,
+                    value: function() {
+                        return {};
+                    }
+                },
+                model: {
+                    type: Array,
+                    notify: true,
+                    value: function() {
+                        return [];
+                    }
+                },
+                listpage: {
+                    type: Boolean,
+                    value: true
+                },
+                editpage: {
+                    type: Boolean,
+                    value: true
+                },
+                addpage: {
+                    type: Boolean,
+                    value: true
+                },
+                emailpage: {
+                    type: Boolean,
+                    value: false
+                },
+                _email: {
+                    type: Object,
+                    notify: true,
+                    value: function() {
+                        return {
+                            ispdf: true,
+                            ishtml: true,
+                            to: [],
+                            cc: []
+                        };
+                    }
+                },
+                posturl: {
+                    type: String
+                },
+                searchurl: {
+                    type: String,
+                    notify: true
+                },
+                listIndex: {
+                    type: Number,
+                    value: undefined
+                },
+                filename: {
+                    type: String,
+                    notify: true,
+                    value: function() {
+                        return '';
+                    },
+                },
+                data: {
+                    type: Array,
+                    value: function() {
+                        return []
+                    }
+                },
+                to: {
+                    type: String,
+                    value: "To:"
+                },
+                cc: {
+                    type: String,
+                    value: "Cc:"
+                },
+                searchurl: {
+                    type: String,
+                    notify: true
+                },
+            }
+        }
+        static get observers() {
+            return [
+                'changesubject(filename)',
+            ]
+        }
+        constructor() {
+            super();
+            this.titlecolor();
+        }
+
+
+
+        generateSearch(e, pass, retrieveAll) {
+            console.log("generatesearch called")
+
+            if(this.searchoption == undefined || this.searchoption == null || this.searchurl == ""){
+                this.searchoption = "name_l"
+            }
+
+            if (e) {
+                if (e.keyCode !== 13 && e.type == "keypress") {
+                    return
+                }
+            }
+            let query = this.$.searchQuery.value.trim();
+            if (retrieveAll) {
+                query = ""
+                this.searchoption = 'id'
+            }
+            let querypackage = {
+                query: query.toString().toLowerCase(),
+                option: this.searchoption,
+                // type: this.panelname.toLowerCase()\
+                type: "Contact",
+            }
+
+            console.log("here is the query package", querypackage)
+
+
+            console.log("companyid?", this.searchurl.split("/").reverse()[0])
+
+
+            this.$.ajaxSearch.url = this.searchurl
+
+            this.$.ajaxSearch.body = JSON.stringify(querypackage)
+            this.$.ajaxSearch.generateRequest();
+        }
+
+
+
+        setSearchOption(e) {
+            console.log("e.path[0].id in setSearchOption", e.path[0].id)
+            e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
+
+
+
+            if (this.$.searchQuery.value) {
+                this.generateSearch()
+            }
+        }
+
+
+
+
+
+        selectContact(e) {
+            console.log("herer in e!", e)
+            console.log(e.model.item.id)
+            console.log(e.model.item)
+
+            this.listpage = true;
+            this.editpage = true;
+            this.emailpage = false;
+            this.addpage = true;
+
+            console.log("e.target.value", e.target.value)
+
+            // e.target.value === undefined ? e.target.value = '' : e.target.value = e.target.value
+            // e.target.value === undefined ? e.target.value = '' : e.target.value = e.model.item.email
+
+            if(e.target.value === undefined) {
+                e.target.value = e.model.item.email
+            }
+
+
+            console.log("e.target.value", e.target.value)
+
+
+            // this.set('_email', e.model.item.email)
+            this.$.emailfilter.focusout(e)
+
+        }
+
+
+        resetElement() {
+        for (let k in this.properties) {
+            if (k === 'model') {
+                if (typeof this.properties[k].value === 'function') {
+                    this.set(k, this.properties[k].value());
+                }
+            }
+        }
+    };
+
+
+
+        changesubject() {
+            this.set('_email.subject', this.filename);
+        }
+        open(filename, posturl, searchurl) {
+
+            if (filename) this.filename = filename;
+            if (posturl) this.posturl = posturl
+            this.searchurl =searchurl
+            this.resetElement();
+
+            this.addpage = true;
+            this.listpage = true;
+            this.editpage = true;
+            this.emailpage = false;
+            
+            // this.set('_email.to', "");
+            // this.set('_email.cc', "");
+            this.s_email.subject = this.filename
+            this._email.message = ""
+            this._email.ispdf= true
+            this._email.ishtml = true
+
+
+            this._contact.name= "
+            this._contact.address = ""
+            this._contact.address1 = ""
+            this._contact.address2 = ""
+
+            this._contact.email = ""
+            this._contact.phone = ""
+            this._contact.title = ""
+            this.shadowRoot.querySelector('#emailfilter').open();
+        }
+        getCList() {
+            console.log("here in getClist")
+            this.$.ajaxClist.url = this.searchurl;
+            this.$.ajaxClist.generateRequest();
+        }
+        responseClist(request) {
+            var result = request.detail.response;
+
+            console.log("result oimn responseClist", result)
+
+            if (result) {
+                this.set("customerlist", result.results);
+                console.log(this.data)
+                // this.set('data', []);
+
+                // this.set('data', result.results);
+                this.set('data', this.customerlist)
+
+
+
+                var length = this.customerlist.length
+
+                console.log("length", length)
+
+
+
+                for (var i = 0; i < this.customerlist.length; i++) {
+                    this.data[i].address = this.customerlist[i].address
+                    console.log("inside", this.data[i].address)
+
+                    this.notifyPath(`data[${i}].address`)
+                }
+
+                console.log("this.customerlist", this.customerlist)
+
+                console.log("this.customerlist[length-1]", this.customerlist[length-1])
+
+                 if (this.customerlist[length-1].id === 100000){
+                        this.set('customerlist.'+ (length-1) + '.visibility2', 'hidden')
+                        this.set('customerlist.'+ (length-1) + '.visibility3', 'hidden')
+                       // this.set('customerlist.'+ (length-1) + '.visibility4', 'hidden')
+                    }
+
+                // this.set('customerlist.0.visibility3', 'visible')
+                // this.set('customerlist.0.visibility2', 'hidden')
+
+                // this.set('data.0.visibility3', 'visible')
+                // this.set('data.0.visibility2', 'hidden')
+
+
+                        //     this.shadowRoot.dispatchEvent(new CustomEvent('iron-resize', {
+                        //     bubbles: true,
+                        //     composed: true
+                        // }))
+
+                // if(e.detail.baseURI.split('/')[3] == "customers") {
+
+                //     this.model.map(function(x) {
+                //         x.visibility4 = 'hidden'
+                //     })
+                // }
+
+
+
+            }
+        }
+        cancel() {
+            console.log('cancel is called');
+            // this.fire('resetEmail', {})
+            this.set('_email.subject', "");
+            this.set('_email.message', "");
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                composed: true,
+                bubbles: true
+            }));
+        }
+
+        cancel1() {
+            this.set('_contact.name', "");
+            this.set('_contact.address1', "");
+            this.set('_contact.address2', "");
+
+            this.set('_contact.email', "");
+            this.set('_contact.phone', "");
+            this.set('_contact.title', "");
+
+            this.listpage = false;
+            this.editpage = true;
+            this.emailpage = true;
+            this.addpage = true;
+        }
+
+        cancel2() {
+            this.set('_contact.name', "");
+            this.set('_contact.address1', "");
+            this.set('_contact.address2', "");
+
+            this.set('_contact.email', "");
+            this.set('_contact.phone', "");
+            this.set('_contact.title', "");
+
+            this.listpage = true;
+            this.editpage = true;
+            this.emailpage = false;
+            this.addpage = true;
+        }
+
+        addContact(e) {
+            // this.$.addcontacturl.open(this.searchurl);
+
+            this.set('_contact', {})
+
+            console.log('add contact called')
+            this.listpage = true;
+            this.editpage = true;
+            this.emailpage = true;
+            this.addpage = false;
+
+        }
+
+        delete(e) {
+            console.log("here is e.model inside delete", e.model)
+            console.log("here is e.model inside delete", e.model.item.id)
+            var item = e.model.item;
+            var id = item.id;
+            var contact = this.model.filter(function(x) {
+                return x.id == id;
+            })[0];
+            console.log("this is the search model before ", this.searchurl)
+            // this.$.ajaxDelete.url = this.searchurl;
+            this.$.ajaxDelete.url = this.searchurl + "/" + e.model.item.id;
+
+
+
+            console.log("CONTASCT",contact)
+
+
+                        console.log("this.$.ajaxDelete inside delete of bill list", this.$.ajaxDelete)
+                        console.log("this.$.ajaxDelete.url inside delete of bill list", this.$.ajaxDelete.url)
+            console.log("this.searchurl inside delete of bill list", this.searchurl)
+
+
+
+            this.$.ajaxDelete.body = JSON.stringify(e.model.item);
+            this.$.ajaxDelete.generateRequest();
+        }
+
+        responseDelete(request) {
+            var result = request.detail.response;
+            console.log(result)
+            if (result) {
+                document.querySelector('#toast').text = "Removed successfully, refreshing in 2s.";
+                document.querySelector('#toast').show();
+                setTimeout(function() {
+                    document.querySelector('#toast').text = "Removed successfully, refreshing in 1s.";
+                    document.querySelector('#toast').show();
+                }, 1000);
+                setTimeout(function() {
+                    document.querySelector('#toast').text = "Removed successfully, refreshing now.";
+                    document.querySelector('#toast').show();
+                }, 2000);
+                setTimeout(function() {
+                    this.getCList()
+                }.bind(this), 2000);
+            } else {
+                document.querySelector('#toast').text = "Error removing.";
+                document.querySelector('#toast').show();
+            }
+            // this.listpage = true;
+            // this.editpage = true;
+            // this.emailpage = false;
+        }
+
+        contactlist(e) {
+            console.log("contactlist function called", e)
+            this.listpage = false;
+            this.editpage = true;
+            this.emailpage = true;
+            this.addpage = true;
+            this.getCList();
+        }
+
+        editbilling(e) {
+
+            this.$.ajaxSave.url = this.searchurl + "/" + this._contact.id;  
+            this.$.ajaxSave.body = JSON.stringify(this._contact);
+            this.$.ajaxSave.generateRequest();
+        }
+
+        savecontact() {
+
+            console.log("this._contact in savecontact", this._contact)
+    
+
+            console.log("this.searchurl                ",this.searchurl)
+
+            this.$.ajaxSaveC.url = this.searchurl;  
+
+            console.log("this.$.ajaxSaveC.url                ", this.$.ajaxSaveC.url)
+
+
+            this.$.ajaxSaveC.body = JSON.stringify(this._contact);
+            this.$.ajaxSaveC.generateRequest();
+        }
+
+        showError(e) {
+            var msg = e.detail.request.xhr.response.error;
+            if (msg) document.querySelector('#toast').show(msg);
+        }
+        responseAction(request) {
+
+            console.log(" inside responseaction ", request.detail.response)
+
+            var result = request.detail.response;
+            console.log(result)
+            if (result.error) {
+                document.querySelector('#toast').text = result.error;
+                document.querySelector('#toast').show();
+            } else {
+                document.querySelector('#toast').text = "Save successfully";
+                document.querySelector('#toast').show();
+                // this.$.ajaxList.generateRequest();
+                this.listpage = false;
+                this.editpage = true;
+                this.emailpage = true;
+                this.addpage = true;
+
+                this.getCList();
+                // console.log('here is model, request,', this.model, request);
+                // console.log('here is contact', this._contact);
+                // var newContact = JSON.stringify(this._contact);
+                // newContact = JSON.parse(newContact);
+                // this.unshift('model', newContact);
+                // console.log('model afterwards', this.model);
+
+                this.set('_contact.name', "");
+                this.set('_contact.address1', "");
+                this.set('_contact.address2', "");
+
+                this.set('_contact.email', "");
+                this.set('_contact.phone', "");
+                this.set('_contact.title', "");
+                // this.close();
+            }
+
+        }
+
+        responseActionEdit(request) {
+
+            console.log("here ein responseActionAEdit", request.detail.response)
+
+
+            var result = request.detail.response;
+            console.log(result)
+            if (result.error) {
+                document.querySelector('#toast').text = result.error;
+                document.querySelector('#toast').show();
+            } else {
+                document.querySelector('#toast').text = "Save successfully";
+                document.querySelector('#toast').show();
+                // this.$.ajaxList.generateRequest();
+                this.listpage = false;
+                this.editpage = true;
+                this.emailpage = true;
+                this.addpage = true;
+
+                if (this.listIndex >= 0) {
+                    this.splice('model', this.listIndex, 1);
+                    this.listIndex = undefined;
+                    console.log('called in if', this.model);
+                }
+                this.getCList();
+
+                // console.log('here is model, request,', this.model, request);
+                // console.log('here is contact', this._contact);
+                // var newContact = JSON.stringify(this._contact);
+                // newContact = JSON.parse(newContact);
+                // this.unshift('model', newContact);
+                // console.log('model afterwards', this.model);
+
+                // this.set('_contact.name', "");
+                // this.set('_contact.address1', "");
+                // this.set('_contact.address2', "");
+
+                // this.set('_contact.email', "");
+                // this.set('_contact.phone', "");
+                // this.set('_contact.title', "");
+                // this.close();
+            }
+        }
+        edit(e) { //transfer the data
+
+
+            // var id = e.model.item.id;
+
+
+            // var contact = this.model.filter(function(x) {
+
+            //     console.log("in filter", x)
+
+            //     return x.id == id;
+            // })[0];
+
+            // if (contact) {
+            //     this.set('_contact', contact);
+            // }
+            this.set('_contact', e.model.item)
+
+
+            // this.$["popup-contact"].open();
+            this.listIndex = e.model.index;
+            this.listpage = true;
+            this.editpage = false;
+            this.emailpage = true;
+            this.addpage = true;
+        }
+        close() {
+            // this.$.popup.close();
+            this.listpage = true;
+            this.editpage = true;
+            this.emailpage = false;
+            this.addpage = true;
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                composed: true,
+                bubbles: true
+            }));
+        }
+
+        backPanel() {
+            // this.$.popup.close();
+            this.listpage = true;
+            this.editpage = true;
+            this.emailpage = false;
+            this.addpage = true;
+            // this.dispatchEvent(new CustomEvent('closePanel', {
+            //     composed: true,
+            //     bubbles: true
+            // }));
+        }
+
+
+
+        send(e) {
+            console.log('send in email')
+            document.querySelector('#toast').show("Sending message.");
+            console.log(this._email)
+            console.log(this._email.to)
+            console.log(this._email.cc)
+
+            this.$.ajax.url = this.posturl;
+            this.$.ajax.body = JSON.stringify(this._email);
+
+            this.$.ajax.generateRequest();
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                composed: true,
+                bubbles: true
+            }));
+
+        }
+        success(request) {
+            document.querySelector('#toast').show("Sent successfully.");
+            // this.fire('resetEmail', {})
+            // this.set('_email.to', "");
+            // this.set('_email.cc', "");
+            this.set('_email.subject', "");
+            this.set('_email.message', "");
+        }
+        ajaxerror() {
+            document.querySelector('#toast').show("Error sending email.");
+        }
+        titlecolor() {
+            this.headercolor = "#406aad";
+            this.updateStyles({
+                '--title-background-normal': this.headercolor,
+                '--title-normal': 'white',
+            });
+        }
+
+        render() {
+            
             return `  <style include="iron-flex iron-flex-alignment">
 
+              /*  //////////////FLEX BOX/////////  */
 
+.layout.horizontal,
+      .layout.vertical {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+      }
+
+      .layout.inline {
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+      }
+
+      .layout.horizontal {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+      }
+
+      .layout.vertical {
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .layout.wrap {
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .layout.no-wrap {
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .flex {
+        -ms-flex: 1 1 0.000000001px;
+        -webkit-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 0.000000001px;
+        flex-basis: 0.000000001px;
+      }
+
+      .flex-auto {
+        -ms-flex: 1 1 auto;
+        -webkit-flex: 1 1 auto;
+        flex: 1 1 auto;
+      }
+
+      .flex-none {
+        -ms-flex: none;
+        -webkit-flex: none;
+        flex: none;
+      }
+
+      .layout.start {
+        -ms-flex-align: start;
+        -webkit-align-items: flex-start;
+        align-items: flex-start;
+      }
+
+      .layout.center,
+      .layout.center-center {
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .layout.end {
+        -ms-flex-align: end;
+        -webkit-align-items: flex-end;
+        align-items: flex-end;
+      }
+
+      .layout.baseline {
+        -ms-flex-align: baseline;
+        -webkit-align-items: baseline;
+        align-items: baseline;
+      }
+
+      /**
+       * Alignment in main axis.
+       */
+      .layout.start-justified {
+        -ms-flex-pack: start;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+      }
+
+      .layout.center-justified,
+      .layout.center-center {
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+
+      .layout.end-justified {
+        -ms-flex-pack: end;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+      }
+
+      .layout.around-justified {
+        -ms-flex-pack: distribute;
+        -webkit-justify-content: space-around;
+        justify-content: space-around;
+      }
+
+      .layout.justified {
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+      }
+
+     
+      /**
+       * multi-line alignment in main axis.
+       */
+      .layout.start-aligned {
+        -ms-flex-line-pack: start;  /* IE10 */
+        -ms-align-content: flex-start;
+        -webkit-align-content: flex-start;
+        align-content: flex-start;
+      }
+
+      .layout.end-aligned {
+        -ms-flex-line-pack: end;  /* IE10 */
+        -ms-align-content: flex-end;
+        -webkit-align-content: flex-end;
+        align-content: flex-end;
+      }
+
+      .layout.center-aligned {
+        -ms-flex-line-pack: center;  /* IE10 */
+        -ms-align-content: center;
+        -webkit-align-content: center;
+        align-content: center;
+      }
+
+      .layout.between-aligned {
+        -ms-flex-line-pack: justify;  /* IE10 */
+        -ms-align-content: space-between;
+        -webkit-align-content: space-between;
+        align-content: space-between;
+      }
+
+      .layout.around-aligned {
+        -ms-flex-line-pack: distribute;  /* IE10 */
+        -ms-align-content: space-around;
+        -webkit-align-content: space-around;
+        align-content: space-around;
+      }
+
+      /* ////////////////END FLEXBOX /////////////// */
 
 
              .col-xs-3 {
@@ -939,7 +1716,7 @@
 
 
         </style>
-        <div hidden="{{emailpage}}">
+        <div hidden$="${this.emailpage}">
             <div class="title-rightpaneldraw">
                 Email
             </div>
@@ -964,56 +1741,40 @@
             <div class="row-style">
                 <div class="col-xs-12">
                     <div class="my-content">
-                        <!--                             <my-tagsearch id="title" small-row url="{{searchurl}}" label="To:" tags="{{_email.to}}"></my-tagsearch>
-                        <my-tagsearch id="title" small-row url="{{searchurl}}" label="CC:" tags="{{_email.cc}}"></my-tagsearch> -->
-                        <!-- <div class="my-content">
-                            <div class="col-xs-3">To:</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9 input" bind-value="{{_email.to}}"><input class="input"></iron-input>
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">CC:</div>
-                            <div class="text-right">
-                                <iron-input class="col-xs-9 input" bind-value="{{_email.cc}}"><input class="input"></iron-input>
-                            </div>
-                        </div> -->
-                        <defie-emailfilter small-row label="[[to]]" style="margin-top: 14px;" model-customerlist1="[[customerlist]]" id="emailfilter" map-string='[{"key":"companyname", "isMain": "true"},{"key":"address", "isMain": "true"}]' tags="{{_email.to}}" not-taggable searchstring="{{emailto}}" required></defie-emailfilter>
-                        <defie-emailfiltercc small-row label="[[cc]]" style="margin-top: 3px;" model-customerlist2="[[customerlist]]" id="emailfiltercc" map-string='[{"key":"companyname", "isMain": "true"},{"key":"address", "isMain": "true"}]' tags="{{_email.cc}}" not-taggable searchstring="{{emailcc}}" required></defie-emailfiltercc>
+                        <defie-emailfilter small-row style="margin-top: 14px;" id="emailfilter" map-string='[{"key":"companyname", "isMain": "true"},{"key":"address", "isMain": "true"}]' tags="{{_email.to}}" not-taggable searchstring="{{emailto}}" required></defie-emailfilter>
+                        <defie-emailfiltercc small-row label="${this.cc}" style="margin-top: 3px;" model-customerlist2="${this.customerlist}" id="emailfiltercc" map-string='[{"key":"companyname", "isMain": "true"},{"key":"address", "isMain": "true"}]' tags="{{_email.cc}}" not-taggable searchstring="{{emailcc}}" required></defie-emailfiltercc>
                         <div></div>
                         <div class="my-content col-xs-3c messagefield">Subject:</div>
                         <div class="my-content col-xs-9a messagefield">
-                            <iron-input class="input subject" bind-value="{{_email.subject}}">
-                                <input class="input">
-                            </iron-input>
+                                <input class="input" value="${this._email.subject}">
                         </div>
                         <div class=" my-content col-xs-3c messagefield">Message:</div>
                         <div class="my-content col-xs-9a messagefield">
-                            <iron-autogrow-textarea class="input-textarea-edit" rows="3" bind-value="{{_email.message}}"></iron-autogrow-textarea>
+                            <textarea class="input-textarea-edit" rows="3" id="emailmessage"></textarea>
                         </div>
                         <div style="clear: both;"></div>
                         <div class="my-content">
                             <div class="row files">
                                 <div class="overflowtext" style="margin-bottom: 5px;">
-                                    <paper-checkbox class="emailcheckbox" checked="{{_email.ispdf}}"></paper-checkbox>
-                                    <span id="pdftext"><span>{{filename}}</span>.pdf</span>
+                                    <paper-checkbox class="emailcheckbox" checked="${this._email.ispdf}"></paper-checkbox>
+                                    <span id="pdftext"><span>${this.filename}</span>.pdf</span>
                                 </div>
                                 <div class="overflowtext">
-                                    <paper-checkbox class="emailcheckbox" checked="{{_email.ishtml}}"></paper-checkbox>
-                                    <span id="htmltext"><span>{{filename}}</span>.html</span>
+                                    <paper-checkbox class="emailcheckbox" checked="${this._email.ishtml}"></paper-checkbox>
+                                    <span id="htmltext"><span>${this.filename}</span>.html</span>
                                 </div>
                             </div>
                             <div class="my-content"></div>
                             <div class="button-row text-right">
-                                <paper-button class="emailbutton main-button" on-click="send" raised>Send</paper-button>
-                                <paper-button class="emailbutton" on-click="cancel" raised>Cancel</paper-button>
+                                <paper-button class="emailbutton main-button" on-click=${this.send.bind(this)} raised>Send</paper-button>
+                                <paper-button class="emailbutton" on-click=${this.cancel.bind(this)} raised>Cancel</paper-button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="listpage" hidden="{{listpage}}">
+        <div id="listpage" hidden$="${listpage}">
             <div class="title-rightpaneldraw">
                 Contacts List
             </div>
@@ -1023,7 +1784,7 @@
                     <iron-icon icon="icons:arrow-back" 
                     class="close-icon" on-click="backPanel"> </iron-icon>
 
-                    <span on-tap="close">Close</span>
+                    <span on-tap=${this.close.bind(this)}>Close</span>
                     <iron-icon icon="close" on-tap="close"></iron-icon>
                 </div>
             </div>
@@ -1032,9 +1793,9 @@
                     <div class="search-flex layout horizontal">
                         <div class="search-container">
                             <iron-input class="search" slot="input">
-                                <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="generateSearch" on-focusout="generateSearch">
+                                <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress=${this.generateSearch.bind(this)} on-focusout=${this.generateSearch.bind(this)}>
                             </iron-input>
-                            <div on-tap="generateSearch" class="search-icon">
+                            <div on-tap=${this.generateSearch.bind(this)} class="search-icon">
                                 <paper-icon-button class="search-icon" icon="search"></paper-icon-button>
                             </div>
                         </div>
@@ -1044,18 +1805,18 @@
                             <div class="searchcontainer layout vertical">
                                 <div class="s-container1 layout horizontal">
                                     <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="name_l" name="searchoptions" class="listoptions" type="radio" checked>Name
+                                        <input on-change=${this.setSearchOption.bind(this)} on-keypress=${this.setSearchOption.bind(this)} id="name_l" name="searchoptions" class="listoptions" type="radio" checked>Name
                                     </div>
                                     <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="email_l" name="searchoptions" class="listoptions" type="radio">
+                                        <input on-change=${this.setSearchOption.bind(this)} on-keypress=${this.setSearchOption.bind(this)} id="email_l" name="searchoptions" class="listoptions" type="radio">
                                         Email
                                     </div>
                                     <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="title_l" name="searchoptions" class="listoptions" type="radio">
+                                        <input on-change=${this.setSearchOption.bind(this)} on-keypress=${this.setSearchOption.bind(this)} id="title_l" name="searchoptions" class="listoptions" type="radio">
                                         Title
                                     </div>
                                     <div>
-                                        <input on-change="setSearchOption" on-keypress="setSearchOption" id="phone_l" name="searchoptions" class="listoptions" type="radio">
+                                        <input on-change=${this.setSearchOption.bind(this)} on-keypress=${this.setSearchOption.bind(this)} id="phone_l" name="searchoptions" class="listoptions" type="radio">
                                         Phone
                                     </div>
                                 </div>
@@ -1070,82 +1831,8 @@
                     </div>
                 </div>
                 <div class="results-container">
-                    <iron-list id="list" items="[[data]]" multi-selection selection-enabled scroll-target="listpage">
-                        <template>
-                            <div>
-                                <div id={{item.id}} style="padding-bottom: 24px;">
-                                    <div class="my-content"></div>
-
-                                    
-                                    <div class="row layout horizontal">
-                                        <!-- <div class="my-content"></div> -->
-                                        <div class="layout vertical" style="width: 100%">
-                                                <div class="my-content">
-                                                    <div class="col-xs-3b">First Name</div>
-                                                    <div class="text-right">
-                                                        <iron-input class="col-xs-9b" bind-value="{{item.firstname}}">
-                                                            <input  disabled class="input">
-                                                            <paper-icon-button  class="right-icon4" style="visibility: {{item.visibility4}}" icon="icons:settings-overscan" on-tap="selectContact" id={{item.id}}></paper-icon-button>
-                                                            <paper-icon-button style="visibility: {{item.visibility3}}" class="right-icon3" icon="create" on-tap="edit"></paper-icon-button>
-                                                            <paper-icon-button style="visibility: {{item.visibility2}}" class="right-icon2" icon="icons:close" on-tap="delete" id={{item.id}}></paper-icon-button>
-                                                        </iron-input>
-                                                    </div>
-                                                </div>
-
-                                                <div class="my-content">
-                                                    <div class="col-xs-3b">Last Name</div>
-                                                    <div class="text-right">
-                                                        <iron-input class="col-xs-9b" bind-value="{{item.lastname}}">
-                                                            <input  disabled class="input">
-                                                        </iron-input>
-                                                    </div>
-                                                </div>
-                                                <div class="my-content">
-                                                    <div class="col-xs-3b">Title</div>
-                                                    <div class="text-right">
-                                                        <iron-input class="col-xs-9b" bind-value="{{item.title}}">
-                                                            <input  disabled class="input">
-                                                        </iron-input>
-                                                    </div>
-                                                </div>
-                                                <div class="my-content">
-                                                    <div class="col-xs-3b">Email</div>
-                                                    <div class="text-right">
-                                                        <iron-input class="col-xs-9b" bind-value="{{item.email}}">
-                                                            <input  disabled class="input">
-                                                        </iron-input>
-                                                    </div>
-                                                </div>
-                                                <div class="my-content">
-                                                    <div class="col-xs-3b">Phone</div>
-                                                    <div class="text-right">
-                                                        <iron-input class="col-xs-9b" bind-value="{{item.phone}}">
-                                                            <input  disabled class="input">
-                                                        </iron-input>
-                                                    </div>
-                                                </div>
-                                                <div class="my-content">
-                                                    <div class="col-xs-3b">Address</div>
-                                                    <div class="text-right">
-                                                        <iron-input class="col-xs-9b" bind-value="{{item.address}}">
-                                                            <input  disabled class="input">
-                                                        </iron-input>
-                                                    </div>
-                                                </div>
-                                                <div class="my-content">
-                                                    <div class="col-xs-3b">Role</div>
-                                                    <div class="text-right">
-                                                        <iron-input class="col-xs-9b" bind-value="{{item.role}}">
-                                                            <input  disabled class="input">
-                                                        </iron-input>
-                                                    </div>
-                                                </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
-                    </iron-list>
+                           
+                 
                 </div>
             </div>
         </div>
@@ -1323,611 +2010,10 @@
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="responseActionEdit" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSaveC" method="POST" handle-as="json" on-response="responseAction" on-error="showError" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxDelete" method="DELETE" handle-as="json" on-response="responseDelete"></iron-ajax>
-         <iron-ajax id="ajaxSearch" method="POST" handle-as="json" on-response="responseClist" content-type="application/json"></iron-ajax>
-        `
-        }
-        static get properties() {
-            return {
-                _contact: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {};
-                    }
-                },
-                model: {
-                    type: Array,
-                    notify: true,
-                    value: function() {
-                        return [];
-                    }
-                },
-                listpage: {
-                    type: Boolean,
-                    value: true
-                },
-                editpage: {
-                    type: Boolean,
-                    value: true
-                },
-                addpage: {
-                    type: Boolean,
-                    value: true
-                },
-                emailpage: {
-                    type: Boolean,
-                    value: false
-                },
-                _email: {
-                    type: Object,
-                    notify: true,
-                    value: function() {
-                        return {
-                            ispdf: true,
-                            ishtml: true,
-                            to: [],
-                            cc: []
-                        };
-                    }
-                },
-                posturl: {
-                    type: String
-                },
-                searchurl: {
-                    type: String,
-                    notify: true
-                },
-                listIndex: {
-                    type: Number,
-                    value: undefined
-                },
-                filename: {
-                    type: String,
-                    notify: true,
-                    value: function() {
-                        return '';
-                    },
-                },
-                data: {
-                    type: Array,
-                    value: function() {
-                        return []
-                    }
-                },
-                to: {
-                    type: String,
-                    value: "To:"
-                },
-                cc: {
-                    type: String,
-                    value: "Cc:"
-                },
-                searchurl: {
-                    type: String,
-                    notify: true
-                },
-            }
-        }
-        static get observers() {
-            return [
-                'changesubject(filename)',
-            ]
-        }
-        constructor() {
-            super();
-            this.titlecolor();
-        }
-
-
-
-        generateSearch(e, pass, retrieveAll) {
-            console.log("generatesearch called")
-
-            if(this.searchoption == undefined || this.searchoption == null || this.searchurl == ""){
-                this.searchoption = "name_l"
-            }
-
-            if (e) {
-                if (e.keyCode !== 13 && e.type == "keypress") {
-                    return
-                }
-            }
-            let query = this.$.searchQuery.value.trim();
-            if (retrieveAll) {
-                query = ""
-                this.searchoption = 'id'
-            }
-            let querypackage = {
-                query: query.toString().toLowerCase(),
-                option: this.searchoption,
-                // type: this.panelname.toLowerCase()\
-                type: "Contact",
-            }
-
-            console.log("here is the query package", querypackage)
-
-
-            console.log("companyid?", this.searchurl.split("/").reverse()[0])
-
-
-            this.$.ajaxSearch.url = this.searchurl
-
-            this.$.ajaxSearch.body = JSON.stringify(querypackage)
-            this.$.ajaxSearch.generateRequest();
-        }
-
-
-
-        setSearchOption(e) {
-            console.log("e.path[0].id in setSearchOption", e.path[0].id)
-            e.path[0].id === "all" ? this.generateSearch(e, undefined, 'mfgpn') : this.searchoption = e.path[0].id
-
-
-
-            if (this.$.searchQuery.value) {
-                this.generateSearch()
-            }
-        }
-
-
-
-
-
-        selectContact(e) {
-            console.log("herer in e!", e)
-            console.log(e.model.item.id)
-            console.log(e.model.item)
-
-            this.listpage = true;
-            this.editpage = true;
-            this.emailpage = false;
-            this.addpage = true;
-
-            console.log("e.target.value", e.target.value)
-
-            // e.target.value === undefined ? e.target.value = '' : e.target.value = e.target.value
-            // e.target.value === undefined ? e.target.value = '' : e.target.value = e.model.item.email
-
-            if(e.target.value === undefined) {
-                e.target.value = e.model.item.email
-            }
-
-
-            console.log("e.target.value", e.target.value)
-
-
-            // this.set('_email', e.model.item.email)
-            this.$.emailfilter.focusout(e)
-
-        }
-
-
-        resetElement() {
-        for (let k in this.properties) {
-            if (k === 'model') {
-                if (typeof this.properties[k].value === 'function') {
-                    this.set(k, this.properties[k].value());
-                }
-            }
-        }
-    };
-
-
-
-        changesubject() {
-            this.set('_email.subject', this.filename);
-        }
-        open(filename, posturl, searchurl) {
-
-            console.log('open called', filename, posturl, searchurl);
-            if (filename) this.set('filename', filename);
-            if (posturl) this.set('posturl', posturl);
-            this.set('searchurl', searchurl);
-            this.resetElement();
-
-            this.addpage = true;
-            this.listpage = true;
-            this.editpage = true;
-            this.emailpage = false;
-            
-            // this.set('_email.to', "");
-            // this.set('_email.cc', "");
-            this.set('_email.subject', this.filename);
-            this.set('_email.message', "");
-            this.set('_email.ispdf', true);
-            this.set('_email.ishtml', true);
-
-
-            this.set('_contact.name', "");
-            this.set('_contact.address', "");
-            this.set('_contact.address1', "");
-            this.set('_contact.address2', "");
-
-            this.set('_contact.email', "");
-            this.set('_contact.phone', "");
-            this.set('_contact.title', "");
-            console.log(this._email)
-            this.$.emailfilter.open();
-            // this.$.emailfiltercc.open();
-        }
-        getCList() {
-            console.log("here in getClist")
-            this.$.ajaxClist.url = this.searchurl;
-            this.$.ajaxClist.generateRequest();
-        }
-        responseClist(request) {
-            var result = request.detail.response;
-
-            console.log("result oimn responseClist", result)
-
-            if (result) {
-                this.set("customerlist", result.results);
-                console.log(this.data)
-                // this.set('data', []);
-
-                // this.set('data', result.results);
-                this.set('data', this.customerlist)
-
-
-
-                var length = this.customerlist.length
-
-                console.log("length", length)
-
-
-
-                for (var i = 0; i < this.customerlist.length; i++) {
-                    this.data[i].address = this.customerlist[i].address
-                    console.log("inside", this.data[i].address)
-
-                    this.notifyPath(`data[${i}].address`)
-                }
-
-                console.log("this.customerlist", this.customerlist)
-
-                console.log("this.customerlist[length-1]", this.customerlist[length-1])
-
-                 if (this.customerlist[length-1].id === 100000){
-                        this.set('customerlist.'+ (length-1) + '.visibility2', 'hidden')
-                        this.set('customerlist.'+ (length-1) + '.visibility3', 'hidden')
-                       // this.set('customerlist.'+ (length-1) + '.visibility4', 'hidden')
-                    }
-
-                // this.set('customerlist.0.visibility3', 'visible')
-                // this.set('customerlist.0.visibility2', 'hidden')
-
-                // this.set('data.0.visibility3', 'visible')
-                // this.set('data.0.visibility2', 'hidden')
-
-
-                        //     this.shadowRoot.dispatchEvent(new CustomEvent('iron-resize', {
-                        //     bubbles: true,
-                        //     composed: true
-                        // }))
-
-                // if(e.detail.baseURI.split('/')[3] == "customers") {
-
-                //     this.model.map(function(x) {
-                //         x.visibility4 = 'hidden'
-                //     })
-                // }
-
-
-
-            }
-        }
-        cancel() {
-            console.log('cancel is called');
-            // this.fire('resetEmail', {})
-            this.set('_email.subject', "");
-            this.set('_email.message', "");
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                composed: true,
-                bubbles: true
-            }));
-        }
-
-        cancel1() {
-            this.set('_contact.name', "");
-            this.set('_contact.address1', "");
-            this.set('_contact.address2', "");
-
-            this.set('_contact.email', "");
-            this.set('_contact.phone', "");
-            this.set('_contact.title', "");
-
-            this.listpage = false;
-            this.editpage = true;
-            this.emailpage = true;
-            this.addpage = true;
-        }
-
-        cancel2() {
-            this.set('_contact.name', "");
-            this.set('_contact.address1', "");
-            this.set('_contact.address2', "");
-
-            this.set('_contact.email', "");
-            this.set('_contact.phone', "");
-            this.set('_contact.title', "");
-
-            this.listpage = true;
-            this.editpage = true;
-            this.emailpage = false;
-            this.addpage = true;
-        }
-
-        addContact(e) {
-            // this.$.addcontacturl.open(this.searchurl);
-
-            this.set('_contact', {})
-
-            console.log('add contact called')
-            this.listpage = true;
-            this.editpage = true;
-            this.emailpage = true;
-            this.addpage = false;
-
-        }
-
-        delete(e) {
-            console.log("here is e.model inside delete", e.model)
-            console.log("here is e.model inside delete", e.model.item.id)
-            var item = e.model.item;
-            var id = item.id;
-            var contact = this.model.filter(function(x) {
-                return x.id == id;
-            })[0];
-            console.log("this is the search model before ", this.searchurl)
-            // this.$.ajaxDelete.url = this.searchurl;
-            this.$.ajaxDelete.url = this.searchurl + "/" + e.model.item.id;
-
-
-
-            console.log("CONTASCT",contact)
-
-
-                        console.log("this.$.ajaxDelete inside delete of bill list", this.$.ajaxDelete)
-                        console.log("this.$.ajaxDelete.url inside delete of bill list", this.$.ajaxDelete.url)
-            console.log("this.searchurl inside delete of bill list", this.searchurl)
-
-
-
-            this.$.ajaxDelete.body = JSON.stringify(e.model.item);
-            this.$.ajaxDelete.generateRequest();
-        }
-
-        responseDelete(request) {
-            var result = request.detail.response;
-            console.log(result)
-            if (result) {
-                document.querySelector('#toast').text = "Removed successfully, refreshing in 2s.";
-                document.querySelector('#toast').show();
-                setTimeout(function() {
-                    document.querySelector('#toast').text = "Removed successfully, refreshing in 1s.";
-                    document.querySelector('#toast').show();
-                }, 1000);
-                setTimeout(function() {
-                    document.querySelector('#toast').text = "Removed successfully, refreshing now.";
-                    document.querySelector('#toast').show();
-                }, 2000);
-                setTimeout(function() {
-                    this.getCList()
-                }.bind(this), 2000);
-            } else {
-                document.querySelector('#toast').text = "Error removing.";
-                document.querySelector('#toast').show();
-            }
-            // this.listpage = true;
-            // this.editpage = true;
-            // this.emailpage = false;
-        }
-
-        contactlist(e) {
-            console.log("contactlist function called", e)
-            this.listpage = false;
-            this.editpage = true;
-            this.emailpage = true;
-            this.addpage = true;
-            this.getCList();
-        }
-
-        editbilling(e) {
-
-            this.$.ajaxSave.url = this.searchurl + "/" + this._contact.id;  
-            this.$.ajaxSave.body = JSON.stringify(this._contact);
-            this.$.ajaxSave.generateRequest();
-        }
-
-        savecontact() {
-
-            console.log("this._contact in savecontact", this._contact)
-    
-
-            console.log("this.searchurl                ",this.searchurl)
-
-            this.$.ajaxSaveC.url = this.searchurl;  
-
-            console.log("this.$.ajaxSaveC.url                ", this.$.ajaxSaveC.url)
-
-
-            this.$.ajaxSaveC.body = JSON.stringify(this._contact);
-            this.$.ajaxSaveC.generateRequest();
-        }
-
-        showError(e) {
-            var msg = e.detail.request.xhr.response.error;
-            if (msg) document.querySelector('#toast').show(msg);
-        }
-        responseAction(request) {
-
-            console.log(" inside responseaction ", request.detail.response)
-
-            var result = request.detail.response;
-            console.log(result)
-            if (result.error) {
-                document.querySelector('#toast').text = result.error;
-                document.querySelector('#toast').show();
-            } else {
-                document.querySelector('#toast').text = "Save successfully";
-                document.querySelector('#toast').show();
-                // this.$.ajaxList.generateRequest();
-                this.listpage = false;
-                this.editpage = true;
-                this.emailpage = true;
-                this.addpage = true;
-
-                this.getCList();
-                // console.log('here is model, request,', this.model, request);
-                // console.log('here is contact', this._contact);
-                // var newContact = JSON.stringify(this._contact);
-                // newContact = JSON.parse(newContact);
-                // this.unshift('model', newContact);
-                // console.log('model afterwards', this.model);
-
-                this.set('_contact.name', "");
-                this.set('_contact.address1', "");
-                this.set('_contact.address2', "");
-
-                this.set('_contact.email', "");
-                this.set('_contact.phone', "");
-                this.set('_contact.title', "");
-                // this.close();
-            }
-
-        }
-
-        responseActionEdit(request) {
-
-            console.log("here ein responseActionAEdit", request.detail.response)
-
-
-            var result = request.detail.response;
-            console.log(result)
-            if (result.error) {
-                document.querySelector('#toast').text = result.error;
-                document.querySelector('#toast').show();
-            } else {
-                document.querySelector('#toast').text = "Save successfully";
-                document.querySelector('#toast').show();
-                // this.$.ajaxList.generateRequest();
-                this.listpage = false;
-                this.editpage = true;
-                this.emailpage = true;
-                this.addpage = true;
-
-                if (this.listIndex >= 0) {
-                    this.splice('model', this.listIndex, 1);
-                    this.listIndex = undefined;
-                    console.log('called in if', this.model);
-                }
-                this.getCList();
-
-                // console.log('here is model, request,', this.model, request);
-                // console.log('here is contact', this._contact);
-                // var newContact = JSON.stringify(this._contact);
-                // newContact = JSON.parse(newContact);
-                // this.unshift('model', newContact);
-                // console.log('model afterwards', this.model);
-
-                // this.set('_contact.name', "");
-                // this.set('_contact.address1', "");
-                // this.set('_contact.address2', "");
-
-                // this.set('_contact.email', "");
-                // this.set('_contact.phone', "");
-                // this.set('_contact.title', "");
-                // this.close();
-            }
-        }
-        edit(e) { //transfer the data
-
-
-            // var id = e.model.item.id;
-
-
-            // var contact = this.model.filter(function(x) {
-
-            //     console.log("in filter", x)
-
-            //     return x.id == id;
-            // })[0];
-
-            // if (contact) {
-            //     this.set('_contact', contact);
-            // }
-            this.set('_contact', e.model.item)
-
-
-            // this.$["popup-contact"].open();
-            this.listIndex = e.model.index;
-            this.listpage = true;
-            this.editpage = false;
-            this.emailpage = true;
-            this.addpage = true;
-        }
-        close() {
-            // this.$.popup.close();
-            this.listpage = true;
-            this.editpage = true;
-            this.emailpage = false;
-            this.addpage = true;
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                composed: true,
-                bubbles: true
-            }));
-        }
-
-        backPanel() {
-            // this.$.popup.close();
-            this.listpage = true;
-            this.editpage = true;
-            this.emailpage = false;
-            this.addpage = true;
-            // this.dispatchEvent(new CustomEvent('closePanel', {
-            //     composed: true,
-            //     bubbles: true
-            // }));
-        }
-
-
-
-        send(e) {
-            console.log('send in email')
-            document.querySelector('#toast').show("Sending message.");
-            console.log(this._email)
-            console.log(this._email.to)
-            console.log(this._email.cc)
-
-            this.$.ajax.url = this.posturl;
-            this.$.ajax.body = JSON.stringify(this._email);
-
-            this.$.ajax.generateRequest();
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                composed: true,
-                bubbles: true
-            }));
-
-        }
-        success(request) {
-            document.querySelector('#toast').show("Sent successfully.");
-            // this.fire('resetEmail', {})
-            // this.set('_email.to', "");
-            // this.set('_email.cc', "");
-            this.set('_email.subject', "");
-            this.set('_email.message', "");
-        }
-        ajaxerror() {
-            document.querySelector('#toast').show("Error sending email.");
-        }
-        titlecolor() {
-            this.headercolor = "#406aad";
-            this.updateStyles({
-                '--title-background-normal': this.headercolor,
-                '--title-normal': 'white',
-            });
+         <iron-ajax id="ajaxSearch" method="POST" handle-as="json" on-response="responseClist" content-type="application/json"></iron-ajax>`
         }
     }
+
  
     customElements.define('send-email', SendEmail)
 
