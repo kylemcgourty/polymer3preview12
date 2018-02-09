@@ -138,7 +138,7 @@ export class SearchOuter extends LitElement {
                     <form>
                         <div class="layout horizontal wrap">
                             <div class="firstoption">
-                                <input checked="checked" on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions" type="radio"> <span class="field">${ data[0][1] }</span>
+                                <input checked="checked" on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions" type="radio"> <span class="field">${ data[0][0] }</span>
                             </div>
                             <div class="singleoption">
                                 <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[1][1] }" value="Void" name="searchoptions" type="radio"> <span class="field">${ data[1][0] }</span>
