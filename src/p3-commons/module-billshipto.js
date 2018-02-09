@@ -72,14 +72,15 @@
             }
         }
 
-        open(bmodel, smodel, ainfo, binfo, searchid, disabledinput, modulebillshipto) {
+        open(bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto) {
 
-            console.log("vals in open", bmodel, smodel, ainfo, binfo, searchid, disabledinput, modulebillshipto )
+            console.log("vals in open", bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto )
             this.bmodel = bmodel
             this.smodel= smodel
             this.ainfo = ainfo
             this.binfo = binfo
             this.searchid = searchid
+            this.displaysearch = displaysearch
             this.disabledinput = disabledinput
             this.model = modulebillshipto
 
