@@ -51,7 +51,6 @@
         
         .my-content {
             display: block;
-            min-height: 24px;
             position: relative;
             word-wrap: break-word;
             font-size: 14px;
@@ -338,13 +337,6 @@
             </div>
         </div>
         <div class="table-padding">
-            <div class="layout horizontal">
-                <div on-tap="toSignIn" class="manage" id="innerchange"> Manage </div>
-                <paper-icon-button on-tap="add" class="add-icon admin" data-admin$="[[admin]]" icon="icons:add" style="display: none">
-                </paper-icon-button>
-                <paper-icon-button on-tap="add" class="add-icon admin" data-adminoff$="[[admin]] icon="icons:add" style="display: none"></paper-icon-button>
-            
-            </div>
             <iron-list items="[[data]]" scroll-target="document">
                 <template>
                     <div>
