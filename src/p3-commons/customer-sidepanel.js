@@ -50,7 +50,7 @@ export class CustomerSidepanel extends LitElement {
         }))
     }
 
-    open() {
+    open(profileid) {
         this.searchfields = {}
         this.searchfields.searchfield1 = "Customer id"
         this.searchfields.searchfield2 = "Customer"
@@ -66,7 +66,11 @@ export class CustomerSidepanel extends LitElement {
         this.searchdisplay = {}
         this.searchdisplay.display = "block"
 
+        this.profileid = profileid;
+        
         this.generateSearch(false, false, true)
+
+
     }
     ready(){
         super.ready();
@@ -548,6 +552,7 @@ export class CustomerSidepanel extends LitElement {
             padding-left: 5%;
             padding-bottom: 0%;
             padding-top: 3%;
+            text-align: left;
         }
         
         .title-rightpaneldraw-list {
