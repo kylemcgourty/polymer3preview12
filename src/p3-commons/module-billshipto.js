@@ -74,7 +74,6 @@
 
         open(bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto) {
 
-            console.log("vals in open", bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto )
 
 
 
@@ -350,7 +349,6 @@
                 </section>
             </div>`}
 
-            console.log('the div', page, this.shadowRoot.getElementById('data'))
             render(page(this.model), this.shadowRoot.getElementById('data'))
         }
 
