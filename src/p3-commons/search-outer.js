@@ -21,12 +21,6 @@ export class SearchOuter extends LitElement {
                 type: Boolean,
                 value: false
             },
-            // sol: {
-            //     type: Array,
-            //     reflectToAttribute: true,
-            //     notify: true,
-            //     value: [],
-            // },
             so: {
                 type: String,
                 value: ""

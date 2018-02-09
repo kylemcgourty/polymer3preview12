@@ -117,7 +117,11 @@ export class PartSidepanel extends LitElement {
     receiveQueryResults(response) {
         this.dataarray = [];
         this.searched = response.detail.response.results
-        this.responselist(response.detail.response.results, true)
+        if (response != null) {
+            this.responselist(response.detail.response.results, true)
+        } else {
+             this.responselist(response, true)
+        }
     }
 
 
