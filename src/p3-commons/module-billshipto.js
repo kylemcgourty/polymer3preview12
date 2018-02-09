@@ -73,6 +73,8 @@
         }
 
         open(bmodel, smodel, ainfo, binfo, searchid, disabledinput, modulebillshipto) {
+
+            console.log("vals in open", bmodel, smodel, ainfo, binfo, searchid, disabledinput, modulebillshipto )
             this.bmodel = bmodel
             this.smodel= smodel
             this.ainfo = ainfo
@@ -80,6 +82,272 @@
             this.searchid = searchid
             this.disabledinput = disabledinput
             this.model = modulebillshipto
+
+            const page =(items) => {
+
+                return html`<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <section class="nomargin nopadding margin-right">
+                    <div class="my-content">
+                        <div class="title title-margin">
+                            <span on-tap="showDropdown" data-id="showbilling">${this.bmodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showbilling"></paper-icon-button>
+                                            </span>
+                            <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.bmodelicon}">
+                                <paper-icon-button id="addbill" icon="add-circle" data-dialog="popup-billto" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+                                <paper-icon-button id="billlist" icon="editor:format-list-bulleted" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: ${this.display(this.showbilling)}">
+                        <div class="my-content">
+                            <div class="col-xs-3">Company</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelcompanyname" value="${this.model.bmodel.companyname}" disabled="${this.disabledinput.bmodel1}">
+                            </div>
+                            <div id="${this.searchid.bmodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.bmodel1}">
+
+                                <paper-icon-button id="${this.searchid.bmodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Attention</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelattention" value="${this.model.bmodel.attention}" disabled="${this.disabledinput.bmodel2}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Street</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelstreet" value="${this.model.bmodel.street}" disabled="${this.disabledinput.bmodel3}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">City</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelcity" value="${this.model.bmodel.city}" disabled="${this.disabledinput.bmodel4}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">State</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelstate" value="${this.model.bmodel.state}" disabled="${this.disabledinput.bmodel5}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Zip Code</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelzipcode" value="${this.model.bmodel.zipcode}" disabled="${this.disabledinput.bmodel6}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Country</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelcountry" value="${this.model.bmodel.country}" disabled="${this.disabledinput.bmodel7}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Phone</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="bmodelphone" value="${this.model.bmodel.phone}" disabled="${this.disabledinput.bmodel8}">
+                            </div>
+                        </div>
+                    <div>
+                </section>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <section class="nomargin nopadding margin-left">
+                    <div class="my-content">
+                        <div class="title title-margin">
+                            <span on-tap="showDropdown" data-id="showshipping" class="title-row bottom-left">${this.smodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshipping"></paper-icon-button>
+                                            </span>
+                            <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.smodelicon}">
+                                <paper-icon-button icon="add-circle" data-dialog="popup-shipto" class="hover" id="addship" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+                                <paper-icon-button icon="editor:format-list-bulleted" class="hover" id="shiplist" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: ${this.display(this.showshipping)}">
+                        <div class="my-content">
+                            <div class="col-xs-3">Company</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelcompanyname" value="${this.model.smodel.companyname}" disabled="${this.disabledinput.smodel1}">
+                                <div id="${this.searchid.smodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.smodel1}">
+                                    <paper-icon-button id="${this.searchid.smodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Attention</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelattention" value="${this.model.smodel.attention}" disabled="${this.disabledinput.smodel2}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Street</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelstreet" value="${this.model.smodel.street}" disabled="${this.disabledinput.smodel3}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">City</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelcity" value="${this.model.smodel.city}" disabled="${this.disabledinput.smodel4}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">State</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelstate" value="${this.model.smodel.state}" disabled="${this.disabledinput.smodel5}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Zip Code</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelzipcode" value="${this.model.smodel.zipcode}" disabled="${this.disabledinput.smodel6}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Country</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelcountry" value="${this.model.smodel.country}" disabled="${this.disabledinput.smodel7}">
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">Phone</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="smodelphone" value="${this.model.smodel.phone}" disabled="${this.disabledinput.smodel8}">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <section class="nomargin nopadding margin-right">
+                    <div class="my-content">
+                        <div class="title title-margin">
+                            <span on-tap="showDropdown" data-id="showsoinfo">${this.ainfo.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showsoinfo"></paper-icon-button>
+                            </span>
+                        </div>
+                    </div>
+                    <div style="display: ${this.display(this.showsoinfo)}">
+                        <div class="my-content">
+                            <div class="col-xs-3">${this.ainfo.info1}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="ainfo1" value="${this.model.ainfovalues.ainfo1_value}" disabled="${this.disabledinput.ainfo1}">
+                            </div>
+                            <div id="${this.searchid.ainfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo1}">
+                                <paper-icon-button id="${this.searchid.ainfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">${this.ainfo.info2}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="ainfo2" value="${this.model.ainfovalues.ainfo2_value}" disabled="${this.disabledinput.ainfo2}">
+                            </div>
+                            <div id="${this.searchid.ainfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo2}">
+                                <paper-icon-button id="${this.searchid.ainfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">${this.ainfo.info3}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="ainfo3" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
+                            </div>
+                            <div id="${this.searchid.ainfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo3}">
+                                <paper-icon-button id="${this.searchid.ainfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">${this.ainfo.info4}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="ainfo4" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
+                            </div>
+                            <div id="${this.searchid.ainfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo4}">
+                                <paper-icon-button id="${this.searchid.ainfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
+                            <div class="col-xs-3">${this.ainfo.info5}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="ainfo5" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
+                            </div>
+                            <div id="${this.searchid.ainfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo5}">
+                                <paper-icon-button id="${this.searchid.ainfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <section class="nopadding nomargin margin-left">
+                    <div class="my-content">
+                        <div class="title title-margin">
+                            <span on-tap="showDropdown" data-id="showshippinginfo">${this.binfo.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshippinginfo"></paper-icon-button>
+                                            </span>
+                        </div>
+                    </div>
+                    <div style="display: ${this.display(this.showshippinginfo)}">
+                        <div class="my-content">
+                            <div class="col-xs-3">${this.binfo.info1}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="binfo1" value="${this.model.binfovalues.binfo1_value}" disabled="${this.disabledinput.binfo1}">
+                            </div>
+                            <div id="${this.searchid.binfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo1}">
+                                <paper-icon-button id="${this.searchid.binfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+                            </div>
+                        </div>
+                        <div class="my-content" on-tap="openDatePicker">
+                            <div class="col-xs-3">${this.binfo.info2}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="binfo2" value="${this.model.binfovalues.binfo2_value}" disabled="${this.disabledinput.binfo2}">
+                            </div>
+                            <div id="${this.searchid.binfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo2}">
+                                <paper-icon-button id="${this.searchid.binfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">${this.binfo.info3}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="binfo3" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
+                            </div>
+                            <div id="${this.searchid.binfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo3}">
+                                <paper-icon-button id="${this.searchid.binfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                        <div class="my-content">
+                            <div class="col-xs-3">${this.binfo.info4}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="binfo4" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
+                            </div>
+                            <div id="${this.searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo4}">
+                                <paper-icon-button id="${this.searchid.binfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
+                            <div class="col-xs-3">${this.binfo.info5}</div>
+                            <div class="text-right">
+                                    <input class="input col-xs-9" id="binfo5" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
+                            </div>
+                            <div id="${this.searchid.binfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo5}">
+                                <paper-icon-button id="${this.searchid.binfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>`}
+
+            console.log('the div', page, this.shadowRoot.querySelector('#data'))
+            render(page(this.model), this.shadowRoot.querySelector('#data'))
         }
 
 
@@ -1156,267 +1424,8 @@
         }
       
         </style>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <section class="nomargin nopadding margin-right">
-                    <div class="my-content">
-                        <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showbilling">${this.bmodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showbilling"></paper-icon-button>
-                                            </span>
-                            <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.bmodelicon}">
-                                <paper-icon-button id="addbill" icon="add-circle" data-dialog="popup-billto" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
-                                <paper-icon-button id="billlist" icon="editor:format-list-bulleted" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: ${this.display(this.showbilling)}">
-                        <div class="my-content">
-                            <div class="col-xs-3">Company</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelcompanyname" value="${this.model.bmodel.companyname}" disabled="${this.disabledinput.bmodel1}">
-                            </div>
-                            <div id="${this.searchid.bmodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.bmodel1}">
-
-                                <paper-icon-button id="${this.searchid.bmodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Attention</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelattention" value="${this.model.bmodel.attention}" disabled="${this.disabledinput.bmodel2}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Street</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelstreet" value="${this.model.bmodel.street}" disabled="${this.disabledinput.bmodel3}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">City</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelcity" value="${this.model.bmodel.city}" disabled="${this.disabledinput.bmodel4}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">State</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelstate" value="${this.model.bmodel.state}" disabled="${this.disabledinput.bmodel5}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Zip Code</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelzipcode" value="${this.model.bmodel.zipcode}" disabled="${this.disabledinput.bmodel6}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Country</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelcountry" value="${this.model.bmodel.country}" disabled="${this.disabledinput.bmodel7}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Phone</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="bmodelphone" value="${this.model.bmodel.phone}" disabled="${this.disabledinput.bmodel8}">
-                            </div>
-                        </div>
-                    <div>
-                </section>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <section class="nomargin nopadding margin-left">
-                    <div class="my-content">
-                        <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showshipping" class="title-row bottom-left">${this.smodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshipping"></paper-icon-button>
-                                            </span>
-                            <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.smodelicon}">
-                                <paper-icon-button icon="add-circle" data-dialog="popup-shipto" class="hover" id="addship" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
-                                <paper-icon-button icon="editor:format-list-bulleted" class="hover" id="shiplist" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: ${this.display(this.showshipping)}">
-                        <div class="my-content">
-                            <div class="col-xs-3">Company</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelcompanyname" value="${this.model.smodel.companyname}" disabled="${this.disabledinput.smodel1}">
-                                <div id="${this.searchid.smodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.smodel1}">
-                                    <paper-icon-button id="${this.searchid.smodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Attention</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelattention" value="${this.model.smodel.attention}" disabled="${this.disabledinput.smodel2}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Street</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelstreet" value="${this.model.smodel.street}" disabled="${this.disabledinput.smodel3}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">City</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelcity" value="${this.model.smodel.city}" disabled="${this.disabledinput.smodel4}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">State</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelstate" value="${this.model.smodel.state}" disabled="${this.disabledinput.smodel5}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Zip Code</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelzipcode" value="${this.model.smodel.zipcode}" disabled="${this.disabledinput.smodel6}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Country</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelcountry" value="${this.model.smodel.country}" disabled="${this.disabledinput.smodel7}">
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">Phone</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="smodelphone" value="${this.model.smodel.phone}" disabled="${this.disabledinput.smodel8}">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <section class="nomargin nopadding margin-right">
-                    <div class="my-content">
-                        <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showsoinfo">${this.ainfo.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showsoinfo"></paper-icon-button>
-                            </span>
-                        </div>
-                    </div>
-                    <div style="display: ${this.display(this.showsoinfo)}">
-                        <div class="my-content">
-                            <div class="col-xs-3">${this.ainfo.info1}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="ainfo1" value="${this.model.ainfovalues.ainfo1_value}" disabled="${this.disabledinput.ainfo1}">
-                            </div>
-                            <div id="${this.searchid.ainfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo1}">
-                                <paper-icon-button id="${this.searchid.ainfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">${this.ainfo.info2}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="ainfo2" value="${this.model.ainfovalues.ainfo2_value}" disabled="${this.disabledinput.ainfo2}">
-                            </div>
-                            <div id="${this.searchid.ainfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo2}">
-                                <paper-icon-button id="${this.searchid.ainfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">${this.ainfo.info3}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="ainfo3" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
-                            </div>
-                            <div id="${this.searchid.ainfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo3}">
-                                <paper-icon-button id="${this.searchid.ainfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">${this.ainfo.info4}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="ainfo4" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
-                            </div>
-                            <div id="${this.searchid.ainfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo4}">
-                                <paper-icon-button id="${this.searchid.ainfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
-                            <div class="col-xs-3">${this.ainfo.info5}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="ainfo5" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
-                            </div>
-                            <div id="${this.searchid.ainfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo5}">
-                                <paper-icon-button id="${this.searchid.ainfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <section class="nopadding nomargin margin-left">
-                    <div class="my-content">
-                        <div class="title title-margin">
-                            <span on-tap="showDropdown" data-id="showshippinginfo">${this.binfo.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshippinginfo"></paper-icon-button>
-                                            </span>
-                        </div>
-                    </div>
-                    <div style="display: ${this.display(this.showshippinginfo)}">
-                        <div class="my-content">
-                            <div class="col-xs-3">${this.binfo.info1}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo1" value="${this.model.binfovalues.binfo1_value}" disabled="${this.disabledinput.binfo1}">
-                            </div>
-                            <div id="${this.searchid.binfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo1}">
-                                <paper-icon-button id="${this.searchid.binfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-                            </div>
-                        </div>
-                        <div class="my-content" on-tap="openDatePicker">
-                            <div class="col-xs-3">${this.binfo.info2}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo2" value="${this.model.binfovalues.binfo2_value}" disabled="${this.disabledinput.binfo2}">
-                            </div>
-                            <div id="${this.searchid.binfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo2}">
-                                <paper-icon-button id="${this.searchid.binfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">${this.binfo.info3}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo3" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
-                            </div>
-                            <div id="${this.searchid.binfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo3}">
-                                <paper-icon-button id="${this.searchid.binfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                        <div class="my-content">
-                            <div class="col-xs-3">${this.binfo.info4}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo4" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
-                            </div>
-                            <div id="${this.searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo4}">
-                                <paper-icon-button id="${this.searchid.binfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
-                            <div class="col-xs-3">${this.binfo.info5}</div>
-                            <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo5" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
-                            </div>
-                            <div id="${this.searchid.binfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo5}">
-                                <paper-icon-button id="${this.searchid.binfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+        <div class="row" id="data">
+            
         </div>`
         }
 
