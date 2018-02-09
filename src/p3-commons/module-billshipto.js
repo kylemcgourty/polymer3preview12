@@ -2,7 +2,6 @@
   import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 
-  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
 
   import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
@@ -14,14 +13,7 @@
 
         static get properties() {
             return {
-                model: {
-                    type: Object,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: function() {
-                        return {}
-                    }
-                },
+                
                 showbilling: {
                     type: Boolean,
                     notify: true,
@@ -49,9 +41,21 @@
             }
         }
 
+         static get observers() {
+            return [
+
+            ]
+        }
+
+
+
         constructor() {
             super();
-        }
+
+            
+           
+}
+
 
         doCalculateTax() {
             this.dispatchEvent(new CustomEvent('docalculatetax', {
@@ -68,15 +72,57 @@
             }
         }
 
+        open(bmodel, smodel, ainfo, binfo, searchid, disabledinput, modulebillshipto) {
+            this.bmodel = bmodel
+            this.smodel= smodel
+            this.ainfo = ainfo
+            this.binfo = binfo
+            this.searchid = searchid
+            this.disabledinput = disabledinput
+            this.model = modulebillshipto
+        }
+
+
+        returnModel(){
+
+            this.model.bmodel.companyname = this.shadowRoot.querySelector('#bmodelcompanyname').value
+            this.model.bmodel.attention = this.shadowRoot.querySelector('#bmodelattention').value
+            this.model.bmodel.street = this.shadowRoot.querySelector('#bmodelstreet').value
+            this.model.bmodel.city = this.shadowRoot.querySelector('#bmodelcity').value
+            this.model.bmodel.state = this.shadowRoot.querySelector('#bmodelstate').value
+            this.model.bmodel.zipcode = this.shadowRoot.querySelector('#bmodelzipcode').value
+            this.model.bmodel.country = this.shadowRoot.querySelector('#bmodelcountry').value
+            this.model.bmodel.phone = this.shadowRoot.querySelector('#bmodelphone').value
+
+            this.model.smodel.companyname = this.shadowRoot.querySelector('#smodelcompanyname').value
+            this.model.smodel.attention = this.shadowRoot.querySelector('#smodelattention').value
+            this.model.smodel.street = this.shadowRoot.querySelector('#smodelstreet').value
+            this.model.smodel.city = this.shadowRoot.querySelector('#smodelcity').value
+            this.model.smodel.state = this.shadowRoot.querySelector('#smodelstate').value
+            this.model.smodel.zipcode = this.shadowRoot.querySelector('#smodelzipcode').value
+            this.model.smodel.country = this.shadowRoot.querySelector('#smodelcountry').value
+            this.model.smodel.phone = this.shadowRoot.querySelector('#smodelphone').value
+
+
+            this.model.ainfovalues.ainfo1_value  = this.shadowRoot.querySelector('#ainfo1').value
+            this.model.ainfovalues.ainfo2_value = this.shadowRoot.querySelector('#ainfo2').value
+            this.model.ainfovalues.ainfo3_value = this.shadowRoot.querySelector('#ainfo3').value
+            this.model.ainfovalues.ainfo4_value = this.shadowRoot.querySelector('#ainfo4').value
+            this.model.ainfovalues.ainfo5_value = this.shadowRoot.querySelector('#ainfo5').value
+
+            this.model.binfovalues.binfo1_value  = this.shadowRoot.querySelector('#binfo1').value
+            this.model.binfovalues.binfo2_value = this.shadowRoot.querySelector('#binfo2').value
+            this.model.binfovalues.binfo3_value = this.shadowRoot.querySelector('#binfo3').value
+            this.model.binfovalues.binfo4_value = this.shadowRoot.querySelector('#binfo4').value
+            this.model.binfovalues.binfo5_value = this.shadowRoot.querySelector('#binfo5').value
+
+            return this.model
+        }
+
         changepanel(e) {
-            console.log("e in changepanel modulebst", e)
             // var from = e.path[0].id;
             var from = e.path[2].id;
 
-            console.log("in the changepath function now", e.path[2].id)
-
-
-            console.log(from)
             switch (from) {
                 case "addbill":
                     this.dispatchEvent(new CustomEvent('sendaddbill', {
@@ -191,7 +237,134 @@
 
 
         render() {
+
+            this.model = {
+                        bmodel: {
+                            companyname: "",
+                            attention: "",
+                            street: "",
+                            city: "",
+                            state: "",
+                            zipcode: "",
+                            country: "",
+                            phone: ""
+                        },
+
+                        smodel: {
+                            companyname: "",
+                            attention: "",
+                            street: "",
+                            city: "",
+                            state: "",
+                            zipcode: "",
+                            country: "",
+                            phone: ""
+                        },
+
+                        ainfovalues: {
+                            ainfo1_value: "",
+                            ainfo2_value: "COD",
+                            ainfo3_value: Number(9.25).pct(2),
+                            ainfo4_value: "",
+                            ainfo5_value: "",
+                        },
+
+                        binfovalues: {
+                            binfo1_value: '',
+                            binfo2_value: "Active",
+                            binfo3_value: "",
+                            binfo4_value: "",
+                            binfo5_value: ""
+                        }
+                    }
            
+           this.disabledinput= {
+                
+                        bmodel1: false,
+                        bmodel2: false,
+                        bmodel3: false,
+                        bmodel4: false,
+                        bmodel5: false,
+                        bmodel6: false,
+                        bmodel7: false,
+                        bmodel8: false,
+                        smodel1: false,
+                        smodel2: false,
+                        smodel3: false,
+                        smodel4: false,
+                        smodel5: false,
+                        smodel6: false,
+                        smodel7: false,
+                        smodel8: false,
+                        ainfo1: true,
+                        ainfo2: true,
+                        ainfo3: false,
+                        ainfo4: false,
+                        ainfo5: false,
+                        binfo1: false,
+                        binfo2: true,
+                        binfo3: false,
+                        binfo4: false,
+                        binfo5: false
+                    }
+          
+            this.displaysearch= {
+               
+               
+                        bmodel1: "block",
+                        bmodelicon: "block",
+                        smodel1: "none",
+                        smodelicon: "block",
+                        ainfo1: "none",
+                        ainfo2: "block",
+                        ainfo3: "none",
+                        ainfo4: "none",
+                        ainfo5: "none",
+                        binfo1: "none",
+                        binfo2: "block",
+                        binfo3: "none",
+                        binfo4: "none",
+                        binfo5: "none"
+                    }
+          
+            this.searchid= {
+               
+                        bmodel1: "customerlist",
+                        ainfo2: "termlist",
+                        binfo2: "statuslist",
+                        binfo3: "shippinginfo"
+                    }
+           
+            this.bmodel= {
+            
+                        title: "Bill To"
+             
+            }
+            this.smodel= {
+                
+                        title: "Ship To"
+               
+            }
+            this.ainfo= {
+                
+                        title: "Account Info",
+                        info1: "Customer id",
+                        info2: "Term",
+                        info3: "Tax",
+                        info4: "Acct. Mgr",
+                        info5: "Notes"
+            
+            }
+            this.binfo= {
+                        title: "Shipping Info",
+                        info1: "Project",
+                        info2: "Status",
+                        info3: "Reference",
+                        info4: "Expired Date",
+                        info5: "Project Manager"
+                    }
+
+
         return html`
 
              <style>
@@ -1000,7 +1173,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">Company</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.companyname}" disabled="${this.disabledinput.bmodel1}">
+                                    <input class="input col-xs-9" id="bmodelcompanyname" value="${this.model.bmodel.companyname}" disabled="${this.disabledinput.bmodel1}">
                             </div>
                             <div id="${this.searchid.bmodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.bmodel1}">
 
@@ -1010,43 +1183,43 @@
                         <div class="my-content">
                             <div class="col-xs-3">Attention</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.attention}" disabled="${this.disabledinput.bmodel2}">
+                                    <input class="input col-xs-9" id="bmodelattention" value="${this.model.bmodel.attention}" disabled="${this.disabledinput.bmodel2}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Street</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.street}" disabled="${this.disabledinput.bmodel3}">
+                                    <input class="input col-xs-9" id="bmodelstreet" value="${this.model.bmodel.street}" disabled="${this.disabledinput.bmodel3}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">City</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.city}" disabled="${this.disabledinput.bmodel4}">
+                                    <input class="input col-xs-9" id="bmodelcity" value="${this.model.bmodel.city}" disabled="${this.disabledinput.bmodel4}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">State</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.state}" disabled="${this.disabledinput.bmodel5}">
+                                    <input class="input col-xs-9" id="bmodelstate" value="${this.model.bmodel.state}" disabled="${this.disabledinput.bmodel5}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Zip Code</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.zipcode}" disabled="${this.disabledinput.bmodel6}">
+                                    <input class="input col-xs-9" id="bmodelzipcode" value="${this.model.bmodel.zipcode}" disabled="${this.disabledinput.bmodel6}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Country</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.country}" disabled="${this.disabledinput.bmodel7}">
+                                    <input class="input col-xs-9" id="bmodelcountry" value="${this.model.bmodel.country}" disabled="${this.disabledinput.bmodel7}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Phone</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.bmodel.phone}" disabled="${this.disabledinput.bmodel8}">
+                                    <input class="input col-xs-9" id="bmodelphone" value="${this.model.bmodel.phone}" disabled="${this.disabledinput.bmodel8}">
                             </div>
                         </div>
                     <div>
@@ -1069,7 +1242,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">Company</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.companyname}" disabled="${this.disabledinput.smodel1}">
+                                    <input class="input col-xs-9" id="smodelcompanyname" value="${this.model.smodel.companyname}" disabled="${this.disabledinput.smodel1}">
                                 <div id="${this.searchid.smodel1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.smodel1}">
                                     <paper-icon-button id="${this.searchid.smodel1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
                                 </div>
@@ -1078,43 +1251,43 @@
                         <div class="my-content">
                             <div class="col-xs-3">Attention</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.attention}" disabled="${this.disabledinput.smodel2}">
+                                    <input class="input col-xs-9" id="smodelattention" value="${this.model.smodel.attention}" disabled="${this.disabledinput.smodel2}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Street</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.street}" disabled="${this.disabledinput.smodel3}">
+                                    <input class="input col-xs-9" id="smodelstreet" value="${this.model.smodel.street}" disabled="${this.disabledinput.smodel3}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">City</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.city}" disabled="${this.disabledinput.smodel4}">
+                                    <input class="input col-xs-9" id="smodelcity" value="${this.model.smodel.city}" disabled="${this.disabledinput.smodel4}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">State</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.state}" disabled="${this.disabledinput.smodel5}">
+                                    <input class="input col-xs-9" id="smodelstate" value="${this.model.smodel.state}" disabled="${this.disabledinput.smodel5}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Zip Code</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.zipcode}" disabled="${this.disabledinput.smodel6}">
+                                    <input class="input col-xs-9" id="smodelzipcode" value="${this.model.smodel.zipcode}" disabled="${this.disabledinput.smodel6}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Country</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.country}" disabled="${this.disabledinput.smodel7}">
+                                    <input class="input col-xs-9" id="smodelcountry" value="${this.model.smodel.country}" disabled="${this.disabledinput.smodel7}">
                             </div>
                         </div>
                         <div class="my-content">
                             <div class="col-xs-3">Phone</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.smodel.phone}" disabled="${this.disabledinput.smodel8}">
+                                    <input class="input col-xs-9" id="smodelphone" value="${this.model.smodel.phone}" disabled="${this.disabledinput.smodel8}">
                             </div>
                         </div>
                     </div>
@@ -1134,7 +1307,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info1}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo1_value}" disabled="${this.disabledinput.ainfo1}">
+                                    <input class="input col-xs-9" id="ainfo1" value="${this.model.ainfovalues.ainfo1_value}" disabled="${this.disabledinput.ainfo1}">
                             </div>
                             <div id="${this.searchid.ainfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo1}">
                                 <paper-icon-button id="${this.searchid.ainfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1143,7 +1316,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info2}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo2_value}" disabled="${this.disabledinput.ainfo2}">
+                                    <input class="input col-xs-9" id="ainfo2" value="${this.model.ainfovalues.ainfo2_value}" disabled="${this.disabledinput.ainfo2}">
                             </div>
                             <div id="${this.searchid.ainfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo2}">
                                 <paper-icon-button id="${this.searchid.ainfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1153,7 +1326,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info3}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
+                                    <input class="input col-xs-9" id="ainfo3" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
                             </div>
                             <div id="${this.searchid.ainfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo3}">
                                 <paper-icon-button id="${this.searchid.ainfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1163,7 +1336,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info4}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
+                                    <input class="input col-xs-9" id="ainfo4" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
                             </div>
                             <div id="${this.searchid.ainfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo4}">
                                 <paper-icon-button id="${this.searchid.ainfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1173,7 +1346,7 @@
                         <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
                             <div class="col-xs-3">${this.ainfo.info5}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
+                                    <input class="input col-xs-9" id="ainfo5" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
                             </div>
                             <div id="${this.searchid.ainfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo5}">
                                 <paper-icon-button id="${this.searchid.ainfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1195,7 +1368,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.binfo.info1}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo1_value}" disabled="${this.disabledinput.binfo1}">
+                                    <input class="input col-xs-9" id="binfo1" value="${this.model.binfovalues.binfo1_value}" disabled="${this.disabledinput.binfo1}">
                             </div>
                             <div id="${this.searchid.binfo1}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo1}">
                                 <paper-icon-button id="${this.searchid.binfo1}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1204,7 +1377,7 @@
                         <div class="my-content" on-tap="openDatePicker">
                             <div class="col-xs-3">${this.binfo.info2}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo2_value}" disabled="${this.disabledinput.binfo2}">
+                                    <input class="input col-xs-9" id="binfo2" value="${this.model.binfovalues.binfo2_value}" disabled="${this.disabledinput.binfo2}">
                             </div>
                             <div id="${this.searchid.binfo2}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo2}">
                                 <paper-icon-button id="${this.searchid.binfo2}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1214,7 +1387,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.binfo.info3}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
+                                    <input class="input col-xs-9" id="binfo3" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
                             </div>
                             <div id="${this.searchid.binfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo3}">
                                 <paper-icon-button id="${this.searchid.binfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1224,7 +1397,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.binfo.info4}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
+                                    <input class="input col-xs-9" id="binfo4" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
                             </div>
                             <div id="${this.searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo4}">
                                 <paper-icon-button id="${this.searchid.binfo4}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -1234,7 +1407,7 @@
                         <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
                             <div class="col-xs-3">${this.binfo.info5}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
+                                    <input class="input col-xs-9" id="binfo5" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
                             </div>
                             <div id="${this.searchid.binfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo5}">
                                 <paper-icon-button id="${this.searchid.binfo5}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
