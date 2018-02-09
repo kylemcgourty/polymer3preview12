@@ -74,7 +74,9 @@
 
         open(bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto) {
 
-            console.log("vals in open", bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto )
+
+
+
             this.bmodel = bmodel
             this.smodel= smodel
             this.ainfo = ainfo
@@ -347,43 +349,42 @@
                 </section>
             </div>`}
 
-            console.log('the div', page, this.shadowRoot.querySelector('#data'))
-            render(page(this.model), this.shadowRoot.querySelector('#data'))
+            render(page(this.model), this.shadowRoot.getElementById('data'))
         }
 
 
         returnModel(){
 
-            this.model.bmodel.companyname = this.shadowRoot.querySelector('#bmodelcompanyname').value
-            this.model.bmodel.attention = this.shadowRoot.querySelector('#bmodelattention').value
-            this.model.bmodel.street = this.shadowRoot.querySelector('#bmodelstreet').value
-            this.model.bmodel.city = this.shadowRoot.querySelector('#bmodelcity').value
-            this.model.bmodel.state = this.shadowRoot.querySelector('#bmodelstate').value
-            this.model.bmodel.zipcode = this.shadowRoot.querySelector('#bmodelzipcode').value
-            this.model.bmodel.country = this.shadowRoot.querySelector('#bmodelcountry').value
-            this.model.bmodel.phone = this.shadowRoot.querySelector('#bmodelphone').value
+            this.model.bmodel.companyname = this.shadowRoot.getElementById('bmodelcompanyname').value
+            this.model.bmodel.attention = this.shadowRoot.getElementById('bmodelattention').value
+            this.model.bmodel.street = this.shadowRoot.getElementById('bmodelstreet').value
+            this.model.bmodel.city = this.shadowRoot.getElementById('bmodelcity').value
+            this.model.bmodel.state = this.shadowRoot.getElementById('bmodelstate').value
+            this.model.bmodel.zipcode = this.shadowRoot.getElementById('bmodelzipcode').value
+            this.model.bmodel.country = this.shadowRoot.getElementById('bmodelcountry').value
+            this.model.bmodel.phone = this.shadowRoot.getElementById('bmodelphone').value
 
-            this.model.smodel.companyname = this.shadowRoot.querySelector('#smodelcompanyname').value
-            this.model.smodel.attention = this.shadowRoot.querySelector('#smodelattention').value
-            this.model.smodel.street = this.shadowRoot.querySelector('#smodelstreet').value
-            this.model.smodel.city = this.shadowRoot.querySelector('#smodelcity').value
-            this.model.smodel.state = this.shadowRoot.querySelector('#smodelstate').value
-            this.model.smodel.zipcode = this.shadowRoot.querySelector('#smodelzipcode').value
-            this.model.smodel.country = this.shadowRoot.querySelector('#smodelcountry').value
-            this.model.smodel.phone = this.shadowRoot.querySelector('#smodelphone').value
+            this.model.smodel.companyname = this.shadowRoot.getElementById('smodelcompanyname').value
+            this.model.smodel.attention = this.shadowRoot.getElementById('smodelattention').value
+            this.model.smodel.street = this.shadowRoot.getElementById('smodelstreet').value
+            this.model.smodel.city = this.shadowRoot.getElementById('smodelcity').value
+            this.model.smodel.state = this.shadowRoot.getElementById('smodelstate').value
+            this.model.smodel.zipcode = this.shadowRoot.getElementById('smodelzipcode').value
+            this.model.smodel.country = this.shadowRoot.getElementById('smodelcountry').value
+            this.model.smodel.phone = this.shadowRoot.getElementById('smodelphone').value
 
 
-            this.model.ainfovalues.ainfo1_value  = this.shadowRoot.querySelector('#ainfo1').value
-            this.model.ainfovalues.ainfo2_value = this.shadowRoot.querySelector('#ainfo2').value
-            this.model.ainfovalues.ainfo3_value = this.shadowRoot.querySelector('#ainfo3').value
-            this.model.ainfovalues.ainfo4_value = this.shadowRoot.querySelector('#ainfo4').value
-            this.model.ainfovalues.ainfo5_value = this.shadowRoot.querySelector('#ainfo5').value
+            this.model.ainfovalues.ainfo1_value  = this.shadowRoot.getElementById('ainfo1').value
+            this.model.ainfovalues.ainfo2_value = this.shadowRoot.getElementById('ainfo2').value
+            this.model.ainfovalues.ainfo3_value = this.shadowRoot.getElementById('ainfo3').value
+            this.model.ainfovalues.ainfo4_value = this.shadowRoot.getElementById('ainfo4').value
+            this.model.ainfovalues.ainfo5_value = this.shadowRoot.getElementById('ainfo5').value
 
-            this.model.binfovalues.binfo1_value  = this.shadowRoot.querySelector('#binfo1').value
-            this.model.binfovalues.binfo2_value = this.shadowRoot.querySelector('#binfo2').value
-            this.model.binfovalues.binfo3_value = this.shadowRoot.querySelector('#binfo3').value
-            this.model.binfovalues.binfo4_value = this.shadowRoot.querySelector('#binfo4').value
-            this.model.binfovalues.binfo5_value = this.shadowRoot.querySelector('#binfo5').value
+            this.model.binfovalues.binfo1_value  = this.shadowRoot.getElementById('binfo1').value
+            this.model.binfovalues.binfo2_value = this.shadowRoot.getElementById('binfo2').value
+            this.model.binfovalues.binfo3_value = this.shadowRoot.getElementById('binfo3').value
+            this.model.binfovalues.binfo4_value = this.shadowRoot.getElementById('binfo4').value
+            this.model.binfovalues.binfo5_value = this.shadowRoot.getElementById('binfo5').value
 
             return this.model
         }
