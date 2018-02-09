@@ -57,7 +57,7 @@ export class PartSidepanel extends LitElement {
         super()
     }
 
-    open() {
+    open(profileid) {
         this.searchfields = {}
         this.searchfields.searchfield1 = "Part id"
         this.searchfields.searchfield2 = "Product No."
@@ -72,6 +72,8 @@ export class PartSidepanel extends LitElement {
 
         this.searchdisplay = {}
         this.searchdisplay.display = "block"
+
+        this.profileid = profileid
 
         this.generateSearch(false, false, true)
     }
