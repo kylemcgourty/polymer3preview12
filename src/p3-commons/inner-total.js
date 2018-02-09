@@ -13,6 +13,10 @@ export class InnerTotal extends LitElement {
                 type: Boolean,
                 value: true,
             },
+            viewpage: {
+                type: Boolean,
+                value: false,
+            },
             tax: {
                 type: String,
                 notify: true
@@ -68,10 +72,10 @@ export class InnerTotal extends LitElement {
 
         console.log(this.totals)
 
-        const searchtypes = (data, tax, profilesection, totalsection) => {
+        const searchtypes = (data, tax, profilesection, totalsection, viewpage) => {
 
             return html `
-                    <div class="subtable col-xs-12 col-sm-12 col-md-6 col-lg-6 only-desktop" hidden="${ profilesection }">
+                    <div class="subtable col-xs-12 col-sm-12 col-md-6 col-lg-6 only-desktop" hidden="${ !profilesection }">
                         <section class="nomargin nopadding margin-right">
                             <div class="my-content">
                                 <div class="col-xs-3-totals">Profit</div>
@@ -99,7 +103,7 @@ export class InnerTotal extends LitElement {
                             </div>
                         </section>
                     </div>
-                    <div class="subtable col-xs-12 col-sm-12 col-md-6 col-lg-6" hidden="${ totalsection }">
+                    <div class="subtable col-xs-12 col-sm-12 col-md-6 col-lg-6" hidden="${ !totalsection }">
                         <section class="nomargin nopadding margin-left">
                             <div class="my-content">
                                 <div class="col-xs-3-totals">Sub Total</div>
@@ -121,7 +125,8 @@ export class InnerTotal extends LitElement {
                                 <div class="col-xs-3-totals">Handling</div>
                                 <div class="text-right col-xs-9-totals" style="float:right">
                                     <div>
-                                        <input class="subtable-input" id="handling" value="${ data.handling }" on-focusout="${() => this.doCalculate()}">
+                                        <input class="subtable-input" id="handling" hidden="${ viewpage }" value="${ data.handling }" on-focusout="${() => this.doCalculate()}">
+                                        <input class="subtable-input" id="handling" hidden="${ !viewpage }" disabled value="${ data.handling }">
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +134,8 @@ export class InnerTotal extends LitElement {
                                 <div class="col-xs-3-totals">Shipping</div>
                                 <div class="text-right col-xs-9-totals" style="float:right">
                                     <div>
-                                        <input class="subtable-input" id="shippingnotax" value="${ data.shippingnotax }" on-focusout="${() => this.doCalculate()}">
+                                        <input class="subtable-input" id="shippingnotax" hidden="${ viewpage }" value="${ data.shippingnotax }" on-focusout="${() => this.doCalculate()}">
+                                        <input class="subtable-input" id="shippingnotax" hidden="${ !viewpage }"  disabled value="${ data.shippingnotax }">
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +149,7 @@ export class InnerTotal extends LitElement {
                             </div>
                         </section>
                     </div>
-                    <div class="subtable col-xs-12 col-sm-12 col-md-6 col-lg-6" hidden="${ profilesection }">
+                    <div class="subtable col-xs-12 col-sm-12 col-md-6 col-lg-6" hidden="${ !profilesection }">
                         <section class="nomargin nopadding margin-right mobile-only">
                             <iron-collapse>
                                 <div class="my-content">
@@ -176,7 +182,7 @@ export class InnerTotal extends LitElement {
       `;
         }
 
-        render(searchtypes(this.totals, this.tax, this.profilesection, this.totalsection), this.shadowRoot.querySelector('#total'))
+        render(searchtypes(this.totals, this.tax, this.profilesection, this.totalsection, this.viewpage), this.shadowRoot.querySelector('#total'))
     }
     ready() {
         super.ready();
