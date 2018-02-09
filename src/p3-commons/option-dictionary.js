@@ -92,6 +92,9 @@ export class OptionDictionary extends LitElement {
             if (props.fireevent) {
                 this.fireevent = props.fireevent;
             }
+            if (props.serviceid) {
+                this.serviceid = props.serviceid;
+            }
         }
         
         this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+this.typemodel;
@@ -157,6 +160,9 @@ export class OptionDictionary extends LitElement {
             case "custterms": data = [{word: "COD"}, {word: "Net 1"}, {word: "Net 30"}, {word: "Net 60"}]; break;
             case "status4values": data = [{word: "Open"}, {word: "Partial"}, {word: "Closed"}, {word: "Void"}]; break;
             case "status2values": data = [{word: "Active"}, {word: "Inactive"}]; break;
+            case "roles": data = [{word: "Super Admin"}, {word: "Group Admin"}, {word: "User"}]; break;
+            case "privileges": data = [{word: "Full"}, {word: "View"}, {word: "Edit"}]; break;
+            case "hostingtype": data = [{word: "SAAS"}, {word: "Self-Host"}, {word: "Cloud Provider"}]; break;
             case "empty": data = []; break;
             default: data = [];
         }
@@ -200,6 +206,7 @@ export class OptionDictionary extends LitElement {
             bubbles: true,
             composed: true,
             detail: {
+                serviceid: this.serviceid,
                 item: selection.word,
                 types: this.data
             }
