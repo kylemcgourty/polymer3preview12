@@ -1,9 +1,187 @@
- import { Element as PolymerElement }
- from '../../node_modules/@polymer/polymer/polymer-element.js'
+import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
- export class AdminServicePanel extends PolymerElement {
-     static get template() {
-         return `
+import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+
+ export class AdminServicePanel extends LitElement {
+     
+     static get properties() {
+         return {
+             searchoption: {
+                 type: String,
+             },
+         }
+     }
+
+     open(useProfileOnly) {
+         if (useProfileOnly === true) {
+             this.getProfileList();
+         } else {
+             this.getList()
+         }
+     }
+
+     constructor() {
+         super();
+     }
+
+     responselist(response) {
+         if (response.detail) {
+             let result = response.detail.response;
+             let data = result.results.services;
+
+             this.data = [];
+
+             this.data = data.map((app, i) => {
+                 var newAppObj = app
+                 var color;
+                 var even = i % 2
+                 i % 2 === 0 ? color = '#f7f8f9' : color = 'white'
+                 newAppObj.color = color;
+                 newAppObj.title = app.name;
+                 newAppObj.headername = "App";
+                 newAppObj.headerversion = "Version";
+
+                 return newAppObj;
+             })
+         }
+         let dt = this.data
+         this.data = []
+         setTimeout(() => {
+             this.data = dt
+             this.renderItems();
+         }, 10)
+     }
+
+     renderItems() {
+        const types = data => {
+
+            return html`
+            ${repeat (
+                 data,
+                 item => item.id,
+                 item => html`
+                            <div on-tap="sendService" style="background-color: ${item.color}; margin-top: 7px">
+                                <div class="redtitle" style="color: rgb(255, 64, 128)">
+                                    ${item.title}
+                                    ${repeat (
+                                        item.transportapps,
+                                        item => item.id,
+                                        item => html`<div>
+                                            <div class="layout horizontal my-content" style="width:100%">
+                                                
+                                            </div>
+                                        </div>`
+                                    )}
+                                </div>
+                            </div>
+                          `
+                 )}`;
+        }
+
+        // <div on-tap="sendService" style="background-color: {{item.color}}; margin-top: 7px">
+        //     <div class="redtitle" style="color: rgb(255, 64, 128)">
+        //         {{item.title}}
+        //     </div>
+        //     <iron-list items="{{item.transportapps}}" id="list" scroll-target="document">
+        //         <template>
+        //             <div>
+        //                 <div class="layout horizontal my-content" style="width:100%">
+        //                     <iron-input class="firstInput" bind-value="Version {{item.version}}">
+        //                         <input id="firstInnerInput" style="width:100%; text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px" disabled>
+        //                     </iron-input>
+        //                     <iron-input  style="width: 80%;" bind-value="{{item.name}}">
+        //                         <input style="width:100%"  disabled class="input">
+        //                     </iron-input>
+        //                     <div class="removeholder">
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </template>
+        //     </iron-list>
+        // </div>
+
+        // this.data.forEach(function(item, index){
+        //     item.id = index;
+        // });
+        
+
+        render(types(this.data), this.shadowRoot.querySelector('#table'))
+    }
+
+     getList() {
+         this.shadowRoot.querySelector('#ajaxlist').url = "/service/leftservice";
+         this.shadowRoot.querySelector('#ajaxlist').generateRequest();
+     }
+
+     getProfileList() {
+         this.shadowRoot.querySelector('#ajaxGetProfile').url = "/profile/masterprofile"
+         this.shadowRoot.querySelector('#ajaxGetProfile').generateRequest();
+     }
+
+
+     generateSearch(e, pass, retrieveAll) {
+         if (e) {
+             if (e.keyCode !== 13 && e.type == "keypress") {
+                 return
+             }
+         }
+         let query = this.shadowRoot.querySelector('#searchQuery').value.trim();
+         if (retrieveAll) {
+             query = ""
+             this.searchoption = 'id'
+         }
+         let querypackage = {
+             query: query.toString().toLowerCase(),
+             option: this.searchoption,
+         }
+
+         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
+         this.shadowRoot.querySelector('#ajaxSearch').generateRequest();
+
+     }
+
+     sendService(e) {
+
+         var data = e.model.item
+         this.dispatchEvent(new CustomEvent('sendService', {
+             composed: true,
+             bubbles: true,
+             detail: {
+                 service: data
+             }
+         }))
+
+     }
+
+     expandService(e) {
+         let index = e.model.index
+         if (this.data[index].layout === "service") {
+             this.set('data.' + index + ".layout", "service1")
+         } else {
+             this.set('data.' + index + ".layout", "service")
+         }
+
+         index = index + 1
+         let bool = true
+         while (bool) {
+             if (this.data[index] == undefined || this.data[index].role == "main") {
+                 break;
+             }
+
+             if (this.data[index].display == "none") {
+                 this.set('data.' + index + '.display', "")
+             } else {
+                 this.set('data.' + index + '.display', "none")
+
+             }
+
+             index = index + 1
+         }
+     }
+
+     render({data}) {
+         return html`
         <style include="shared-styles iron-flex iron-flex-alignment">
         #paperToggle {
             min-height: 40px;
@@ -351,7 +529,7 @@
                 <div class="search-flex layout horizontal">
                     <div class="search-container">
                         <iron-input class="search" slot="input" style="height: 27px!important">
-                            <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress="generateSearch" on-focusout="generateSearch"
+                            <input class="paper-input-input" placeholder="Show All" id="searchQuery" on-keypress=${this.generateSearch.bind(this)} on-focusout=${this.generateSearch.bind(this)}
                             style="font-size: 16px; height: 27px">
                                 <paper-icon-button class="search-icon" icon="search"></paper-icon-button>
                         </iron-input>
@@ -375,7 +553,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <section class="nomargin nopadding margin-left" style="margin-top: 18px">
-                        <template is="dom-repeat" items="{{data}}">
+                        <div id="table">
+                        </div>
+                        <!--<template is="dom-repeat" items="{{data}}">
                             <div on-tap="sendService" style="background-color: {{item.color}}; margin-top: 7px">
                                 <div class="redtitle" style="color: rgb(255, 64, 128)">
                                     {{item.title}}
@@ -397,133 +577,14 @@
                                     </template>
                                 </iron-list>
                             </div>
-                        </template>
+                        </template>-->
                         <div placeholder></div>
                     </section>
                 </div>
             </div>
-            <iron-ajax id="ajaxlist" method="GET" handle-as="json" on-response="responselist" content-type="application/json"></iron-ajax>
-            <iron-ajax id="ajaxGetProfile" method="GET" handle-as="json" on-response="responselist" content-type="application/json"></iron-ajax>
+            <iron-ajax id="ajaxlist" method="GET" handle-as="json" on-response=${this.responselist.bind(this)} content-type="application/json"></iron-ajax>
+            <iron-ajax id="ajaxGetProfile" method="GET" handle-as="json" on-response=${this.responselist.bind(this)} content-type="application/json"></iron-ajax>
     `
-     }
-     static get properties() {
-         return {
-             searchoption: {
-                 type: String,
-             },
-         }
-     }
-
-     open(useProfileOnly) {
-         if (useProfileOnly === true) {
-             this.getProfileList();
-         } else {
-             this.getList()
-         }
-     }
-
-     constructor() {
-         super()
-     }
-
-     responselist(response) {
-         if (response.detail) {
-             let result = response.detail.response;
-             let data = result.results.services;
-
-             this.data = [];
-
-             this.data = data.map((app, i) => {
-                 var newAppObj = app
-                 var color;
-                 var even = i % 2
-                 i % 2 === 0 ? color = '#f7f8f9' : color = 'white'
-                 newAppObj.color = color;
-                 newAppObj.title = app.name;
-                 newAppObj.headername = "App";
-                 newAppObj.headerversion = "Version";
-
-                 return newAppObj;
-             })
-         }
-         let dt = this.data
-         this.data = []
-         setTimeout(() => {
-             this.set('data', dt)
-             // this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-             //     bubbles: true,
-             //     composed: true
-             // }));
-         }, 10)
-     }
-     getList() {
-         this.$.ajaxlist.url = "/service/leftservice";
-         this.$.ajaxlist.generateRequest();
-     }
-     getProfileList() {
-         this.$.ajaxGetProfile.url = "/profile/masterprofile"
-         this.$.ajaxGetProfile.generateRequest();
-     }
-
-
-     generateSearch(e, pass, retrieveAll) {
-         if (e) {
-             if (e.keyCode !== 13 && e.type == "keypress") {
-                 return
-             }
-         }
-         let query = this.$.searchQuery.value.trim();
-         if (retrieveAll) {
-             query = ""
-             this.searchoption = 'id'
-         }
-         let querypackage = {
-             query: query.toString().toLowerCase(),
-             option: this.searchoption,
-         }
-
-         this.$.ajaxSearch.body = JSON.stringify(querypackage)
-         this.$.ajaxSearch.generateRequest();
-
-     }
-
-     sendService(e) {
-
-         var data = e.model.item
-         this.dispatchEvent(new CustomEvent('sendService', {
-             composed: true,
-             bubbles: true,
-             detail: {
-                 service: data
-             }
-         }))
-
-     }
-
-     expandService(e) {
-         let index = e.model.index
-         if (this.data[index].layout === "service") {
-             this.set('data.' + index + ".layout", "service1")
-         } else {
-             this.set('data.' + index + ".layout", "service")
-         }
-
-         index = index + 1
-         let bool = true
-         while (bool) {
-             if (this.data[index] == undefined || this.data[index].role == "main") {
-                 break;
-             }
-
-             if (this.data[index].display == "none") {
-                 this.set('data.' + index + '.display', "")
-             } else {
-                 this.set('data.' + index + '.display', "none")
-
-             }
-
-             index = index + 1
-         }
      }
 
  }

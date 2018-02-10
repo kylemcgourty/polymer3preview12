@@ -455,19 +455,3 @@ export class SettingsPanel extends LitElement {
     }
 }
 customElements.define('settings-panel', SettingsPanel);
-
-// <div class="table-padding">
-//    <div class="layout horizontal">
-//    </div>
-//    <iron-list items="[[data]]" scroll-target="document">
-//        <template>
-//            <div>
-//                <div class="layout horizontal">
-//                    <iron-input class="col-xs-9 i-input" id="datapoint" on-tap="openChoice" bind-value="{{item.datapoint}}">
-//                        <input disabled class="input">
-//                    </iron-input>
-//                </div>
-//            </div>
-//        </template>
-//    </iron-list>
-// </div>
