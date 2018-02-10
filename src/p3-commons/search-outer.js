@@ -21,12 +21,6 @@ export class SearchOuter extends LitElement {
                 type: Boolean,
                 value: false
             },
-            // sol: {
-            //     type: Array,
-            //     reflectToAttribute: true,
-            //     notify: true,
-            //     value: [],
-            // },
             so: {
                 type: String,
                 value: ""
@@ -35,6 +29,7 @@ export class SearchOuter extends LitElement {
     }
 
     selectedSO(e) {
+        console.log(e.path[0].id)
         this.dispatchEvent(new CustomEvent("selectedSearchOption", {
             bubbles: true,
             composed: true,
@@ -48,8 +43,6 @@ export class SearchOuter extends LitElement {
     }
 
     setGS(e) {
-        console.log(e)
-        console.log(e.keyCode)
         console.log(this.shadowRoot.querySelector('input[name="searchoptions"]:checked').id)
         this.dispatchEvent(new CustomEvent("generateSearch", {
             bubbles: true,
@@ -64,13 +57,12 @@ export class SearchOuter extends LitElement {
     }
 
     moreVertFunc(e) {
-        this.dispatchEvent(new CustomEvent("moreVertCalled", {
+        console.log(e)
+        this.dispatchEvent(new CustomEvent("moreSearchVertCalled", {
             bubbles: true,
             composed: true,
             detail: {
-                e: e,
                 inputValue: this.shadowRoot.querySelector("#searchQuery").value.trim(),
-                outerWidth: window.outerWidth
             }
         }))
     }
@@ -128,7 +120,7 @@ export class SearchOuter extends LitElement {
                     <form>
                         <div class="layout horizontal wrap">
                             <div class="firstoption" style="visibility: ${ data[0][1] }">
-                                <input checked on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions"  type="radio""> <span class="field"> ${ data[0][1] }</span>
+                                <input checked="checked" on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions"  type="radio""> <span class="field"> ${ data[0][1] }</span>
                             </div>
                             <div class="singleoption" style="visibility: ${ data[0][0] }">
                                 <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[1][1] }" value="Void" name="searchoptions"  type="radio">  <span class="field">${ data[0][0] }</span>
@@ -146,13 +138,13 @@ export class SearchOuter extends LitElement {
                     <form>
                         <div class="layout horizontal wrap">
                             <div class="firstoption">
-                                <input checked on-tap="selectedSO" id="${ data[0][1] }" value="Active" name="searchoptions" type="radio"> <span class="field">${ data[0][1] }</span>
+                                <input checked="checked" on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions" type="radio"> <span class="field">${ data[0][0] }</span>
                             </div>
                             <div class="singleoption">
-                                <input on-tap="selectedSO" id="${ data[1][1] }" value="Void" name="searchoptions" type="radio"> <span class="field">${ data[0][0] }</span>
+                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[1][1] }" value="Void" name="searchoptions" type="radio"> <span class="field">${ data[1][0] }</span>
                             </div>
                             <div>
-                                <paper-icon-button class="searchfilterbutton icon" icon="more-vert" on-click="moreVertFunc">
+                                <paper-icon-button class="searchfilterbutton icon" icon="more-vert" on-click="${(e)=>{this.moreVertFunc(e)}}">
                                 </paper-icon-button>
                             </div>
                         </div>
