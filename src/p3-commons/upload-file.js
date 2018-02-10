@@ -98,8 +98,6 @@ export class UploadFile extends LitElement {
 
     open(file) {
 
-        console.log(file);
-
         var fileVal = file;
         if (this.fileIsImage(file)) {
             this.updateFilename(file.name);
