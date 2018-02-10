@@ -61,7 +61,7 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
                  data,
                  item => item.id,
                  item => html`
-                            <div on-tap="sendService" style="background-color: ${item.color}; margin-top: 7px">
+                            <div on-tap="${() => this.sendService(item)}"" style="background-color: ${item.color}; margin-top: 7px">
                                 <div class="redtitle" style="color: rgb(255, 64, 128)">
                                     ${item.title}
                                     ${repeat (
@@ -69,7 +69,9 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
                                         item => item.id,
                                         item => html`<div>
                                             <div class="layout horizontal my-content" style="width:100%">
-                                                
+                                                <input id="firstInnerInput" class="firstInput" style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px" disabled value="Version ${item.version}">
+                                                <input style="width:80%" disabled class="input" value="${item.name}">
+                                                <div class="removeholder"></div>
                                             </div>
                                         </div>`
                                     )}
@@ -78,28 +80,6 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
                           `
                  )}`;
         }
-
-        // <div on-tap="sendService" style="background-color: {{item.color}}; margin-top: 7px">
-        //     <div class="redtitle" style="color: rgb(255, 64, 128)">
-        //         {{item.title}}
-        //     </div>
-        //     <iron-list items="{{item.transportapps}}" id="list" scroll-target="document">
-        //         <template>
-        //             <div>
-        //                 <div class="layout horizontal my-content" style="width:100%">
-        //                     <iron-input class="firstInput" bind-value="Version {{item.version}}">
-        //                         <input id="firstInnerInput" style="width:100%; text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px" disabled>
-        //                     </iron-input>
-        //                     <iron-input  style="width: 80%;" bind-value="{{item.name}}">
-        //                         <input style="width:100%"  disabled class="input">
-        //                     </iron-input>
-        //                     <div class="removeholder">
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </template>
-        //     </iron-list>
-        // </div>
 
         // this.data.forEach(function(item, index){
         //     item.id = index;
@@ -141,9 +121,8 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
 
      }
 
-     sendService(e) {
+     sendService(data) {
 
-         var data = e.model.item
          this.dispatchEvent(new CustomEvent('sendService', {
              composed: true,
              bubbles: true,
@@ -472,7 +451,7 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
         .firstInput {
                 font-family: 'Roboto', 'Noto', sans-serif;
                 width: 15%;
-                padding-right: 5%
+                padding-right: 4%;
             }
         #firstInnerInput {
             background-color: var(--set-edit-color);
@@ -539,10 +518,10 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
                     <div class="searchoptions layout horizontal" style="padding-top: 18px">
                         <div class="searchcontainer layout vertical">
                             <div class="s-container1 layout horizontal">
-                                <div style="width: 109px">
+                                <div style="width: 109px;display: inline-block;">
                                     <input on-change="setSearchOption" on-keypress="setSearchOption" id="servicename_l" name="searchoptions" class="listoptions" type="radio" checked>App
                                 </div>
-                                <div style="width: 109px">
+                                <div style="width: 109px;display: inline-block;">
                                     <input on-change="setSearchOption" on-keypress="setSearchOption" id="appname_l" name="searchoptions" class="listoptions" type="radio">Service
                                 </div>
                             </div>
