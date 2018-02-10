@@ -37,7 +37,6 @@
             })) 
         }
         response(request) {
-            console.log(request.detail.response)
             var result = request.detail.response;
             if (result.auth) {
                 document.querySelector('#toast').text = result.error;

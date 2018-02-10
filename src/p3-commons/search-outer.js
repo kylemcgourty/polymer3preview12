@@ -29,7 +29,7 @@ export class SearchOuter extends LitElement {
     }
 
     selectedSO(e) {
-        console.log(e.path[0].id)
+        
         this.dispatchEvent(new CustomEvent("selectedSearchOption", {
             bubbles: true,
             composed: true,
@@ -43,7 +43,7 @@ export class SearchOuter extends LitElement {
     }
 
     setGS(e) {
-        console.log(this.shadowRoot.querySelector('input[name="searchoptions"]:checked').id)
+        
         this.dispatchEvent(new CustomEvent("generateSearch", {
             bubbles: true,
             composed: true,
@@ -57,7 +57,7 @@ export class SearchOuter extends LitElement {
     }
 
     moreVertFunc(e) {
-        console.log(e)
+        
         this.dispatchEvent(new CustomEvent("moreSearchVertCalled", {
             bubbles: true,
             composed: true,
@@ -154,12 +154,7 @@ export class SearchOuter extends LitElement {
           ;
         }
 
-
-        // console.log('the shadowRoot', this.shadowRoot, document.querySelector('#table'), this.shadowRoot)
-
         render(searchtypes(this.sol), this.shadowRoot.querySelector('#table'))
-
-        // console.log('hit reponseOption', this.data, this.shadowRoot.querySelector('#table') )
 
     }
     ready() {
