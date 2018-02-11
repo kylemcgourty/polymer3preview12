@@ -54,12 +54,13 @@
       }
 
       open(model, index, showTitle) {
+
           if (showTitle) {
-              this.showTitle.tableTitle = showTitle
-              this.showTitle.display0 = "hidden"
-              this.showTitle.display1 = "block"
+              this.showTitle.tableTitle = showTitle.tableTitle;
+              this.showTitle.display0 = "hidden";
+              this.showTitle.display1 = "block";
           }
-          console.log(this.showTitle)
+
           const titletypes = datatitle => {
 
               return html `
@@ -105,7 +106,9 @@
               below: "Below",
               index: "here",
           })
-         console.log(this.data)
+
+          console.log("This data", this.data);
+
           const types = data => {
 
               return html `
@@ -118,7 +121,7 @@
                                     <div class="layout horizontal">
                                         <div class="left">
                                             <div class="title"> ${item.above}</div>
-                                            <paper-icon-button on-tap="moveabove" class="direction-icon" icon="editor:vertical-align-top"></paper-icon-button>
+                                            <paper-icon-button on-tap="${(e) =>this.moveabove(e)}" class="direction-icon" icon="editor:vertical-align-top"></paper-icon-button>
                                         </div>
                                         <div class="middle"> ${index} </div>
                                         <div class="right">
@@ -291,7 +294,7 @@
             line-height: 2.7;
         }
 
-        .container:nth-child(2) .unit {
+        .container:nth-child(1) .unit {
             display: block;
             background-color: #a0abbc;
             color: white;
@@ -303,11 +306,11 @@
             margin-top: 0px;
         }
 
-        .container:nth-child(2) .middle {
+        .container:nth-child(1) .middle {
             visibility: hidden;
         }
 
-        .container:nth-child(2) .direction-icon {
+        .container:nth-child(1) .direction-icon {
             display: none;
         }
 
@@ -315,7 +318,7 @@
             display: none;
         }
 
-        .container:nth-child(2) .title {
+        .container:nth-child(1) .title {
             display: block;
         }
 
@@ -346,6 +349,7 @@
             overflow: hidden;
             flex-grow: 1;
             text-align: center;
+            display: inline-block;
         }
 
         .middle {
@@ -356,6 +360,7 @@
             overflow: hidden;
             flex-grow: 1;
             text-align: center;
+            display: inline-block;
         }
 
         .right {
@@ -366,6 +371,7 @@
             overflow: hidden;
             flex-grow: 1;
             text-align: center;
+            display: inline-block;
         }
         </style>
         <div class="page">
