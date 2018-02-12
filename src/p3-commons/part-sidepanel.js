@@ -603,6 +603,7 @@ export class PartSidepanel extends LitElement {
             padding-left: 5%;
             padding-bottom: 0%;
             padding-top: 3%;
+            text-align: left;
         }
         
         .title-rightpaneldraw-list {
