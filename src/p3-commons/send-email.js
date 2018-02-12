@@ -94,6 +94,8 @@ export class SendEmail extends LitElement {
   
     constructor() {
         super();
+
+             this._email = {}
     }
 
 
@@ -119,7 +121,7 @@ export class SendEmail extends LitElement {
     changesubject() {
         this.set('_email.subject', this.filename);
     }
-    open(filename, posturl, searchurl, customerid, profileid) {
+    open(filename, posturl, searchurl, profileid, customerid) {
 
         console.log('send in mail open')
 
@@ -145,7 +147,9 @@ export class SendEmail extends LitElement {
         this._contact.email = ""
         this._contact.phone = ""
         this._contact.title = ""
-        // this.shadowRoot.querySelector('#emailfilter').open();
+
+
+        this.shadowRoot.getElementById('emailfilter').open(profileid, customerid);
     }
 
     cancel() {

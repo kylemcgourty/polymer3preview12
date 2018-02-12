@@ -114,7 +114,14 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
         constructor() {
             super();
+
+
             
+        }
+
+        open(profileid, customerid){
+            this.profileid = profileid
+            this.customerid = customerid
         }
 
 
@@ -127,7 +134,10 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
             let search = this.shadowRoot.getElementById('searchstring').value
 
-            this.shadowRoot.getElementById('ajaxSearch').body = {"option": "name_l", "query": search}
+            this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify({"option": "name_l", "query": search})
+            this.shadowRoot.getElementById('ajaxSearch').url = "/customer/search/contact/" + this.profileid + "/" + this.customerid 
+            this.shadowRoot.getElementById('ajaxSearch').generateRequest()
+
         }
 
         receiveContacts(e) {
