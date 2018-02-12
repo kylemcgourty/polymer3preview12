@@ -57,7 +57,18 @@ export class ModuleHeader extends LitElement {
             this.model = {}
             
         }
-        open(setting) {
+        open(setting, props) {
+
+            this.isHidden = props.isHidden
+            this.pagename = props.pagename
+            this.pageidtext = props.pageidtext
+            this.pageid = props.pageid
+            this.soidtext = props.soidtext
+            this.soid = props.soidtext
+            this.datetext = props.datetext
+            this.date = props.date
+
+
             this.setting = JSON.parse(JSON.stringify(setting))
 
             this.setting.s_logo= ""
