@@ -125,6 +125,8 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         open(profileid, customerid){
             this.profileid = profileid
             this.customerid = customerid
+
+            this.emails = []
         }
 
 
@@ -167,7 +169,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         people,
                         person => person.id,
                         person => html `
-                        <div class="contactcontainer">
+                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e)}} class="contactcontainer">
                         <div class="contactname"> ${person.firstname}&nbsp${person.lastname} </div>
                         <div class="contactemail"> ${person.email} </div>
                         </div>`
@@ -178,6 +180,38 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             }
 
             render(contacts(this.contacts), this.shadowRoot.getElementById('contacts'))
+
+        }
+
+        addEmail(e){
+            console.log('e of email', e)
+
+            let contactID = e.path[1].id.split("contact")[1]
+            console.log('the  contact id', contactID)
+
+            let contact = this.contacts[contactID]
+
+            this.emails.push(contact)
+
+            const emails = emails => {
+                return html`
+                    <div>
+                     ${repeat (
+                        emails,
+                        person => person.id,
+                        person => html `
+                        <div class="emailcontainer">
+                        <div class="emailname"> ${person.firstname}&nbsp${person.lastname} </div>
+                        <div class="emailaddress"> ${person.email} </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+
+            render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
 
         }
        
@@ -741,14 +775,18 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         </style>
         <div class="my-content">
             <div class="my-content">
-                <div class="col-xs-3">${this.label}</div>
+                <div class="col-xs-3">To:</div>
+            </div>
+            <div class="text-right">
+                <div class="my-content">
+                    <div id="emaillist" class="header-input">
+                    </div>
+                </div>
             </div>
             <div class="text-right">
                 <div class="my-content">
                     <div id="emailsCollection" class="header-input">
                         
-                                        <input class="input email-width" value="${this.tag}">
-                              
                             <input class="toinput" id="searchstring" value="${this.searchstring}" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
                     </div>
                 </div>
