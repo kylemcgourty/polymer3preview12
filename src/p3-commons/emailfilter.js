@@ -2,6 +2,9 @@
 import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 
+  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+
+
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
@@ -141,6 +144,31 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
 
         receiveContacts(e) {
+
+            console.log('e the response', e.detail.response.results )
+
+            this.contacts = e.detail.response.results.map((item, index) => {
+                item.id = index
+                return item
+            })
+
+            console.log('the contacts', this.contacts)
+            const contacts = people => {
+                return html`
+                    <div>
+                     ${repeat (
+                        people,
+                        person => person.id,
+                        person => html `
+
+                        <div> ${person.name} </div>
+                        <div> ${person.email} </div>`
+                        )}
+
+                     </div>`
+            }
+
+            render(contacts(this.contacts), this.shadowRoot.getElementById('contacts'))
 
         }
        
@@ -532,7 +560,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                 </div>
             </div>
             <div class="bounder" style="position: relative;">
-                <div class="result-panel layout vertical">
+                <div id="contacts" class="result-panel layout vertical">
                     
                 </div>
             </div>

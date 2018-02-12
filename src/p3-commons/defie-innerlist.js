@@ -385,7 +385,7 @@
             </div>`
                 }
 
-                render(datatable(this.data), this.shadowRoot.querySelector('#table')) 
+                render(datatable(this.data), this.shadowRoot.getElementById('table')) 
 
 
 
