@@ -133,7 +133,6 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
 
         searchContacts(e) {
-            console.log('searchContacts called', e)
 
             let search = this.shadowRoot.getElementById('searchstring').value
 
@@ -145,14 +144,22 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
         receiveContacts(e) {
 
-            console.log('e the response', e.detail.response.results )
+            if (e.detail.response.results == null){
+                return
+            }
 
-            this.contacts = e.detail.response.results.map((item, index) => {
-                item.id = index
-                return item
-            })
+            this.contacts = []
 
-            console.log('the contacts', this.contacts)
+            for (var i=0; i< e.detail.response.results.length; i++){
+                let item = e.detail.response.results[i]
+                if (item.name == " " && item.email == ""){
+                    continue;
+                } else {
+                    item.id = i
+                    this.contacts.push(item)
+                }
+            }
+
             const contacts = people => {
                 return html`
                     <div>
