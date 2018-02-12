@@ -441,8 +441,35 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                 padding-left: 3px;
           }
 
+        .emailcontainer:first-child {
+            margin-left: 0px;
+          }
+
           .emailholder {
-            width: 88%;
+            width: 100%;
+          }
+
+          .body {
+            margin-top: 44px;
+          }
+
+          .materialcontainer {
+            margin-left: 5px;
+          }
+
+          .to {
+                position: relative;
+                text-align: right;
+                min-height: 1px;
+                padding-left: 0px;
+                padding-right: 0px;
+                padding-right: 6px;
+                width: 11%;
+          }
+
+
+          .contentbody {
+                width: 89%;
           }
 
         #paperToggle {
@@ -456,22 +483,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             --iron-icon-height: 18px;
         }
         
-        tag {
-            display: inline-block;
-            margin: 0 4px 3px 0;
-            padding: 0 3px;
-            background-color: #f5f5f5;
-            border: 1px solid #d9d9d9;
-            border-radius: 3px;
-            animation-name: slidein;
-            animation-duration: 0.2s;
-        }
-        
-        tag.infinite {
-            animation: conflict 0.5s infinite;
-            -webkit-animation: conflict 0.5s infinite;
-            /* Chrome, Safari, Opera */
-        }
+       
         
         .header-input {
             text-align: initial;
@@ -479,11 +491,11 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             background-color: white;
             border-bottom: 1px dotted #000;
             float: left;
-            width: 88%;
+            width: 100%;
         }
         
         .toinput {
-            width: 102%;
+            width: 100%;
             text-align: initial;
             border: none;
             background-color: #eee;
@@ -811,21 +823,23 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             }
         }
         </style>
-        <div  class="my-content">
-            <div class="my-content">
-                <div class="col-xs-3">To:</div>
-            </div>
-            <div class="text-right">
-                <div class="my-content">
-                    <div id="emaillist" >
+        <div class="body">
+            <div class="layout horizontal">
+                <div class="to">To:</div>
+                <div class="layout vertical contentbody">
+                    <div class="text-right">
+                        <div class="my-content">
+                            <div id="emaillist" >
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-right">
-                <div class="my-content">
-                    <div id="emailsCollection" class="header-input"></div>
-                    <div class="header-input">
-                            <input class="toinput" id="searchstring" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
+                    <div class="text-right">
+                        <div class="my-content">
+                            <div id="emailsCollection" class="header-input"></div>
+                            <div class="header-input">
+                                    <input class="toinput" id="searchstring" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
