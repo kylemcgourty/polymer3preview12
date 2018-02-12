@@ -127,6 +127,10 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             this.customerid = customerid
 
             this.emails = []
+            this.shadowRoot.getElementById('searchstring').value = ""
+            this.clearContacts()
+            this.showAlteredEmails([])
+            this.counter = 0
         }
 
 
@@ -186,7 +190,6 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
         clearContacts() {
 
-            console.log('clear contacts called')
 
             this.empty = []
             const contacts = people => {
@@ -210,14 +213,12 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
 
         addEmail(e){
-            console.log('e of email', e)
 
             let contactID = e.path[1].id.split("contact")[1]
-            console.log('the  contact id', contactID)
 
             let contact = this.contacts[contactID]
 
-            contact.id = this.emails.length
+            contact.id = this.counter++
 
             this.emails.push(contact)
 
@@ -228,7 +229,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         emails,
                         person => person.id,
                         person => html `
-                        <div id$="email${person.id}" class="emailcontainer layout horizontal">
+                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
                         <div class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
                         <div class="clear"> <iron-icon class="clearicon" icon="icons:clear"></icon>  </div>
                         </div>`
@@ -240,6 +241,108 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
             render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
+
+        }
+
+        edit(bool) {
+            if (bool){
+                return "none"
+            } else {
+                return "flex"
+            }
+        }
+
+        edit1(bool) {
+            if (bool){
+                return "flex"
+            } else {
+                return "none"
+            }
+        }
+
+        editEmail(e) {
+
+            console.log('edit email called ', e)
+
+            if (!e.path[1].id){
+                return
+            }
+
+            let emailID = e.path[1].id.split("email")[1]
+
+           this.emails[emailID].edit = true
+
+            const emails = emails => {
+                return html`
+                    <div class="emailholder layout horizontal wrap">
+                     ${repeat (
+                        emails,
+                        person => person.id,
+                        person => html `
+                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
+                        <div style="display:${this.edit(person.edit)}" class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
+                        <div style="display:${this.edit1(person.edit)}" class="emailname"> <input id$="edited${person.id}" on-tap=${(e) =>{e.stopPropagation; e.preventDefault}} on-keypress=${(e) =>{e.stopPropagation; e.preventDefault; this.returnEmail(e)}} on-focusout=${(e) =>{e.stopPropagation; e.preventDefault; this.returnEmail1(e)}} class="editfield" value="${person.email}"</div>
+
+                        <div class="clear"> <iron-icon class="clearicon" icon="icons:clear"></icon>  </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+
+            render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
+
+
+        }
+
+
+        showAlteredEmails(emaillist){
+
+            const emails = emails => {
+                return html`
+                    <div class="emailholder layout horizontal wrap">
+                     ${repeat (
+                        emails,
+                        person => person.id,
+                        person => html `
+                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
+                        <div style="display:${this.edit(person.edit)}" class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
+                        <div style="display:${this.edit1(person.edit)}" class="emailname"> ${person.email}</div>
+                        <div class="clear"> <iron-icon class="clearicon" icon="icons:clear"></icon>  </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+
+            render(emails(emaillist), this.shadowRoot.getElementById('emaillist'))
+
+        }
+
+
+        returnEmail(e) {
+            if (e.keyCode == 13){
+
+                let id = e.path[0].id
+                let personid = id.split("edited")[1]
+                this.emails[personid].email = this.shadowRoot.getElementById(id).value
+                this.showAlteredEmails(this.emails)
+
+                
+
+            }
+        }
+
+        returnEmail1(e) {
+
+                let id = e.path[0].id
+                let personid = id.split("edited")[1]
+                this.emails[personid].email = this.shadowRoot.getElementById(id).value
+                this.showAlteredEmails(this.emails)
 
         }
        
@@ -470,6 +573,10 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
           .contentbody {
                 width: 89%;
+          }
+
+          .editfield{
+            border: none;
           }
 
         #paperToggle {
