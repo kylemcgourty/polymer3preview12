@@ -3,7 +3,7 @@ import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-el
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-// import './emailfilter.js'
+import './emailfilter.js'
 // import './emailfiltercc.js'
 
 export class SendEmail extends LitElement {
@@ -119,7 +119,7 @@ export class SendEmail extends LitElement {
     changesubject() {
         this.set('_email.subject', this.filename);
     }
-    open(filename, posturl, searchurl) {
+    open(filename, posturl, searchurl, customerid, profileid) {
 
         console.log('send in mail open')
 
@@ -1332,7 +1332,7 @@ export class SendEmail extends LitElement {
             <div class="row-style">
                 <div class="col-xs-12">
                     <div class="my-content">
-                        <defie-emailfilter small-row style="margin-top: 14px;" id="emailfilter" map-string='[{"key":"companyname", "isMain": "true"},{"key":"address", "isMain": "true"}]' tags="{{_email.to}}" not-taggable searchstring="{{emailto}}" required></defie-emailfilter>
+                        <defie-emailfilter style="margin-top: 14px;" id="emailfilter"></defie-emailfilter>
                         <defie-emailfiltercc small-row label="${this.cc}" style="margin-top: 3px;" model-customerlist2="${this.customerlist}" id="emailfiltercc" map-string='[{"key":"companyname", "isMain": "true"},{"key":"address", "isMain": "true"}]' tags="{{_email.cc}}" not-taggable searchstring="{{emailcc}}" required></defie-emailfiltercc>
                         <div></div>
                         <div class="my-content col-xs-3c messagefield">Subject:</div>
