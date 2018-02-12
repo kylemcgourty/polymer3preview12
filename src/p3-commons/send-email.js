@@ -152,6 +152,10 @@ export class SendEmail extends LitElement {
         this.shadowRoot.getElementById('emailfilter').open(profileid, customerid);
     }
 
+    clearContacts(){
+        this.shadowRoot.getElementById('emailfilter').clearContacts(); 
+    }
+
     cancel() {
 
         this.set('_email.subject', "");
@@ -1314,7 +1318,7 @@ export class SendEmail extends LitElement {
 
 
         </style>
-       
+        <div on-tap=${(e)=>this.clearContacts()}>
             <div class="title-rightpaneldraw">
                 Email
             </div>
@@ -1368,7 +1372,7 @@ export class SendEmail extends LitElement {
                     </div>
                 </div>
             </div>
-      
+        </div>
         <iron-ajax id="ajax" method="POST" on-response="success" on-error="ajaxerror"></iron-ajax>
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="responseActionEdit" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSaveC" method="POST" handle-as="json" on-response="responseAction" on-error="showError" content-type="application/json"></iron-ajax>`

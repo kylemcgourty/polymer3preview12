@@ -183,6 +183,32 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
         }
 
+
+        clearContacts() {
+
+            console.log('clear contacts called')
+
+            this.empty = []
+            const contacts = people => {
+                return html`
+                    <div>
+                     ${repeat (
+                        people,
+                        person => person.id,
+                        person => html `
+                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e)}} class="contactcontainer">
+                        <div class="contactname"> ${person.firstname}&nbsp${person.lastname} </div>
+                        <div class="contactemail"> ${person.email} </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+            render(contacts(this.empty), this.shadowRoot.getElementById('contacts'))
+        }
+
         addEmail(e){
             console.log('e of email', e)
 
@@ -191,18 +217,20 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
             let contact = this.contacts[contactID]
 
+            contact.id = this.emails.length
+
             this.emails.push(contact)
 
             const emails = emails => {
                 return html`
-                    <div>
+                    <div class="emailholder layout horizontal wrap">
                      ${repeat (
                         emails,
                         person => person.id,
                         person => html `
-                        <div class="emailcontainer">
-                        <div class="emailname"> ${person.firstname}&nbsp${person.lastname} </div>
-                        <div class="emailaddress"> ${person.email} </div>
+                        <div id$="email${person.id}" class="emailcontainer layout horizontal">
+                        <div class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
+                        <div class="clear"> <iron-icon class="clearicon" icon="icons:clear"></icon>  </div>
                         </div>`
 
                         )}
@@ -405,6 +433,16 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             padding: 5px;
             border-bottom: 1px dashed #dbdcdd;
 
+          }
+
+          .emailcontainer {
+            margin-left: 5px;
+            border: 1px solid #e0c00b;
+                padding-left: 3px;
+          }
+
+          .emailholder {
+            width: 88%;
           }
 
         #paperToggle {
@@ -773,21 +811,21 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             }
         }
         </style>
-        <div class="my-content">
+        <div  class="my-content">
             <div class="my-content">
                 <div class="col-xs-3">To:</div>
             </div>
             <div class="text-right">
                 <div class="my-content">
-                    <div id="emaillist" class="header-input">
+                    <div id="emaillist" >
                     </div>
                 </div>
             </div>
             <div class="text-right">
                 <div class="my-content">
-                    <div id="emailsCollection" class="header-input">
-                        
-                            <input class="toinput" id="searchstring" value="${this.searchstring}" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
+                    <div id="emailsCollection" class="header-input"></div>
+                    <div class="header-input">
+                            <input class="toinput" id="searchstring" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
                     </div>
                 </div>
             </div>
