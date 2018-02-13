@@ -115,7 +115,7 @@
 
                 console.log('the data in engineering', this.data)
 
-                const datatable = items => {
+                this.datatable = items => {
                     return html`
 
                     <div>
@@ -159,16 +159,16 @@
                                                         </div>
                                                         <div class="mobile-icons layout horizontal" style="visibility: ${item.visibility}">
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${() =>this.event1(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${() =>this.event2(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="event3" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${() =>this.event3(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="event4" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${() =>this.event4(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -179,7 +179,7 @@
                                                 <div class="box2-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd2-2">
                                                         <span class="bd2-1head">${this.col0}:</span>
-                                                            <input on-focusout="event00" style="display:${this.editableCheck(item.col0.editable)};" data-align$="${item.col0.textalign}" value="${item.col0.value}" class="input1 col0input inputnum outline">
+                                                            <input on-focusout="${() =>this.event00(item)}" style="display:${this.editableCheck(item.col0.editable)};" data-align$="${item.col0.textalign}" value="${item.col0.value}" class="input1 col0input inputnum outline">
                                                             <input value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" style="display:${this.editableCheck1(item.col0.editable)};" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
@@ -188,7 +188,7 @@
                                                 <div class="box1-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd2-1head">${this.col1}: </div>
                                                     <div class="bd1-1">
-                                                            <input value="${item.col1.value}" style="display:${this.editableCheck(item.col1.editable)};" on-focusout="event11" data-align$="${item.col1.textalign}" class="input1 outline inputnum">
+                                                            <input value="${item.col1.value}" style="display:${this.editableCheck(item.col1.editable)};" on-focusout="${() =>this.event11(item)}" data-align$="${item.col1.textalign}" class="input1 outline inputnum">
                                                             <input value="${item.col1.value}" style="display:${this.editableCheck1(item.col1.editable)};" disabled data-align$="${item.col1.textalign}" class="input1">
                                                     </div>
                                                 </div>
@@ -197,7 +197,7 @@
                                                 <div class="box4-data layout horizontal">
                                                     <div class="bd4-1">
                                                         <span class="bd4-1head">${this.col2}: </span>
-                                                            <input style="display:${this.editableCheck(item.col2.editable)}; background-color: ${item.background}"  on-focusout="event22" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 outline"  >
+                                                            <input style="display:${this.editableCheck(item.col2.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event22(item)}" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 outline"  >
                                                             <input style="display:${this.editableCheck1(item.col2.editable)}; background-color: ${item.background}" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" >
                                                     </div>
                                                 </div>
@@ -206,7 +206,7 @@
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-2">
                                                         <span class="bd5-1head"> ${this.col3}:</span>
-                                                            <input style="display:${this.editableCheck(item.col3.editable)}; background-color: ${item.background}" on-focusout="event33" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 inputnum outline">
+                                                            <input style="display:${this.editableCheck(item.col3.editable)}; background-color: ${item.background}" on-focusout="${() =>this.event33(item)}" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col3.editable)}; background-color: ${item.background}" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 inputnum" >
                                                     </div>
                                                 </div>
@@ -216,8 +216,8 @@
                                                     <div class="bd6-2 layout horizontal">
                                                         <span class="bd6-1head">  ${this.col4}:</span>
                                                         <div class="layout horizontal togglecontainer">
-                                                            <iron-icon class='icon hover shrinker' style="display: ${item.showtoggle}" on-tap="toggleBOM" icon='icons:expand-more'></iron-icon>
-                                                                <input data-align$="${item.col4.textalign}" style="display:${this.editableCheck(item.col4.editable)}; background-color: ${item.background}"  on-focusout="event44" value="${item.col4.value}" class="input1 inputnum outline" >
+                                                            <iron-icon class='icon hover shrinker' style="display: ${item.showtoggle}" on-tap="${() => this.toggleBOM(item)}" icon='icons:expand-more'></iron-icon>
+                                                                <input data-align$="${item.col4.textalign}" style="display:${this.editableCheck(item.col4.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event44(item)}" value="${item.col4.value}" class="input1 inputnum outline" >
                                                                 <input disabled value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 inputnum iconinput" style="display:${this.editableCheck1(item.col4.editable)}; background-color: ${item.background}">
                                                         </div>
                                                     </div>
@@ -227,8 +227,8 @@
                                                 <div class="box3-data layout horizontal">
                                                     <div class="bd3-2 layout horizontal">
                                                         <span class="bd3-1head"> ${this.col5}:</span>
-                                                        <div style="width: 100%; display: ${item.col5.input};" on-tap="tapevent55">
-                                                                <input on-focusout="event55" value="${item.col5.value}" data-align$="${item.col5.textalign}" style="display:${this.editableCheck(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum outline">
+                                                        <div style="width: 100%; display: ${item.col5.input};" on-tap="tap${() =>this.event55(item)}">
+                                                                <input on-focusout="${() =>this.event55(item)}" value="${item.col5.value}" data-align$="${item.col5.textalign}" style="display:${this.editableCheck(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum outline">
                                                                 <input value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" style="display:${this.editableCheck1(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum adjustment">
                                                         </div>
                                                     </div>
@@ -238,7 +238,7 @@
                                                 <div class="box7-data layout horizontal">
                                                     <div class="bd7-2">
                                                         <span class="bd7-1head"> ${this.col6}:</span>
-                                                            <input data-align$="${item.col6.textalign}" on-focusout="event66" value="${item.col6.value}" style="display:${this.editableCheck(item.col6.editable)}; color:${item.col6.color}; background-color: ${item.background}" class="input1 inputnum outline">
+                                                            <input data-align$="${item.col6.textalign}" on-focusout="${() =>this.event66(item)}" value="${item.col6.value}" style="display:${this.editableCheck(item.col6.editable)}; color:${item.col6.color}; background-color: ${item.background}" class="input1 inputnum outline">
                                                             <input disabled value="${item.col6.value}" data-align$="${item.col6.textalign}" style="display:${this.editableCheck1(item.col6.editable)}; color:${item.col6.color};  background-color: ${item.background}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -247,7 +247,7 @@
                                                 <div class="box8-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd8-2">
                                                         <span class="bd8-1head"> ${this.col7}</span>
-                                                            <input data-align$="${item.col7.textalign}" on-focusout="event77" value="${item.col7.value}" style="display:${this.editableCheck(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum outline">
+                                                            <input data-align$="${item.col7.textalign}" on-focusout="${() =>this.event77(item)}" value="${item.col7.value}" style="display:${this.editableCheck(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum outline">
                                                             <input disabled value="${item.col7.value}" data-align$="${item.col7.textalign}" style="display:${this.editableCheck1(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -256,7 +256,7 @@
                                                 <div class="box9-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd9-2" style="visibility: ${item.visibility}">
                                                         <span class="bd9-1head"> ${this.col8}</span>
-                                                            <input style="display:${this.editableCheck(item.col8.editable)};"  on-focusout="event88" value="${item.col8.value}"  data-align$="${item.col8.textalign}" class="input1 inputnum outline">
+                                                            <input style="display:${this.editableCheck(item.col8.editable)};"  on-focusout="${() =>this.event88(item)}" value="${item.col8.value}"  data-align$="${item.col8.textalign}" class="input1 inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -265,7 +265,7 @@
                                                 <div class="box10-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd10-2" style="visibility: ${item.visibility}">
                                                         <span class="bd10-1head"> ${this.col9}</span>
-                                                            <input data-align$="${item.col9.textalign}" class="input1 inputnum outline" style="display:${this.editableCheck(item.col9.editable)};"  on-focusout="event99" value="${item.col9.value}">
+                                                            <input data-align$="${item.col9.textalign}" class="input1 inputnum outline" style="display:${this.editableCheck(item.col9.editable)};"  on-focusout="${() =>this.event99(item)}" value="${item.col9.value}">
                                                             <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -285,8 +285,8 @@
                 </div>    `
                 }
 
-                render(datatable(this.data), this.shadowRoot.getElementById('table')) 
 
+                render(this.datatable(this.data), this.shadowRoot.getElementById('table')) 
 
 
                   let elem = this.shadowRoot.querySelector('.unit')
@@ -299,26 +299,26 @@
             }
         }
 
-        toggleBOM(e) {
+        toggleBOM(item) {
 
-
-            if (e.model.item.type === "BOM") {
-                this.count = e.model.index + 1
+            if (item.type === "BOM") {
+                this.count = item.id + 1
                 this.change = true
                 while (this.change) {
-                    if (this.data[this.count].type == "subitem" && this.data[this.count].display == "") {
-                        this.set('data.' + this.count + ".display", "none")
+
+                    if (!this.data[this.count]){
+                        this.change = false
+                    } else if (this.data[this.count].type == "subitem" && this.data[this.count].display == "") {
+                        this.data[this.count].display = "none"
                     } else if (this.data[this.count].type == "subitem" && this.data[this.count].display == "none") {
-                        this.set('data.' + this.count + ".display", "")
+                        this.data[this.count].display = ""
                     } else {
                         this.change = false
                     }
                     this.count = this.count + 1
                 }
-                this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-                    bubbles: true,
-                    composed: true
-                }));
+                
+                render(this.datatable(this.data), this.shadowRoot.getElementById('table')) 
 
             }
         }
