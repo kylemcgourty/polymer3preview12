@@ -140,6 +140,12 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
         searchContacts(e) {
 
+            if(e.keyCode == 13){
+                this.insertQuick()
+                this.clearContacts()
+                return
+            }
+
             let search = this.shadowRoot.getElementById('searchstring').value
 
             this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify({"option": "name_l", "query": search})
@@ -228,11 +234,18 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
             this.showAlteredEmails(this.emails)
 
+            this.clearContacts()
+
         }
 
         insertEmail(e){
 
-            setTimeout(()=>{}, 100)
+
+            if (this.shadowRoot.getElementById('searchstring').value == ""){
+                return
+            }
+
+            setTimeout(()=>{
             if (this.block){
                 this.block = false;
                 return;
@@ -244,6 +257,25 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
             this.showAlteredEmails(this.emails)
+
+            this.clearContacts()
+            }, 300)
+
+            
+
+
+        }
+
+        insertQuick(e){
+
+
+            this.emails.push({email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++})
+
+            this.shadowRoot.getElementById('searchstring').value = ""
+
+
+            this.showAlteredEmails(this.emails)
+
 
 
         }
