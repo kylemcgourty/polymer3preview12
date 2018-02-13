@@ -20,12 +20,6 @@
                       }
                   }
               },
-              history: {
-                  type: Array,
-                  value: function() {
-                      return []
-                  }
-              },
               data: {
                   type: Array,
                   value: function() {
@@ -39,6 +33,10 @@
                   value: function() {
                       return {}
                   }
+              },
+              onSorted: {
+                type: String,
+                reflectToAttribute: true,
               }
           }
       }
@@ -50,16 +48,18 @@
       constructor() {
           super()
           this.showTitle ={}
-
+          this.onSorted = "";
       }
 
-      open(model, index, showTitle) {
+      open(model, index, showTitle, onSorted="sorted") {
 
           if (showTitle) {
               this.showTitle.tableTitle = showTitle.tableTitle;
               this.showTitle.display0 = "hidden";
               this.showTitle.display1 = "block";
           }
+
+          this.onSorted = onSorted;
 
           const titletypes = datatitle => {
 
@@ -89,7 +89,6 @@
               this.list = this.model.productgrouping[0].items;
               lineitems = JSON.parse(JSON.stringify(model.productgrouping[0].items))
               lineitems[index - 1].highlight = "selected"
-
           } else if (this.model[0].procedures) {
               this.list = this.model
               lineitems = JSON.parse(JSON.stringify(model))
@@ -100,33 +99,39 @@
           procedure ? this.current = index : this.current = index - 1;
           this.data = lineitems
 
-          this.data.unshift({
-              // 0: "and here",
-              above: "Above",
-              below: "Below",
-              index: "here",
-          })
-
-          console.log("This data", this.data);
+          this.data.forEach(function(item, idx) {
+              item.idx = idx + 1;
+          });
 
           const types = data => {
 
               return html `
+              <div class="container">
+                  <div class="unit">
+                      <div class="layout horizontal">
+                          <div class="left">
+                              <div class="title">Above</div>
+                          </div>
+                          <div class="middle"></div>
+                          <div class="right">
+                              <div class="title"> Below</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             ${repeat (
                  data,
-                 item => item.id,
+                 item => item.idx,
                  item => html`
                             <div class="container">
-                                <div id$="${item.id}" data-selected$="${item.highlight}" class="unit">
+                                <div id$="${item.idx}" data-selected$="${item.highlight}" class="unit">
                                     <div class="layout horizontal">
                                         <div class="left">
-                                            <div class="title"> ${item.above}</div>
-                                            <paper-icon-button on-tap="${(e) =>this.moveabove(e)}" class="direction-icon" icon="editor:vertical-align-top"></paper-icon-button>
+                                            <paper-icon-button on-tap="${() =>this.moveabove(item)}" class="direction-icon" icon="editor:vertical-align-top"></paper-icon-button>
                                         </div>
-                                        <div class="middle"> ${index} </div>
+                                        <div class="middle"> <div class="middletext">${item.idx}</div> </div>
                                         <div class="right">
-                                            <div class="title">${item.below}</div>
-                                            <paper-icon-button on-tap="${(e) =>this.movebelow(e)}" class="direction-icon" icon="editor:vertical-align-bottom"></paper-icon-button>
+                                            <paper-icon-button on-tap="${() =>this.movebelow(item)}" class="direction-icon" icon="editor:vertical-align-bottom"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
@@ -141,90 +146,64 @@
       }
 
 
-      movebelow(e) {
+      movebelow(item) {
 
-          let index = e.model.index;
-          let li = this.list[this.current]
+          let index = item.idx;
+          let li = this.list[this.current];
 
           this.next = index;
 
           if (this.next > this.current) {
-              this.splice('list', this.next, 0, li)
-              this.splice('list', this.current, 1)
+              this.list.splice(this.next, 0, li);
+              this.list.splice(this.current, 1);
           } else if (this.current > this.next) {
-              let l = this.splice('list', this.current, 1)
-              this.splice('list', this.next, 0, l[0])
+              let l = this.list.splice(this.current, 1);
+              this.list.splice(this.next, 0, l[0]);
           } else {
-              this.close()
+              this.close();
               return;
           }
 
-          if (this.showTitle) {
-
-              if (this.showTitle.tableTitle === "Sort Service Location") {
-
-                  this.dispatchEvent(new CustomEvent('sortedServices', {
-                      bubbles: true,
-                      composed: true,
-                      detail: {
-                          model: this.model
-                      }
-                  }))
+          this.dispatchEvent(new CustomEvent(this.onSorted, {
+              bubbles: true,
+              composed: true,
+              detail: {
+                  model: this.model
               }
-          } else {
-              this.dispatchEvent(new CustomEvent('sorted', {
-                  bubbles: true,
-                  composed: true,
-                  detail: {
-                      model: this.model
-                  }
-              }))
-          }
-          this.close()
+          }));
+
+          this.close();
       }
 
 
 
-      moveabove(e) {
+      moveabove(item) {
 
-          let index = e.model.index;
-          let li = this.list[this.current]
+          let index = item.idx;
+          let li = this.list[this.current];
+
           this.next = index - 1;
 
           if (this.next > this.current) {
-              this.splice('list', this.next, 0, li)
-              this.splice('list', this.current, 1)
+              this.list.splice(this.next, 0, li);
+              this.list.splice(this.current, 1);
           } else if (this.current > this.next) {
-              let l = this.splice('list', this.current, 1)
-              this.splice('list', this.next, 0, l[0])
+              let l = this.list.splice(this.current, 1);
+              this.list.splice(this.next, 0, l[0]);
           } else {
-              this.close()
+              this.close();
               return;
           }
 
-          if (this.showTitle) {
-
-              if (this.showTitle.tableTitle === "Sort Service Location") {
-
-                  this.dispatchEvent(new CustomEvent('sortedServices', {
-                      bubbles: true,
-                      composed: true,
-                      detail: {
-                          model: this.model
-                      }
-                  }))
+          this.dispatchEvent(new CustomEvent(this.onSorted, {
+              bubbles: true,
+              composed: true,
+              detail: {
+                  model: this.model
               }
-          } else {
-
-              this.dispatchEvent(new CustomEvent('sorted', {
-                  bubbles: true,
-                  composed: true,
-                  detail: {
-                      model: this.model
-                  }
-              }))
-          }
-          this.close()
+          }));
+          
+          this.close();
       }
 
 
@@ -242,7 +221,7 @@
           super.ready()
       }
 
-      render({ showTitle, history, data, model }) {
+      render({ showTitle, data, model }) {
           return html ` <style include="shared-styles iron-flex iron-flex-alignment">
         #paperToggle {
             min-height: 40px;
@@ -310,18 +289,6 @@
             visibility: hidden;
         }
 
-        .container:nth-child(1) .direction-icon {
-            display: none;
-        }
-
-        .title {
-            display: none;
-        }
-
-        .container:nth-child(1) .title {
-            display: block;
-        }
-
         .unit {
             height: 33px;
             white-space: nowrap;
@@ -361,6 +328,12 @@
             flex-grow: 1;
             text-align: center;
             display: inline-block;
+        }
+
+        .middletext {
+            display: inline-block;
+            width: 40px;
+            height: 31px;
         }
 
         .right {
