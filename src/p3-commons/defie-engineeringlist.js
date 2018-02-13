@@ -113,6 +113,8 @@
                 temp = temp.concat(lineitems)
                 this.data= temp
 
+                console.log('the data in engineering', this.data)
+
                 const datatable = items => {
                     return html`
 
@@ -121,12 +123,13 @@
                          items,
                          item =>item.id,
                          item => html`
+                         <div></div>
                           <div class="unit">
                         <div style="display: ${item.display}" class="layout vertical">
                             <div class="data-container layout horizontal">
                                 <div class="options layout vertical" style="background-color: ${item.background}">
                                     <div class="layout horizontal" style="visibility: ${item.visibility}">
-                                        <div class="opt1"> ${item.id + 1} </div>
+                                        <div class="opt1"> ${item.id} </div>
                                         <div class="iconholder">
                                             <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
                                         </div>
@@ -199,7 +202,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
+                                             <div data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-2">
                                                         <span class="bd5-1head"> ${this.col3}:</span>
@@ -251,7 +254,7 @@
                                             </div>
                                             <div style="display: ${item.col8.display}" data-size$="${item.col8.size}" class="group9 layout horizontal wrap">
                                                 <div class="box9-data layout horizontal" style="visibility: ${item.visibility}">
-                                                    <div class="bd9-2 style=" visibility: ${item.visibility} "">
+                                                    <div class="bd9-2" style="visibility: ${item.visibility}">
                                                         <span class="bd9-1head"> ${this.col8}</span>
                                                             <input style="display:${this.editableCheck(item.col8.editable)};"  on-focusout="event88" value="${item.col8.value}"  data-align$="${item.col8.textalign}" class="input1 inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
@@ -274,7 +277,7 @@
                             </div>
                         </div>
                     </div>
-                    `
+                    `                       
 
 
                          )}
