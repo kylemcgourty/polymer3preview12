@@ -179,7 +179,7 @@
                                                 <div class="box2-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd2-2">
                                                         <span class="bd2-1head">${this.col0}:</span>
-                                                            <input on-focusout="${() =>this.event00(item)}" style="display:${this.editableCheck(item.col0.editable)};" data-align$="${item.col0.textalign}" value="${item.col0.value}" class="input1 col0input inputnum outline">
+                                                            <input on-focusout="${() =>this.event00(item)}" id$="item00-${item.id}" style="display:${this.editableCheck(item.col0.editable)};" data-align$="${item.col0.textalign}" value="${item.col0.value}" class="input1 col0input inputnum outline">
                                                             <input value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" style="display:${this.editableCheck1(item.col0.editable)};" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
@@ -188,7 +188,7 @@
                                                 <div class="box1-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd2-1head">${this.col1}: </div>
                                                     <div class="bd1-1">
-                                                            <input value="${item.col1.value}" style="display:${this.editableCheck(item.col1.editable)};" on-focusout="${() =>this.event11(item)}" data-align$="${item.col1.textalign}" class="input1 outline inputnum">
+                                                            <input value="${item.col1.value}" id$="item11-${item.id}" style="display:${this.editableCheck(item.col1.editable)};" on-focusout="${() =>this.event11(item)}" data-align$="${item.col1.textalign}" class="input1 outline inputnum">
                                                             <input value="${item.col1.value}" style="display:${this.editableCheck1(item.col1.editable)};" disabled data-align$="${item.col1.textalign}" class="input1">
                                                     </div>
                                                 </div>
@@ -197,7 +197,7 @@
                                                 <div class="box4-data layout horizontal">
                                                     <div class="bd4-1">
                                                         <span class="bd4-1head">${this.col2}: </span>
-                                                            <input style="display:${this.editableCheck(item.col2.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event22(item)}" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 outline"  >
+                                                            <input id$="item22-${item.id}" style="display:${this.editableCheck(item.col2.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event22(item)}" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 outline"  >
                                                             <input style="display:${this.editableCheck1(item.col2.editable)}; background-color: ${item.background}" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" >
                                                     </div>
                                                 </div>
@@ -206,7 +206,7 @@
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-2">
                                                         <span class="bd5-1head"> ${this.col3}:</span>
-                                                            <input style="display:${this.editableCheck(item.col3.editable)}; background-color: ${item.background}" on-focusout="${() =>this.event33(item)}" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 inputnum outline">
+                                                            <input id$="item33-${item.id}" style="display:${this.editableCheck(item.col3.editable)}; background-color: ${item.background}" on-focusout="${() =>this.event33(item)}" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col3.editable)}; background-color: ${item.background}" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 inputnum" >
                                                     </div>
                                                 </div>
@@ -217,7 +217,7 @@
                                                         <span class="bd6-1head">  ${this.col4}:</span>
                                                         <div class="layout horizontal togglecontainer">
                                                             <iron-icon class='icon hover shrinker' style="display: ${item.showtoggle}" on-tap="${() => this.toggleBOM(item)}" icon='icons:expand-more'></iron-icon>
-                                                                <input data-align$="${item.col4.textalign}" style="display:${this.editableCheck(item.col4.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event44(item)}" value="${item.col4.value}" class="input1 inputnum outline" >
+                                                                <input data-align$="${item.col4.textalign}" id$="item44-${item.id}" style="display:${this.editableCheck(item.col4.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event44(item)}" value="${item.col4.value}" class="input1 inputnum outline" >
                                                                 <input disabled value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 inputnum iconinput" style="display:${this.editableCheck1(item.col4.editable)}; background-color: ${item.background}">
                                                         </div>
                                                     </div>
@@ -228,7 +228,7 @@
                                                     <div class="bd3-2 layout horizontal">
                                                         <span class="bd3-1head"> ${this.col5}:</span>
                                                         <div style="width: 100%; display: ${item.col5.input};" on-tap="tap${() =>this.event55(item)}">
-                                                                <input on-focusout="${() =>this.event55(item)}" value="${item.col5.value}" data-align$="${item.col5.textalign}" style="display:${this.editableCheck(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum outline">
+                                                                <input on-focusout="${() =>this.event55(item)}" value="${item.col5.value}" data-align$="${item.col5.textalign}" id$="item55-${item.id}" style="display:${this.editableCheck(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum outline">
                                                                 <input value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" style="display:${this.editableCheck1(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum adjustment">
                                                         </div>
                                                     </div>
@@ -238,7 +238,7 @@
                                                 <div class="box7-data layout horizontal">
                                                     <div class="bd7-2">
                                                         <span class="bd7-1head"> ${this.col6}:</span>
-                                                            <input data-align$="${item.col6.textalign}" on-focusout="${() =>this.event66(item)}" value="${item.col6.value}" style="display:${this.editableCheck(item.col6.editable)}; color:${item.col6.color}; background-color: ${item.background}" class="input1 inputnum outline">
+                                                            <input data-align$="${item.col6.textalign}" on-focusout="${() =>this.event66(item)}" value="${item.col6.value}" id$="item66-${item.id}" style="display:${this.editableCheck(item.col6.editable)}; color:${item.col6.color}; background-color: ${item.background}" class="input1 inputnum outline">
                                                             <input disabled value="${item.col6.value}" data-align$="${item.col6.textalign}" style="display:${this.editableCheck1(item.col6.editable)}; color:${item.col6.color};  background-color: ${item.background}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -247,7 +247,7 @@
                                                 <div class="box8-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd8-2">
                                                         <span class="bd8-1head"> ${this.col7}</span>
-                                                            <input data-align$="${item.col7.textalign}" on-focusout="${() =>this.event77(item)}" value="${item.col7.value}" style="display:${this.editableCheck(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum outline">
+                                                            <input data-align$="${item.col7.textalign}" on-focusout="${() =>this.event77(item)}" value="${item.col7.value}" id$="item77-${item.id}" style="display:${this.editableCheck(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum outline">
                                                             <input disabled value="${item.col7.value}" data-align$="${item.col7.textalign}" style="display:${this.editableCheck1(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -256,7 +256,7 @@
                                                 <div class="box9-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd9-2" style="visibility: ${item.visibility}">
                                                         <span class="bd9-1head"> ${this.col8}</span>
-                                                            <input style="display:${this.editableCheck(item.col8.editable)};"  on-focusout="${() =>this.event88(item)}" value="${item.col8.value}"  data-align$="${item.col8.textalign}" class="input1 inputnum outline">
+                                                            <input id$="item88-${item.id}" style="display:${this.editableCheck(item.col8.editable)};"  on-focusout="${() =>this.event88(item)}" value="${item.col8.value}"  data-align$="${item.col8.textalign}" class="input1 inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -265,7 +265,7 @@
                                                 <div class="box10-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd10-2" style="visibility: ${item.visibility}">
                                                         <span class="bd10-1head"> ${this.col9}</span>
-                                                            <input data-align$="${item.col9.textalign}" class="input1 inputnum outline" style="display:${this.editableCheck(item.col9.editable)};"  on-focusout="${() =>this.event99(item)}" value="${item.col9.value}">
+                                                            <input data-align$="${item.col9.textalign}" class="input1 inputnum outline" id$="item99-${item.id}" style="display:${this.editableCheck(item.col9.editable)};"  on-focusout="${() =>this.event99(item)}" value="${item.col9.value}">
                                                             <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -341,136 +341,184 @@
             }
         }
 
-        event1(e) {
+        event1(item) {
             this.dispatchEvent(new CustomEvent('event1', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
 
-        event2(e) {
+        event2(item) {
             this.dispatchEvent(new CustomEvent('event2', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event3(e) {
+        event3(item) {
             this.dispatchEvent(new CustomEvent('event3', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event4(e) {
+        event4(item) {
             this.dispatchEvent(new CustomEvent('event4', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    event: e
+                    item: item
                 }
             }))
         }
-        event00(e) {
-            this.dispatchEvent(new CustomEvent('event00', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+       event00(item) {
+                    let id = item.id
+
+
+                   item.col0.value = this.shadowRoot.querySelector('#item00-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event00', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event11(e) {
-            this.dispatchEvent(new CustomEvent('event11', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event11(item) {
+                    let id = item.id
+
+                   item.col1.value = this.shadowRoot.querySelector('#item11-'+id).value 
+
+
+                    this.dispatchEvent(new CustomEvent('event11', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event22(e) {
-            console.log("e in defielist", e)
-            console.log("this.col2.value", this.col2.value)
-            console.log("this", this)
-            this.dispatchEvent(new CustomEvent('event22', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event22(item) {
+                    let id = item.id
+
+                   item.col2.value = this.shadowRoot.querySelector('#item22-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event22', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event33(e) {
-            this.dispatchEvent(new CustomEvent('event33', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event33(item) {
+                    let id = item.id
+
+                   item.col3.value = this.shadowRoot.querySelector('#item33-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event33', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event44(e) {
-            this.dispatchEvent(new CustomEvent('event44', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event44(item) {
+                    let id = item.id
+
+                   item.col4.value = this.shadowRoot.querySelector('#item44-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event44', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event55(e) {
-            this.dispatchEvent(new CustomEvent('event55', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event55(item) {
+                    let id = item.id
+
+                   item.col5.value = this.shadowRoot.querySelector('#item55-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event55', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event66(e) {
-            this.dispatchEvent(new CustomEvent('event66', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event66(item) {
+                    let id = item.id
+
+                   item.col6.value = this.shadowRoot.querySelector('#item66-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event66', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event77(e) {
-            this.dispatchEvent(new CustomEvent('event77', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event77(item) {
+                    let id = item.id
+
+                   item.col7.value = this.shadowRoot.querySelector('#item77-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event77', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event88(e) {
-            this.dispatchEvent(new CustomEvent('event88', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event88(item) {
+                    let id = item.id
+
+                   item.col8.value = this.shadowRoot.querySelector('#item88-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event88', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
-        event99(e) {
-            this.dispatchEvent(new CustomEvent('event99', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    event: e
+
+         event99(item) {
+                    let id = item.id
+
+                   item.col9.value = this.shadowRoot.querySelector('#item99-'+id).value 
+
+                    this.dispatchEvent(new CustomEvent('event99', {
+                        bubbles: true,
+                        composed: true,
+                        detail: {
+                            item: item
+                        }
+                    }))
                 }
-            }))
-        }
         tapevent55(e) {
             this.dispatchEvent(new CustomEvent('tapevent55', {
                 bubbles: true,
@@ -489,415 +537,7 @@
                 }
             }))
         }
-        updateIL(liIndex) {
-
-
-            // var lineitem = e.detail.item;
-            // var idver = e.detail.model.so.idver;
-            // this.set('model.idver', idver);
-            // this.set('model.lineitems.' + this.lineitemIndex, lineitem)
-            // this.model = {};
-            // this.set('model', e.detail.model.so)
-            // this.set('model.changelist', true)
-            // this.setModel(e.detail.model.so)
-
-            if (typeof liIndex == "number") {
-                console.log('the liIndex', liIndex)
-                let ind = liIndex + 1
-                let nodes = this.shadowRoot.querySelector('#serials-' + ind).classList
-                let classlist = [...nodes]
-                if (classlist.indexOf('show') == -1) {
-                    this.shadowRoot.querySelector('#serials-' + ind).classList.add('show')
-                    this.shadowRoot.querySelector('#serials2-' + ind).classList.add('show')
-                    this.shadowRoot.querySelector('#HWRlabel-' + ind).classList.add('show')
-                }
-
-            }
-
-
-        }
-
-        updateIL2(liIndex, lineitem) {
-
-            let ind = liIndex + 1
-            let nodes = this.shadowRoot.querySelector('#shipping-' + ind).classList
-            let classlist = [...nodes]
-
-
-            if (!lineitem.display) {
-                if (classlist.indexOf('show')) {
-                    this.shadowRoot.querySelector('#shipping-' + ind).classList.remove('show')
-                }
-                return
-            }
-
-
-            if (classlist.indexOf('show') == -1) {
-                this.shadowRoot.querySelector('#shipping-' + ind).classList.toggle('show')
-            }
-
-
-
-
-        }
-
-        ILSerials(e) {
-            let ind = e.model.index
-            console.log('the index', ind, e)
-            this.shadowRoot.querySelector('#serials-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('#serials2-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('#HWRlabel-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-                bubbles: true,
-                composed: true
-            }));
-
-        }
-
-
-        ILShipping(e) {
-            let ind = e.model.index
-            this.shadowRoot.querySelector('#shipping-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-                bubbles: true,
-                composed: true
-            }));
-        }
-
-        toggleLeft() {
-            this.dispatchEvent(new CustomEvent('CloseMenuEvent', {
-                composed: true,
-                bubbles: true
-            }));
-        }
-
-        edit() {
-            this.set('route.path', "salesorders/" + this.model.billto.companyname + '/' + this.model.idver + "/edit")
-        }
-        edithistory() {
-            this.model.savehistory = true;
-            this.set('route.path', "salesorders/" + this.model.billto.companyname + '/' + this.model.idver + "/edit")
-        }
-
-        showSN(item, selected) {
-            if (window.innerWidth > 479) {
-                console.log('inside showsh', selected)
-                return selected ? "showSN" : "nil"
-
-            }
-        }
-
-        showTitle(collection) {
-
-            console.log('the collection', collection)
-
-            if (collection == undefined || collection.length == 0) {
-                return "none"
-            }
-
-            if (collection) {
-                collection = collection.split(",")
-
-
-                let i = 0
-                let bool = true
-                while (bool) {
-                    if (collection[i] == undefined) {
-                        return "none"
-                    }
-
-                    if (collection[i] != "") {
-                        return ""
-                    }
-                    i = i + 1
-                }
-
-                return "none"
-            }
-
-        }
-
-        showTitle2(display) {
-
-            if (!display) {
-                return "none"
-            } else {
-                return ""
-            }
-
-        }
-
-
-
-
-
-
-        showSerials(serial) {
-            if (serial) {
-                for (var i = 0; i < serial.length; i++) {
-                    if (serial[i].sn !== "") {
-                        return false;
-                    }
-                }
-            }
-            return true;
-
-        }
-        showHWRs(hwrs) {
-            if (hwrs) {
-                for (var i = 0; i < hwrs.length; i++) {
-                    if (hwrs[i].sn !== "") {
-                        return false;
-                    }
-                }
-            }
-            return true;
-
-        }
-
-        enableSN(val) {
-
-            if (val === "Closed") {
-                return true;
-
-            } else {
-                return false;
-            }
-        }
-
-        cancel() {
-            this.set("route.path", "/salesorders")
-        }
-
-        showDetails(item, selected) {
-            return selected ? "expanded" : "nil"
-        }
-        adjustPanelProps(props) {
-            var args = Array.prototype.slice.call(arguments, 1);
-            var self = this;
-
-            props.forEach(function(item) {
-                var newVal = !args.includes(item);
-                self.set(item, newVal);
-            });
-        }
-
-        goprint() {
-            var printurl = "/api/salesorder/print/" + this.model.soinfo.companyid + "/" + this.model.id;
-            this.printurl = printurl
-            this.$.ajaxPrint.url = printurl
-            this.$.ajaxPrint.generateRequest()
-        }
-        responsePrint(response) {
-
-            this.printTemplate(this.printurl)
-        }
-        changepanel(e) {
-            console.log('ete ', e)
-            if (e.path[0].id == 'showemail') {
-                var from = e.path[0].id;
-            } else {
-                var from = e.path[2].id;
-            }
-            var id = this.model.soinfo.companyid;
-            var soid = this.model.id;
-            console.log(from)
-
-            switch (from) {
-                case "showemail":
-                    window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
-                    // this.set('drawerwidth', '640px')
-                    this.adjustPanelProps(this.panelprops, "showemail");
-
-                    console.log("changpenal showmail , this.model", this.model);
-
-                    var filename = this.model.settingscompany + "_Sales_Order_" + this.model.idver;
-                    var posturl = '/api/salesorder/email/send/' + this.model.soinfo.companyid + "/" + this.model.id;
-                    var searchurl = "/api/customer/type/contact/" + this.model.soinfo.companyid;
-                    this.$.email.open(filename, posturl, searchurl);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "showloginfo":
-                    var url = "/api/salesorder/internalnotes/" + this.model.billto.companyname + "/" + this.model.year + "/" + soid;
-                    this.$.logs.open(this.model.billto.companyname, this.year, soid, url);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "serialnumberlist":
-                    window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
-                    // this.set('drawerwidth', '640px')
-
-                    this.adjustPanelProps(this.panelprops, "showserialnumberlist");
-
-
-                    var item = e.target.item;
-                    var index = e.model.index - 1;
-                    this.lineitemIndex = index;
-                    this.qty = this.model.lineitems[index].qty;
-                    this.toServerTypes();
-                    this.starter = "SOVSaveSN";
-                    this.ender = "SOVupdateIL";
-                    this.mid = "SOVmid";
-                    this.launch = "SOVlaunch"
-                    this.hwrretrieve = "SOVhwrretrieve"
-                    this.panelurl = "/api/salesorder/" + this.model.soinfo.companyid + "/" + soid;
-                    this.$.serialnumberdoor.open(this.panelurl, item, this.model);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "shippinginfopanel":
-                    window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
-                    // this.set('drawerwidth', '640px')
-
-                    this.adjustPanelProps(this.panelprops, "shippinginfopanel");
-
-                    var index = e.model.index - 1;
-                    this.lineitemIndex = index;
-
-                    this.ender = "SOVsl"
-                    this.toServerTypes();
-
-                    this.panelurl = "/api/salesorder/" + this.model.soinfo.companyid + "/" + soid;
-                    this.$.shippinginfopanel.open(this.panelurl, this.model.lineitems[index], this.model);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-                case "inventorylist":
-                    this.set('drawerwidth', '320px');
-
-                    this.adjustPanelProps(this.panelprops, "showinventorylist");
-                    var id = e.model.item.id;
-                    this.panelurl = "/api/inventory/stock/" + id;
-                    this.$.inventorydoor.open(this.panelurl);
-                    this.$.drawer.togglePanel(); //open the drawer panel
-
-                    break;
-            }
-        }
-        calculate() {
-            // debounce
-            if (this.$.ajaxCalc.activeRequests.length > 0) return this._debouncer = Polymer.Debouncer.debounce(this._debouncer, Polymer.Async.timeOut.after(100), () => {
-                this.calculate()
-            });
-            this.toServerTypes();
-            // generate request
-            this.$.ajaxCalc.body = JSON.stringify(this.model);
-            this.$.ajaxCalc.generateRequest();
-        }
-
-        toServerTypes() {
-
-            if (this.model.lineitems) {
-                for (let i = 0; i < this.model.lineitems.length; i++) {
-                    this.model.lineitems[i].margin = float(this.model.lineitems[i].margin);
-                    this.model.lineitems[i].qty = float(this.model.lineitems[i].qty);
-                    this.model.lineitems[i].cost = float(this.model.lineitems[i].cost);
-                    this.model.lineitems[i].price = float(this.model.lineitems[i].price);
-                    this.model.lineitems[i].extprice = float(this.model.lineitems[i].extprice);
-
-                }
-                for (let k in this.model.sototals) {
-                    if (k === 'approval') continue;
-                    this.model.sototals[k] = float(this.model.sototals[k]);
-                }
-                this.model.soinfo.tax = float(this.model.soinfo.tax);
-            }
-        }
-
-        fromServerTypes(m) {
-
-            for (let j = 1; j < this.data.length; j++) {
-                this.set('data.' + j + '.margin', this.pct(m.lineitems[j - 1].margin));
-                this.set('data.' + j + '.cost', this.usd(m.lineitems[j - 1].cost))
-                this.set('data.' + j + '.price', this.usd(m.lineitems[j - 1].price))
-                this.set('data.' + j + '.extprice', this.usd(m.lineitems[j - 1].extprice))
-
-                this.set('model.lineitems.' + [j - 1] + '.margin', this.pct(m.lineitems[j - 1].margin));
-                this.set('model.lineitems.' + [j - 1] + '.cost', this.usd(m.lineitems[j - 1].cost));
-                this.set('model.lineitems.' + [j - 1] + '.price', this.usd(m.lineitems[j - 1].price));
-                this.set('model.lineitems.' + [j - 1] + '.extprice', this.usd(m.lineitems[j - 1].extprice));
-
-            }
-
-
-            for (let k in m.sototals) {
-                if (typeof m.sototals[k] !== 'number') continue;
-                if (k === 'profitmargin') this.set('model.sototals.' + k, this.pct(m.sototals[k]));
-                else this.set('model.sototals.' + k, m.sototals[k].usd());
-            }
-            this.set('model.soinfo.tax', this.pct(m.soinfo.tax));
-
-
-
-            // this.set('model', m);
-            this.set('model.calmargin', false);
-            this.set('model.calprice', false);
-        }
-
-        responseCalc(e) {
-            // if (this.isDebouncerActive('calculate')) return;
-            var m = e.detail.response;
-            if (typeof m !== 'object') return console.error('Calc API did not return expected data');
-            this.fromServerTypes(m);
-        }
-
-        doCalculate() {
-            this.calculate();
-        }
-        doCalculateTax() {
-            this.model.soinfo.tax = float(this.model.soinfo.tax).pct();
-            if (this.model.soinfo.tax != "0") {
-                for (let i = 0; i < this.model.lineitems.length; i++) {
-                    this.set('model.lineitems.' + i + '.tax', true);
-                    this.set('data.' + [i + 1] + '.tax', true);
-                }
-            } else {
-                for (let i = 0; i < this.model.lineitems.length; i++) {
-                    this.set('model.lineitems.' + i + '.tax', false);
-                    this.set('data.' + [i + 1] + '.tax', false);
-                }
-            }
-            this.calculate();
-        }
-        doCalculateTaxable(e) {
-            console.log(e)
-            console.log(e.model.index)
-            var index = e.model.index;
-            this.set('data.' + [index + 1] + '.tax', !this.model.lineitems[index].tax)
-            this.set('model.lineitems.' + index + '.tax', !this.model.lineitems[index].tax)
-            var count = 0;
-            for (var i = 0; i < this.model.lineitems.length; i++) {
-                if (this.model.lineitems[i].tax == true) {
-                    count = count + 1;
-                }
-            }
-            console.log("count    is   ", count)
-            if (count == "0") {
-                this.set('model.soinfo.tax', 0)
-                document.querySelector('#toast').text = 'All item is nontax';
-                document.querySelector('#toast').show();
-            }
-            this.calculate();
-        }
-
-        doCalculateMargin(e) {
-            this.set('model.calmargin', true);
-            this.calculate();
-        }
-
-        doCalculatePrice(e) {
-            console.log("doCalculatePrice")
-
-            this.set('model.indexselected', e.model.index);
-            this.set('model.calprice', true);
-            this.calculate();
-        }
-
-        scrollTop() {
-            this.shadowRoot.getElementById('top').scrollIntoView()
-
-        }
+       
         ready() {
             super.ready()
             // this.titlecolor();

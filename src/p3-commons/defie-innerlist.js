@@ -474,7 +474,6 @@
 
                    item.col1.value = this.shadowRoot.querySelector('#item11-'+id).value 
 
-                   console.log('the id and vluae', id, item.col1.value)
 
                     this.dispatchEvent(new CustomEvent('event11', {
                         bubbles: true,
