@@ -1,12 +1,598 @@
-import {Element as PolymerElement}
-   from '../../node_modules/@polymer/polymer/polymer-element.js'
-  
 
-   export class DefieEmailfiltercc extends PolymerElement {
-        
+import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-        static get template() {
-        return `<style include="shared-styles iron-flex iron-flex-alignmen">
+
+  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+
+
+import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
+
+
+  export class DefieEmailfiltercc extends LitElement {
+       
+
+       
+        static get properties() {
+            return {
+                oldlen: {
+                    type: Number,
+                    value: 0
+                },
+                tags: {
+                    type: Array,
+                    notify: true,
+                    observer: "setDisplay",
+                    value: function() {
+                        return [];
+                    }
+                },
+                label: {
+                    type: String
+                },
+                display: {
+                    type: Boolean,
+                    value: false
+                },
+                smallRow: {
+                    type: Boolean,
+                    value: false
+                },
+                url: {
+                    type: String,
+                    value: ""
+                },
+                results: {
+                    type: Array,
+                    notify: true,
+                    value: function() {
+                        return [];
+                    }
+                },
+                modelCustomerlist1: {
+                    type: Object,
+                    value: undefined,
+                    reflectToAttribute: true,
+                },
+                map: {
+                    type: Array,
+                    value: function() {
+                        return [{
+                            key: "name",
+                            isMain: true
+                        }, {
+                            key: "email",
+                            isTarget: true
+                        }];
+                    }
+                },
+                lineWidth: {
+                    type: Number,
+                    value: 0
+                },
+                mapString: {
+                    type: String,
+                    value: ""
+                },
+                searchstring: {
+                    type: String,
+                    notify: true,
+                    value: ""
+                },
+                notTaggable: {
+                    type: Boolean,
+                    value: false
+                },
+                autoValidate: {
+                    type: Boolean,
+                    value: false
+                },
+                required: {
+                    type: Boolean,
+                    value: false
+                },
+                singleValue: {
+                    type: Boolean,
+                    value: false
+                },
+                displaySelected: {
+                    type: Boolean,
+                    value: false
+                },
+                text: {
+                    type: String,
+                    value: ""
+                },
+                preString: {
+                    type: String,
+                    notify: true,
+                    value: "",
+                    observer: "resetUrl"
+                }
+            }
+        }
+        static get observers() {
+            return [
+              
+            ]
+        }
+        constructor() {
+            super();
+
+
+            
+        }
+
+        open(profileid, customerid){
+            this.profileid = profileid
+            this.customerid = customerid
+
+            this.emails = []
+            this.shadowRoot.getElementById('searchstring').value = ""
+            this.clearContacts()
+            this.showAlteredEmails([])
+            this.counter = 0
+        }
+
+
+        ready() {
+            super.ready()
+        }
+
+        searchContacts(e) {
+
+            let search = this.shadowRoot.getElementById('searchstring').value
+
+            this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify({"option": "name_l", "query": search})
+            this.shadowRoot.getElementById('ajaxSearch').url = "/customer/search/contact/" + this.profileid + "/" + this.customerid 
+            this.shadowRoot.getElementById('ajaxSearch').generateRequest()
+
+        }
+
+        receiveContacts(e) {
+
+            if (e.detail.response.results == null){
+                return
+            }
+
+            this.contacts = []
+
+            for (var i=0; i< e.detail.response.results.length; i++){
+                let item = e.detail.response.results[i]
+                if (item.name == " " && item.email == ""){
+                    continue;
+                } else {
+                    item.id = i
+                    this.contacts.push(item)
+                }
+            }
+
+            const contacts = people => {
+                return html`
+                    <div>
+                     ${repeat (
+                        people,
+                        person => person.id,
+                        person => html `
+                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e)}} class="contactcontainer">
+                        <div class="contactname"> ${person.firstname}&nbsp${person.lastname} </div>
+                        <div class="contactemail"> ${person.email} </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+            render(contacts(this.contacts), this.shadowRoot.getElementById('contacts'))
+
+        }
+
+
+        clearContacts() {
+
+
+            this.empty = []
+            const contacts = people => {
+                return html`
+                    <div>
+                     ${repeat (
+                        people,
+                        person => person.id,
+                        person => html `
+                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e)}} class="contactcontainer">
+                        <div class="contactname"> ${person.firstname}&nbsp${person.lastname} </div>
+                        <div class="contactemail"> ${person.email} </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+            render(contacts(this.empty), this.shadowRoot.getElementById('contacts'))
+        }
+
+        addEmail(e){
+
+            let contactID = e.path[1].id.split("contact")[1]
+
+            let contact = this.contacts[contactID]
+
+            contact.id = this.counter++
+
+            this.emails.push(contact)
+
+            const emails = emails => {
+                return html`
+                    <div class="emailholder layout horizontal wrap">
+                     ${repeat (
+                        emails,
+                        person => person.id,
+                        person => html `
+                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
+                        <div class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
+                        <div class="clear"> <iron-icon class="clearicon" on-tap="${(e)=>{this.delete(e)}}" id$="identifier${person.id}" icon="icons:clear"></icon>  </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+
+            render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
+
+        }
+
+        edit(bool) {
+            if (bool){
+                return "none"
+            } else {
+                return "flex"
+            }
+        }
+
+        edit1(bool) {
+            if (bool){
+                return "flex"
+            } else {
+                return "none"
+            }
+        }
+
+        editEmail(e) {
+
+
+            if (!e.path[1].id){
+                return
+            }
+
+            let emailID = e.path[1].id.split("email")[1]
+
+           this.emails[emailID].edit = true
+
+                this.showAlteredEmails(this.emails)
+            const emails = emails => {
+                return html`
+                    <div class="emailholder layout horizontal wrap">
+                     ${repeat (
+                        emails,
+                        person => person.id,
+                        person => html `
+                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
+                        <div style="display:${this.edit(person.edit)}" class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
+                        <div style="display:${this.edit1(person.edit)}" class="emailname"> <input id$="edited${person.id}" on-tap=${(e) =>{e.stopPropagation; e.preventDefault}} on-keypress=${(e) =>{e.stopPropagation; e.preventDefault; this.returnEmail(e)}} on-focusout=${(e) =>{e.stopPropagation; e.preventDefault; this.returnEmail1(e)}} class="editfield" value="${person.email}"</div>
+
+                        <div class="clear"> <iron-icon class="clearicon" on-tap="${(e)=>{this.delete(e)}}" id$="identifier${person.id}" icon="icons:clear"></icon>  </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+
+            render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
+
+
+        }
+
+
+        showAlteredEmails(emaillist){
+
+            const emails = emails => {
+                return html`
+                    <div class="emailholder layout horizontal wrap">
+                     ${repeat (
+                        emails,
+                        person => person.id,
+                        person => html `
+                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
+                        <div style="display:${this.edit(person.edit)}" class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
+                        <div style="display:${this.edit1(person.edit)}" class="emailname"> ${person.email}</div>
+                        <div class="clear"> <iron-icon class="clearicon" on-tap="${(e)=>{this.delete(e)}}" id$="identifier${person.id}" icon="icons:clear"></icon>  </div>
+                        </div>`
+
+                        )}
+
+                     </div>`
+            }
+
+
+            render(emails(emaillist), this.shadowRoot.getElementById('emaillist'))
+
+        }
+
+
+        returnEmail(e) {
+            if (e.keyCode == 13){
+
+                let id = e.path[0].id
+                let personid = id.split("edited")[1]
+                this.emails[personid].email = this.shadowRoot.getElementById(id).value
+                this.showAlteredEmails(this.emails)
+
+                
+
+            }
+        }
+
+        returnEmail1(e) {
+
+                let id = e.path[0].id
+                let personid = id.split("edited")[1]
+                this.emails[personid].email = this.shadowRoot.getElementById(id).value
+                this.showAlteredEmails(this.emails)
+
+        }
+
+        delete(e) {
+                let id = e.path[0].id
+                let personid = id.split("identifier")[1]
+
+                for (var i=0; i < this.emails.length; i++){
+                    if (personid == this.emails[i].id){
+                        this.emails.splice(i, 1)
+                        break;
+                    }
+                }
+
+                this.showAlteredEmails(this.emails)
+        }
+       
+
+         render() {
+        return html` <style include="shared-styles iron-flex iron-flex-alignment">
+
+            /*  //////////////FLEX BOX/////////  */
+
+                .layout.horizontal,
+          .layout.vertical {
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+          }
+
+          .layout.inline {
+            display: -ms-inline-flexbox;
+            display: -webkit-inline-flex;
+            display: inline-flex;
+          }
+
+          .layout.horizontal {
+            -ms-flex-direction: row;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+          }
+
+          .layout.vertical {
+            -ms-flex-direction: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+          }
+
+          .layout.wrap {
+            -ms-flex-wrap: wrap;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+          }
+
+          .layout.no-wrap {
+            -ms-flex-wrap: nowrap;
+            -webkit-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+          }
+
+          .layout.center,
+          .layout.center-center {
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+          }
+
+          .layout.center-justified,
+          .layout.center-center {
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+          }
+
+          .flex {
+            -ms-flex: 1 1 0.000000001px;
+            -webkit-flex: 1;
+            flex: 1;
+            -webkit-flex-basis: 0.000000001px;
+            flex-basis: 0.000000001px;
+          }
+
+          .flex-auto {
+            -ms-flex: 1 1 auto;
+            -webkit-flex: 1 1 auto;
+            flex: 1 1 auto;
+          }
+
+          .flex-none {
+            -ms-flex: none;
+            -webkit-flex: none;
+            flex: none;
+          }
+
+          .layout.start {
+            -ms-flex-align: start;
+            -webkit-align-items: flex-start;
+            align-items: flex-start;
+          }
+
+          .layout.center,
+          .layout.center-center {
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+          }
+
+          .layout.end {
+            -ms-flex-align: end;
+            -webkit-align-items: flex-end;
+            align-items: flex-end;
+          }
+
+          .layout.baseline {
+            -ms-flex-align: baseline;
+            -webkit-align-items: baseline;
+            align-items: baseline;
+          }
+
+          /**
+           * Alignment in main axis.
+           */
+          .layout.start-justified {
+            -ms-flex-pack: start;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+          }
+
+          .layout.center-justified,
+          .layout.center-center {
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+          }
+
+          .layout.end-justified {
+            -ms-flex-pack: end;
+            -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+          }
+
+          .layout.around-justified {
+            -ms-flex-pack: distribute;
+            -webkit-justify-content: space-around;
+            justify-content: space-around;
+          }
+
+          .layout.justified {
+            -ms-flex-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+          }
+
+         
+          /**
+           * multi-line alignment in main axis.
+           */
+          .layout.start-aligned {
+            -ms-flex-line-pack: start;  /* IE10 */
+            -ms-align-content: flex-start;
+            -webkit-align-content: flex-start;
+            align-content: flex-start;
+          }
+
+          .layout.end-aligned {
+            -ms-flex-line-pack: end;  /* IE10 */
+            -ms-align-content: flex-end;
+            -webkit-align-content: flex-end;
+            align-content: flex-end;
+          }
+
+          .layout.center-aligned {
+            -ms-flex-line-pack: center;  /* IE10 */
+            -ms-align-content: center;
+            -webkit-align-content: center;
+            align-content: center;
+          }
+
+          .layout.between-aligned {
+            -ms-flex-line-pack: justify;  /* IE10 */
+            -ms-align-content: space-between;
+            -webkit-align-content: space-between;
+            align-content: space-between;
+          }
+
+          .layout.around-aligned {
+            -ms-flex-line-pack: distribute;  /* IE10 */
+            -ms-align-content: space-around;
+            -webkit-align-content: space-around;
+            align-content: space-around;
+          }
+
+          /* ////////////////END FLEXBOX /////////////// */
+
+          .contactemail {
+
+
+          }
+
+          .contactname {
+            font-weight: 600;
+          }
+
+          .contactcontainer {
+            padding: 5px;
+            border-bottom: 1px dashed #dbdcdd;
+
+          }
+
+          .emailcontainer {
+            margin-left: 5px;
+            border: 1px solid #e0c00b;
+                padding-left: 3px;
+          }
+
+        .emailcontainer:first-child {
+            margin-left: 0px;
+          }
+
+          .emailholder {
+            width: 100%;
+          }
+
+          .body {
+            margin-top: 44px;
+          }
+
+          .materialcontainer {
+            margin-left: 5px;
+          }
+
+          .to {
+                position: relative;
+                text-align: right;
+                min-height: 1px;
+                padding-left: 0px;
+                padding-right: 0px;
+                padding-right: 6px;
+                width: 11%;
+          }
+
+
+          .contentbody {
+                width: 89%;
+          }
+
+          .editfield{
+            border: none;
+          }
+
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -18,30 +604,16 @@ import {Element as PolymerElement}
             --iron-icon-height: 18px;
         }
         
-        tag {
-            display: inline-block;
-            margin: 0 4px 3px 0;
-            padding: 0 3px;
-            background-color: #f5f5f5;
-            border: 1px solid #d9d9d9;
-            border-radius: 3px;
-            animation-name: slidein;
-            animation-duration: 0.2s;
-        }
+       
         
-        tag.infinite {
-            animation: conflict 0.5s infinite;
-            -webkit-animation: conflict 0.5s infinite;
-            /* Chrome, Safari, Opera */
-        }
         .header-input {
             text-align: initial;
             border: none;
             background-color: white;
-            border-bottom: 1px dotted #000;
             float: left;
-            width: 88%;
+            width: 100%;
         }
+        
         .toinput {
             width: 100%;
             text-align: initial;
@@ -73,7 +645,6 @@ import {Element as PolymerElement}
             float: left;
             text-align: right;
             font-size: 14px;
-            
         }
         
         .col-xs-9 {
@@ -145,43 +716,40 @@ import {Element as PolymerElement}
         paper-input-container {
             position: relative;
         }
-        /*    
-    .overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        display: none;
-        z-index: 9;
-        overflow: auto;
-    }
-    
-    .overlay.open {
-        display: block;
-    }
-    */
+        
+/*        .overlay {
+            display: var(--display-overlay);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: none;
+            z-index: 9;
+            overflow: auto;
+        }*/
+        /*        .overlay.open {
+            display: block;
+        }*/
         
         .result-panel {
-            display: block;
+            display:  block;
             position: absolute;
-            opacity: 0;
-            margin-left: -5%;
-            width: 100%;
+            /*opacity: 0;*/
+            margin-left: 12%;
+            width: 88%;
             background-color: #fff;
             overflow: auto;
             transition: transform 0.1s, opacity 0.1s;
             box-shadow: 0 6px 42px 8px rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)!important;
             -moz-box-shadow: 0 6px 42px 8px rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)!important;
-            transform: translateY(100px);
+            /*transform: translateY(100px);*/
             max-height: 300px;
+            opacity: 1;
+            z-index: 99;
+            transform: translateY(0);
         }
-        
-        .layout.horizontal,
-        .layout.vertical {
-            display: var(--display-result-panel);
-        }
-        
+     
         .result-panel.open {
             opacity: 1;
             z-index: 99;
@@ -227,16 +795,17 @@ import {Element as PolymerElement}
             border-top-right-radius: 3px;
             border-bottom-right-radius: 3px;
         }
+
+        .
         
         .result-panel {
-            margin-left: 11.5%;
-            width: 83.2%;
+            margin-left: 11.6%;
+            width: 87.4%;
             padding-left: 5px;
         }
         
         #inputField {
             border: none;
-            width: 100%;
         }
         
         #inputField:focus {
@@ -300,18 +869,23 @@ import {Element as PolymerElement}
             position: relative;
         }
         
+        iron-list {
+            flex: 1 1 auto;
+        }
+        
         @media (max-width: 767px) {
             .col-xs-3 {
                 position: relative;
                 min-height: 1px;
                 padding-left: 0px;
                 padding-right: 6px;
-                width: 6%;
+                width: 3%;
                 float: left;
                 text-align: right;
             }
             .col-xs-9 {
                 position: relative;
+                width: 97%;
                 min-height: 1px;
                 padding-left: 1%;
                 padding-right: 0px;
@@ -369,43 +943,29 @@ import {Element as PolymerElement}
             }
         }
         </style>
-        <div class="my-content">
-            <!-- <div class="my-content"> -->
-            <div class="col-xs-3">{{label}}</div>
-            <!-- </div> -->
-            <div class="text-right">
-                <div class="my-content">
-                    <div id="emailsCollection" class="header-input">
-                        <template is="dom-repeat" items="{{tags}}" as="tag" hidden="{{!display}}">
-                            <div id="holder-[[index]]" class="my-content">
-                                <div class="emails" id="container-[[index]]">
-                                    <iron-input id="email-[[index]]" class="input email-width" bind-value="{{tag}}">
-                                        <input>
-                                    </iron-input>
-                                    <iron-icon icon="close" class="close-icon" emailindex="remove-[[index]]" on-click="removeTag"></iron-icon>
-                                </div>
+        <div class="body">
+            <div class="layout horizontal">
+                <div class="to">Cc:</div>
+                <div class="layout vertical contentbody">
+                    <div class="text-right">
+                        <div class="my-content">
+                            <div id="emaillist" >
                             </div>
-                        </template>
-                        <iron-input id="inputField" bind-value="{{searchstring}}" required$="[[required]]" on-focusout="focusout" on-keyup="onKeyUp">
-                            <input class="toinput">
-                        </iron-input>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="my-content">
+                            <div id="emailsCollection" class="header-input"></div>
+                            <div class="header-input">
+                                    <input class="toinput" id="searchstring" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bounder">
-                <div class="result-panel">
-                    <iron-list items="{{results}}" as="result" class="push-down" filter="searchfilter" observe="updatesearch">
-                        <template>
-                            <div class="result-item" data-id$="{{result.id}}" data-selected$="{{result.select}}" data-value$="{{result.sub}}" data-target$="{{result.target}}" on-click="select" on-tap="select" on-mousedown="select">
-                                <div>
-                                    <span> [[result.email]] </span>
-                                </div>
-                                <div hidden="{{singleValue}}">
-                                    <safe-html content="{{result.sub}}"></safe-html>
-                                </div>
-                            </div>
-                        </template>
-                    </iron-list>
+            <div class="bounder" style="position: relative;">
+                <div id="contacts" class="result-panel layout vertical">
+                    
                 </div>
             </div>
             <canvas hidden id="canvas"></canvas>
@@ -414,435 +974,13 @@ import {Element as PolymerElement}
                 <br id="break">
             </div>
         </div>
-        </div>
-        </div>`
+        <iron-ajax id="ajaxSearch" method="POST" on-response=${this.receiveContacts.bind(this)} on-error="ajaxerror"></iron-ajax>
+       `
     }
-        static get properties() {
-            return {
-                oldlen: {
-                    type: Number,
-                    value: 0
-                },
-                tags: {
-                    type: Array,
-                    notify: true,
-                    observer: "setDisplay",
-                    value: function() {
-                        return [];
-                    }
-                },
-                label: {
-                    type: String
-                },
-                display: {
-                    type: Boolean,
-                    value: false
-                },
-                smallRow: {
-                    type: Boolean,
-                    value: false
-                },
-                url: {
-                    type: String,
-                    value: ""
-                },
-                results: {
-                    type: Array,
-                    notify: true,
-                    value: function() {
-                        return [];
-                    }
-                },
-                modelCustomerlist1: {
-                    type: Object,
-                    value: undefined,
-                    reflectToAttribute: true,
-                    // observer: 'updateCustomers'
 
-                },
-                map: {
-                    type: Array,
-                    value: function() {
-                        return [{ //default for email
-                            key: "name",
-                            isMain: true
-                        }, {
-                            key: "email",
-                            isTarget: true
-                        }];
-                    }
-                },
-                lineWidth: {
-                    type: Number,
-                    value: 0
-                },
-                mapString: {
-                    type: String,
-                    value: ""
-                },
-                searchstring: {
-                    type: String,
-                    notify: true,
-                    value: ""
-                },
-                notTaggable: {
-                    type: Boolean,
-                    value: false
-                },
-                autoValidate: {
-                    type: Boolean,
-                    value: false
-                },
-                required: {
-                    type: Boolean,
-                    value: false
-                },
-                singleValue: {
-                    type: Boolean,
-                    value: false
-                },
-                displaySelected: {
-                    type: Boolean,
-                    value: false
-                },
-                text: { //1st line of the result, ex: "Suggested username ..."
-                    type: String,
-                    value: ""
-                },
-                preString: { //predefined query string for search url
-                    type: String,
-                    notify: true,
-                    value: "",
-                    observer: "resetUrl"
-                }
-            }
-        }
-        static get observers() {
-            return [
-                'triggersearch(searchstring)',
-                'setTemplateData(modelCustomerlist1)'
-            ]
-        }
-        constructor() {
-            super();
-      
-        }
-        setTemplateData(results) { //dropdown menu
-            // var resp = results,
-                // mainKey = [],
-                // main,
-                // subKey = [],
-                // sub,
-                // targetKey, results = [],
-                // self = this,
-                // reg = "",
-                // map;
-            this.set("results", resp.results);
-            if ((this.text && results.length > 1) || (!this.text && results.length > 0)) this.hideOverlay();
-        }
-        triggersearch(newValue) {
-            if (this.searchstring === "" || this.searchstring === undefined || this.searchstring === null) {
-                this.hideOverlay();
-            } else if (this.results[0] !== undefined) {
-                this.set('results.0.updatesearch', newValue);
-            }
-        }
-        searchfilter(e) {
-            var thiz = this;
-
-            var element = e;
-            if (element.email != null) {
-                if (element.email && element.email.match(new RegExp(this.searchstring, 'i')) !== null) {
-                    this.filter = true;
-                    return true;
-
-                }
-                if (element.name && element.name.match(new RegExp(this.searchstring, 'i')) !== null) {
-                    this.filter = true;
-                    return true;
-                }
-            } else {
-                if (element.companyname != null) {
-                    if (element.companyname && element.companyname.match(new RegExp(this.searchstring, 'i')) !== null) {
-                        this.filter = true;
-                        return true;
-                    }
-                    if (element.address && element.address.match(new RegExp(this.searchstring, 'i')) !== null) {
-                        this.filter = true;
-                        return true;
-                    }
-                } else {
-                    if (element.name && element.name.match(new RegExp(this.searchstring, 'i')) !== null) {
-                        this.filter = true;
-                        return true;
-                    } else if (element.mfgname && element.mfgname.match(new RegExp(this.searchstring, 'i')) !== null) {
-                        this.filter = true;
-                        return true;
-                    } else if (element.mfgpn && element.mfgpn.match(new RegExp(this.searchstring, 'i')) !== null) {
-                        this.filter = true;
-                        return true;
-                    }
-
-                }
-            }
-            this.filter = false;
-            return false;
-        }
-
-        onKeyUp(e) {
-            if (e.code == "Escape" || this.searchstring == "") {
-                this.hideOverlay();
-            } else if (e.code === "Enter") {
-                this.addTag(e.target.value.trim(), e);
-
-            } else if (this.filter) {
-                this.showOverlay();
-            } else {
-                this.hideOverlay();
-            }
-        }
-        hideOverlay(e) {
-            console.log("hidden")
-            this.updateStyles({
-                '--display-result-panel': 'none',
-            });
-            // this.toggleClass("open", false, this.shadowRoot.querySelector(".overlay"));
-            // this.toggleClass("open", false, this.shadowRoot.querySelector(".result-panel"));
-
-            this.set("selected", 0);
-            this.set("firstclick", true);
-            // this.set("results", []);
-            setTimeout(function() {
-                this.updateStyles({
-                    '--display-result-panel': 'none',
-                });
-                // this.toggleClass("display", false, this.shadowRoot.querySelector(".result-panel"));
-            }.bind(this), 600);
-        }
-
-        showOverlay() {
-            this.updateStyles({
-                '--display-result-panel': 'block',
-            });
-            // this.toggleClass("display", true, this.shadowRoot.querySelector(".result-panel"));
-            setTimeout(function() {
-                this.updateStyles({
-                    '--display-result-panel': 'none',
-                });
-                // this.toggleClass("open", true, this.shadowRoot.querySelector(".result-panel"));
-                // this.toggleClass("open", true, this.shadowRoot.querySelector(".overlay"));
-            }.bind(this), 100);
-        }
-
-        domchange(e) {
-            if (this.permit) {
-                this.emailWidthSetter()
-            }
-        }
-        emailWidthSetter(e) {
-            console.log('this oldlen tags ,permit', this.oldlen, (this.tags.length - 1), this.permit)
-
-            if (this.permit) {
-                var index = (this.tags.length - 1).toString()
-                var node = this.$$('#email-' + index);
-                var node1 = this.$$('#container-' + index);
-                var inputField = this.$.inputField;
-                if (node) {
-                    function getWidthOfInput() {
-                        var canv = this.$.canvas
-                        ctx = canv.getContext("2d");
-                        ctx.font = "13px Arial";
-                        var length = ctx.measureText(node.value).width;
-                        console.log('this is length', length);
-                        return length
-                    }
-
-                    var emailWidth = getWidthOfInput.call(this);
-                    var prop = 'emailW-' + index;
-                    node.style.width = emailWidth + "px";
-                    var containerWidth = emailWidth + 5 + 21;
-                    var totWidth = containerWidth
-                    node1.style.width = totWidth + "px";
-                    // this.lineWidth = this.lineWidth + (totWidth + 5)
-                    // console.log('totw, linw', totWidth, this.lineWidth)
-                    // this.$.inputField.style.width = "0px";
-                    // this.$.remainingbox.style.width = "0px";
-                    // this.emailsHeightAfterAdd = this.$.emailsCollection.offsetHeight
-                    // console.log('the current height, prevheight', JSON.parse(JSON.stringify(this.emailsHeightAfterAdd)), this.emailsHeight)
-
-                    // if (this.emailsHeightAfterAdd > 28) {
-                    //     this.$.emailsCollection.style.height = "58px";
-                    //     for (var i = this.tagcount; i < this.tags.length; i++) {
-                    //         console.log('inside and running, i , container', i, this.$$('#container-' + i))
-
-                    //         this.$$('#container-' + i).style.display = "none";
-                    //     }
-
-                    //     this.remaining = this.tags.length - this.tagcount;
-                    //     this.$.inputField.style.width = "0px";
-                    //     var remainBoxCLone = this.$.remainingbox.cloneNode(false);
-                    //     remainBoxCLone.classList.add('boxclone');
-                    //     this.$.emailsCollection.appendChild(remainBoxCLone)
-                    //     this.oldlen = this.oldlen + 1;
-                    //     this.permit = false;
-                    //     return;
-                    // }
-
-                    // var tag = totWidth + 5
-                    // var diff = this.emailsHeightAfterAdd - this.emailsHeight
-                    // if (tag > 125 && this.lineWidth > 400) {
-                    //     inputField.style.width = "525px";
-                    //     this.lineWidth = 0;
-                    //     this.permit = false;
-                    //     this.oldlen = this.oldlen + 1;
-                    //     var breakEl = this.$.break;
-                    //     var clnBreak = breakEl.cloneNode(false);
-                    //     clnBreak.classList.add('break')
-                    //     node1.parentNode.insertBefore(clnBreak, node1.nextSibling);
-                    //     if (!this.tagcount) {
-                    //         this.tagcount = this.tags.length
-                    //     }
-                    //     return
-                    // } else if (tag && this.lineWidth > 400) {
-                    //     var breakEl = this.$.break;
-                    //     var clnBreak = breakEl.cloneNode(false);
-                    //     clnBreak.classList.add('break')
-                    //     node1.parentNode.insertBefore(clnBreak, node1.nextSibling);
-                    //     inputField.style.width = (525 - (totWidth + 5)) + "px";
-                    //     if (!this.tagcount) {
-                    //         this.tagcount = this.tags.length
-                    //     }
-                    // } else {
-                    //     inputField.style.width = (525 - this.lineWidth) + "px";
-                    // }
-                    // this.oldlen = this.oldlen + 1;
-                    this.permit = false;
-
-                    console.log('tags after add', this.tags)
-                }
-            }
-        }
-        removeTag(e) {
-            // console.log('e in remove', e);
-
-            // var id = e.model._nodes[3].id
-
-            // console.log('the id', id)
+       
 
 
-            var ix = e.model.index;
-
-            this.splice('tags', ix, 1)
-
-            // console.log('the index', ix)
-
-            // this.$$('#'+id).remove();
-
-            // for (var i=(ix+1); i<this.tags.length; i++) {
-            //     this.$$('#holder-'+i).id = 'holder-'+(i-1);
-            //     this.$$('#container-'+i).id = 'container-'+(i-1);
-            //     this.$$('#email-'+i).id = 'email-'+(i-1);
-
-            // }
-            
-
-            // var tag = e.model.tag;
-            // this.tags = this.tags.filter(function(x) {
-            //     return x != tag;
-            // });
-
-            // this.tags.splice(ix, 1)
-
-            // console.log('tags after remove', this.tags);
-            // var index = e.model.index
-
-            // console.log('the id', id)
-            // var width = Number(this.$$('#'+id).style.width.slice(0,-2)) + 5
-            // console.log('see width , ifw',  width, Number(this.$.inputField.style.width.slice(0, -2)))
-            // var ifWidth = Number(this.$.inputField.style.width.slice(0, -2))
-            // this.$.inputField.style.width = ifWidth + width + 'px';
-
-            // this.lineWidth = this.lineWidth - width;
-
-
-            // console.log('fied width, lineWidth', this.$.inputField.style.width, this.lineWidth)
-            // this.setDisplay();
-        }
-
-        addTag(value, e) {
-            var duplicated = [];
-            duplicated = this.tags.filter(function(x) {
-                return x == value;
-            });
-
-            if (!duplicated[0]) {
-                // var tm = this.tags;
-                // this.tags=[];
-                // this.tags = tm;
-                this.push('tags', value);
-                this.$.inputField.value = '';
-
-                this.permit = true;
-            }
-            // this.$.emailsCollection.classList.add('readjuster')
-            // this.$.inputField.classList.add('inputadjuster')
-
-            // if (!duplicated[0]) {
-
-
-            // } else {
-            //     this.toggleClass('infinite', true, this.$$('#' + this.format(value)));
-            //     setTimeout(function() {
-            //         this.toggleClass('infinite', false, this.$$('#' + this.format(value)));
-
-            //     }.bind(this), 1000);
-            // }
-            this.setDisplay();
-            this.hideOverlay();
-        }
-        select(e) {
-            this.tags = this.tags || [];
-            var value = e.model.result.email
-            this.addTag(value);
-            this.hideOverlay();
-        }
-        open() {
-            this.searchstring = "";
-            this.oldlen = 0;
-            this.tags = [];
-            this.lineWidth = 0;
-            this.$.inputField.style.width = "525px";
-            this.emailsHeight = 0;
-            this.emailsHeightAfterAdd = 0;
-            this.tagcount = 0;
-            var paras = document.getElementsByClassName('break');
-            while (paras[0]) {
-                paras[0].parentNode.removeChild(paras[0])
-            }
-            var paras1 = document.getElementsByClassName('boxclone');
-            while (paras1[0]) {
-                paras1[0].parentNode.removeChild(paras1[0])
-            }
-            this.$.emailsCollection.style.minheight = "28px";
-        }
-        setDisplay() {
-            if (this.get('tags')) {
-                if (this.get('tags').length > 0) {
-                    this.set('display', true);
-                } else {
-                    this.set('display', false);
-                }
-            }
-        }
-
-        isValidEmail(value) {
-            return value.match(/\S+@\S+\.\S+/ig)
-        }
-        focusout(e) {
-            if (e.target.value !== "") {
-                this.addTag(e.target.value.trim(), e);
-            }
-        }
     }
-   
-  customElements.define('defie-emailfiltercc', DefieEmailfiltercc)
+
+    customElements.define('defie-emailfiltercc', DefieEmailfiltercc)

@@ -610,7 +610,6 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             text-align: initial;
             border: none;
             background-color: white;
-            border-bottom: 1px dotted #000;
             float: left;
             width: 100%;
         }
@@ -718,20 +717,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             position: relative;
         }
         
-/*        .overlay {
-            display: var(--display-overlay);
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: none;
-            z-index: 9;
-            overflow: auto;
-        }*/
-        /*        .overlay.open {
-            display: block;
-        }*/
+
         
         .result-panel {
             display:  block;
@@ -845,13 +831,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
         
         .readjuster {
-            margin-top: -8px;
-        }
-        
-        .inputadjuster {
-            margin-top: 8px;
-        }
-        
+    
         .remainingbox {
             border: 1px solid #d14836;
             border-radius: 3px;
