@@ -767,6 +767,11 @@ export class DefieMenu extends PolymerElement {
 
         });
 
+        this.addEventListener('CloseMenuEvent', e => {
+           this.$.startDrawer.toggle()
+
+        });
+
     }
 
 
