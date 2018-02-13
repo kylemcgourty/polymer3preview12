@@ -59,15 +59,16 @@ export class ModuleHeader extends LitElement {
         }
         open(setting, props) {
 
-            this.isHidden = props.isHidden
-            this.pagename = props.pagename
-            this.pageidtext = props.pageidtext
-            this.pageid = props.pageid
-            this.soidtext = props.soidtext
-            this.soid = props.soidtext
-            this.datetext = props.datetext
-            this.date = props.date
-
+            if (props) {
+                this.isHidden = props.isHidden
+                this.pagename = props.pagename
+                this.pageidtext = props.pageidtext
+                this.pageid = props.pageid
+                this.soidtext = props.soidtext
+                this.soid = props.soidtext
+                this.datetext = props.datetext
+                this.date = props.date
+            }
 
             this.setting = JSON.parse(JSON.stringify(setting))
 

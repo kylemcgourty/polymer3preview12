@@ -89,7 +89,6 @@
               this.list = this.model.productgrouping[0].items;
               lineitems = JSON.parse(JSON.stringify(model.productgrouping[0].items))
               lineitems[index - 1].highlight = "selected"
-
           } else if (this.model[0].procedures) {
               this.list = this.model
               lineitems = JSON.parse(JSON.stringify(model))
@@ -100,18 +99,26 @@
           procedure ? this.current = index : this.current = index - 1;
           this.data = lineitems
 
-          this.data.unshift({
-              // 0: "and here",
-              above: "Above",
-              below: "Below",
-              index: "here",
-          })
-
-          console.log("This data", this.data);
+          this.data.forEach(function(item, index) {
+              item.id = index + 1;
+          });
 
           const types = data => {
 
               return html `
+              <div class="container">
+                  <div class="unit">
+                      <div class="layout horizontal">
+                          <div class="left">
+                              <div class="title">Above</div>
+                          </div>
+                          <div class="middle"></div>
+                          <div class="right">
+                              <div class="title"> Below</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             ${repeat (
                  data,
                  item => item.id,
@@ -120,13 +127,11 @@
                                 <div id$="${item.id}" data-selected$="${item.highlight}" class="unit">
                                     <div class="layout horizontal">
                                         <div class="left">
-                                            <div class="title"> ${item.above}</div>
                                             <paper-icon-button on-tap="${(e) =>this.moveabove(e)}" class="direction-icon" icon="editor:vertical-align-top"></paper-icon-button>
                                         </div>
-                                        <div class="middle"> ${index} </div>
+                                        <div class="middle"> <div class="middletext">${item.id}</div> </div>
                                         <div class="right">
-                                            <div class="title">${item.below}</div>
-                                            <paper-icon-button on-tap="${(e) =>this.movebelow(e)}" class="direction-icon" icon="editor:vertical-align-bottom"></paper-icon-button>
+                                            <paper-icon-button on-tap="${() =>this.movebelow(item)}" class="direction-icon" icon="editor:vertical-align-bottom"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
@@ -141,21 +146,23 @@
       }
 
 
-      movebelow(e) {
+      movebelow(item) {
 
-          let index = e.model.index;
+          console.log("movebelow item is", item);
+
+          let index = item.id - 1;
           let li = this.list[this.current]
 
           this.next = index;
 
           if (this.next > this.current) {
-              this.splice('list', this.next, 0, li)
-              this.splice('list', this.current, 1)
+              this.list.splice(this.next, 0, li);
+              this.list.splice(this.current, 1);
           } else if (this.current > this.next) {
-              let l = this.splice('list', this.current, 1)
-              this.splice('list', this.next, 0, l[0])
+              let l = this.list.splice(this.current, 1);
+              this.list.splice(this.next, 0, l[0]);
           } else {
-              this.close()
+              this.close();
               return;
           }
 
@@ -310,18 +317,6 @@
             visibility: hidden;
         }
 
-        .container:nth-child(1) .direction-icon {
-            display: none;
-        }
-
-        .title {
-            display: none;
-        }
-
-        .container:nth-child(1) .title {
-            display: block;
-        }
-
         .unit {
             height: 33px;
             white-space: nowrap;
@@ -361,6 +356,12 @@
             flex-grow: 1;
             text-align: center;
             display: inline-block;
+        }
+
+        .middletext {
+            display: inline-block;
+            width: 40px;
+            height: 31px;
         }
 
         .right {
