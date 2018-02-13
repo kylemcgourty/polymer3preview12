@@ -131,16 +131,16 @@
                                     <div class="layout horizontal" style="visibility: ${item.visibility}">
                                         <div class="opt1"> ${item.id} </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="event1" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap=${() => this.event1(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="event2" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap=${() => this.event2(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="event3" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap=${() => this.event3(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="event4" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap=${() => this.event4(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
