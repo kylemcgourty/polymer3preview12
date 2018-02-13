@@ -123,7 +123,6 @@ export class SendEmail extends LitElement {
     }
     open(filename, posturl, searchurl, profileid, customerid) {
 
-        console.log('send in mail open')
 
         if (filename) this.filename = filename;
         if (posturl) this.posturl = posturl
