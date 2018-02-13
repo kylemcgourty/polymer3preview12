@@ -185,22 +185,17 @@ export class SendEmail extends LitElement {
         let emails1 =this.shadowRoot.getElementById('emailfilter').returnEmails()
         let emails2 =this.shadowRoot.getElementById('emailfiltercc').returnEmails()
 
-
-        console.log('got emails1', emails1)
-
-       this._email.to = this._email.to.concat(emails1).concat(emails2)
+        this._email.to = this._email.to.concat(emails1).concat(emails2)
 
 
-        console.log('the emails', this._email.to)
+        this.shadowRoot.getElementById('ajax').url = this.posturl;
+        this.shadowRoot.getElementById('ajax').body = JSON.stringify(this._email);
 
-        // this.$.ajax.url = this.posturl;
-        // this.$.ajax.body = JSON.stringify(this._email);
-
-        // this.$.ajax.generateRequest();
-        // this.dispatchEvent(new CustomEvent('closePanel', {
-        //     composed: true,
-        //     bubbles: true
-        // }));
+        this.shadowRoot.getElementById('ajax').generateRequest();
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            composed: true,
+            bubbles: true
+        }));
 
     }
     success(request) {
@@ -1387,7 +1382,7 @@ export class SendEmail extends LitElement {
                 </div>
             </div>
         </div>
-        <iron-ajax id="ajax" method="POST" on-response="success" on-error="ajaxerror"></iron-ajax>
+        <iron-ajax id="ajax" method="POST" on-response="${this.success.bind(this)}" on-error="ajaxerror"></iron-ajax>
         <iron-ajax id="ajaxSave" method="PUT" handle-as="json" on-response="responseActionEdit" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxSaveC" method="POST" handle-as="json" on-response="responseAction" on-error="showError" content-type="application/json"></iron-ajax>`
     }
