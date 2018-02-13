@@ -173,7 +173,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         people,
                         person => person.id,
                         person => html `
-                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e)}} class="contactcontainer">
+                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e);}} class="contactcontainer">
                         <div class="contactname"> ${person.firstname}&nbsp${person.lastname} </div>
                         <div class="contactemail"> ${person.email} </div>
                         </div>`
@@ -212,7 +212,9 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             render(contacts(this.empty), this.shadowRoot.getElementById('contacts'))
         }
 
-        addEmail(e){
+          addEmail(e){
+
+            this.block = true;
 
             let contactID = e.path[1].id.split("contact")[1]
 
@@ -222,25 +224,27 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
             this.emails.push(contact)
 
-            const emails = emails => {
-                return html`
-                    <div class="emailholder layout horizontal wrap">
-                     ${repeat (
-                        emails,
-                        person => person.id,
-                        person => html `
-                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
-                        <div class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
-                        <div class="clear"> <iron-icon class="clearicon" on-tap="${(e)=>{this.delete(e)}}" id$="identifier${person.id}" icon="icons:clear"></icon>  </div>
-                        </div>`
+            this.shadowRoot.getElementById('searchstring').value = ""
 
-                        )}
+            this.showAlteredEmails(this.emails)
 
-                     </div>`
+        }
+
+        insertEmail(e){
+
+            setTimeout(()=>{}, 100)
+            if (this.block){
+                this.block = false;
+                return;
             }
 
+            this.emails.push({email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++})
 
-            render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
+            this.shadowRoot.getElementById('searchstring').value = ""
+
+
+            this.showAlteredEmails(this.emails)
+
 
         }
 
@@ -938,7 +942,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         <div class="my-content">
                             <div id="emailsCollection" class="header-input"></div>
                             <div class="header-input">
-                                    <input class="toinput" id="searchstring" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
+                                    <input class="toinput" id="searchstring" on-focusout="${(e) => this.insertEmail(e)}}" on-keyup="${(e) =>this.searchContacts(e)}">
                             </div>
                         </div>
                     </div>

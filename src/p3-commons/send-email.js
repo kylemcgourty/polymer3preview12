@@ -136,6 +136,8 @@ export class SendEmail extends LitElement {
         this._email.message = ""
         this._email.ispdf = true
         this._email.ishtml = true
+        this._email.to = []
+        this._email.cc = []
 
 
         this._contact = {}
@@ -178,6 +180,9 @@ export class SendEmail extends LitElement {
     send(e) {
         document.querySelector('#toast').show("Sending message.");
 
+        let email1 =this.shadowRoot.getElementById('emailfilter').returnEmails()
+
+        this._email.to.concat(email1)
 
         this.$.ajax.url = this.posturl;
         this.$.ajax.body = JSON.stringify(this._email);
