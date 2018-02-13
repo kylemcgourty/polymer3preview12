@@ -133,6 +133,21 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             this.counter = 0
         }
 
+          returnEmails() {
+
+            console.log('the emails in list', this.emails)
+
+            this.returnlist = this.emails.map((item, i) =>{
+
+                console.log('item and i', item, i)
+                return item.email
+            })
+
+            console.log('the return list', this.returnlist)
+            return this.returnlist
+        }
+
+
 
         ready() {
             super.ready()

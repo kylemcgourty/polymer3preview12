@@ -4,7 +4,7 @@ import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-el
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 import './emailfilter.js'
-// import './emailfiltercc.js'
+import './emailfiltercc.js'
 
 export class SendEmail extends LitElement {
 
@@ -152,6 +152,8 @@ export class SendEmail extends LitElement {
 
 
         this.shadowRoot.getElementById('emailfilter').open(profileid, customerid);
+        this.shadowRoot.getElementById('emailfiltercc').open(profileid, customerid);
+
     }
 
     clearContacts(){
@@ -180,18 +182,25 @@ export class SendEmail extends LitElement {
     send(e) {
         document.querySelector('#toast').show("Sending message.");
 
-        let email1 =this.shadowRoot.getElementById('emailfilter').returnEmails()
+        let emails1 =this.shadowRoot.getElementById('emailfilter').returnEmails()
+        let emails2 =this.shadowRoot.getElementById('emailfiltercc').returnEmails()
 
-        this._email.to.concat(email1)
 
-        this.$.ajax.url = this.posturl;
-        this.$.ajax.body = JSON.stringify(this._email);
+        console.log('got emails1', emails1)
 
-        this.$.ajax.generateRequest();
-        this.dispatchEvent(new CustomEvent('closePanel', {
-            composed: true,
-            bubbles: true
-        }));
+       this._email.to = this._email.to.concat(emails1).concat(emails2)
+
+
+        console.log('the emails', this._email.to)
+
+        // this.$.ajax.url = this.posturl;
+        // this.$.ajax.body = JSON.stringify(this._email);
+
+        // this.$.ajax.generateRequest();
+        // this.dispatchEvent(new CustomEvent('closePanel', {
+        //     composed: true,
+        //     bubbles: true
+        // }));
 
     }
     success(request) {
@@ -1346,7 +1355,7 @@ export class SendEmail extends LitElement {
                 <div class="col-xs-12">
                     <div class="my-content">
                         <defie-emailfilter style="margin-top: 14px;" id="emailfilter"></defie-emailfilter>
-                        <defie-emailfiltercc small-row label="${this.cc}" style="margin-top: 3px;" model-customerlist2="${this.customerlist}" id="emailfiltercc" map-string='[{"key":"companyname", "isMain": "true"},{"key":"address", "isMain": "true"}]' tags="{{_email.cc}}" not-taggable searchstring="{{emailcc}}" required></defie-emailfiltercc>
+                        <defie-emailfiltercc style="margin-top: 3px;" id="emailfiltercc"></defie-emailfiltercc>
                         <div></div>
                         <div class="my-content col-xs-3c messagefield">Subject:</div>
                         <div class="my-content col-xs-9a messagefield">

@@ -134,11 +134,25 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
 
 
+          returnEmails() {
+            return this.listofemails = this.emails.map((item, i) =>{
+                return item.email
+            })
+        }
+
+
+
         ready() {
             super.ready()
         }
 
         searchContacts(e) {
+
+            if(e.keyCode == 13){
+                this.insertQuick()
+                this.clearContacts()
+                return
+            }
 
             let search = this.shadowRoot.getElementById('searchstring').value
 
@@ -173,7 +187,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         people,
                         person => person.id,
                         person => html `
-                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e)}} class="contactcontainer">
+                        <div id$="contact${person.id}" on-tap=${(e)=>{this.addEmail(e);}} class="contactcontainer">
                         <div class="contactname"> ${person.firstname}&nbsp${person.lastname} </div>
                         <div class="contactemail"> ${person.email} </div>
                         </div>`
@@ -212,7 +226,9 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             render(contacts(this.empty), this.shadowRoot.getElementById('contacts'))
         }
 
-        addEmail(e){
+          addEmail(e){
+
+            this.block = true;
 
             let contactID = e.path[1].id.split("contact")[1]
 
@@ -222,25 +238,53 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
             this.emails.push(contact)
 
-            const emails = emails => {
-                return html`
-                    <div class="emailholder layout horizontal wrap">
-                     ${repeat (
-                        emails,
-                        person => person.id,
-                        person => html `
-                        <div id$="email${person.id}" on-tap=${(e)=>this.editEmail(e)} class="emailcontainer layout horizontal">
-                        <div class="emailname"> ${person.firstname}&nbsp${person.lastname}&nbsp${"("+person.email.split("@")[1]+")"}</div>
-                        <div class="clear"> <iron-icon class="clearicon" on-tap="${(e)=>{this.delete(e)}}" id$="identifier${person.id}" icon="icons:clear"></icon>  </div>
-                        </div>`
+            this.shadowRoot.getElementById('searchstring').value = ""
 
-                        )}
+            this.showAlteredEmails(this.emails)
 
-                     </div>`
+            this.clearContacts()
+
+        }
+
+        insertEmail(e){
+
+
+            if (this.shadowRoot.getElementById('searchstring').value == ""){
+                return
             }
 
+            setTimeout(()=>{
+            if (this.block){
+                this.block = false;
+                return;
+            }
 
-            render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
+            this.emails.push({email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++})
+
+            this.shadowRoot.getElementById('searchstring').value = ""
+
+
+            this.showAlteredEmails(this.emails)
+
+            this.clearContacts()
+            }, 300)
+
+            
+
+
+        }
+
+        insertQuick(e){
+
+
+            this.emails.push({email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++})
+
+            this.shadowRoot.getElementById('searchstring').value = ""
+
+
+            this.showAlteredEmails(this.emails)
+
+
 
         }
 
@@ -566,9 +610,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             width: 100%;
           }
 
-          .body {
-            margin-top: 44px;
-          }
+        
 
           .materialcontainer {
             margin-left: 5px;
@@ -717,20 +759,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             position: relative;
         }
         
-/*        .overlay {
-            display: var(--display-overlay);
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: none;
-            z-index: 9;
-            overflow: auto;
-        }*/
-        /*        .overlay.open {
-            display: block;
-        }*/
+
         
         .result-panel {
             display:  block;
@@ -844,13 +873,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
         
         .readjuster {
-            margin-top: -8px;
-        }
-        
-        .inputadjuster {
-            margin-top: 8px;
-        }
-        
+    
         .remainingbox {
             border: 1px solid #d14836;
             border-radius: 3px;
@@ -957,7 +980,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         <div class="my-content">
                             <div id="emailsCollection" class="header-input"></div>
                             <div class="header-input">
-                                    <input class="toinput" id="searchstring" on-focusout="focusout" on-keyup="${(e) =>this.searchContacts(e)}">
+                                    <input class="toinput" id="searchstring" on-focusout="${(e) => this.insertEmail(e)}}" on-keyup="${(e) =>this.searchContacts(e)}">
                             </div>
                         </div>
                     </div>
