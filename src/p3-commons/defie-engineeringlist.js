@@ -113,7 +113,6 @@
                 temp = temp.concat(lineitems)
                 this.data= temp
 
-                console.log('the data in engineering', this.data)
 
                 this.datatable = items => {
                     return html`
