@@ -41,47 +41,13 @@ import '../../src/p3-commons/search-inner.js'
             super()
         }
 
-        submit() {
+        
+        open(url, title, searchfields, searchkeyindexes) {
 
-            console.log("inside submit")
+            this.searchfields = searchfields
+            this.searchkeyindexes = searchkeyindexes
 
-            if (this.data) {
-                let str = ""
-                this.data.forEach(function(val, index) {
-                    str = str + val.qachecklist + ","
-                })
-                this.set('savemodel', str)
-            }
-            this.$.ajaxSubmit.url = "/inventory/option/" + this.typemodel;
-            this.$.ajaxSubmit.body = JSON.stringify(this.savemodel);
-
-            this.$.ajaxSubmit.generateRequest();
-        }
-        responseSubmit(request) {
-
-            console.log("in resoinse sybmit...", request.detail.response)
-
-            var auth = request.detail.response.auth
-
-            console.log("the auth", auth)
-            if (auth) {
-                console.log("inside ifauth obvi", this)
-                this.close();
-            }
-        }
-        open(url, title) {
-
-            this.searchfields = {}
-            this.searchfields.searchfield1 = "Customer id"
-            this.searchfields.searchfield2 = "Customer"
-            this.searchfields.searchfield3 = "Address"
-            this.searchfields.searchfield4 = "Contact"
-
-            this.searchkeyindexes = {}
-            this.searchkeyindexes.searchkeyindex1 = "idver"
-            this.searchkeyindexes.searchkeyindex2 = "b_name_l"
-            this.searchkeyindexes.searchkeyindex3 = "f_address_l"
-            this.searchkeyindexes.searchkeyindex4 = "f_contact_l"
+           console.log('the new search fields', this.searchfields)
 
             this.searchdisplay = {}
             this.searchdisplay.display = "block"
@@ -91,8 +57,55 @@ import '../../src/p3-commons/search-inner.js'
             this.shadowRoot.getElementById('ajaxQA').generateRequest();
             
         }
+
+       generateSearch(e, pass, retrieveAll) {
+       let query
+        if (e.detail) {
+            if (e.detail.inputValue === "") {
+                retrieveAll = true;
+            } else if (e.keyCode !== 13 && e.type == "keyup") {
+                return
+            } else {
+                retrieveAll = false
+            }
+            query = e.detail.inputValue;
+        }
+
+        if (retrieveAll) {
+            query = ""
+            this.searchoption = 'idver'
+        }
+
+        let querypackage = {
+            query: query.toString().toLowerCase(),
+            option: this.searchoption
+        }
+
+        this.shadowRoot.querySelector('#ajaxSearch').url = "/customer/search/" + this.profileid
+        this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
+        this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
+    }
+
+    receiveQueryResults(response) {
+        this.dataarray = [];
+        this.searched = response.detail.response.results
+        this.responselist(response.detail.response.results, true)
+    }
+
+
+    setSearchOption(e) {
+        e.detail.id === "all" ? this.generateSearch(e, undefined, 'idver') : this.searchoption = e.detail.id
+
+        if (e.detail) {
+            this.generateSearch(e)
+        }
+    }
+
+    statusChange() {
+        var data = this.searched || this.model
+        this.responselist(data, true)
+    }
         receiveData(response) {
-            console.log('bps response', response)
 
             this.data = response.detail.response
 
@@ -103,7 +116,7 @@ import '../../src/p3-commons/search-inner.js'
                 return item
             })
 
-            const datatable = (data)=> {
+            const datatable = (data, searchdisplay, searchkeyindexes, searchfields)=> {
                 return html`<div class="title-rightpaneldraw">${this.title} </div>
             <div style="background-color: #e6e6e6;">
                 <div class="close-interface">
@@ -112,7 +125,7 @@ import '../../src/p3-commons/search-inner.js'
                 </div>
             </div>
             <div id="container" class="table-padding layout vertical">
-                     <search-inner searchdisplay="${ this.searchdisplay }" searchkeyindexes="${ this.searchkeyindexes }" searchfields="${ this.searchfields }"></search-inner>
+                     <search-inner searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-inner>
                 
                 <div class="results-container fit">
                 ${repeat (
@@ -160,7 +173,9 @@ import '../../src/p3-commons/search-inner.js'
                 `
             }
 
-            render(datatable(this.data), this.shadowRoot.getElementById('page'))
+            console.log('data befre redner', this.searchkeyindexes, this.searchfields)
+
+            render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.getElementById('page'))
         }
      
 
@@ -212,6 +227,13 @@ import '../../src/p3-commons/search-inner.js'
 
         ready(){
             super.ready()
+
+            this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
+                this.generateSearch(e);
+            });
+            this.shadowRoot.addEventListener('selectedSearchOption', e => {
+                this.setSearchOption(e);
+            });
         }
 
           render() {
