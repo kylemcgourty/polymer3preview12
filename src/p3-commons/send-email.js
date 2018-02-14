@@ -200,8 +200,8 @@ export class SendEmail extends LitElement {
     success(request) {
         document.querySelector('#toast').show("Sent successfully.");
 
-        this.set('_email.subject', "");
-        this.set('_email.message', "");
+        this._email.subject= ""
+        this._email.message= ""
     }
     ajaxerror() {
         document.querySelector('#toast').show("Error sending email.");

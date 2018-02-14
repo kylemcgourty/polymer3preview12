@@ -264,6 +264,7 @@
                                                             <input disabled value="${this.col2}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd4-1 datapoint">
+                                                            <paper-icon-button icon="${item.col2.icon}" on-tap="event22" class="icon1" style="display: ${item.col2.specialicon}; float:right"></paper-icon-button>
                                                             <input value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" style="color:${item.col2.color}" on-tap="${() => this.event22(item)}">
                                                     </div>
                                                 </div>
