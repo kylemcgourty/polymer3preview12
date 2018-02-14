@@ -273,9 +273,7 @@
         }
 
         changepanel(e) {
-            console.log("e in changepanel modulebst", e)
             var from = e.path[0].id;
-            console.log(from)
             switch (from) {
                 case "addbill":
                     this.dispatchEvent(new CustomEvent('sendaddbill', {
