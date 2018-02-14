@@ -5,21 +5,16 @@
   import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
 
   import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
-  
-  export  class DefieInnerList extends LitElement {
-       
+
+   export class DefieEngineeringList extends LitElement {
+
+        
 
 
-       
+
 
         static get properties() {
             return {
-                checkBoxChecker: {
-                    type: Boolean,
-                    notify: true,
-                    reflectToAttribute: true,
-                    value: false,
-                },
                 data: {
                     type: Array,
                     value: function() {
@@ -77,7 +72,6 @@
                 col9: {
                     type: String,
                     reflectToAttribute: true,
-                    display: false
 
                 },
 
@@ -91,6 +85,7 @@
         }
         constructor() {
             super()
+            // Utils.apply(this);
 
 
 
@@ -117,48 +112,43 @@
                 temp.push(coldata)
                 temp = temp.concat(lineitems)
                 this.data= temp
-                
 
 
-
-                const datatable = items => {
-
-
+                this.datatable = items => {
                     return html`
 
                     <div>
-                        ${repeat (
-                            items,
-                            item =>item.id,
-                            item =>html`
-
-                    <div></div>
-                    <div class="unit">
-                        <div class="layout vertical">
+                      ${repeat(
+                         items,
+                         item =>item.id,
+                         item => html`
+                         <div></div>
+                          <div class="unit">
+                        <div style="display: ${item.display}" class="layout vertical">
                             <div class="data-container layout horizontal">
-                                <div class="options layout vertical">
-                                    <div class="layout horizontal">
+                                <div class="options layout vertical" style="background-color: ${item.background}">
+                                    <div class="layout horizontal" style="visibility: ${item.visibility}">
                                         <div class="opt1"> ${item.id} </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${()=> this.event1(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap=${() => this.event1(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${()=> this.event2(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap=${() => this.event2(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${()=> this.event3(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap=${() => this.event3(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${()=> this.event4(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap=${() => this.event4(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="container layout vertical">
+                                <div class="container layout vertical" style="background-color: ${item.background}">
                                     <div class="data layout horizontal wrap">
-                                        <div class="core layout horizontal wrap">
+                                        <div class="core layout horizontal wrap" style="background-color: ${item.background}">
                                             <!-- MOBILE -->
                                             <div class="mobile-options layout horizontal">
-                                                <div class="group5 layout horizontal wrap">
+                                                <div class="group5 layout horizontal wrap" style="visibility: ${item.visibility}">
                                                     <div class="box5-data layout horizontal">
                                                         <div class="bd5-2">
                                                             <span class="bd5-1head"> ${this.col0}</span>
@@ -166,18 +156,18 @@
                                                                 <input disabled class="input1">
                                                             </iron-input>
                                                         </div>
-                                                        <div class="mobile-icons layout horizontal">
+                                                        <div class="mobile-icons layout horizontal" style="visibility: ${item.visibility}">
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${()=> this.event1(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${() =>this.event1(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${()=> this.event2(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${() =>this.event2(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${()=> this.event3(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${() =>this.event3(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${()=> this.event4(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${() =>this.event4(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -185,208 +175,117 @@
                                             </div>
                                             <!-- END MOBILE -->
                                             <div data-size$="${item.col0.size}" class="group2 layout horizontal wrap mobile-part">
-                                                <div class="box2-data layout horizontal">
-                                                    <div class="bd2-1head">
-                                                        <iron-input class="i-input" bind->
-                                                            <input disabled class="input1" value="${this.col0}" disabled>
-                                                        </iron-input>
-                                                    </div>
+                                                <div class="box2-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd2-2">
-                                                            <input style="display:${this.editableCheck(item.col0.editable)};" id$="item00-${item.id}"  on-focusout="${()=> this.event00(item)}" value="${item.col0.value}" data-align$="${item.col0.textalign}" class="input1 col0input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col0.editable)};" value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
+                                                        <span class="bd2-1head">${this.col0}:</span>
+                                                            <input on-focusout="${() =>this.event00(item)}" id$="item00-${item.id}" style="display:${this.editableCheck(item.col0.editable)};" data-align$="${item.col0.textalign}" value="${item.col0.value}" class="input1 col0input inputnum outline">
+                                                            <input value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" style="display:${this.editableCheck1(item.col0.editable)};" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
-                                             <div data-size$="${item.col1.size}" class="group1 layout horizontal wrap">
-                                                <div class="box1-data layout horizontal">
-                                                    <div class="bd2-1head">
-                                                            <input disabled class="input1"  value="${this.col1}" disabled>
-                                                    </div>
-                                                    <div class="bd1-1 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col1.editable)};" id$="item11-${item.id}" on-focusout="${()=> this.event11(item)}" value="${item.col1.value}" data-align$="${item.col1.textalign}" class="input1 col1input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col1.editable)};" value="${item.col1.value}" disabled data-align$="${item.col1.textalign}" class="input1 col1input inputnum">
+                                            <div data-size$="${item.col1.size}" class="group1 layout horizontal wrap">
+                                                <div class="box1-data layout horizontal" style="visibility: ${item.visibility}">
+                                                    <div class="bd2-1head">${this.col1}: </div>
+                                                    <div class="bd1-1">
+                                                            <input value="${item.col1.value}" id$="item11-${item.id}" style="display:${this.editableCheck(item.col1.editable)};" on-focusout="${() =>this.event11(item)}" data-align$="${item.col1.textalign}" class="input1 outline inputnum">
+                                                            <input value="${item.col1.value}" style="display:${this.editableCheck1(item.col1.editable)};" disabled data-align$="${item.col1.textalign}" class="input1">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div data-size$="${item.col2.size}" class="group4 layout horizontal wrap">
                                                 <div class="box4-data layout horizontal">
-                                                    <div class="bd4-1head">
-                                                        <input disabled class="input1"  value="${this.col2}" disabled>
-                                                    </div>
-                                                    <div class="bd4-1 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col2.editable)};" id$="item22-${item.id}" on-focusout="${()=> this.event22(item)}" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 col2input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col2.editable)};" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1 col2input inputnum">
+                                                    <div class="bd4-1">
+                                                        <span class="bd4-1head">${this.col2}: </span>
+                                                            <input id$="item22-${item.id}" style="display:${this.editableCheck(item.col2.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event22(item)}" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 outline"  >
+                                                            <input style="display:${this.editableCheck1(item.col2.editable)}; background-color: ${item.background}" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1" >
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
+                                             <div data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
                                                 <div class="box5-data layout horizontal">
-                                                    <div class="bd5-1head">
-                                                        <input disabled class="input1"  value="${this.col3}" disabled>
-                                                    </div>
-                                                    <div class="bd5-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col3.editable)};" id$="item33-${item.id}" on-focusout="${()=> this.event33(item)}" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 col3input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col3.editable)};" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 col3input inputnum">
+                                                    <div class="bd5-2">
+                                                        <span class="bd5-1head"> ${this.col3}:</span>
+                                                            <input id$="item33-${item.id}" style="display:${this.editableCheck(item.col3.editable)}; background-color: ${item.background}" on-focusout="${() =>this.event33(item)}" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col3.editable)}; background-color: ${item.background}" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 inputnum" >
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col4.display}" data-size$="${item.col4.size}" class="group6 layout horizontal wrap">
                                                 <div class="box6-data layout horizontal">
-                                                    <div class="bd6-1head">
-                                                        <input disabled class="input1"  value="${this.col4}" disabled>
-                                                    </div>
-                                                    <div class="bd6-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col4.editable)};" id$="item44-${item.id}" on-focusout="${()=> this.event44(item)}" value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 col4input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col4.editable)};" value="${item.col4.value}" disabled data-align$="${item.col4.textalign}" class="input1 col4input inputnum">
+                                                    <div class="bd6-2 layout horizontal">
+                                                        <span class="bd6-1head">  ${this.col4}:</span>
+                                                        <div class="layout horizontal togglecontainer">
+                                                            <iron-icon class='icon hover shrinker' style="display: ${item.showtoggle}" on-tap="${() => this.toggleBOM(item)}" icon='icons:expand-more'></iron-icon>
+                                                                <input data-align$="${item.col4.textalign}" id$="item44-${item.id}" style="display:${this.editableCheck(item.col4.editable)}; background-color: ${item.background}"  on-focusout="${() =>this.event44(item)}" value="${item.col4.value}" class="input1 inputnum outline" >
+                                                                <input disabled value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 inputnum iconinput" style="display:${this.editableCheck1(item.col4.editable)}; background-color: ${item.background}">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col5.display}" data-size$="${item.col5.size}" class="group3 layout horizontal wrap">
                                                 <div class="box3-data layout horizontal">
-                                                    <div class="bd3-1head">
-                                                        <input disabled class="input1"  value="${this.col5}" disabled>
-                                                    </div>
-                                                    <div class="bd3-2  datapoint">
-                                                        <div style="width: 100%; display: ${item.col5.input};" on-tap="tapevent55">
-                                                            <input style="display:${this.editableCheck(item.col5.editable)};" id$="item55-${item.id}" on-focusout="${()=> this.event55(item)}" value="${item.col5.value}" data-align$="${item.col5.textalign}" class="input1 col5input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col5.editable)};" value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" class="input1 col5input inputnum">
+                                                    <div class="bd3-2 layout horizontal">
+                                                        <span class="bd3-1head"> ${this.col5}:</span>
+                                                        <div style="width: 100%; display: ${item.col5.input};" on-tap="tap${() =>this.event55(item)}">
+                                                                <input on-focusout="${() =>this.event55(item)}" value="${item.col5.value}" data-align$="${item.col5.textalign}" id$="item55-${item.id}" style="display:${this.editableCheck(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum outline">
+                                                                <input value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" style="display:${this.editableCheck1(item.col5.editable)}; background-color: ${item.background}; color:${item.col5.color}" class="input1 inputnum adjustment">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col6.display}" data-size$="${item.col6.size}" class="group7 layout horizontal wrap">
                                                 <div class="box7-data layout horizontal">
-                                                    <div class="bd7-1head">
-                                                        <input disabled class="input1"  value="${this.col6}" disabled>
-                                                    </div>
-                                                    <div class="bd7-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col6.editable)};" id$="item66-${item.id}" on-focusout="${()=> this.event66(item)}" value="${item.col6.value}" data-align$="${item.col6.textalign}" class="input1 col6input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col6.editable)};" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 col6input inputnum">
+                                                    <div class="bd7-2">
+                                                        <span class="bd7-1head"> ${this.col6}:</span>
+                                                            <input data-align$="${item.col6.textalign}" on-focusout="${() =>this.event66(item)}" value="${item.col6.value}" id$="item66-${item.id}" style="display:${this.editableCheck(item.col6.editable)}; color:${item.col6.color}; background-color: ${item.background}" class="input1 inputnum outline">
+                                                            <input disabled value="${item.col6.value}" data-align$="${item.col6.textalign}" style="display:${this.editableCheck1(item.col6.editable)}; color:${item.col6.color};  background-color: ${item.background}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
-                                             <div style="display: ${item.col7.display}" data-size$="${item.col7.size}" class="group8 layout horizontal wrap">
-                                                <div class="box8-data layout horizontal">
-                                                    <div class="bd8-1head">
-                                                        <input disabled class="input1"  value="${this.col7}" disabled>
-                                                    </div>
-                                                    <div class="bd8-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col7.editable)};" id$="item77-${item.id}" on-focusout="${()=> this.event77(item)}" value="${item.col7.value}" data-align$="${item.col7.textalign}" class="input1 col7input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col7.editable)};" value="${item.col7.value}" disabled data-align$="${item.col7.textalign}" class="input1 col7input inputnum">
+                                            <div style="display: ${item.col7.display}" data-size$="${item.col7.size}" class="group8 layout horizontal wrap">
+                                                <div class="box8-data layout horizontal" style="visibility: ${item.visibility}">
+                                                    <div class="bd8-2">
+                                                        <span class="bd8-1head"> ${this.col7}</span>
+                                                            <input data-align$="${item.col7.textalign}" on-focusout="${() =>this.event77(item)}" value="${item.col7.value}" id$="item77-${item.id}" style="display:${this.editableCheck(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum outline">
+                                                            <input disabled value="${item.col7.value}" data-align$="${item.col7.textalign}" style="display:${this.editableCheck1(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col8.display}" data-size$="${item.col8.size}" class="group9 layout horizontal wrap">
-                                                <div class="box9-data layout horizontal">
-                                                    <div class="bd9-1head">
-                                                        <input disabled class="input1"  value="${this.col8}" disabled>
-                                                    </div>
-                                                    <div class="bd9-2 datapoint">
-                                                        <input style="display:${this.editableCheck(item.col8.editable)};" id$="item88-${item.id}" on-focusout="${()=> this.event88(item)}" value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 col8input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 col8input inputnum">
+                                                <div class="box9-data layout horizontal" style="visibility: ${item.visibility}">
+                                                    <div class="bd9-2" style="visibility: ${item.visibility}">
+                                                        <span class="bd9-1head"> ${this.col8}</span>
+                                                            <input id$="item88-${item.id}" style="display:${this.editableCheck(item.col8.editable)};"  on-focusout="${() =>this.event88(item)}" value="${item.col8.value}"  data-align$="${item.col8.textalign}" class="input1 inputnum outline">
+                                                            <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col9.display}" data-size$="${item.col9.size}" class="group10 layout horizontal wrap">
-                                                <div class="box10-data layout horizontal">
-                                                    <div class="bd10-2">
-                                                        <div class="bd10-1head"> 
-                                                        <input disabled class="input1"  value="${this.col9}" disabled>
-
-                                                        </div>
-                                                        <input style="display:${this.editableCheck(item.col9.editable)};" id$="item99-${item.id}" on-focusout="${()=> this.event99(item)}" value="${item.col9.value}" data-align$="${item.col9.textalign}" class="input1 col9input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 col9input inputnum">
+                                                <div class="box10-data layout horizontal" style="visibility: ${item.visibility}">
+                                                    <div class="bd10-2" style="visibility: ${item.visibility}">
+                                                        <span class="bd10-1head"> ${this.col9}</span>
+                                                            <input data-align$="${item.col9.textalign}" class="input1 inputnum outline" id$="item99-${item.id}" style="display:${this.editableCheck(item.col9.editable)};"  on-focusout="${() =>this.event99(item)}" value="${item.col9.value}">
+                                                            <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                     </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="notebook-options layout horizontal">
-                                    <div class="group5 layout horizontal wrap">
-                                        <div class="box5-data layout horizontal">
-                                            <div class="mobile-icons layout horizontal">
-                                                <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${()=>this.event1(item)}" class="icon1"></paper-icon-button>
-                                                </div>
-                                                <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${()=>this.event2(item)}" class="icon1"></paper-icon-button>
-                                                </div>
-                                                <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${()=>this.event3(item)}" class="icon1"></paper-icon-button>
-                                                </div>
-                                                <div class="iconholder">
-                                                    <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${()=>this.event4(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style="display: ${this.showTitle(item.serials)}" class="layout horizontal appendages">
-                                <div>
-                                    <div style="display: ${this.showTitle(item.serials)}" class="serialtitle show" on-tap="ILSerials"> Serial Numbers: </div>
-                                </div>
-                                <div id$="serials-${item.id}" class="serials desktop show">
-                                    <div style="display: ${this.showTitle(item.serials)}" class="group10">
-                                        <div class="bd10-1 dot">
-                                            ${item.serials ? item.serials.serials : ""}
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div style="display: ${this.showTitle2(item.shipping)}" class="layout horizontal appendages">
-                                <div class="serialtitle" on-tap="ILShipping"> Shipping </div>
-                                <div id$="shipping-${item.id}" class="group12 show">
-                                    <div>
-                                        <div class="bd12-1">
-                                            <span class="bd12-1head">Tracking Number</span>${item.shipping ? item.shipping.tracking: ""}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="bd12-2">
-                                            <span class="bd12-2head">US ECCN</span>${item.shipping ? item.shipping.useccn: ""}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="bd12-3">
-                                            <span class="bd12-3head">HS Tariff</span>${item.shipping ? item.shipping.hstariff: ""}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="bd12-4">
-                                            <span class="bd12-4head">Dim (HxWxD)</span>${item.shipping ? item.shipping.dimension: ""}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="bd12-5">
-                                            <span class="bd12-5head">Weight</span>${item.shipping ? item.shipping.netweight: ""}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="bd12-6">
-                                            <span class="bd12-6head">Incoterms</span>${item.shipping ? item.shipping.incoterms: ""}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="bd12-7">
-                                            <span class="bd12-7head">Orig. Country</span>${item.shipping ? item.shipping.countryoforigin: ""}
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                                          
-                                `
+                    `                       
 
-                    )}
-            </div>`
+
+                         )}
+
+                </div>    `
                 }
 
-                render(datatable(this.data), this.shadowRoot.getElementById('table')) 
 
+                render(this.datatable(this.data), this.shadowRoot.getElementById('table')) 
 
 
                   let elem = this.shadowRoot.querySelector('.unit')
@@ -395,6 +294,31 @@
 
                   elem.style.setProperty('--title-background-normal', this.data[0].color.value)
                   elem1.style.setProperty('--title-background-normal', this.data[0].color.value)
+
+            }
+        }
+
+        toggleBOM(item) {
+
+            if (item.type === "BOM") {
+                this.count = item.id + 1
+                this.change = true
+                while (this.change) {
+
+                    if (!this.data[this.count]){
+                        this.change = false
+                    } else if (this.data[this.count].type == "subitem" && this.data[this.count].display == "") {
+                        this.data[this.count].display = "none"
+                    } else if (this.data[this.count].type == "subitem" && this.data[this.count].display == "none") {
+                        this.data[this.count].display = ""
+                    } else {
+                        this.change = false
+                    }
+                    this.count = this.count + 1
+                }
+                
+                render(this.datatable(this.data), this.shadowRoot.getElementById('table')) 
+
             }
         }
 
@@ -453,8 +377,7 @@
                 }
             }))
         }
-
-         event00(item) {
+       event00(item) {
                     let id = item.id
 
 
@@ -595,8 +518,6 @@
                         }
                     }))
                 }
-
-        
         tapevent55(e) {
             this.dispatchEvent(new CustomEvent('tapevent55', {
                 bubbles: true,
@@ -615,213 +536,21 @@
                 }
             }))
         }
-
-        togglecheckbox() {
-            this.checkBoxChecker ? this.checkBoxChecker = false : this.checkBoxChecker = true
-
-        }
-
-        updateIL(liIndex) {
-
-   
-
-            if (typeof liIndex == "number") {
-                let ind = liIndex + 1
-                let nodes = this.shadowRoot.querySelector('#serials-' + ind).classList
-                let classlist = [...nodes]
-                if (classlist.indexOf('show') == -1) {
-                    this.shadowRoot.querySelector('#serials-' + ind).classList.add('show')
-                    this.shadowRoot.querySelector('#serials2-' + ind).classList.add('show')
-                    this.shadowRoot.querySelector('#HWRlabel-' + ind).classList.add('show')
-                }
-
-            }
-
-
-        }
-
-        updateIL2(liIndex, lineitem) {
-
-            console.log('liindex', liIndex, lineitem)
-
-            let ind = liIndex + 1
-            let nodes = this.shadowRoot.querySelector('#shipping-' + ind).classList
-            let classlist = [...nodes]
-
-
-            if (!lineitem.display) {
-                if (classlist.indexOf('show')) {
-                    this.shadowRoot.querySelector('#shipping-' + ind).classList.remove('show')
-                }
-                return
-            }
-
-
-            if (classlist.indexOf('show') == -1) {
-                this.shadowRoot.querySelector('#shipping-' + ind).classList.toggle('show')
-            }
-
-
-        }
-
-        ILSerials(e) {
-            let ind = e.model.index
-            console.log('the index', ind, e)
-            this.shadowRoot.querySelector('#serials-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('#serials2-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('#HWRlabel-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-                bubbles: true,
-                composed: true
-            }));
-
-        }
-
-
-        ILShipping(e) {
-            let ind = e.model.index
-            this.shadowRoot.querySelector('#shipping-' + ind).classList.toggle('show')
-            this.shadowRoot.querySelector('iron-list').dispatchEvent(new CustomEvent('iron-resize', {
-                bubbles: true,
-                composed: true
-            }));
-        }
-
-        toggleLeft() {
-            this.dispatchEvent(new CustomEvent('CloseMenuEvent', {
-                composed: true,
-                bubbles: true
-            }));
-        }
-
-   
-
-        showSN(item, selected) {
-            if (window.innerWidth > 479) {
-                console.log('inside showsh', selected)
-                return selected ? "showSN" : "nil"
-
-            }
-        }
-
-        showTitle(collection) {
-
-            if (collection){
-
-            collection.serials || collection.serials == "" ? collection = collection.serials : collection
-
-            console.log('the collection', collection)
-
-            if (collection == undefined || collection.length == 0) {
-                return "none"
-            }
-
-            if (collection) {
-                collection = collection.split(",")
-
-
-                let i = 0
-                let bool = true
-                while (bool) {
-                    if (collection[i] == undefined) {
-                        return "none"
-                    }
-
-                    if (collection[i] != "") {
-                        return ""
-                    }
-                    i = i + 1
-                }
-
-                return "none"
-            }
-        }
-
-        }
-
-        showTitle2(display) {
-
-            if (!display){
-                return "none"
-            }
-
-            console.log('the display', display)
-
-            if (display.display) {
-
-         
-            return ""
-
-        } else {
-            return "none"
-        }
-
-    }
-
-
-
-
-
-
-        showSerials(serial) {
-            if (serial) {
-                for (var i = 0; i < serial.length; i++) {
-                    if (serial[i].sn !== "") {
-                        return false;
-                    }
-                }
-            }
-            return true;
-
-        }
-        showHWRs(hwrs) {
-            if (hwrs) {
-                for (var i = 0; i < hwrs.length; i++) {
-                    if (hwrs[i].sn !== "") {
-                        return false;
-                    }
-                }
-            }
-            return true;
-
-        }
-
-        enableSN(val) {
-
-            if (val === "Closed") {
-                return true;
-
-            } else {
-                return false;
-            }
-        }
-
-   
-        showDetails(item, selected) {
-            return selected ? "expanded" : "nil"
-        }
-      
-
-    
-        
+       
         ready() {
             super.ready()
             // this.titlecolor();
 
         }
 
-         render() {
-            return html`
-                    <style include="shared-styles iron-flex iron-flex-alignment">
-         :host {
-            display: block;
-            --title-background-normal: black;
-            --title-normal: white;
-        }
+        render({}){
+               
+        return html`
+         <style include="shared-styles iron-flex iron-flex-alignment">
 
-        /*  //////////////FLEX BOX/////////  */
+            /*  //////////////FLEX BOX/////////  */
 
-.layout.horizontal,
+      .layout.horizontal,
       .layout.vertical {
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -991,6 +720,12 @@
       }
 
       /* ////////////////END FLEXBOX /////////////// */
+      
+         :host {
+            display: block;
+            --title-background-normal: black;
+            --title-normal: white;
+        }
 
         .unit:nth-child(2) {
             background-color: var(--title-background-normal);
@@ -1048,7 +783,6 @@
             display: none;
         }
 
-        .unit:nth-child(2) .group10,
         .unit:nth-child(2) .group11,
         .unit:nth-child(2) .group12,
         .unit:nth-child(2) .appendages {
@@ -1071,9 +805,7 @@
             background-color: var(--title-background-normal);
             color: white;
             height: 38px;
-            /*font-size: 1vw;*/
-            font-size: .85vw;
-
+            font-size: 18px;
             min-height: 38px;
             line-height: 2.5;
             pointer-events: none;
@@ -1182,6 +914,7 @@
         }
 
         .bd9-2 .input1 {
+            padding-right: 2px;
             box-sizing: border-box;
         }
 
@@ -1190,8 +923,7 @@
         }
 
         div[class^="group"] {
-            margin-left: 9px;
-
+            padding-left: 9px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -1296,65 +1028,65 @@
         }
 
         .group1 {
-            min-width: 127px;
-            width: 7%;
-            ;
+            width: 1%;
+            flex-shrink: 1;
+
             flex-grow: 1;
         }
 
         .group2 {
-            min-width: 102px;
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
         }
 
         .group3 {
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
-            min-width: 102px;
         }
 
         .group4 {
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
-            min-width: 90px;
         }
 
         .group5 {
-            min-width: 100px;
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
         }
 
         .group6 {
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
-            min-width: 41px;
             box-sizing: border-box;
         }
 
         .group7 {
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
-            min-width: 63px;
         }
 
         .group8 {
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
-            min-width: 120px;
         }
 
         .group9 {
-            width: 7%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
-            min-width: 120px;
         }
 
         .group10 {
-            width: 100%;
+            width: 1%;
+            flex-shrink: 1;
             flex-grow: 1;
-            min-width: 120px;
             box-sizing: border-box;
         }
 
@@ -1364,14 +1096,7 @@
             flex-grow: 1!important;
         }
 
-        [data-size="small"] {
-            min-width: 75px!important;
-            width: 3.5%!important;
-            flex-grow: 1!important;
-        }
 
-        .group10,
-        .bd10-1,
         .group11,
         .bd11-1 {
             height: 24px!important;
@@ -1398,55 +1123,45 @@
         }
 
         .bd1-1 {
-            min-width: 100px;
             width: 100%;
         }
 
         .bd1-2 {
-            min-width: 110px;
             width: 100%;
             padding-left: 6px;
         }
 
         .bd2-1 {
-            min-width: 71px;
             width: 100%;
         }
 
         .bd2-2 {
-            min-width: 104px;
             width: 100%;
         }
 
         .bd2-mob {
-            min-width: 0px;
             width: 100%;
         }
 
         .bd3-1 {
-            min-width: 71px;
             width: 100%;
         }
 
         .bd3-2 {
-            min-width: 104px;
             width: 100%;
         }
 
         .bd4-1 {
-            min-width: 71px;
             width: 100%;
         }
 
         .bd4-1 .input1 {}
 
         .bd4-2 {
-            min-width: 82px;
             width: 100%;
         }
 
         .bd5-1 {
-            min-width: 80px;
             width: 100%;
             padding-left: 23px;
             box-sizing: border-box;
@@ -1455,29 +1170,25 @@
         .bd5-2 .input1 {}
 
         .bd5-2 {
-            min-width: 140px;
             width: 100%;
         }
 
         .bd5-head {
-            min-width: 46px;
             width: 100%;
         }
 
         .bd6-2 {
-            min-width: 76px;
             width: 100%;
             box-sizing: border-box;
         }
 
         .bd7-2 {
-            min-width: 70px;
             width: 100%;
         }
 
         .bd8-2,
-        .bd9-2 {
-            min-width: 120px;
+        .bd9-2,
+        .bd10-2 {
             width: 100%;
         }
 
@@ -1499,7 +1210,6 @@
             display: inline-block;
         }
 
-        .group10 [class^="bd"],
         .group11 [class^="bd"],
         .group12 [class^="bd"],
         .serialtitle {
@@ -1516,7 +1226,6 @@
             text-overflow: ellipsis;
             overflow: hidden;
             font-size: 14px;
-            padding-right: 5px;
         }
 
         .desktop-only {
@@ -1562,14 +1271,9 @@
         .outline {
             outline: #545659 auto 5px;
             outline-offset: -2px;
-            width: 95%;
         }
 
-        .notebook-options {
-            display: none!important
-        }
-
-        @media(max-width: 1750px) {
+        @media(max-width: 1854px) {
             .desktop-only {
                 display: none!important;
             }
@@ -1579,43 +1283,6 @@
             .unit:nth-child(2) {
                 display: none!important;
             }
-
-            .notebook-options {
-                display: block!important;
-                /*width: 120px;*/
-                /*min-width: 120px;*/
-                background-color: #eee;
-                margin-top: 8px;
-                width: 161px;
-            }
-
-            .notebook-options .group5 {
-                width: 100%!important;
-                min-width: 20px!important;
-                margin-left: 0px;
-            }
-
-            .notebook-options .mobile-icons {
-
-                -webkit-justify-content: flex-end;
-                justify-content: flex-end;
-                width: 100%
-            }
-            .container {
-                /*width: 86%;*/
-            }
-
-            .options {
-                display: none!important;
-            }
-
-
-            .core {
-
-                -webkit-justify-content: space-between;
-                justify-content: space-between;
-            }
-
             .checkboxholder {
                 width: 48%;
                 text-align: left;
@@ -1627,25 +1294,32 @@
             .mobileheader {
                 background-color: var(--title-background-normal);
                 color: white;
-                height: 36px;
-                font-size: 22px;
+                height: 24px;
+                font-size: 19px;
+                line-height: 1.3;
                 pointer-events: none;
                 display: block;
                 text-align: center;
             }
-            [data-size="large"],
-            [data-size="small"] {
-                width: 210px!important;
-                max-width: 210px!important;
-                min-width: 210px!important;
-                box-sizing: border-box!important;
+
+            .togglecontainer {
+                width: 54%;
+                position: relative;
             }
 
+            .icon {
+                position: absolute;
+            }
+            [data-size="large"] {
+                width: 230px!important;
+                max-width: 230px!important;
+                min-width: 230px!important;
+                box-sizing: border-box!important;
+            }
             [class$="-1head"],
             [class$="-3head"] {
                 display: inline-block;
-                width: 80px;
-                min-width: 80px;
+                min-width: 120px;
             }
             [class^="bd"] {
                 text-overflow: unset!important;
@@ -1653,29 +1327,19 @@
             [class^="bd"] .input1 {
                 text-align: left;
                 width: 100%;
-                height: 16px;
-                font-size: 13px;
-            }
-            .datapoint {
-                width: 130px;
-                min-width: 130px;
             }
             [class^="group"] {
-                width: 210px;
-                max-width: 210px;
-                min-width: 210px;
+                width: 230px;
+                max-width: 230px;
+                min-width: 230px;
                 box-sizing: border-box;
             }
             .input1 {
-                /*width: 107px;*/
-                text-align: left!important;
-                padding-left: 2px;
+                width: 107px;
+                text-align: left!important
             }
             .i-input {
-                width: 100%!important;
-                height: 28px;
-                line-height: 2;
-                padding-left: 5px;
+                width: 47%!important;
             }
             .core,
             .data,
@@ -1694,7 +1358,7 @@
             }
             .opt1,
             .iconholder {
-                /*margin: auto;*/
+                margin: auto;
             }
             .bd5-1 .input1 {
                 width: 100%!important;
@@ -1722,7 +1386,8 @@
             .group6 .i-input,
             .group7 .i-input,
             .group8 .i-input,
-            .group9 .i-input {
+            .group9 .i-input,
+            .group10 .i-input {
                 margin-left: -4px;
             }
             .tax {
@@ -1730,20 +1395,12 @@
                 /*margin-left: -3px;*/
             }
 
-            .appendages span, .appendages div {
-                font-size: 13px!important
-            }
-
-            .outline {
-                width: 92%!important;
+            .iconinput {
+                padding-left: 3px;
             }
         }
 
-        @media (max-width: 479px) {
-            .notebook-options {
-                display: none!important
-            }
-
+        @media (max-width: 797px) {
             .options {
                 display: none!important;
             }
@@ -1783,8 +1440,8 @@
                 width: 100%;
             }
 
-                .container {
-                width: 105%;
+            .adjustment {
+                padding-left: 4px;
             }
         }
 
@@ -1799,13 +1456,11 @@
         </style>
         <div class="ilholder">
             <div class="mobileheader"> Items </div>
-                <div id="table"></div>    
-              
+                    <div id="table"></div> 
         </div>
-        </div>
-            `
-        }
+        </div>`
+    }
+
 
     }
-    customElements.define('defie-innerlist', DefieInnerList);
-    
+    customElements.define('defie-engineeringlist', DefieEngineeringList);
