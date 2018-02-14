@@ -233,7 +233,7 @@ export class DefieMenu extends PolymerElement {
                     <div style="height: 100%; overflow: auto;">
                         <app-toolbar id="drawerToolbar" slot="drawerToolbar" style="height: 73px; border-bottom: 0 solid #ccc; background-color: #fafafa; color:#fff">
                             <div id="logo-container" class="logo">
-                                <a href="/" class="logo"><img src="../../../images/logo44.png" alt="Defie"></a>
+                                <a href="/" class="logo"><img src="../images/logo44.png" alt="Defie"></a>
                             </div>
                         </app-toolbar>
                         <iron-selector id="selector" selected="0" attr-for-selected="name1" selectable=".inner">
