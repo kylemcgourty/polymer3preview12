@@ -88,7 +88,7 @@
        
         open(modulebillshipto, disabledinput, displaysearch, searchid, ainfo, binfo){
 
-         this.modulebillshipto = modulebillshipto
+         this.model = modulebillshipto
          this.disabledinput = disabledinput
          this.displaysearch = displaysearch
          this.searchid = searchid
@@ -206,7 +206,7 @@
                         <div style="display: ${this.binfo.info4_display}" class="my-content">
                             <div class="col-xs-3">${this.binfo.info4}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo4" alue="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
+                                    <input class="input col-xs-9" id="binfo4" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
                             </div>
                             <div id="${this.searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo4}">
                                 <iron-icon id="${this.searchid.binfo4}" on-tap="${(e) => this.changepanel(e)}" icon="search" class="hover"></iron-icon>
