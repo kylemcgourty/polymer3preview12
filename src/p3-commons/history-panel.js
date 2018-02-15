@@ -168,7 +168,7 @@ export class HistoryPanel extends LitElement {
             `;
         }
 
-        render(histlist(this.history), this.shadowRoot.querySelector("#history"));
+        render(histlist(this.history), this.shadowRoot.getElementById("history"));
 
     }
 
