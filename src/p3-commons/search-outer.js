@@ -28,6 +28,10 @@ export class SearchOuter extends LitElement {
         }
     }
 
+      constructor() {
+        super();
+    }
+
     selectedSO(e) {
         
         this.dispatchEvent(new CustomEvent("selectedSearchOption", {
@@ -67,9 +71,11 @@ export class SearchOuter extends LitElement {
         }))
     }
 
-    constructor() {
-        super();
+    open(searchoptionlist) {
+        this.searchoptionlist = searchoptionlist
     }
+
+  
 
     response(request) {
         var result = request.detail.response;
