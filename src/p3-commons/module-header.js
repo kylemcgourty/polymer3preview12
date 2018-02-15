@@ -1,5 +1,7 @@
 import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
+import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+
 export class ModuleHeader extends LitElement {
             
         static get properties() {
@@ -75,8 +77,31 @@ export class ModuleHeader extends LitElement {
             this.setting.s_logo= ""
             this.setting.s_logo=  setting.s_logo
 
-            this.test = "Dad"
 
+        }
+        changeAddress(setting){
+
+            this.setting.address = setting.address
+            this.setting.s_address = setting.s_address
+            this.setting.ma_phone = setting.ma_phone
+            this.setting.s_phone = setting.s_phone
+
+            const settings = (data) => html`
+            <div class="my-content" style="display: ${this.show(data.s_address)}">
+                            <div class="bottom">
+                                <div  style="position: initial; margin-top: 5px;">${data.address}</div>
+                            </div>
+                        </div>
+                        <div class="my-content" style="display: ${this.show(data.s_phone)}">
+                            <div class="bottom">
+                                <div>
+                                    Tel: <span>${data.ma_phone}</span>
+                                </div>
+                            </div>
+                        </div>`
+        
+
+            render(settings(this.setting), this.shadowRoot.getElementById("settingsdata"));
         }
         hider(soid) {
             if (soid) {
@@ -293,15 +318,17 @@ export class ModuleHeader extends LitElement {
                     <div class="my-content">
                         <img class="logo" src="${setting.s_logo}" alt="No logo uploaded">
                     </div>
-                    <div class="my-content" style="display: ${this.show(setting.s_address)}">
-                        <div class="bottom">
-                            <div  style="position: initial; margin-top: 5px;">${setting.address}</div>
+                    <div id="settingsdata">
+                        <div class="my-content" style="display: ${this.show(setting.s_address)}">
+                            <div class="bottom">
+                                <div  style="position: initial; margin-top: 5px;">${setting.address}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="my-content" style="display: ${this.show(setting.s_phone)}">
-                        <div class="bottom">
-                            <div>
-                                Tel: <span>${setting.ma_phone}</span>
+                        <div class="my-content" style="display: ${this.show(setting.s_phone)}">
+                            <div class="bottom">
+                                <div>
+                                    Tel: <span>${setting.ma_phone}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
