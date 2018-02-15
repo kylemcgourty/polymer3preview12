@@ -81,7 +81,6 @@ export class ModuleHeader extends LitElement {
         }
         changeAddress(setting){
 
-            console.log('ca called', setting)
             this.setting.address = setting.address
             this.setting.s_address = setting.s_address
             this.setting.ma_phone = setting.ma_phone
