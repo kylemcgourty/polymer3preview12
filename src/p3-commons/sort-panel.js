@@ -51,7 +51,7 @@
           this.onSorted = "";
       }
 
-      open(model, index, showTitle, onSorted="sorted") {
+      open(model, index, showTitle, onSorted="sorted", engineering) {
 
           if (showTitle) {
               this.showTitle.tableTitle = showTitle.tableTitle;
@@ -75,9 +75,10 @@
 
           this.model = model
           let procedure = false
+          this.skip = false
 
           let lineitems
-          if (this.model.lineitems) {
+          if (this.model.lineitems && !engineering) {
               this.list = this.model.lineitems
               lineitems = JSON.parse(JSON.stringify(model.lineitems))
               lineitems[index - 1].highlight = "selected"
@@ -89,14 +90,42 @@
               this.list = this.model.productgrouping[0].items;
               lineitems = JSON.parse(JSON.stringify(model.productgrouping[0].items))
               lineitems[index - 1].highlight = "selected"
-          } else if (this.model[0].procedures) {
+          } else if (this.model[0] && this.model[0].procedures) {
               this.list = this.model
               lineitems = JSON.parse(JSON.stringify(model))
               lineitems[index].highlight = "selected";
               procedure = true;
+          } else if (engineering){
+
+                var count = 0
+                for(var i=0 ; i<this.model.lineitems.length; i++) {
+                    if (count === index) {
+                        this.index = i
+                        break
+                    }
+
+                    if (this.model.lineitems[i].items) {
+                        count = count + this.model.lineitems[i].items.length + 1
+                    } else {
+                        ++count
+                    }
+                }
+
+                this.list = this.model.lineitems
+                lineitems = JSON.parse(JSON.stringify(model.lineitems))
+                console.log('the index, lineitems',index, this.index, lineitems)
+
+                lineitems[this.index].highlight = "selected"
+
+                this.current = this.index
+
+                this.skip = true
           }
 
-          procedure ? this.current = index : this.current = index - 1;
+
+          if (!this.skip){
+            procedure ? this.current = index : this.current = index - 1;
+          }
           this.data = lineitems
 
           this.data.forEach(function(item, idx) {
@@ -141,7 +170,7 @@
            `;
           }
 
-
+          console.log('the index and  current', this.index, this.current)
           render(types(this.data), this.shadowRoot.querySelector('#table'))
       }
 
