@@ -141,7 +141,7 @@ export class CustomerSidepanel extends LitElement {
                 this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
                 this.data = ""
             }
-
+      
             if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
                 this.shadowRoot.getElementById('noMatchesError').remove()
             }

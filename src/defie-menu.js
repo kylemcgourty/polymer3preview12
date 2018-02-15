@@ -913,7 +913,7 @@ export class DefieMenu extends PolymerElement {
         this.set('leftservices', e.detail.services)
         this.getSetting(sessionStorage.getItem("PR"))
 
-        // this.$.serviceajax.generateRequest();
+        this.$.serviceajax.generateRequest();
     }
 
 
@@ -986,7 +986,7 @@ export class DefieMenu extends PolymerElement {
         var results = response.detail.response
 
         if (results) {
-
+           
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -1020,7 +1020,6 @@ export class DefieMenu extends PolymerElement {
     }
 
     getSetting(id) {
-
         id ? id : id = 50000
         this.$.ajaxSetting.url = "/profile/setting/" + id;
         this.$.ajaxSetting.generateRequest();
@@ -1051,8 +1050,8 @@ export class DefieMenu extends PolymerElement {
 
 
         // this.$.serviceajax.url = "/api/user/services/" + ur
-        this.$.serviceajax.generateRequest()
-        this.showMenu = true;
+        // this.$.serviceajax.generateRequest()
+        // this.showMenu = true;
 
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {

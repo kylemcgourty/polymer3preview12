@@ -25,6 +25,12 @@ export class OptionDictionary extends LitElement {
                 reflectToAttribute: true,
                 notify: true,
                 value: "",  
+            },
+            index: {
+                type: Number,
+                reflectToAttribute: true,
+                notify: true,
+                value: 0,  
             }
         }
     }
@@ -32,7 +38,6 @@ export class OptionDictionary extends LitElement {
     constructor() {
         super()
         this.data = [];
-
         this.link2typemodel = {
                         "/partnumber-new": "status2values",
                         "/partnumbers": "status2values",
@@ -78,7 +83,6 @@ export class OptionDictionary extends LitElement {
     }
 
     open(props) {
-
         if (props) {
             if (props.title) {
                 this.title = props.title;
@@ -95,11 +99,21 @@ export class OptionDictionary extends LitElement {
             if (props.serviceid) {
                 this.serviceid = props.serviceid;
             }
+            if (props.index) {
+                this.index = props.index;
+            }
+            if (props.data) {
+                this.data = props.data;
+            }
         }
         
-        this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+this.typemodel;
-        this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
-        this.shadowRoot.querySelector('#ajaxOption').generateRequest();
+        if (this.data.length >0) {
+            this.renderItems();
+        } else {
+            this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+this.typemodel;
+            this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
+            this.shadowRoot.querySelector('#ajaxOption').generateRequest();
+        }
     }
     responseOption(request) {
 
@@ -208,7 +222,8 @@ export class OptionDictionary extends LitElement {
             detail: {
                 serviceid: this.serviceid,
                 item: selection.word,
-                types: this.data
+                types: this.data,
+                index: this.index
             }
 
         }))

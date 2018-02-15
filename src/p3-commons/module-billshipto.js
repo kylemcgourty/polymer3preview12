@@ -1,94 +1,96 @@
-
-  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
-
+import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 
-  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
 
- 
-
- export class ModuleBillshipto extends LitElement {
-      
+import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
-        static get properties() {
-            return {
-                
-                showbilling: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    // isToggle: true
-                },
-                showshipping: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    isToggle: true
-                },
-                showsoinfo: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    isToggle: true
-                },
-                showshippinginfo: {
-                    type: Boolean,
-                    notify: true,
-                    value: true,
-                    isToggle: true
-                },
+
+export class ModuleBillshipto extends LitElement {
+
+
+
+    static get properties() {
+        return {
+
+            showbilling: {
+                type: Boolean,
+                notify: true,
+                value: true,
+                // isToggle: true
+            },
+            showshipping: {
+                type: Boolean,
+                notify: true,
+                value: true,
+                isToggle: true
+            },
+            showsoinfo: {
+                type: Boolean,
+                notify: true,
+                value: true,
+                isToggle: true
+            },
+            showshippinginfo: {
+                type: Boolean,
+                notify: true,
+                value: true,
+                isToggle: true
+            },
+        }
+    }
+
+    static get observers() {
+        return [
+
+        ]
+    }
+
+
+
+    constructor() {
+        super();
+
+
+
+    }
+
+
+    doCalculateTax(e) {
+        this.dispatchEvent(new CustomEvent('docalculatetax', {
+            composed: true,
+            bubbles: true,
+            detail: {
+                value: this.shadowRoot.getElementById('ainfo3').value
             }
+        }))
+    }
+
+    display(bool) {
+        if (true) {
+            return "block"
+        } else {
+            return "none"
         }
+    }
 
-         static get observers() {
-            return [
-
-            ]
-        }
-
-
-
-        constructor() {
-            super();
-
-            
-           
-}
-
-
-        doCalculateTax() {
-            this.dispatchEvent(new CustomEvent('docalculatetax', {
-                composed: true,
-                bubbles: true,
-            }))
-        }
-
-        display(bool) {
-            if (true){
-                return "block"
-            } else {
-                return "none"
-            }
-        }
-
-        open(bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto) {
+    open(bmodel, smodel, ainfo, binfo, searchid, displaysearch, disabledinput, modulebillshipto) {
 
 
 
 
-            this.bmodel = bmodel
-            this.smodel= smodel
-            this.ainfo = ainfo
-            this.binfo = binfo
-            this.searchid = searchid
-            this.displaysearch = displaysearch
-            this.disabledinput = disabledinput
-            this.model = modulebillshipto
+        this.bmodel = bmodel
+        this.smodel = smodel
+        this.ainfo = ainfo
+        this.binfo = binfo
+        this.searchid = searchid
+        this.displaysearch = displaysearch
+        this.disabledinput = disabledinput
+        this.model = modulebillshipto
 
-            const page =(items) => {
+        const page = (items) => {
 
-                return html`<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            return html `<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <section class="nomargin nopadding margin-right">
                     <div class="my-content">
                         <div class="title title-margin">
@@ -257,7 +259,7 @@
                         <div class="my-content">
                             <div class="col-xs-3">${this.ainfo.info3}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" id="ainfo3" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="doCalculateTax" disabled="${this.disabledinput.ainfo3}">
+                                <input class="input col-xs-9" id="ainfo3" value="${this.model.ainfovalues.ainfo3_value}" on-focusout="${(e) => this.doCalculateTax(e)}" disabled="${this.disabledinput.ainfo3}">
                             </div>
                             <div id="${this.searchid.ainfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.ainfo3}">
                                 <paper-icon-button id="${this.searchid.ainfo3}" on-tap=${(e) => this.changepanel(e)}" icon="search" class="hover"></paper-icon-button>
@@ -347,295 +349,296 @@
                         </div>
                     </div>
                 </section>
-            </div>`}
+            </div>`
+        }
 
-            render(page(this.model), this.shadowRoot.getElementById('data'))
+        render(page(this.model), this.shadowRoot.getElementById('data'))
+    }
+
+
+    returnModel() {
+
+        this.model.bmodel.companyname = this.shadowRoot.getElementById('bmodelcompanyname').value
+        this.model.bmodel.attention = this.shadowRoot.getElementById('bmodelattention').value
+        this.model.bmodel.street = this.shadowRoot.getElementById('bmodelstreet').value
+        this.model.bmodel.city = this.shadowRoot.getElementById('bmodelcity').value
+        this.model.bmodel.state = this.shadowRoot.getElementById('bmodelstate').value
+        this.model.bmodel.zipcode = this.shadowRoot.getElementById('bmodelzipcode').value
+        this.model.bmodel.country = this.shadowRoot.getElementById('bmodelcountry').value
+        this.model.bmodel.phone = this.shadowRoot.getElementById('bmodelphone').value
+
+        this.model.smodel.companyname = this.shadowRoot.getElementById('smodelcompanyname').value
+        this.model.smodel.attention = this.shadowRoot.getElementById('smodelattention').value
+        this.model.smodel.street = this.shadowRoot.getElementById('smodelstreet').value
+        this.model.smodel.city = this.shadowRoot.getElementById('smodelcity').value
+        this.model.smodel.state = this.shadowRoot.getElementById('smodelstate').value
+        this.model.smodel.zipcode = this.shadowRoot.getElementById('smodelzipcode').value
+        this.model.smodel.country = this.shadowRoot.getElementById('smodelcountry').value
+        this.model.smodel.phone = this.shadowRoot.getElementById('smodelphone').value
+
+
+        this.model.ainfovalues.ainfo1_value = this.shadowRoot.getElementById('ainfo1').value
+        this.model.ainfovalues.ainfo2_value = this.shadowRoot.getElementById('ainfo2').value
+        this.model.ainfovalues.ainfo3_value = this.shadowRoot.getElementById('ainfo3').value
+        this.model.ainfovalues.ainfo4_value = this.shadowRoot.getElementById('ainfo4').value
+        this.model.ainfovalues.ainfo5_value = this.shadowRoot.getElementById('ainfo5').value
+
+        this.model.binfovalues.binfo1_value = this.shadowRoot.getElementById('binfo1').value
+        this.model.binfovalues.binfo2_value = this.shadowRoot.getElementById('binfo2').value
+        this.model.binfovalues.binfo3_value = this.shadowRoot.getElementById('binfo3').value
+        this.model.binfovalues.binfo4_value = this.shadowRoot.getElementById('binfo4').value
+        this.model.binfovalues.binfo5_value = this.shadowRoot.getElementById('binfo5').value
+
+        return this.model
+    }
+
+    changepanel(e) {
+        // var from = e.path[0].id;
+        var from = e.path[2].id;
+
+        switch (from) {
+            case "addbill":
+                this.dispatchEvent(new CustomEvent('sendaddbill', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "billlist":
+                this.dispatchEvent(new CustomEvent('sendbilllist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "addship":
+                this.dispatchEvent(new CustomEvent('sendaddship', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "shiplist":
+                this.dispatchEvent(new CustomEvent('sendshiplist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "vendorlist":
+                this.dispatchEvent(new CustomEvent('sendvendorlist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "customerlist":
+                this.dispatchEvent(new CustomEvent('sendcustomerlist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "shippinginfo":
+                this.dispatchEvent(new CustomEvent('sendshippinginfo', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "statuslist":
+                this.dispatchEvent(new CustomEvent('sendstatuslist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "termlist":
+                this.dispatchEvent(new CustomEvent('sendtermlist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "returnreason":
+                this.dispatchEvent(new CustomEvent('sendreturnreason', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "productcondition":
+                this.dispatchEvent(new CustomEvent('sendproductcondition', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "creditmethod":
+                this.dispatchEvent(new CustomEvent('sendcreditmethod', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "requestlist":
+                this.dispatchEvent(new CustomEvent('sendrequestlist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "categorylist":
+                this.dispatchEvent(new CustomEvent('sendcategorylist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "issueslist":
+                this.dispatchEvent(new CustomEvent('sendissueslist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "serviceslist":
+                this.dispatchEvent(new CustomEvent('sendserviceslist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+            case "prioritylist":
+                this.dispatchEvent(new CustomEvent('sendprioritylist', {
+                    composed: true,
+                    bubbles: true,
+                }))
+                break;
+        }
+    }
+
+
+
+    ready() {
+        super.ready()
+    }
+
+
+    render() {
+
+        this.model = {
+            bmodel: {
+                companyname: "",
+                attention: "",
+                street: "",
+                city: "",
+                state: "",
+                zipcode: "",
+                country: "",
+                phone: ""
+            },
+
+            smodel: {
+                companyname: "",
+                attention: "",
+                street: "",
+                city: "",
+                state: "",
+                zipcode: "",
+                country: "",
+                phone: ""
+            },
+
+            ainfovalues: {
+                ainfo1_value: "",
+                ainfo2_value: "COD",
+                ainfo3_value: Number(9.25).pct(2),
+                ainfo4_value: "",
+                ainfo5_value: "",
+            },
+
+            binfovalues: {
+                binfo1_value: '',
+                binfo2_value: "Active",
+                binfo3_value: "",
+                binfo4_value: "",
+                binfo5_value: ""
+            }
+        }
+
+        this.disabledinput = {
+
+            bmodel1: false,
+            bmodel2: false,
+            bmodel3: false,
+            bmodel4: false,
+            bmodel5: false,
+            bmodel6: false,
+            bmodel7: false,
+            bmodel8: false,
+            smodel1: false,
+            smodel2: false,
+            smodel3: false,
+            smodel4: false,
+            smodel5: false,
+            smodel6: false,
+            smodel7: false,
+            smodel8: false,
+            ainfo1: true,
+            ainfo2: true,
+            ainfo3: false,
+            ainfo4: false,
+            ainfo5: false,
+            binfo1: false,
+            binfo2: true,
+            binfo3: false,
+            binfo4: false,
+            binfo5: false
+        }
+
+        this.displaysearch = {
+
+
+            bmodel1: "block",
+            bmodelicon: "block",
+            smodel1: "none",
+            smodelicon: "block",
+            ainfo1: "none",
+            ainfo2: "block",
+            ainfo3: "none",
+            ainfo4: "none",
+            ainfo5: "none",
+            binfo1: "none",
+            binfo2: "block",
+            binfo3: "none",
+            binfo4: "none",
+            binfo5: "none"
+        }
+
+        this.searchid = {
+
+            bmodel1: "customerlist",
+            ainfo2: "termlist",
+            binfo2: "statuslist",
+            binfo3: "shippinginfo"
+        }
+
+        this.bmodel = {
+
+            title: "Bill To"
+
+        }
+        this.smodel = {
+
+            title: "Ship To"
+
+        }
+        this.ainfo = {
+
+            title: "Account Info",
+            info1: "Customer id",
+            info2: "Term",
+            info3: "Tax",
+            info4: "Acct. Mgr",
+            info5: "Notes"
+
+        }
+        this.binfo = {
+            title: "Shipping Info",
+            info1: "Project",
+            info2: "Status",
+            info3: "Reference",
+            info4: "Expired Date",
+            info5: "Project Manager"
         }
 
 
-        returnModel(){
-
-            this.model.bmodel.companyname = this.shadowRoot.getElementById('bmodelcompanyname').value
-            this.model.bmodel.attention = this.shadowRoot.getElementById('bmodelattention').value
-            this.model.bmodel.street = this.shadowRoot.getElementById('bmodelstreet').value
-            this.model.bmodel.city = this.shadowRoot.getElementById('bmodelcity').value
-            this.model.bmodel.state = this.shadowRoot.getElementById('bmodelstate').value
-            this.model.bmodel.zipcode = this.shadowRoot.getElementById('bmodelzipcode').value
-            this.model.bmodel.country = this.shadowRoot.getElementById('bmodelcountry').value
-            this.model.bmodel.phone = this.shadowRoot.getElementById('bmodelphone').value
-
-            this.model.smodel.companyname = this.shadowRoot.getElementById('smodelcompanyname').value
-            this.model.smodel.attention = this.shadowRoot.getElementById('smodelattention').value
-            this.model.smodel.street = this.shadowRoot.getElementById('smodelstreet').value
-            this.model.smodel.city = this.shadowRoot.getElementById('smodelcity').value
-            this.model.smodel.state = this.shadowRoot.getElementById('smodelstate').value
-            this.model.smodel.zipcode = this.shadowRoot.getElementById('smodelzipcode').value
-            this.model.smodel.country = this.shadowRoot.getElementById('smodelcountry').value
-            this.model.smodel.phone = this.shadowRoot.getElementById('smodelphone').value
-
-
-            this.model.ainfovalues.ainfo1_value  = this.shadowRoot.getElementById('ainfo1').value
-            this.model.ainfovalues.ainfo2_value = this.shadowRoot.getElementById('ainfo2').value
-            this.model.ainfovalues.ainfo3_value = this.shadowRoot.getElementById('ainfo3').value
-            this.model.ainfovalues.ainfo4_value = this.shadowRoot.getElementById('ainfo4').value
-            this.model.ainfovalues.ainfo5_value = this.shadowRoot.getElementById('ainfo5').value
-
-            this.model.binfovalues.binfo1_value  = this.shadowRoot.getElementById('binfo1').value
-            this.model.binfovalues.binfo2_value = this.shadowRoot.getElementById('binfo2').value
-            this.model.binfovalues.binfo3_value = this.shadowRoot.getElementById('binfo3').value
-            this.model.binfovalues.binfo4_value = this.shadowRoot.getElementById('binfo4').value
-            this.model.binfovalues.binfo5_value = this.shadowRoot.getElementById('binfo5').value
-
-            return this.model
-        }
-
-        changepanel(e) {
-            // var from = e.path[0].id;
-            var from = e.path[2].id;
-
-            switch (from) {
-                case "addbill":
-                    this.dispatchEvent(new CustomEvent('sendaddbill', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "billlist":
-                    this.dispatchEvent(new CustomEvent('sendbilllist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "addship":
-                    this.dispatchEvent(new CustomEvent('sendaddship', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "shiplist":
-                    this.dispatchEvent(new CustomEvent('sendshiplist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "vendorlist":
-                    this.dispatchEvent(new CustomEvent('sendvendorlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "customerlist":
-                    this.dispatchEvent(new CustomEvent('sendcustomerlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "shippinginfo":
-                    this.dispatchEvent(new CustomEvent('sendshippinginfo', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "statuslist":
-                    this.dispatchEvent(new CustomEvent('sendstatuslist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "termlist":
-                    this.dispatchEvent(new CustomEvent('sendtermlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "returnreason":
-                    this.dispatchEvent(new CustomEvent('sendreturnreason', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "productcondition":
-                    this.dispatchEvent(new CustomEvent('sendproductcondition', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "creditmethod":
-                    this.dispatchEvent(new CustomEvent('sendcreditmethod', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "requestlist":
-                    this.dispatchEvent(new CustomEvent('sendrequestlist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "categorylist":
-                    this.dispatchEvent(new CustomEvent('sendcategorylist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "issueslist":
-                    this.dispatchEvent(new CustomEvent('sendissueslist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "serviceslist":
-                    this.dispatchEvent(new CustomEvent('sendserviceslist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-                case "prioritylist":
-                    this.dispatchEvent(new CustomEvent('sendprioritylist', {
-                        composed: true,
-                        bubbles: true,
-                    }))
-                    break;
-            }
-        }
-      
-      
-
-        ready() {
-            super.ready()
-        }
-
-
-        render() {
-
-            this.model = {
-                        bmodel: {
-                            companyname: "",
-                            attention: "",
-                            street: "",
-                            city: "",
-                            state: "",
-                            zipcode: "",
-                            country: "",
-                            phone: ""
-                        },
-
-                        smodel: {
-                            companyname: "",
-                            attention: "",
-                            street: "",
-                            city: "",
-                            state: "",
-                            zipcode: "",
-                            country: "",
-                            phone: ""
-                        },
-
-                        ainfovalues: {
-                            ainfo1_value: "",
-                            ainfo2_value: "COD",
-                            ainfo3_value: Number(9.25).pct(2),
-                            ainfo4_value: "",
-                            ainfo5_value: "",
-                        },
-
-                        binfovalues: {
-                            binfo1_value: '',
-                            binfo2_value: "Active",
-                            binfo3_value: "",
-                            binfo4_value: "",
-                            binfo5_value: ""
-                        }
-                    }
-           
-           this.disabledinput= {
-                
-                        bmodel1: false,
-                        bmodel2: false,
-                        bmodel3: false,
-                        bmodel4: false,
-                        bmodel5: false,
-                        bmodel6: false,
-                        bmodel7: false,
-                        bmodel8: false,
-                        smodel1: false,
-                        smodel2: false,
-                        smodel3: false,
-                        smodel4: false,
-                        smodel5: false,
-                        smodel6: false,
-                        smodel7: false,
-                        smodel8: false,
-                        ainfo1: true,
-                        ainfo2: true,
-                        ainfo3: false,
-                        ainfo4: false,
-                        ainfo5: false,
-                        binfo1: false,
-                        binfo2: true,
-                        binfo3: false,
-                        binfo4: false,
-                        binfo5: false
-                    }
-          
-            this.displaysearch= {
-               
-               
-                        bmodel1: "block",
-                        bmodelicon: "block",
-                        smodel1: "none",
-                        smodelicon: "block",
-                        ainfo1: "none",
-                        ainfo2: "block",
-                        ainfo3: "none",
-                        ainfo4: "none",
-                        ainfo5: "none",
-                        binfo1: "none",
-                        binfo2: "block",
-                        binfo3: "none",
-                        binfo4: "none",
-                        binfo5: "none"
-                    }
-          
-            this.searchid= {
-               
-                        bmodel1: "customerlist",
-                        ainfo2: "termlist",
-                        binfo2: "statuslist",
-                        binfo3: "shippinginfo"
-                    }
-           
-            this.bmodel= {
-            
-                        title: "Bill To"
-             
-            }
-            this.smodel= {
-                
-                        title: "Ship To"
-               
-            }
-            this.ainfo= {
-                
-                        title: "Account Info",
-                        info1: "Customer id",
-                        info2: "Term",
-                        info3: "Tax",
-                        info4: "Acct. Mgr",
-                        info5: "Notes"
-            
-            }
-            this.binfo= {
-                        title: "Shipping Info",
-                        info1: "Project",
-                        info2: "Status",
-                        info3: "Reference",
-                        info4: "Expired Date",
-                        info5: "Project Manager"
-                    }
-
-
-        return html`
+        return html `
 
              <style>
 
@@ -1429,8 +1432,8 @@
         <div class="row" id="data">
             
         </div>`
-        }
-
     }
 
-    customElements.define('module-billshipto', ModuleBillshipto);
+}
+
+customElements.define('module-billshipto', ModuleBillshipto);

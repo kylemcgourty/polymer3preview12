@@ -193,7 +193,7 @@
                                                     </div>
                                                     <div class="bd2-2">
                                                             <input style="display:${this.editableCheck(item.col0.editable)};" id$="item00-${item.id}"  on-focusout="${()=> this.event00(item)}" value="${item.col0.value}" data-align$="${item.col0.textalign}" class="input1 col0input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col0.editable)};" value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col0.editable)}; color:${item.col0.color}" value="${item.col0.value}" disabled data-align$="${item.col0.textalign}" class="input1 col0input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,7 +204,7 @@
                                                     </div>
                                                     <div class="bd1-1 datapoint">
                                                         <input style="display:${this.editableCheck(item.col1.editable)};" id$="item11-${item.id}" on-focusout="${()=> this.event11(item)}" value="${item.col1.value}" data-align$="${item.col1.textalign}" class="input1 col1input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col1.editable)};" value="${item.col1.value}" disabled data-align$="${item.col1.textalign}" class="input1 col1input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col1.editable)}; color:${item.col1.color}" value="${item.col1.value}" disabled data-align$="${item.col1.textalign}" class="input1 col1input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,7 +215,7 @@
                                                     </div>
                                                     <div class="bd4-1 datapoint">
                                                         <input style="display:${this.editableCheck(item.col2.editable)};" id$="item22-${item.id}" on-focusout="${()=> this.event22(item)}" value="${item.col2.value}" data-align$="${item.col2.textalign}" class="input1 col2input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col2.editable)};" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1 col2input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col2.editable)}; color:${item.col2.color}" value="${item.col2.value}" disabled data-align$="${item.col2.textalign}" class="input1 col2input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,7 +226,7 @@
                                                     </div>
                                                     <div class="bd5-2 datapoint">
                                                         <input style="display:${this.editableCheck(item.col3.editable)};" id$="item33-${item.id}" on-focusout="${()=> this.event33(item)}" value="${item.col3.value}" data-align$="${item.col3.textalign}" class="input1 col3input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col3.editable)};" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 col3input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col3.editable)}; color:${item.col3.color}" value="${item.col3.value}" disabled data-align$="${item.col3.textalign}" class="input1 col3input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -237,7 +237,7 @@
                                                     </div>
                                                     <div class="bd6-2 datapoint">
                                                         <input style="display:${this.editableCheck(item.col4.editable)};" id$="item44-${item.id}" on-focusout="${()=> this.event44(item)}" value="${item.col4.value}" data-align$="${item.col4.textalign}" class="input1 col4input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col4.editable)};" value="${item.col4.value}" disabled data-align$="${item.col4.textalign}" class="input1 col4input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col4.editable)}; color:${item.col4.color}" value="${item.col4.value}" disabled data-align$="${item.col4.textalign}" class="input1 col4input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -247,9 +247,9 @@
                                                         <input disabled class="input1"  value="${this.col5}" disabled>
                                                     </div>
                                                     <div class="bd3-2  datapoint">
-                                                        <div style="width: 100%; display: ${item.col5.input};" on-tap="tapevent55">
+                                                        <div style="width: 100%; display: ${item.col5.input};" on-tap="${()=> this.tapevent55(item)}">
                                                             <input style="display:${this.editableCheck(item.col5.editable)};" id$="item55-${item.id}" on-focusout="${()=> this.event55(item)}" value="${item.col5.value}" data-align$="${item.col5.textalign}" class="input1 col5input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col5.editable)};" value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" class="input1 col5input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col5.editable)}; color:${item.col5.color}" value="${item.col5.value}" disabled data-align$="${item.col5.textalign}" class="input1 col5input inputnum">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -261,7 +261,7 @@
                                                     </div>
                                                     <div class="bd7-2 datapoint">
                                                         <input style="display:${this.editableCheck(item.col6.editable)};" id$="item66-${item.id}" on-focusout="${()=> this.event66(item)}" value="${item.col6.value}" data-align$="${item.col6.textalign}" class="input1 col6input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col6.editable)};" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 col6input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col6.editable)}; color:${item.col6.color}" value="${item.col6.value}" disabled data-align$="${item.col6.textalign}" class="input1 col6input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,7 +272,7 @@
                                                     </div>
                                                     <div class="bd8-2 datapoint">
                                                         <input style="display:${this.editableCheck(item.col7.editable)};" id$="item77-${item.id}" on-focusout="${()=> this.event77(item)}" value="${item.col7.value}" data-align$="${item.col7.textalign}" class="input1 col7input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col7.editable)};" value="${item.col7.value}" disabled data-align$="${item.col7.textalign}" class="input1 col7input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col7.editable)}; color:${item.col7.color}" value="${item.col7.value}" disabled data-align$="${item.col7.textalign}" class="input1 col7input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -283,7 +283,7 @@
                                                     </div>
                                                     <div class="bd9-2 datapoint">
                                                         <input style="display:${this.editableCheck(item.col8.editable)};" id$="item88-${item.id}" on-focusout="${()=> this.event88(item)}" value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 col8input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 col8input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col8.editable)}; color:${item.col8.color}" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 col8input inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -295,7 +295,7 @@
 
                                                         </div>
                                                         <input style="display:${this.editableCheck(item.col9.editable)};" id$="item99-${item.id}" on-focusout="${()=> this.event99(item)}" value="${item.col9.value}" data-align$="${item.col9.textalign}" class="input1 col9input inputnum outline">
-                                                            <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 col9input inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col9.editable)}; color:${item.col9.color}" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 col9input inputnum">
                                                     </div>
                                                 </div>
                                             </div> 
