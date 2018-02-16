@@ -588,6 +588,7 @@ export class DefieMenu extends PolymerElement {
                     "service-new": "/services/src/services-shell.js",
                     "profiles": "/profiles/src/profiles-shell.js",
                     "profile-new": "/profiles/src/profiles-shell.js",
+                    "profile-view": "/profiles/src/profiles-shell.js",
                     "apdistributedaccounts-new": "/apdistributedaccounts/src/apdistributedaccounts-shell.js",
                     "apchartofaccounts-new": "/apchartofaccounts/src/apchartofaccounts-shell.js",
                     
@@ -792,6 +793,9 @@ export class DefieMenu extends PolymerElement {
         let choice
 
         let module = this.importList[route]
+
+        console.log("route", route);
+        console.log("module", module);
 
         import(module).then((mod) =>{
             this.set('option', this.ServicesList[route])
