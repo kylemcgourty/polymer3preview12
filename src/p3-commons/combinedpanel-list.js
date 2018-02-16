@@ -21,9 +21,7 @@ export class CombinedpanelList extends LitElement {
                 reflectToAttribute: true,
                 notify: true,
                 value: function() {
-                    return [
-
-                    ]
+                    return []
                 },
             },
 
@@ -162,7 +160,8 @@ export class CombinedpanelList extends LitElement {
             } else {
                 retrieveAll = false
             }
-            query = e.detail.inputValue;1231
+            query = e.detail.inputValue;
+            1231
         }
         if (retrieveAll) {
             query = ""
@@ -409,18 +408,18 @@ export class CombinedpanelList extends LitElement {
 
 
     save1(item) {
-        this.singleObject.fieldvalue1 = this.shadowRoot.querySelector('#newfieldvalue1').value
-        this.singleObject.fieldvalue2 = this.shadowRoot.querySelector('#newfieldvalue2').value
-        this.singleObject.fieldvalue3 = this.shadowRoot.querySelector('#newfieldvalue3').value
-        this.singleObject.fieldvalue4 = this.shadowRoot.querySelector('#newfieldvalue4').value
-        this.singleObject.fieldvalue5 = this.shadowRoot.querySelector('#newfieldvalue5').value
-        this.singleObject.fieldvalue6 = this.shadowRoot.querySelector('#newfieldvalue6').value
-        this.singleObject.fieldvalue7 = this.shadowRoot.querySelector('#newfieldvalue7').value
-        this.singleObject.fieldvalue8 = this.shadowRoot.querySelector('#newfieldvalue8').value
-        this.singleObject.fieldvalue9 = this.shadowRoot.querySelector('#newfieldvalue9').value
-        this.singleObject.fieldvalue10 = this.shadowRoot.querySelector('#newfieldvalue10').value
+        this.singleObject.fieldvalue1 = this.shadowRoot.getElementById('newfieldvalue1').value
+        this.singleObject.fieldvalue2 = this.shadowRoot.getElementById('newfieldvalue2').value
+        this.singleObject.fieldvalue3 = this.shadowRoot.getElementById('newfieldvalue3').value
+        this.singleObject.fieldvalue4 = this.shadowRoot.getElementById('newfieldvalue4').value
+        this.singleObject.fieldvalue5 = this.shadowRoot.getElementById('newfieldvalue5').value
+        this.singleObject.fieldvalue6 = this.shadowRoot.getElementById('newfieldvalue6').value
+        this.singleObject.fieldvalue7 = this.shadowRoot.getElementById('newfieldvalue7').value
+        this.singleObject.fieldvalue8 = this.shadowRoot.getElementById('newfieldvalue8').value
+        this.singleObject.fieldvalue9 = this.shadowRoot.getElementById('newfieldvalue9').value
+        this.singleObject.fieldvalue10 = this.shadowRoot.getElementById('newfieldvalue10').value
         this.singleObject.status = true
-
+        console.log(this.singleObject)
         var newObj = {}
         this.arrayvalues.map((key, index) => {
             var newNumber = parseInt(index) + 1
@@ -463,7 +462,7 @@ export class CombinedpanelList extends LitElement {
 
 
 
-    open(url, populate, panelname, displaylist, fieldnamelist, singleObject, noneditable = false) {
+    open(url, populate, panelname, displaylist, fieldnamelist, singleObject, searchfields, searchdisplay, searchkeyindexes, arrayvalues, noneditable = false) {
 
         this.newpage = true
         this.editpage = true
@@ -473,6 +472,10 @@ export class CombinedpanelList extends LitElement {
         this.displaylist = displaylist
         this.fieldnamelist = fieldnamelist
         this.singleObject = {}
+        this.searchfields = searchfields
+        this.searchdisplay = searchdisplay
+        this.searchkeyindexes = searchkeyindexes
+        this.arrayvalues = arrayvalues
 
         this.populate = populate
 
@@ -519,7 +522,6 @@ export class CombinedpanelList extends LitElement {
 
     successList(e, ir) {
         this.model = []
-
         if (ir) {
             if (ir.response.results === null && !this.shadowRoot.getElementById('noMatchesError')) {
                 var error = document.createElement("div")
@@ -930,13 +932,13 @@ export class CombinedpanelList extends LitElement {
             return x.id == id;
         })[0];
 
-        if (this.largeModel.billing) {
-            for (let i = 0; i < this.largeModel.billing.length; i++) {
-                if (this.largeModel.billing[i].id === id) {
-                    this.splice('largeModel.billing', i, 1);
-                }
-            }
-        }
+        // if (this.largeModel.billing) {
+        //     for (let i = 0; i < this.largeModel.billing.length; i++) {
+        //         if (this.largeModel.billing[i].id === id) {
+        //             this.splice('largeModel.billing', i, 1);
+        //         }
+        //     }
+        // }
         this.shadowRoot.querySelector('#ajaxDelete').url = this.url + "/" + item.id
         this.shadowRoot.querySelector('#ajaxDelete').body = JSON.stringify(this.singleObject)
         this.shadowRoot.querySelector('#ajaxDelete').generateRequest()
@@ -964,16 +966,16 @@ export class CombinedpanelList extends LitElement {
 
     save(e) {
 
-        this.singleObject.fieldvalue1 = this.shadowRoot.querySelector('#editfieldvalue1').value
-        this.singleObject.fieldvalue2 = this.shadowRoot.querySelector('#editfieldvalue2').value
-        this.singleObject.fieldvalue3 = this.shadowRoot.querySelector('#editfieldvalue3').value
-        this.singleObject.fieldvalue4 = this.shadowRoot.querySelector('#editfieldvalue4').value
-        this.singleObject.fieldvalue5 = this.shadowRoot.querySelector('#editfieldvalue5').value
-        this.singleObject.fieldvalue6 = this.shadowRoot.querySelector('#editfieldvalue6').value
-        this.singleObject.fieldvalue7 = this.shadowRoot.querySelector('#editfieldvalue7').value
-        this.singleObject.fieldvalue8 = this.shadowRoot.querySelector('#editfieldvalue8').value
-        this.singleObject.fieldvalue9 = this.shadowRoot.querySelector('#editfieldvalue9').value
-        this.singleObject.fieldvalue10 = this.shadowRoot.querySelector('#editfieldvalue10').value
+        this.singleObject.fieldvalue1 = this.shadowRoot.getElementById('editfieldvalue1').value
+        this.singleObject.fieldvalue2 = this.shadowRoot.getElementById('editfieldvalue2').value
+        this.singleObject.fieldvalue3 = this.shadowRoot.getElementById('editfieldvalue3').value
+        this.singleObject.fieldvalue4 = this.shadowRoot.getElementById('editfieldvalue4').value
+        this.singleObject.fieldvalue5 = this.shadowRoot.getElementById('editfieldvalue5').value
+        this.singleObject.fieldvalue6 = this.shadowRoot.getElementById('editfieldvalue6').value
+        this.singleObject.fieldvalue7 = this.shadowRoot.getElementById('editfieldvalue7').value
+        this.singleObject.fieldvalue8 = this.shadowRoot.getElementById('editfieldvalue8').value
+        this.singleObject.fieldvalue9 = this.shadowRoot.getElementById('editfieldvalue9').value
+        this.singleObject.fieldvalue10 = this.shadowRoot.getElementById('editfieldvalue10').value
         this.singleObject.status = true
 
 
