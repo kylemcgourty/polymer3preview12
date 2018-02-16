@@ -205,7 +205,7 @@ export class SecondaryDAModule extends LitElement {
         }
 
         if (this.isCoA === true) {
-            this.keepTrackOfMissingItems(e)
+            // this.keepTrackOfMissingItems(e)
         }
         else {
             this.dispatchEvent(new CustomEvent('addAccountLine', {

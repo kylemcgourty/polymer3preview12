@@ -140,9 +140,7 @@ export class PrimaryDAModule extends LitElement {
         this.splice('data', e.model.index, 1)
     }
 
-    deleteAccountLine(e) {
-
-        console.log("e in delete subsubaccount", e)
+    deleteAccountLine(item) {
 
         this.dispatchEvent(new CustomEvent('deleteAccountLine', {
             composed: true,
@@ -151,7 +149,7 @@ export class PrimaryDAModule extends LitElement {
                 id: this.data.id,
                 lor: this.data.leftorright,
                 delete: true,
-                index: e.model.index,
+                index: item.id,
             }
         }))
     }
@@ -203,58 +201,86 @@ export class PrimaryDAModule extends LitElement {
         })
 
         if (BU[0] === 'apchartofaccounts-new') {
-            this.set('isCoA', true)
-            console.log("this.isCoA in BU true", this.isCoA)
+            this.isCoA = true;
         } else {
-            this.set('isCoA', false)
-            console.log("this.isCoA in bu false", this.isCoA)
+            this.isCoA = false;
         }
 
         if (this.isCoA === true) {
-            this.keepTrackOfMissingItems(e)
+            // this.keepTrackOfMissingItems(e)
         }
         else {
-            if (this.data.accounts === null) {
-                console.log("in if null")
-                this.set("data.accounts", [{
-                    account: "",
-                    accountno: "",
-                    id: 0,
-                    titleid: this.data.id,
-                     bankaccountno: "",
-                    address: "",
-                    phone: "",
-                    routing: "",
-                    switch: "",
-                    others: ""
+            // if (this.data.accounts === null) {
+            //     console.log("in if null")
+            //     this.set("data.accounts", [{
+            //         account: "",
+            //         accountno: "",
+            //         id: 0,
+            //         titleid: this.data.id,
+            //          bankaccountno: "",
+            //         address: "",
+            //         phone: "",
+            //         routing: "",
+            //         switch: "",
+            //         others: ""
 
-                }])
-            }
+            //     }])
+            // }
 
-            else {
-                console.log("inside if not null")
-                this.push('data.accounts', {
-                    account: "",
-                    accountno: "",
-                    bankaccountno: "",
-                    address: "",
-                    phone: "",
-                    routing: "",
-                    switch: "",
-                    others: ""
-                })
-            }
+            // else {
+            //     console.log("inside if not null")
+            //     this.push('data.accounts', {
+            //         account: "",
+            //         accountno: "",
+            //         bankaccountno: "",
+            //         address: "",
+            //         phone: "",
+            //         routing: "",
+            //         switch: "",
+            //         others: ""
+            //     })
+            // }
+            this.dispatchEvent(new CustomEvent('addAccountLine', {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    id: this.data.id,
+                    lor: this.data.leftorright,
+                    delete: false,
+                }
+            }))
         }
+    }
 
-        this.dispatchEvent(new CustomEvent('changeheight', {
+    itemChanged(item) {
+
+        let id = item.id;
+        let accountno = this.shadowRoot.querySelector("#inputAccno" + id).value;
+        let account = this.shadowRoot.querySelector("#inputAcc" + id).value;
+        let bankaccountno = this.shadowRoot.querySelector("#inputBankacc" + id).value;
+        let address = this.shadowRoot.querySelector("#inputAddr" + id).value;
+        let phone = this.shadowRoot.querySelector("#inputPhone" + id).value;
+        let routing = this.shadowRoot.querySelector("#inputRouting" + id).value;
+        let swtch = this.shadowRoot.querySelector("#inputSwitch" + id).value;
+        let others = this.shadowRoot.querySelector("#inputOthers" + id).value;
+        this.dispatchEvent(new CustomEvent('changeAccountLine', {
             composed: true,
             bubbles: true,
             detail: {
                 id: this.data.id,
                 lor: this.data.leftorright,
-                delete: false,
+                delete: true,
+                index: id,
+                account: account,
+                accountno: accountno,
+                bankaccountno: bankaccountno,
+                address: address,
+                phone: phone,
+                routing: routing,
+                swtch: swtch,
+                others: others
             }
-        }))
+        }));
     }
 
     ready() {
@@ -704,14 +730,10 @@ export class PrimaryDAModule extends LitElement {
             margin-top: 24px;
         }
 
-        .keeper:nth-child(2) .topmargin {
+        .keeper:nth-child(1) .topmargin {
             margin-top: 0px!important
         }
 
-        .keeper:nth-child(2) .right-icon2 {
-            top: 0px!important
-
-        }
         @media(max-width: 1854px) {
             .desktop-only {
                 display: none!important;
@@ -901,11 +923,10 @@ export class PrimaryDAModule extends LitElement {
             padding-right: 1%
         }
         .right-icon2 {
-            position: absolute;
-            right: 9px;
+            display: inline-block;
+            position: relative;
             color: #5e6268;
             z-index: 1;
-            top: 24px;
         }
         .smalleranimation, host {
           padding: 0px;
@@ -931,39 +952,39 @@ export class PrimaryDAModule extends LitElement {
                     <div class="keeper">
                         
                         <div class="layout horizontal my-conten topmargin" style="width:100%">
-                            <input class="input firstInput" id="firstInnerInputA" value="${item.accountno}" style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px" disabled="${edit.enableleft}">
-                            <input style="width: 82%" value="${item.account}" disabled="${edit.enableright}" class="input">
+                            <input class="input firstInput" id="inputAccno${item.id}" value="${item.accountno}" on-focusout="${() => this.itemChanged(item)}" style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px" disabled="${edit.enableleft}">
+                            <input id="inputAcc${item.id}" style="width: 79%" value="${item.account}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
                             <paper-icon-button class="right-icon2 smalleranimation" style="display:${showDisplay}; font-size:14px; font-family: 'Roboto', 'Noto', sans-serif;" icon="icons:close" on-tap="${(e) => this.deleteAccountLine(item)}"></paper-icon-button>
                         </div>
 
                         <div class="layout horizontal my-content" style="width:100%">
                             <input disabled class="input firstInput" id="firstInnerInputB" value="Address" style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px">
-                            <input style="width: 82%" value="${item.address}" disabled="${edit.enableright}" class="input">
+                            <input id="inputAddr${item.id}" style="width: 82%" value="${item.address}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
                         </div>
                         
                         <div class="layout horizontal my-content" style="width:100%">
                             <input disabled class="input firstInput" id="firstInnerInputC" value="Phone" style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px">
-                            <input style="width: 82%" value="${item.phone}" disabled="${edit.enableright}" class="input">
+                            <input id="inputPhone${item.id}" style="width: 82%" value="${item.phone}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
                         </div>
                         
                         <div class="layout horizontal my-content" style="width:100%">
                             <input disabled class="input firstInput" id="firstInnerInputD" value="Acct. No." style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px">
-                            <input style="width: 82%" value="${item.bankaccountno}" disabled="${edit.enableright}" class="input">
+                            <input id="inputBankacc${item.id}" style="width: 82%" value="${item.bankaccountno}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
                         </div>
 
                         <div class="layout horizontal my-content" style="width:100%">
                             <input disabled class="input firstInput" id="firstInnerInputE" value="Routing No." style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px">
-                            <input style="width: 82%" value="${item.routing}" disabled="${edit.enableright}" class="input">
+                            <input id="inputRouting${item.id}" style="width: 82%" value="${item.routing}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
                         </div>
                          
                         <div class="layout horizontal my-content" style="width:100%">
                             <input disabled class="input firstInput" id="firstInnerInputF" value="Switch No." style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px">
-                            <input style="width: 82%" value="${item.switch}" disabled="${edit.enableright}" class="input">
+                            <input id="inputSwitch${item.id}" style="width: 82%" value="${item['switch']}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
                         </div>
                         
                         <div class="layout horizontal my-content" style="width:100%">
                             <input disabled class="input firstInput" id="firstInnerInputG" value="Others" style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px">
-                            <input style="width: 82%" value="${item.others}" disabled="${edit.enableright}" class="input">
+                            <input id="inputOthers${item.id}" style="width: 82%" value="${item.others}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
                         </div>
                         
                         <div class="removeholder">
