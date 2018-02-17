@@ -203,21 +203,9 @@ export class PartSidepanel extends LitElement {
                 this.data = tempArray3;
             }
 
-            if (request == null && !this.shadowRoot.getElementById('noMatchesError')) {
-                var error = document.createElement("div")
-                error.textContent = "No matching results"
-                error.style = "Color: red";
-                error.id = "noMatchesError"
-                this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
-                this.data = ""
-            }
+            console.log('the data in parts', this.data)
 
-            if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
-                this.shadowRoot.getElementById('noMatchesError').remove()
-            }
-
-
-            const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
+             const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
                 return html ` 
                 <div class="title-rightpaneldraw">
                     Search Products
@@ -313,6 +301,22 @@ export class PartSidepanel extends LitElement {
             }
 
             render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.querySelector('#partpanel'))
+
+            if (request == null && !this.shadowRoot.getElementById('noMatchesError')) {
+                var error = document.createElement("div")
+                error.textContent = "No matching results"
+                error.style = "Color: red";
+                error.id = "noMatchesError"
+                this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+                this.data = ""
+            }
+
+            if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
+                this.shadowRoot.getElementById('noMatchesError').remove()
+            }
+
+
+           
 
         }
 

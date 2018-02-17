@@ -311,7 +311,7 @@
                                             </div>
                                             <div data-small$="${item.twelve}" data-size$="${item.col7.size}" style="display:${item.col7.display};" class="group8 layout horizontal wrap">
                                                 <div style="display: ${item.col7.specialicon}" class="no-icon iconholder">
-                                                    <paper-icon-button disabled="{{false}" icon="${item.col7.icon}" on-tap="specialevent" class="icon1"></paper-icon-button>
+                                                    <paper-icon-button disabled="{{false}" icon="${item.col7.icon}" on-tap="${() =>this.specialevent(item)}" class="icon1"></paper-icon-button>
                                                 </div>
                                                 <div style="display: ${item.col7.noshow}" class="box8-data layout horizontal">
                                                     <div class="bd8-1head">
@@ -400,6 +400,7 @@
 
 
         specialevent(item) {
+            console.log('special ev fired')
             this.dispatchEvent(new CustomEvent('specialevent', {
                 bubbles: true,
                 composed: true,

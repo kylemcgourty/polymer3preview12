@@ -157,6 +157,8 @@ export class SendEmail extends LitElement {
 
     clearContacts(){
         this.shadowRoot.getElementById('emailfilter').clearContacts(); 
+        this.shadowRoot.getElementById('emailfiltercc').clearContacts(); 
+
     }
 
     cancel() {
@@ -1340,8 +1342,6 @@ export class SendEmail extends LitElement {
             <div class="row">
                 <div class="my-content title-style">
                     <div class="email col-xs-6">
-                        <paper-icon-button icon="editor:format-list-bulleted" class="hover to-front" on-tap="contactlist" style="float: right;"></paper-icon-button>
-                        <paper-icon-button icon="add-circle" data-dialog="popup-contact" class="hover to-front" on-tap="addContact" style="float: right;"></paper-icon-button>
                     </div>
                 </div>
             </div>

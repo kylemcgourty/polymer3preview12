@@ -158,7 +158,6 @@ export class SerialNumberInfo extends LitElement {
     }
 
     save() {
-
         this.dispatchEvent(new CustomEvent(this.starter, {
             bubbles: true,
             composed: true
@@ -167,10 +166,10 @@ export class SerialNumberInfo extends LitElement {
     }
 
     response(response) {
-        if (response.detail.response.results.so) {
+        console.log("response", response)
+        if (response.detail.response.results) {
             document.querySelector('#toast').text = "Serial numbers and HWR numbers updated successfully";
             document.querySelector('#toast').show();
-        
         this.dispatchEvent(new CustomEvent(this.ender, {
             bubbles: true,
             composed: true,
