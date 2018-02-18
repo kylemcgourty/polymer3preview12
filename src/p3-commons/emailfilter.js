@@ -27,7 +27,8 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                     }
                 },
                 label: {
-                    type: String
+                    type: String,
+                    reflectToAttribute: true,
                 },
                 display: {
                     type: Boolean,
@@ -122,9 +123,10 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             
         }
 
-        open(profileid, customerid){
+        open(profileid, customerid, url){
             this.profileid = profileid
             this.customerid = customerid
+            this.url = url
 
             this.emails = []
             this.shadowRoot.getElementById('searchstring').value = ""
@@ -156,9 +158,14 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             }
 
             let search = this.shadowRoot.getElementById('searchstring').value
+            let url = this.url;
+
+            if (!url || !url.includes("search")) {
+                url = "/customer/search/contact/" + this.profileid + "/" + this.customerid;
+            }
 
             this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify({"option": "name_l", "query": search})
-            this.shadowRoot.getElementById('ajaxSearch').url = "/customer/search/contact/" + this.profileid + "/" + this.customerid 
+            this.shadowRoot.getElementById('ajaxSearch').url =  url;
             this.shadowRoot.getElementById('ajaxSearch').generateRequest()
 
         }
@@ -406,7 +413,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         }
        
 
-         render() {
+         render({label}) {
         return html` <style include="shared-styles iron-flex iron-flex-alignment">
 
             /*  //////////////FLEX BOX/////////  */
@@ -611,9 +618,9 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             width: 100%;
           }
 
-          .body {
+          /*.body {
             margin-top: 44px;
-          }
+          }*/
 
           .materialcontainer {
             margin-left: 5px;
@@ -971,7 +978,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
         </style>
         <div class="body">
             <div class="layout horizontal">
-                <div class="to">To:</div>
+                <div class="to">${label}:</div>
                 <div class="layout vertical contentbody">
                     <div class="text-right">
                         <div class="my-content">
