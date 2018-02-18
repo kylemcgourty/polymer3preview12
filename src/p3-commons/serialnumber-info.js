@@ -166,7 +166,6 @@ export class SerialNumberInfo extends LitElement {
     }
 
     response(response) {
-        console.log("response", response)
         if (response.detail.response.results) {
             document.querySelector('#toast').text = "Serial numbers and HWR numbers updated successfully";
             document.querySelector('#toast').show();

@@ -484,20 +484,21 @@ export class CombinedpanelList extends LitElement {
         var BElocation = this.panelname.toLowerCase()
 
         if (typeof url === 'string') this.url = url
-        let baseurl = this.url.split("/")
+        if (this.url == "/profile") {
+            this.searchurl = this.url
+        } else {
+            let baseurl = this.url.split("/")
 
-        if (baseurl[2] == "vendor") {
-            this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
-        } else if (baseurl[2] = "customer") {
-            this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
-
+            if (baseurl[2] == "vendor") {
+                this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
+            } else if (baseurl[2] = "customer") {
+                this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
+            }
         }
         this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
         this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
         this.shadowRoot.querySelector('#ajaxList').generateRequest()
     }
-
-
 
 
 
@@ -665,6 +666,12 @@ export class CombinedpanelList extends LitElement {
                     // this.notifyPath('model.' + (length - 1) + '.visibility2')
                     // this.notifyPath('model.' + (length - 1) + '.visibility3')
                     // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                }
+            } else if (this.panelname === "Profile") {
+                for (let i = 0; i < this.model.length; i++) {
+                    this.model[i].visibility2 = false
+                    this.model[i].visibility3 = true
+                    this.model[i].visibility4 = true
                 }
             }
         }

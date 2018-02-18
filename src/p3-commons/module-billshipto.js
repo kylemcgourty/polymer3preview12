@@ -97,7 +97,7 @@ export class ModuleBillshipto extends LitElement {
                             <span on-tap="showDropdown" data-id="showbilling">${this.bmodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showbilling"></paper-icon-button>
                                             </span>
                             <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.bmodelicon}">
-                                <paper-icon-button id="addbill" icon="add-circle" data-dialog="popup-billto" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+                                <paper-icon-button id="addbill" style="display: ${this.displaysearch.bmodeliconadd}" icon="add-circle" data-dialog="popup-billto" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
                                 <paper-icon-button id="billlist" icon="editor:format-list-bulleted" class="hover" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
                             </div>
                         </div>
@@ -165,7 +165,7 @@ export class ModuleBillshipto extends LitElement {
                             <span on-tap="showDropdown" data-id="showshipping" class="title-row bottom-left">${this.smodel.title}<paper-icon-button class="my-iron-icon hidden-md hidden-lg bottom-left  only-mobile" on-tap="showDropdown" icon="expand-more" data-id="showshipping"></paper-icon-button>
                                             </span>
                             <div class="right-icon iron-bottom-positon" style="display: ${this.displaysearch.smodelicon}">
-                                <paper-icon-button icon="add-circle" data-dialog="popup-shipto" class="hover" id="addship" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
+                                <paper-icon-button icon="add-circle" style="display: ${this.displaysearch.smodeliconadd}" data-dialog="popup-shipto" class="hover" id="addship" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
                                 <paper-icon-button icon="editor:format-list-bulleted" class="hover" id="shiplist" on-tap=${(e) => this.changepanel(e)}"></paper-icon-button>
 
                             </div>
