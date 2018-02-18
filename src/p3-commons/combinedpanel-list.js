@@ -172,10 +172,12 @@ export class CombinedpanelList extends LitElement {
             option: this.searchoption,
             type: this.panelname.toLowerCase()
         }
-
-        let spliturl = this.searchurl.split("/")
-        this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
-
+        if (this.panelname == "Profile") {
+            this.queryurl = this.searchurl + "/search"
+        } else {
+            let spliturl = this.searchurl.split("/")
+            this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
+        }
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -204,9 +206,12 @@ export class CombinedpanelList extends LitElement {
             query: "",
             option: "idver"
         }
-        let spliturl = this.searchurl.split("/")
-        this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
-
+        if (this.panelname == "Profile") {
+            this.queryurl = this.searchurl + "/search"
+        } else {
+            let spliturl = this.searchurl.split("/")
+            this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
+        }
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -484,7 +489,7 @@ export class CombinedpanelList extends LitElement {
         var BElocation = this.panelname.toLowerCase()
 
         if (typeof url === 'string') this.url = url
-        if (this.url == "/profile") {
+        if (this.panelname == "Profile") {
             this.searchurl = this.url
         } else {
             let baseurl = this.url.split("/")
