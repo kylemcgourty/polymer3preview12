@@ -77,6 +77,16 @@ export class PrimaryDAModule extends LitElement {
                 type: Boolean,
                 notify: true,
             },
+            leftXDisplay: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+            },
+            inputAccWidth: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+            },
         }
     }
 
@@ -99,6 +109,8 @@ export class PrimaryDAModule extends LitElement {
     seeStatus(edit) {
         if (edit.enableleft === true && edit.enableright === true) {
             this.showDisplay = 'none';
+            this.inputAccWidth = '82%';
+            this.leftXDisplay = 'none';
             // this.updateStyles({
             //     '--set-edit-color': 'white',
             //     '--set-edit-border': '2px solid white',
@@ -106,6 +118,8 @@ export class PrimaryDAModule extends LitElement {
         }
         else if (edit.enableleft === true && edit.enableright === false) {
             this.showDisplay = 'none';
+            this.inputAccWidth = '82%';
+            this.leftXDisplay = 'none';
             // this.updateStyles({
             //     '--set-edit-color': 'white',
             //     '--set-edit-border': '2px solid white',
@@ -113,6 +127,8 @@ export class PrimaryDAModule extends LitElement {
         }
         else if (edit.enableleft === false) {
             this.showDisplay = 'block';
+            this.inputAccWidth = '79%';
+            this.leftXDisplay = 'inline-block';
             // this.updateStyles({
             //     '--set-edit-color': 'white',
             //     '--set-edit-border': '2px solid rgb(238, 238, 238)',
@@ -294,7 +310,7 @@ export class PrimaryDAModule extends LitElement {
         })
     }
 
-    render({view, edit, account, data, showDisplay, isCoA}) {
+    render({view, edit, account, data, showDisplay, inputAccWidth, leftXDisplay, isCoA}) {
 
         this.seeStatus(edit);
         this.CoAChange(isCoA);
@@ -953,8 +969,8 @@ export class PrimaryDAModule extends LitElement {
                         
                         <div class="layout horizontal my-conten topmargin" style="width:100%">
                             <input class="input firstInput" id="inputAccno${item.id}" value="${item.accountno}" on-focusout="${() => this.itemChanged(item)}" style="text-align:right; font-family: 'Roboto', 'Noto', sans-serif; font-size:14px" disabled="${edit.enableleft}">
-                            <input id="inputAcc${item.id}" style="width: 79%" value="${item.account}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
-                            <paper-icon-button class="right-icon2 smalleranimation" style="display:${showDisplay}; font-size:14px; font-family: 'Roboto', 'Noto', sans-serif;" icon="icons:close" on-tap="${(e) => this.deleteAccountLine(item)}"></paper-icon-button>
+                            <input id="inputAcc${item.id}" style="width: ${inputAccWidth}" value="${item.account}" on-focusout="${() => this.itemChanged(item)}" disabled="${edit.enableright}" class="input">
+                            <paper-icon-button class="right-icon2 smalleranimation" style="display:${leftXDisplay}; font-size:14px; font-family: 'Roboto', 'Noto', sans-serif;" icon="icons:close" on-tap="${(e) => this.deleteAccountLine(item)}"></paper-icon-button>
                         </div>
 
                         <div class="layout horizontal my-content" style="width:100%">

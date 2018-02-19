@@ -4,7 +4,6 @@ import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-el
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 import './emailfilter.js'
-import './emailfiltercc.js'
 
 export class SendEmail extends LitElement {
 
@@ -150,8 +149,8 @@ export class SendEmail extends LitElement {
         this._contact.title = ""
 
 
-        this.shadowRoot.getElementById('emailfilter').open(profileid, customerid);
-        this.shadowRoot.getElementById('emailfiltercc').open(profileid, customerid);
+        this.shadowRoot.getElementById('emailfilter').open(profileid, customerid, searchurl);
+        this.shadowRoot.getElementById('emailfiltercc').open(profileid, customerid, searchurl);
 
     }
 
@@ -163,22 +162,13 @@ export class SendEmail extends LitElement {
 
     cancel() {
 
-        this.set('_email.subject', "");
-        this.set('_email.message', "");
+        this._email.subject = "";
+        this._email.message = "";
         this.dispatchEvent(new CustomEvent('closePanel', {
             composed: true,
             bubbles: true
         }));
     }
-
-
-
-
-
-
-
-
-
 
     send(e) {
         document.querySelector('#toast').show("Sending message.");
@@ -1348,8 +1338,8 @@ export class SendEmail extends LitElement {
             <div class="row-style">
                 <div class="col-xs-12">
                     <div class="my-content">
-                        <defie-emailfilter style="margin-top: 14px;" id="emailfilter"></defie-emailfilter>
-                        <defie-emailfiltercc style="margin-top: 3px;" id="emailfiltercc"></defie-emailfiltercc>
+                        <defie-emailfilter style="margin-top: 14px;" id="emailfilter" label="To"></defie-emailfilter>
+                        <defie-emailfilter style="margin-top: 3px;" id="emailfiltercc" label="Cc"></defie-emailfilter>
                         <div></div>
                         <div class="my-content col-xs-3c messagefield">Subject:</div>
                         <div class="my-content col-xs-9a messagefield">

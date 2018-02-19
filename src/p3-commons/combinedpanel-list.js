@@ -172,10 +172,12 @@ export class CombinedpanelList extends LitElement {
             option: this.searchoption,
             type: this.panelname.toLowerCase()
         }
-
-        let spliturl = this.searchurl.split("/")
-        this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
-
+        if (this.panelname == "Profile") {
+            this.queryurl = this.searchurl + "/search"
+        } else {
+            let spliturl = this.searchurl.split("/")
+            this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
+        }
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -204,9 +206,12 @@ export class CombinedpanelList extends LitElement {
             query: "",
             option: "idver"
         }
-        let spliturl = this.searchurl.split("/")
-        this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
-
+        if (this.panelname == "Profile") {
+            this.queryurl = this.searchurl + "/search"
+        } else {
+            let spliturl = this.searchurl.split("/")
+            this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
+        }
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -484,20 +489,21 @@ export class CombinedpanelList extends LitElement {
         var BElocation = this.panelname.toLowerCase()
 
         if (typeof url === 'string') this.url = url
-        let baseurl = this.url.split("/")
+        if (this.panelname == "Profile") {
+            this.searchurl = this.url
+        } else {
+            let baseurl = this.url.split("/")
 
-        if (baseurl[2] == "vendor") {
-            this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
-        } else if (baseurl[2] = "customer") {
-            this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
-
+            if (baseurl[2] == "vendor") {
+                this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
+            } else if (baseurl[2] = "customer") {
+                this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
+            }
         }
         this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
         this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
         this.shadowRoot.querySelector('#ajaxList').generateRequest()
     }
-
-
 
 
 
@@ -665,6 +671,12 @@ export class CombinedpanelList extends LitElement {
                     // this.notifyPath('model.' + (length - 1) + '.visibility2')
                     // this.notifyPath('model.' + (length - 1) + '.visibility3')
                     // this.notifyPath('model.' + (length - 1) + '.visibility4')
+                }
+            } else if (this.panelname === "Profile") {
+                for (let i = 0; i < this.model.length; i++) {
+                    this.model[i].visibility2 = false
+                    this.model[i].visibility3 = true
+                    this.model[i].visibility4 = true
                 }
             }
         }

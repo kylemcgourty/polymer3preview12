@@ -53,7 +53,7 @@ export class SerialNumberList extends LitElement {
         this.gotstarter()
 
 
-
+       
 
         let holder = this.piece.serials.split(',')
 
@@ -72,9 +72,6 @@ export class SerialNumberList extends LitElement {
         if (this.piece.qtyreturn) {
             this.piece.qty = -this.piece.qtyreturn;
         }
-
-      
-
 
 
     }
