@@ -4,7 +4,7 @@ import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
 import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
-export class SecondaryDAModule extends LitElement {
+export class AccountTextModule extends LitElement {
     
     static get properties() {
         return {
@@ -99,7 +99,7 @@ export class SecondaryDAModule extends LitElement {
             // })
         }
         else if (edit.enableleft === true && edit.enableright === false) {
-            this.showDisplay = 'none';
+            this.showDisplay = 'block';
             // this.updateStyles({
             //     '--set-edit-color': 'white',
             //     '--set-edit-border': '2px solid white',
@@ -921,7 +921,7 @@ export class SecondaryDAModule extends LitElement {
 
 }
 
-customElements.define("secondaryda-module", SecondaryDAModule)
+customElements.define("account-textmodule", AccountTextModule)
 
 
         // <iron-list items="{{data.accounts}}" id="list" scroll-target="document">
