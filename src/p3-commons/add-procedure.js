@@ -32,7 +32,6 @@
 
         open(data) {
 
-            console.log('rec datat', data)
             this.name = ""
             this.location = ""
 
@@ -101,9 +100,8 @@
                 })
 
 
-                this.set('data', titles)
+                this.data= titles
 
-                console.log('proc data', this.data)
 
                 this.setTable(this.data)
             }
@@ -125,7 +123,7 @@
 
                                 <div>
                                     <div class="container" data-title$="${item.title}">
-                                            <input on-focusout=${()=>{this.setproperty(item)}} id$="procedure-${item.id}" class="input col-xs-9" value="${item.procedures}">
+                                            <input  id$="procedure-${item.id}" class="input col-xs-9" value="${item.procedures}">
                                         <paper-icon-button on-tap="${() => this.remove(item)}" class="right" class="function-icons" icon="icons:close"></paper-icon-button>
                                         <paper-icon-button class="right" icon="icons:swap-vert" on-tap="${()=>this.swap(item)}" raised>Cancel</paper-icon-button>
                                         <div style="clear:both"></div>
@@ -138,24 +136,13 @@
             </div>`
                 }
 
-                console.log('before render', this.data)
                 render(datatable(this.data), this.shadowRoot.getElementById('table')) 
 
 
             }
 
 
-            setproperty(item){
-
-                console.log('e in set prop', item)
-
-                this.data[item.id].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
-
-
-
-
-            }
-        
+          
 
 
         open1(data) {
@@ -198,10 +185,10 @@
         remove(item) {
 
             this.data.forEach((item, i) => {
-                 this.data[item.id].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
+                 this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
 
-            this.splice('data', item.id, 1)
+            this.data.splice(item.id, 1)
 
             this.setTable(this.data)
 
@@ -222,7 +209,7 @@
             var last = this.data[this.data.length -1].id + 1 
 
             this.data.forEach((item, i) => {
-                 this.data[item.id].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
+                 this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
 
             })
 
@@ -250,7 +237,7 @@
         send() {
 
             this.data.forEach((item, i) => {
-                 this.data[item.id].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
+                 this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
 
             let procedures = []
@@ -296,7 +283,7 @@
         swap(item) {
 
             this.data.forEach((item, i) => {
-                 this.data[item.id].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
+                 this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
 
 
@@ -534,8 +521,8 @@
                         
                     </div>
                     <div class="layout horizontal buttons">
-                        <paper-button class="button main-button" on-tap="send" raised>Send</paper-button>
-                        <paper-button class="button" on-tap="close" raised>Cancel</paper-button>
+                        <paper-button class="button main-button" on-tap="${()=>{this.send()}}" raised>Send</paper-button>
+                        <paper-button class="button" on-tap="${()=>{this.close()}}" raised>Cancel</paper-button>
                     </div>
                 </div>
             </div>`
