@@ -66,7 +66,7 @@
                                                                                 <input disabled class="input1" value="${item.procedures}">
                                                                         </div>
                                                                         <paper-icon-button class="procedure-icons" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
-                                                                        <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${(e)=>{this.addFunction(e)}}" icon="add-circle"></paper-icon-button>
+                                                                        <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></paper-icon-button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="group4 layout horizontal wrap" data-procedure$="${item.title}">
@@ -152,8 +152,10 @@
       }
       
 
-      addFunction(){
-         this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true}))
+      addFunction(item){
+
+        console.log('itme in panel', item)
+         this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true, detail: { item: item}}))
       }
     
         
