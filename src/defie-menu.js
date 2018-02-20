@@ -810,6 +810,10 @@ export class DefieMenu extends PolymerElement {
         let module = this.importList[route]
 
 
+        if (route == "signin" || route == "signin-authenticate" || route == "welcome") {
+            return;
+        }
+
         import(module).then((mod) =>{
             this.set('option', this.ServicesList[route])
         })
