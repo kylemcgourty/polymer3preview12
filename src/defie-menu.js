@@ -797,6 +797,10 @@ export class DefieMenu extends PolymerElement {
         console.log("route", route);
         console.log("module", module);
 
+        if (route == "signin" || route == "signin-authenticate" || route == "welcome") {
+            return;
+        }
+
         import(module).then((mod) =>{
             this.set('option', this.ServicesList[route])
         })
