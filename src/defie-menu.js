@@ -357,6 +357,8 @@ export class DefieMenu extends PolymerElement {
 
                 <workorders-shell setting="[[setting]]" name="workorders" rbomtowo="[[rbomtowo]]" rbotowo="[[rbotowo]]"></workorders-shell>
                 <finishworkorders-shell setting="[[setting]]" name="finishworkorders" fromwo="[[fromwo]]"></finishworkorders-shell>
+                <deployedworkorders-shell setting="[[setting]]" name="deployedworkorders" fromfwo="[[fromfwo]]"></deployedworkorders-shell>
+
 
 
                 <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders"></releasedbuildorders-shell>
@@ -546,6 +548,8 @@ export class DefieMenu extends PolymerElement {
                         "workorder-new": "workorders",
                         "finishworkorders": "finishworkorders",
                         "finishworkorder-new": "finishworkorders",
+                        "deployedworkorders": "deployedworkorders",
+                        "deployedworkorder-new": "deployedworkorders",
                         "vendor-new": "vendors",
                         "vendors": "vendors",
                         "quote-new": "quotes",
@@ -638,6 +642,8 @@ export class DefieMenu extends PolymerElement {
                     "workorder-new": "/workorders/src/workorders-shell.js",
                     "finishworkorders": "/finishworkorders/src/finishworkorders-shell.js",
                     "finishworkorder-new": "/finishworkorders/src/finishworkorders-shell.js",
+                    "deployedworkorders": "/deployedworkorders/src/deployedworkorders-shell.js",
+                    "deployedworkorder-new": "/deployedworkorders/src/deployedworkorders-shell.js",
                     "vendor-new": "/vendors/src/vendors-shell.js",
                     "vendors": "/vendors/src/vendors-shell.js",
                     "quote-new": "/quotes/src/quotes-shell.js",
@@ -755,6 +761,9 @@ export class DefieMenu extends PolymerElement {
         });
         this.addEventListener('toFinishworkorderNew', e => {
             this.set('fromwo', e.detail.model)
+        });
+         this.addEventListener('toDeployedWorkOrderNew', e => {
+            this.set('fromfwo', e.detail.model)
         });
         this.addEventListener('RBOMtoWONew', e => {
             this.set('rbomtowo', e.detail.model)
@@ -1058,8 +1067,8 @@ export class DefieMenu extends PolymerElement {
 
 
         // this.$.serviceajax.url = "/api/user/services/" + ur
-        // this.$.serviceajax.generateRequest()
-        // this.showMenu = true;
+        this.$.serviceajax.generateRequest()
+        this.showMenu = true;
 
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {
