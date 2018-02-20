@@ -1,10 +1,175 @@
 
-       import {Element as PolymerElement}
-  from '../../node_modules/@polymer/polymer/polymer-element.js'
+  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-   export class AddFunction extends PolymerElement {
-        static get template() {
-            return `  <style include="shared-styles iron-flex iron-flex-alignment">
+
+  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+
+  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+
+   export class AddFunction extends LitElement {
+       
+        static get properties() {
+            return {
+                statuslist: {
+                    type: Array,
+                    reflectToAttribute: true,
+                    notify: true
+                },
+            }
+        }
+        constructor() {
+            super();
+        }
+
+        static get observers() {
+            return []
+
+        }
+
+
+        open(data) {
+
+            console.log('data received', data)
+            this.data = data
+
+            this.setTable(this.data)
+
+        }
+
+        setTable(data){
+
+                 const datatable = items => {
+
+
+                    return html`
+
+                    <div>
+                        ${repeat (
+                            items,
+                            item =>item.id,
+                            item =>html`
+
+                                <div>
+                                <div class="functionholder layout horizontal" data-title$="${item.title}">
+                                        <input class="i-input input" id$="procedure-${item.id}" value="${item.procedures}">
+                                    <paper-icon-button class="icons proc-icons" data-title$="${item.title}" on-tap="${()=>{this.add()}}" icon="icons:add"></paper-icon-button>
+                                    <paper-icon-button class="icons func-icons" data-title$="${item.title}" on-tap="${()=>{this.swap(item)}}" icon="icons:swap-vert"></paper-icon-button>
+                                    <paper-icon-button class="icons func-icons" data-title$="${item.title}" on-tap="${()=>{this.remove(item)}}" icon="icons:close"></paper-icon-button>
+                                </div>
+                            </div>
+                                          
+                                `
+
+                    )}
+            </div>`
+                }
+
+                render(datatable(this.data), this.shadowRoot.getElementById('table')) 
+
+
+            }
+
+        open1(data) {
+
+            let title = this.data.slice(0, 1)
+
+
+            this.set('data', [])
+
+
+            setTimeout(function() {
+
+                let temp = title.concat(data)
+
+                this.set('data', temp)
+
+
+                this.dispatchEvent(new CustomEvent('iron-resize', {
+                    composed: true,
+                    bubbles: true,
+
+                }))
+
+
+
+            }.bind(this), 700)
+
+        }
+
+        swap(e) {
+
+
+            console.log('e in swap', e, this.data)
+            let index = e.model.index - 1
+
+            let data = this.data.slice(1)
+            console.log('data after slice', data)
+            this.dispatchEvent(new CustomEvent('openSort', {
+                composed: true,
+                bubbles: true,
+                detail: {
+                    data: data,
+                    index: index,
+                    service: "addfunction"
+                }
+            }))
+
+
+
+        }
+
+        send() {
+
+            this.dispatchEvent(new CustomEvent('functions', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    data: this.data
+                }
+            }))
+
+
+        }
+
+        add() {
+            this.push('data', {
+                procedures: "",
+                pass: "",
+                issue: "",
+                resolution: "",
+                qa: "",
+                replacement: "",
+                signoff: "",
+                title: "function",
+                enable: false
+                
+            })
+        }
+
+        close() {
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                composed: true,
+                bubbles: true
+            }))
+        }
+
+        remove(e) {
+            let index = e.model.index;
+
+            this.splice('data', index, 1)
+
+
+        }
+
+
+        ready() {
+            super.ready()
+
+
+        }
+
+        render() {
+            return html`  <style include="shared-styles iron-flex iron-flex-alignment">
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -204,151 +369,14 @@
             <div class="table-padding">
                 <div><span class="title">  Add Functions </span>
                 </div>
-                <div class="ilholder">
-                    <iron-list items="{{data}}" scroll-target="document">
-                        <template>
-                            <div>
-                                <div class="functionholder layout horizontal" data-title$="[[item.title]]">
-                                    <iron-input class="i-input" bind-value="{{item.procedures}}">
-                                        <input class="input">
-                                    </iron-input>
-                                    <paper-icon-button class="icons proc-icons" data-title$="[[item.title]]" on-tap="add" icon="icons:add"></paper-icon-button>
-                                    <paper-icon-button class="icons func-icons" data-title$="[[item.title]]" on-tap="swap" icon="icons:swap-vert"></paper-icon-button>
-                                    <paper-icon-button class="icons func-icons" data-title$="[[item.title]]" on-tap="remove" icon="icons:close"></paper-icon-button>
-                                </div>
-                            </div>
-                        </template>
-                    </iron-list>
+                <div id=table class="ilholder">
+                    
                 </div>
                 <div class="button-holder">
                     <paper-button class="main-button" on-tap="send">Send</paper-button>
                     <paper-button class="button" raised on-tap="close">Cancel</paper-button>
                 </div>
             </div>`
-        }
-        static get properties() {
-            return {
-                statuslist: {
-                    type: Array,
-                    reflectToAttribute: true,
-                    notify: true
-                },
-            }
-        }
-        constructor() {
-            super();
-        }
-
-        static get observers() {
-            return []
-
-        }
-
-
-        open(data) {
-
-            console.log('data received', data)
-            this.set('data', data)
-
-        }
-
-        open1(data) {
-
-            let title = this.data.slice(0, 1)
-
-
-            this.set('data', [])
-
-
-            setTimeout(function() {
-
-                let temp = title.concat(data)
-
-                this.set('data', temp)
-
-
-                this.dispatchEvent(new CustomEvent('iron-resize', {
-                    composed: true,
-                    bubbles: true,
-
-                }))
-
-
-
-            }.bind(this), 700)
-
-        }
-
-        swap(e) {
-
-
-            console.log('e in swap', e, this.data)
-            let index = e.model.index - 1
-
-            let data = this.data.slice(1)
-            console.log('data after slice', data)
-            this.dispatchEvent(new CustomEvent('openSort', {
-                composed: true,
-                bubbles: true,
-                detail: {
-                    data: data,
-                    index: index,
-                    service: "addfunction"
-                }
-            }))
-
-
-
-        }
-
-        send() {
-
-            this.dispatchEvent(new CustomEvent('functions', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    data: this.data
-                }
-            }))
-
-
-        }
-
-        add() {
-            this.push('data', {
-                procedures: "",
-                pass: "",
-                issue: "",
-                resolution: "",
-                qa: "",
-                replacement: "",
-                signoff: "",
-                title: "function",
-                enable: false
-                
-            })
-        }
-
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                composed: true,
-                bubbles: true
-            }))
-        }
-
-        remove(e) {
-            let index = e.model.index;
-
-            this.splice('data', index, 1)
-
-
-        }
-
-
-        ready() {
-            super.ready()
-
-
         }
 
 

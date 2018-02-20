@@ -54,6 +54,8 @@
                         id: 0
                     }]
 
+                    this.setTitle('Function Title')
+
                     this.setTable(this.data)
 
                     return
@@ -102,14 +104,46 @@
 
                 this.data= titles
 
+                this.functions = false
 
+                this.setTitle('Function Title')
                 this.setTable(this.data)
             }
 
         }
 
+        openfunction(data) {
+
+            this.data = data
+
+            this.setTable(this.data)
+
+                this.setTitle('Add Functions')
+
+                this.functions = true
+
+
+
+        }
+
+            // title1(val){
+            //     if (val){
+            //         return "none"
+            //     } else {
+            //         return "block"
+            //     }
+            // }
+
+            // title2(val){
+            //     if (val){
+            //         return "block"
+            //     } else {
+            //         return "none"
+            //     }
+            // }
         setTable(data){
 
+            console.log('set table called', data)
                  const datatable = items => {
 
 
@@ -142,7 +176,60 @@
             }
 
 
-          
+        
+
+
+        setTitle(titledata){
+
+            console.log('hit set title', titledata)
+
+            if (titledata == "Add Functions"){
+
+            const title = (templateheader) => html`<style>
+                div[data-title="procedure-title"] .input {
+                    background-color: white;
+                    color: blue;
+                    font-size: 17px;
+                    box-shadow: none;
+                    text-align: center;
+                }
+
+                [data-title="procedure-title"] paper-icon-button{
+                    display: none;
+                }
+                
+                .proc-icons[data-title="procedure-title"] {
+                    display: inline-block;
+                    color: black;
+                }
+                
+                .func-icons[data-title="procedure-title"] {
+                    display: none;
+                }
+                
+                .proc-icons[data-title="function"] {
+                    display: none;
+                }
+                
+                .func-icons[data-title="function"] {
+                    display: inline-block;
+                }</style><span class="title"> ${templateheader}  </span>`
+
+            render(title(titledata), this.shadowRoot.getElementById('title'))
+
+
+            } else {
+
+                console.log('in else', titledata)
+                const title1 = (templateheader) => html`<span class="title"> ${templateheader}  </span>`
+
+            render(title1(titledata), this.shadowRoot.getElementById('title'))
+
+            }
+
+
+         }
+
 
 
         open1(data) {
@@ -208,13 +295,31 @@
 
             var last = this.data[this.data.length -1].id + 1 
 
-            this.data.forEach((item, i) => {
+             this.data.forEach((item, i) => {
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
 
             })
 
 
-            this.data.push({
+            if (this.functions){
+
+                this.data.push({
+                    procedures: "",
+                    pass: "",
+                    issue: "",
+                    resolution: "",
+                    qa: "",
+                    replacement: "",
+                    signoff: "",
+                    title: "function",
+                    enable: false,
+                    id: last
+                
+                })
+
+                console.log('in add ', this.data)
+            } else {
+                this.data.push({
                 procedures: "",
                 pass: "",
                 issue: "",
@@ -228,6 +333,15 @@
                 id: last
             })
 
+
+
+            }
+
+           
+
+
+            
+
             this.setTable(this.data)
 
 
@@ -236,9 +350,24 @@
 
         send() {
 
-            this.data.forEach((item, i) => {
+             this.data.forEach((item, i) => {
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
+
+            if (this.functions){
+
+                this.dispatchEvent(new CustomEvent('functions', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    data: this.data
+                }
+            }))
+
+                return
+            }
+
+           
 
             let procedures = []
 
@@ -493,7 +622,6 @@
         }
         
         [data-title="function"] {
-            display: none;
         }
         
         .il-holder {
@@ -510,7 +638,8 @@
                 </div>
             </div>
             <div class="table-padding">
-                <div><span class="title">  Function Title </span>
+                <div id="title">
+
                 </div>
                 <div class="end">
                
