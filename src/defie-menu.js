@@ -655,10 +655,8 @@ export class DefieMenu extends PolymerElement {
                     "quotes": "/quotes/src/quotes-shell.js",
                     "accountspayable-new": "/accountspayables/src/accountspayable-shell.js",
                     "accountspayable": "/accountspayables/src/accountspayable-shell.js",
-                    "accountspayable": "/accountspayables/src/accountspayable-shell.js",
-                    "ap-vendors": "/accountspayables/src/accountspayable-shell.js",
+                    "ap-vendors": ["/accountspayables/src/accountspayable-shell.js", "/approvetopays/src/approvetopay-shell.js"],
                     "ap-status": "/accountspayables/src/accountspayable-shell.js",
-                    "ap-vendors": "/accountspayables/src/accountspayable-shell.js",
                     "approvetopay-new": "/approvetopays/src/approvetopay-shell.js",
                     "approvetopay-check": "/approvetopays/src/approvetopay-shell.js",
                     "approvetopay": "/approvetopays/src/approvetopay-shell.js",
@@ -812,9 +810,15 @@ export class DefieMenu extends PolymerElement {
             return;
         }
 
-        import(module).then((mod) =>{
-            this.set('option', this.ServicesList[route])
-        })
+        if (Array.isArray(module)) {
+            Promise.all(module.map( (item) => {import(item)} )).then(() =>{
+                this.set('option', this.ServicesList[route])
+            })
+        } else {
+            import(module).then((mod) =>{
+                this.set('option', this.ServicesList[route])
+            })
+        }
     }
 
 
