@@ -364,6 +364,8 @@ export class DefieMenu extends PolymerElement {
                 <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders"></releasedbuildorders-shell>
 
 
+                <qachecklists-shell setting="[[setting]]" name="qachecklists"></qachecklists-shell>
+
 
 
 
@@ -554,6 +556,8 @@ export class DefieMenu extends PolymerElement {
                         "vendors": "vendors",
                         "quote-new": "quotes",
                         "quotes": "quotes",
+                        "qachecklist-new": "qachecklists",
+                        "qachecklists": "qachecklists",
                         "profiles": "profiles",
                         "profile-new": "profiles",
                         "profile-view": "profiles",
@@ -632,6 +636,8 @@ export class DefieMenu extends PolymerElement {
                     "invoices": "/invoices/src/invoices-shell.js",
                     "boms": "/boms/src/boms-shell.js",
                     "bom-new": "/boms/src/boms-shell.js",
+                    "qachecklists": "/qachecklists/src/qachecklists-shell.js",
+                    "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
                     "releasedboms": "/releasedboms/src/releasedboms-shell.js",
                     "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
                     "buildorders": "/buildorders/src/buildorders-shell.js",
@@ -803,8 +809,6 @@ export class DefieMenu extends PolymerElement {
 
         let module = this.importList[route]
 
-        console.log("route", route);
-        console.log("module", module);
 
         if (route == "signin" || route == "signin-authenticate" || route == "welcome") {
             return;
