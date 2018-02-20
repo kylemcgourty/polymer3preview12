@@ -137,11 +137,9 @@
 
 
                   let elem = this.shadowRoot.querySelector('.unit')
-                  // let elem1 = this.shadowRoot.querySelector('.mobileheader')
 
 
                   elem.style.setProperty('--title-background-normal', color)
-                  // elem1.style.setProperty('--title-background-normal', color)
             }
         }
 
@@ -165,7 +163,6 @@
 
       addFunction(item){
 
-        console.log('itme in panel', item)
          this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true, detail: { item: item}}))
       }
     
