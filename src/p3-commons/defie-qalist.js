@@ -42,7 +42,7 @@
                     item.id = i
                 })
 
-                console.log('the data', data)
+               this.enable = false;
                 const datatable = items => {
 
 
@@ -73,7 +73,7 @@
                                                                     <div class="box4-data layout horizontal">
                                                                         <div class="bd4-1">
                                                                             <span class="bd4-1head">Pass | Fail:</span>
-                                                                                <input disabled="${this.enable}" value="${item.pass}" class="input1">
+                                                                                <input disabled="${this.determiner(item.title)}" value="${item.pass}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -82,7 +82,7 @@
                                                                         <div class="bd8-2">
                                                                             <span class="bd8-1head"> 
                                                                                     Issue:</span>
-                                                                                <input disabled="${this.enable}" value="${item.issue}" class="input1">
+                                                                                <input disabled="${this.determiner(item.title)}" value="${item.issue}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -90,7 +90,7 @@
                                                                     <div class="box3-data layout horizontal">
                                                                         <div class="bd3-2">
                                                                             <span class="bd3-1head"> Resolution</span>
-                                                                                <input disabled="${this.enable}" value="${item.resolution}" class="input1">
+                                                                                <input disabled="${this.determiner(item.title)}" value="${item.resolution}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -98,7 +98,7 @@
                                                                     <div class="box1-data layout horizontal">
                                                                         <div class="bd1-2">
                                                                             <span class="bd1-1head"> Replacement</span>
-                                                                                <input disabled="${this.enable}" value="${item.replacement}" class="input1">
+                                                                                <input disabled="${this.determiner(item.title)}" value="${item.replacement}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -106,7 +106,7 @@
                                                                     <div class="box7-data layout horizontal">
                                                                         <div class="bd7-2">
                                                                             <span class="bd7-1head"> QA </span>
-                                                                                <input disabled="${this.enable}" value="${item.qa}" class="input1">
+                                                                                <input disabled="${this.determiner(item.title)}" value="${item.qa}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -114,7 +114,7 @@
                                                                     <div class="box5-data layout horizontal">
                                                                         <div class="bd5-2">
                                                                             <span class="bd5-1head"> Sign Off </span>
-                                                                                <input disabled="${this.enable}" value="${item.signoff}" class="input1">
+                                                                                <input disabled="${this.determiner(item.title)}" value="${item.signoff}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -146,6 +146,17 @@
         }
 
 
+    determiner(item){
+            if (this.view){
+                return true
+            }
+
+            if (item =="function"){
+                return false
+            } else if (item == "procedure-title"){
+                return true
+            }
+        }
 
       addProcedure(){
         this.dispatchEvent(new CustomEvent('addProcedure', {compose: true, bubbles: true}))
@@ -1207,7 +1218,7 @@
             /*text-align: right;*/
             border: none;
             background-color: #eee;
-            width: 100%;
+            width: 97%;
             /* box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5); */
             color: black;
             white-space: nowrap;
