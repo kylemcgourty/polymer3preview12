@@ -143,7 +143,6 @@
             // }
         setTable(data){
 
-            console.log('set table called', data)
                  const datatable = items => {
 
 
@@ -181,7 +180,6 @@
 
         setTitle(titledata){
 
-            console.log('hit set title', titledata)
 
             if (titledata == "Add Functions"){
 
@@ -220,7 +218,6 @@
 
             } else {
 
-                console.log('in else', titledata)
                 const title1 = (templateheader) => html`<span class="title"> ${templateheader}  </span>`
 
             render(title1(titledata), this.shadowRoot.getElementById('title'))
@@ -317,7 +314,6 @@
                 
                 })
 
-                console.log('in add ', this.data)
             } else {
                 this.data.push({
                 procedures: "",
