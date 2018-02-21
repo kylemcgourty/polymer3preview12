@@ -156,8 +156,10 @@
                               <div class="procedures-mobile">
                                 <div class="layout horizontal title-border mobileheader">
                                     <div class="mobiletitle "> Functions </div>
-                                    <paper-icon-button class="procedure-icons"  on-tap="${(e) =>this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
+                                    <paper-icon-button class="procedure-icons"  on-tap="${()=>{this.addProcedure(); console.log('button hit')}}" icon="icons:add-circle-outline"></paper-icon-button>
+
                                 </div>
+
                                 <div class="mobile-listholder">
                               <div>
                         ${repeat (
@@ -392,6 +394,8 @@
         }
 
       addProcedure(){
+
+        console.log('add procedure called')
         this.dispatchEvent(new CustomEvent('addProcedure', {compose: true, bubbles: true}))
       }
       
@@ -1523,7 +1527,6 @@
                 font-size: 19px;
                 min-height: 38px;
                 line-height: 2;
-                pointer-events: none;
                 display: block;
                 text-align: center;
             }
@@ -1645,7 +1648,9 @@
             }
             .procedure-icons {
                 color: white;
-                margin-left: 60px
+                margin-left: 22px;
+                position: relative;
+                bottom: 2px;
             }
             .mobiletitle {
                 font-size: 18px;
