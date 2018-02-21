@@ -272,7 +272,12 @@
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
 
+            console.log('the item and the data', item, this.data)
             this.data.splice(item.id, 1)
+
+             this.data.forEach((item, i) => {
+                    item.id = i
+                })
 
             this.setTable(this.data)
 
@@ -290,7 +295,6 @@
 
         add(e) {
 
-            var last = this.data[this.data.length -1].id + 1 
 
             console.log('the data and last', this.data, last)
 
@@ -298,6 +302,12 @@
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
 
             })
+
+             this.data.forEach((item, i) => {
+                    item.id = i
+                })
+
+            var last = this.data[this.data.length -1].id + 1 
 
 
             if (this.functions){
