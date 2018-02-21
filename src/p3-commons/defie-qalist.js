@@ -156,7 +156,7 @@
                               <div class="procedures-mobile">
                                 <div class="layout horizontal title-border mobileheader">
                                     <div class="mobiletitle "> Functions </div>
-                                    <paper-icon-button class="procedure-icons"  on-tap="${()=>{this.addProcedure(); console.log('button hit')}}" icon="icons:add-circle-outline"></paper-icon-button>
+                                    <paper-icon-button class="procedure-icons"  on-tap="${()=>{this.addProcedure()}}" icon="icons:add-circle-outline"></paper-icon-button>
 
                                 </div>
 
@@ -168,18 +168,18 @@
                             item =>html`      <div>
                                                 <div class="mobile-container">
                                                     <div class="layout horizontal">
-                                                        <div style="display: ${this.computeDisplay(item.title)}">
+                                                        <div style="display: ${this.computeDisplay(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle layout horizontal">
                                                                     <input disabled value="${item.procedures}" class="input1">
-                                                                <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="addFunctionMobile" icon="add-circle"></paper-icon-button>
+                                                                <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${() =>{this.addFunctionMobile(item)}}" icon="add-circle"></paper-icon-button>
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input disabled value="${item.columndata}" class="input1">
                                                             </div>
                                                         </div>
-                                                        <div style="display: ${!this.computeDisplay1(item.title)}">
+                                                        <div style="display: ${this.computeDisplay1(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle">
-                                                                    <input class="input1" value="${item.procedures}">
+                                                                    <input disabled class="input1" value="${item.procedures}">
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input class="input1" value="${item.columndata}">
@@ -193,6 +193,10 @@
 
 
                                 console.log('the mobile data', this.mobiledata)
+
+                     this.mobiledata.forEach((item, i) => {
+                        item.id = i
+                     })
                       render(mobiledatatable(this.mobiledata), this.shadowRoot.getElementById('table2'))
 
 
@@ -215,6 +219,8 @@
                 return "flex"
             } else if (this.view) {
                 return "flex"
+            } else if (val == "function"){
+                return "none"
             } else {
                 return "none"
             }
@@ -228,6 +234,8 @@
                 return "none"
             } else if (this.view) {
                 return "none"
+            } else if (val == "function"){
+                return "flex"
             } else {
                 return "flex"
             }
@@ -367,18 +375,6 @@
         }
 
 
-        computeDisplay(val, item) {
-
-
-            if (val === "procedure-title") {
-                return true
-            } else if (this.view) {
-                return true
-            } else {
-                return false
-            }
-
-        }
 
 
     determiner(item){
@@ -403,6 +399,11 @@
       addFunction(item){
 
          this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true, detail: { item: item}}))
+      }
+
+      addFunctionMobile(item){
+         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item}}))
+
       }
 
       retrieveData(){
@@ -739,6 +740,12 @@
             float: right;
             width: 20px;
             height: 20px;
+        }
+
+        .functionscontainer {
+            width: 98%;
+            margin: auto;
+            margin-top: 5px;
         }
 
         .subtable {
