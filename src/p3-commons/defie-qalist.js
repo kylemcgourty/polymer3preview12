@@ -35,6 +35,7 @@
 
         open(data, color) {
 
+
             if (data) {
               
                 
@@ -132,15 +133,249 @@
             </div>`
                 }
 
-                render(datatable(data), this.shadowRoot.getElementById('table')) 
+            this.data = data
+                
+            render(datatable(data), this.shadowRoot.getElementById('table')) 
 
 
 
-                  let elem = this.shadowRoot.querySelector('.unit')
+            let elem = this.shadowRoot.querySelector('.unit')
 
 
-                  elem.style.setProperty('--title-background-normal', color)
+            elem.style.setProperty('--title-background-normal', color)
+
+
+             this.data1 = data
+
+             this.converter()
+
+            const mobiledatatable = items => {
+
+
+                    return html`
+                              <div class="procedures-mobile">
+                                <div class="layout horizontal title-border mobileheader">
+                                    <div class="mobiletitle "> Functions </div>
+                                    <paper-icon-button class="procedure-icons"  on-tap="${(e) =>this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
+                                </div>
+                                <div class="mobile-listholder">
+                              <div>
+                        ${repeat (
+                            items,
+                            item =>item.id,
+                            item =>html`      <div>
+                                                <div class="mobile-container">
+                                                    <div class="layout horizontal">
+                                                        <div style="display: ${this.computeDisplay(item.title)}">
+                                                            <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle layout horizontal">
+                                                                    <input disabled value="${item.procedures}" class="input1">
+                                                                <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="addFunctionMobile" icon="add-circle"></paper-icon-button>
+                                                            </div>
+                                                            <div data-procedure$="${item.title}" class="mobile-functions">
+                                                                    <input disabled value="${item.columndata}" class="input1">
+                                                            </div>
+                                                        </div>
+                                                        <div style="display: ${!this.computeDisplay1(item.title)}">
+                                                            <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle">
+                                                                    <input class="input1" value="${item.procedures}">
+                                                            </div>
+                                                            <div data-procedure$="${item.title}" class="mobile-functions">
+                                                                    <input class="input1" value="${item.columndata}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>` )} 
+                                    </div>   
+                                  </div>
+                                </div>`}
+
+
+                                console.log('the mobile data', this.mobiledata)
+                      render(mobiledatatable(this.mobiledata), this.shadowRoot.getElementById('table2'))
+
+
+                      let elem1 = this.shadowRoot.querySelector('.mobileheader')
+
+
+                      elem1.style.setProperty('--title-background-normal', color)
+
+
+
+
+                  }
+
+        }
+
+         computeDisplay(val, item) {
+
+
+            if (val === "procedure-title") {
+                return "flex"
+            } else if (this.view) {
+                return "flex"
+            } else {
+                return "none"
             }
+
+        }
+
+        computeDisplay1(val, item) {
+
+
+            if (val === "procedure-title") {
+                return "none"
+            } else if (this.view) {
+                return "none"
+            } else {
+                return "flex"
+            }
+
+        }
+
+
+         converter() {
+
+
+
+            if (this.data1.length == 1) {
+                this.mobiledata = []
+                return
+            }
+
+            if (this.data1.length > 0) {
+
+                this.start = undefined
+
+                this.mobiledata= []
+                let index = 1
+                let bool = true
+
+                while (bool) {
+
+                    if (this.data1[index] == undefined) {
+
+
+                        this.end = index;
+
+                        this.converterHelper()
+
+                        this.start = undefined
+
+                        bool = false;
+                        break;
+                    }
+
+                    if (!this.start && this.data1[index].title == "procedure-title") {
+
+                        this.start = index
+                        index = index + 1
+                        continue;
+
+                    }
+
+                    if (this.start && this.data1[index].title == "procedure-title") {
+
+
+                        this.end = index
+
+                        this.converterHelper()
+
+                        this.start = undefined
+
+                        continue;
+                    }
+
+
+                    index = index + 1
+
+                }
+
+            }
+
+        }
+
+        converterHelper() {
+
+            let temp = []
+
+
+            let result = this.data1.slice(this.start, this.end)
+
+
+            let group = []
+
+
+            group = temp.concat(JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)))
+
+
+
+            let length = group.length
+
+            let l1 = 0
+            let l2 = length / 6
+            let l3 = 2 * length / 6
+            let l4 = 3 * length / 6
+            let l5 = 4 * length / 6
+            let l6 = 5 * length / 6
+
+
+
+            group.forEach(function(item, index) {
+
+                if (index < l2) {
+                    item.columndata = item.pass
+                } else if (l2 <= index < l3) {
+                    item.columndata = item.issue
+                } else if (l3 <= index < l4) {
+                    item.columndata = item.resolution
+                } else if (l4 <= index < l5) {
+                    item.columndata = item.replacement
+                } else if (l5 <= index < l6) {
+                    item.columndata = item.qa
+                } else if (l6 <= index) {
+                    item.columndata = item.signoff
+                }
+
+
+            })
+
+            group[l1].columndata = "Pass | Fail"
+            group[l1].title = "procedure-title"
+
+            group[l2].columndata = "Issues"
+            group[l2].title = "procedure-title"
+
+            group[l3].columndata = "Resolution"
+            group[l3].title = "procedure-title"
+
+            group[l4].columndata = "Replacement"
+            group[l4].title = "procedure-title"
+
+            group[l5].columndata = "QA"
+            group[l5].title = "procedure-title"
+
+            group[l6].columndata = "Sign Off"
+            group[l6].title = "procedure-title"
+
+
+            this.mobiledata = this.mobiledata.concat(group)
+
+
+
+        }
+
+
+        computeDisplay(val, item) {
+
+
+            if (val === "procedure-title") {
+                return true
+            } else if (this.view) {
+                return true
+            } else {
+                return false
+            }
+
         }
 
 
@@ -164,6 +399,10 @@
       addFunction(item){
 
          this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true, detail: { item: item}}))
+      }
+
+      retrieveData(){
+         return this.data
       }
     
         
@@ -1715,8 +1954,8 @@
                             <div>
                                 <div class="lightgrey-padding-inner1">
                                     <div class="procedures-desk" id="table">
-
-
+                                    </div>
+                                    <div id="table2">
                                     </di>
                                 </div>
                             </div>
