@@ -205,29 +205,27 @@ export class RMARelationList extends LitElement {
         render(rmahistlist(this.rmahistory), this.shadowRoot.getElementById("relation"));
     }
 
-    getRecord(e) {
+    getRecord(item) {
 
-        let index = e.model.index - 1
-
-
-        let record = this.results[index]
+        let idver = item.idver
+        let id = idver.split("-")[0];
 
         if (this.url == "/requestcrma/GetrecHistory/") {
-            this.$.ajaxSingle.url = "/receivecrma/" + this.profileid + "/" + this.customerid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/receivecrma/" + this.profileid + "/" + this.customerid + "/" + id + "/" + idver
         } else if (this.url == "/requestcrma/GetshipHistory/") {
-            this.$.ajaxSingle.url = "/shipcrma/" + this.profileid + "/" + this.customerid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/shipcrma/" + this.profileid + "/" + this.customerid + "/" + id + "/" + idver
         } else if (this.url == "/receivecrma/GetrecHistory/") {
-            this.$.ajaxSingle.url = "/receivecrma/" + this.profileid + "/" + this.customerid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/receivecrma/" + this.profileid + "/" + this.customerid + "/" + id + "/" + idver
         } else if (this.url == "/receivecrma/GetshipHistory/") {
-            this.$.ajaxSingle.url = "/shipcrma/" + this.profileid + "/" + this.customerid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/shipcrma/" + this.profileid + "/" + this.customerid + "/" + id + "/" + idver
         } else if (this.url == "/requestvrma/GetrecHistory/") {
-            this.$.ajaxSingle.url = "/receivevrma/" + this.profileid + "/" + this.vendorid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/receivevrma/" + this.profileid + "/" + this.vendorid + "/" + id + "/" + idver
         } else if (this.url == "/requestvrma/GetshipHistory/") {
-            this.$.ajaxSingle.url = "/shipvrma/" + this.profileid + "/" + this.vendorid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/shipvrma/" + this.profileid + "/" + this.vendorid + "/" + id + "/" + idver
         } else if (this.url == "/receivevrma/GetrecHistory/") {
-            this.$.ajaxSingle.url = "/receivevrma/" + this.profileid + "/" + this.vendorid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/receivevrma/" + this.profileid + "/" + this.vendorid + "/" + id + "/" + idver
         } else if (this.url == "/receivevrma/GetshipHistory/") {
-            this.$.ajaxSingle.url = "/shipvrma/" + this.profileid + "/" + this.vendorid + "/" + record.id + "/" + record.idver
+            this.shadowRoot.querySelector("#ajaxSingle").url = "/shipvrma/" + this.profileid + "/" + this.vendorid + "/" + id + "/" + idver
         }
 
 
@@ -246,6 +244,8 @@ export class RMARelationList extends LitElement {
                 bubbles: true,
                 detail: {
                     model: record,
+                    latestidver: record.idver,
+                    path: '/customerreceivermas/view/' + record.to.companyname + '/' + record.idver,
                 }
             }))
 
@@ -255,16 +255,18 @@ export class RMARelationList extends LitElement {
                 bubbles: true
             }))
 
-            this.route.path = '/customerreceivermas/view/' + record.to.companyname + '/' + record.idver
+            // this.route.path = '/customerreceivermas/view/' + record.to.companyname + '/' + record.idver
 
-            this.path = ""
-        } else if (this.url == "/shipcrma/GetrecHistory/") {
+            // this.path = ""
+        } else if (this.url == "/requestcrma/GetshipHistory/") {
             console.log("CUSTSHIP")
             this.dispatchEvent(new CustomEvent("toCustomerShipRMAView", {
                 composed: true,
                 bubbles: true,
                 detail: {
                     model: record,
+                    latestidver: record.idver,
+                    path: '/customershiprmas/view/' + record.to.companyname + '/' + record.idver,
                 }
             }))
 
@@ -274,9 +276,9 @@ export class RMARelationList extends LitElement {
                 bubbles: true
             }))
 
-            this.route.path = '/customershiprmas/view/' + record.to.companyname + '/' + record.idver
+            // this.route.path = '/customershiprmas/view/' + record.to.companyname + '/' + record.idver
 
-            this.path = ""
+            // this.path = ""
         } else if (this.url == "/requestvrma/GetrecHistory/" || this.url == "/receivevrma/GetrecHistory/") {
             console.log("VENDREC")
             this.dispatchEvent(new CustomEvent("toVendorReceiveRMAView", {
@@ -284,6 +286,8 @@ export class RMARelationList extends LitElement {
                 bubbles: true,
                 detail: {
                     model: record,
+                    latestidver: record.idver,
+                    path: '/vendorreceivermas/view/' + record.shipto.companyname + '/' + record.idver,
                 }
             }))
 
@@ -293,16 +297,18 @@ export class RMARelationList extends LitElement {
                 bubbles: true
             }))
 
-            this.route.path = '/vendorreceivermas/view/' + record.shipto.companyname + '/' + record.idver
+            // this.route.path = '/vendorreceivermas/view/' + record.shipto.companyname + '/' + record.idver
 
-            this.path = ""
-        } else {
+            // this.path = ""
+        } else if (this.url == "/requestvrma/GetshipHistory/"){
             console.log("VENDSHIP")
             this.dispatchEvent(new CustomEvent("toVendorShipRMAView", {
                 composed: true,
                 bubbles: true,
                 detail: {
                     model: record,
+                    latestidver: record.idver,
+                    path: '/vendorshiprmas/view/' + record.shipto.companyname + '/' + record.idver,
                 }
             }))
 
@@ -312,9 +318,9 @@ export class RMARelationList extends LitElement {
                 bubbles: true
             }))
 
-            this.route.path = '/vendorshiprmas/view/' + record.shipto.companyname + '/' + record.idver
+            // this.route.path = '/vendorshiprmas/view/' + record.shipto.companyname + '/' + record.idver
 
-            this.path = ""
+            // this.path = ""
         }
     }
 
