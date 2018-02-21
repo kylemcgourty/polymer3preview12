@@ -120,7 +120,6 @@
 
             this.data = data
 
-            console.log('the data after set', data, this.data)
 
             this.setTable(this.data)
 
@@ -272,7 +271,6 @@
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
 
-            console.log('the item and the data', item, this.data)
             this.data.splice(item.id, 1)
 
              this.data.forEach((item, i) => {
@@ -296,7 +294,6 @@
         add(e) {
 
 
-            console.log('the data and last', this.data, last)
 
              this.data.forEach((item, i) => {
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
@@ -419,7 +416,6 @@
 
         swap(item) {
 
-            console.log('item', item)
             this.data.forEach((item, i) => {
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
@@ -433,7 +429,6 @@
                 index = index - 1
             }
 
-            console.log('data and index before send', this.data, index)
 
             this.dispatchEvent(new CustomEvent('openSort', {
                 composed: true,
