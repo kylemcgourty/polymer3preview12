@@ -113,7 +113,6 @@
 
                 this.list = this.model.lineitems
                 lineitems = JSON.parse(JSON.stringify(model.lineitems))
-                console.log('the index, lineitems',index, this.index, lineitems)
 
                 lineitems[this.index].highlight = "selected"
 
