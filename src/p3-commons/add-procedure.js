@@ -114,7 +114,13 @@
 
         openfunction(data) {
 
+            data.forEach((item, i) => {
+                 item.id = i
+            })
+
             this.data = data
+
+            console.log('the data after set', data, this.data)
 
             this.setTable(this.data)
 
@@ -231,28 +237,22 @@
 
         open1(data) {
 
+               
 
-            this.set('data', [])
+                this.data = data
 
+                if (this.functions){
+                    this.data.unshift(this.header)
+                }
 
+                this.data.forEach((item, i) => {
+                    item.id = i
+                })
 
-            setTimeout(function() {
-
-
-
-
-                this.set('data', data)
-
-
-                this.dispatchEvent(new CustomEvent('iron-resize', {
-                    composed: true,
-                    bubbles: true,
-
-                }))
+                this.setTable(this.data)
 
 
 
-            }.bind(this), 700)
 
         }
 
@@ -291,6 +291,8 @@
         add(e) {
 
             var last = this.data[this.data.length -1].id + 1 
+
+            console.log('the data and last', this.data, last)
 
              this.data.forEach((item, i) => {
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
@@ -407,19 +409,28 @@
 
         swap(item) {
 
+            console.log('item', item)
             this.data.forEach((item, i) => {
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
 
-
             let index = item.id
+
+
+            if (this.functions){
+                this.header = this.data[0]
+                this.data = this.data.slice(1)
+                index = index - 1
+            }
+
+            console.log('data and index before send', this.data, index)
+
             this.dispatchEvent(new CustomEvent('openSort', {
                 composed: true,
                 bubbles: true,
                 detail: {
                     data: this.data,
                     index: index,
-                    service: "addprocedure"
                 }
             }))
         }
