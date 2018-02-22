@@ -33,7 +33,15 @@
 
         }
 
-        open(data, color) {
+        open(data, color, mobile) {
+
+            if (mobile){
+                this.mobiledata = JSON.parse(JSON.stringify(data))
+                this.dataConverter(JSON.parse(JSON.stringify(this.mobiledata)))
+                data = this.convertedData
+
+                console.log('the data afte rconversion', data)
+            }
 
 
             if (data) {
@@ -147,10 +155,12 @@
             elem.style.setProperty('--title-background-normal', color)
 
 
-             this.data1 = data
+            if (!mobile){
+                this.data1 = data
 
 
-             this.converter()
+                this.converter()
+             }
 
             const mobiledatatable = items => {
 
@@ -195,7 +205,7 @@
                                 </div>`}
 
 
-
+                                console.log('the mobile data before render', this.mobiledata)
                      this.mobiledata.forEach((item, i) => {
                         item.id = i
                      })
@@ -407,7 +417,12 @@
       }
 
       addFunctionMobile(item){
-         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData()}}))
+
+      
+
+        console.log('value of retrieved',  this.mobiledata, item)
+
+         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.mobiledata}}))
 
       }
 
