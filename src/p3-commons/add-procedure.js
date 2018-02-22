@@ -316,6 +316,7 @@
             if (this.functions){
 
                 this.data.push({
+                    columndata: "",
                     procedures: "",
                     pass: "",
                     issue: "",
