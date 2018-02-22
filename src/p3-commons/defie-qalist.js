@@ -64,7 +64,7 @@
                                                                     <div class="box1-data layout horizontal">
                                                                         <div class="bd2-1head">Procedures: </div>
                                                                         <div class="bd1-1" data-procedure$="${item.title}">
-                                                                                <input disabled class="input1" value="${item.procedures}">
+                                                                                <input id$="procedures-${item.id}" disabled class="input1" value="${item.procedures}">
                                                                         </div>
                                                                         <paper-icon-button class="procedure-icons" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
                                                                         <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></paper-icon-button>
@@ -74,7 +74,7 @@
                                                                     <div class="box4-data layout horizontal">
                                                                         <div class="bd4-1">
                                                                             <span class="bd4-1head">Pass | Fail:</span>
-                                                                                <input disabled="${this.determiner(item.title)}" value="${item.pass}" class="input1">
+                                                                                <input id$="pass-${item.id}" disabled="${this.determiner(item.title)}" value="${item.pass}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -83,7 +83,7 @@
                                                                         <div class="bd8-2">
                                                                             <span class="bd8-1head"> 
                                                                                     Issue:</span>
-                                                                                <input disabled="${this.determiner(item.title)}" value="${item.issue}" class="input1">
+                                                                                <input id$="issue-${item.id}" disabled="${this.determiner(item.title)}" value="${item.issue}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -91,7 +91,7 @@
                                                                     <div class="box3-data layout horizontal">
                                                                         <div class="bd3-2">
                                                                             <span class="bd3-1head"> Resolution</span>
-                                                                                <input disabled="${this.determiner(item.title)}" value="${item.resolution}" class="input1">
+                                                                                <input id$="resolution-${item.id}" disabled="${this.determiner(item.title)}" value="${item.resolution}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -99,7 +99,7 @@
                                                                     <div class="box1-data layout horizontal">
                                                                         <div class="bd1-2">
                                                                             <span class="bd1-1head"> Replacement</span>
-                                                                                <input disabled="${this.determiner(item.title)}" value="${item.replacement}" class="input1">
+                                                                                <input id$="replacement-${item.id}" disabled="${this.determiner(item.title)}" value="${item.replacement}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -107,7 +107,7 @@
                                                                     <div class="box7-data layout horizontal">
                                                                         <div class="bd7-2">
                                                                             <span class="bd7-1head"> QA </span>
-                                                                                <input disabled="${this.determiner(item.title)}" value="${item.qa}" class="input1">
+                                                                                <input id$="qa-${item.id}" disabled="${this.determiner(item.title)}" value="${item.qa}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -115,7 +115,7 @@
                                                                     <div class="box5-data layout horizontal">
                                                                         <div class="bd5-2">
                                                                             <span class="bd5-1head"> Sign Off </span>
-                                                                                <input disabled="${this.determiner(item.title)}" value="${item.signoff}" class="input1">
+                                                                                <input id$="signoff-${item.id}" disabled="${this.determiner(item.title)}" value="${item.signoff}" class="input1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -156,7 +156,7 @@
                               <div class="procedures-mobile">
                                 <div class="layout horizontal title-border mobileheader">
                                     <div class="mobiletitle "> Functions </div>
-                                    <paper-icon-button class="procedure-icons"  on-tap="${()=>{this.addProcedure(); console.log('button hit')}}" icon="icons:add-circle-outline"></paper-icon-button>
+                                    <paper-icon-button class="procedure-icons"  on-tap="${()=>{this.addProcedure()}}" icon="icons:add-circle-outline"></paper-icon-button>
 
                                 </div>
 
@@ -168,21 +168,21 @@
                             item =>html`      <div>
                                                 <div class="mobile-container">
                                                     <div class="layout horizontal">
-                                                        <div style="display: ${this.computeDisplay(item.title)}">
+                                                        <div style="display: ${this.computeDisplay(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle layout horizontal">
                                                                     <input disabled value="${item.procedures}" class="input1">
-                                                                <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="addFunctionMobile" icon="add-circle"></paper-icon-button>
+                                                                <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${() =>{this.addFunctionMobile(item)}}" icon="add-circle"></paper-icon-button>
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input disabled value="${item.columndata}" class="input1">
                                                             </div>
                                                         </div>
-                                                        <div style="display: ${!this.computeDisplay1(item.title)}">
+                                                        <div style="display: ${this.computeDisplay1(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle">
-                                                                    <input class="input1" value="${item.procedures}">
+                                                                    <input disabled class="input1" value="${item.procedures}">
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
-                                                                    <input class="input1" value="${item.columndata}">
+                                                                    <input id="data-${item.id}" class="input1" value="${item.columndata}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -193,6 +193,10 @@
 
 
                                 console.log('the mobile data', this.mobiledata)
+
+                     this.mobiledata.forEach((item, i) => {
+                        item.id = i
+                     })
                       render(mobiledatatable(this.mobiledata), this.shadowRoot.getElementById('table2'))
 
 
@@ -215,6 +219,8 @@
                 return "flex"
             } else if (this.view) {
                 return "flex"
+            } else if (val == "function"){
+                return "none"
             } else {
                 return "none"
             }
@@ -228,6 +234,8 @@
                 return "none"
             } else if (this.view) {
                 return "none"
+            } else if (val == "function"){
+                return "flex"
             } else {
                 return "flex"
             }
@@ -367,18 +375,6 @@
         }
 
 
-        computeDisplay(val, item) {
-
-
-            if (val === "procedure-title") {
-                return true
-            } else if (this.view) {
-                return true
-            } else {
-                return false
-            }
-
-        }
 
 
     determiner(item){
@@ -405,8 +401,73 @@
          this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true, detail: { item: item}}))
       }
 
+      addFunctionMobile(item){
+         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item}}))
+
+      }
+
       retrieveData(){
-         return this.data
+
+        if (window.innerWidth > 1842){
+            for (var i=1; i < this.data.length; i++){
+                this.data[i].procedures = this.shadowRoot.getElementById('procedures-'+i).value
+                this.data[i].pass = this.shadowRoot.getElementById('pass-'+i).value
+                this.data[i].issue = this.shadowRoot.getElementById('issue-'+i).value
+                this.data[i].resolution = this.shadowRoot.getElementById('resolution-'+i).value
+                this.data[i].replacement = this.shadowRoot.getElementById('replacement-'+i).value
+                this.data[i].qa = this.shadowRoot.getElementById('qa-'+i).value
+                this.data[i].signoff = this.shadowRoot.getElementById('signoff-'+i).value
+
+            }
+        } else {
+            for (var i=0; i < this.mobiledata.length; i++ ){
+
+                let j = i + 1
+                if (this.mobiledata[i].columndata == "Pass | Fail" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "pass")
+                } else if (this.mobiledata[i].columndata == "Issues" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "issue")
+
+                } else if (this.mobiledata[i].columndata == "Resolution" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "resolution")
+
+                } else if (this.mobiledata[i].columndata == "Replacement" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "replacement")
+
+                } else if (this.mobiledata[i].columndata == "QA" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "qa")
+
+                } else if (this.mobiledata[i].columndata == "Sign Off" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "signoff")
+
+                } 
+
+            
+            }
+
+            console.log('the qa mobile data', this.mobiledata, this.data)
+
+        }
+
+         // return this.data
+      }
+
+      seeker(index, type){
+
+        let bool = true
+
+        while(bool) {
+
+            if (this.mobiledata[index] == undefined || this.mobiledata[index].title == "procedure-title"){
+                break;
+            }
+
+            this.mobiledata[index][type] = this.shadowRoot.getElementById('data-'+index).value
+
+            ++index
+        }
+
+
       }
     
         
@@ -739,6 +800,12 @@
             float: right;
             width: 20px;
             height: 20px;
+        }
+
+        .functionscontainer {
+            width: 98%;
+            margin: auto;
+            margin-top: 5px;
         }
 
         .subtable {
