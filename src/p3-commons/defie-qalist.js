@@ -447,6 +447,12 @@
 
             console.log('the qa mobile data', this.mobiledata, this.data)
 
+            this.convertedData = []
+
+            this.dataConverter(this.mobiledata)
+
+            console.log('the converted data', this.convertedData)
+
         }
 
          // return this.data
@@ -468,6 +474,66 @@
         }
 
 
+      }
+
+      dataConverter(mobilemodel){
+
+        if (mobilemodel.length == 0){
+            return
+        }
+
+        let finalIndex
+
+         let bool = true
+
+         let index = 1
+
+         while (bool) {
+            if (mobilemodel[index] == undefined) {
+                return 
+            } 
+
+            if (mobilemodel[index].title == "procedure-title"){
+                break;
+            }
+
+            ++index
+         }
+
+         if (index == 1){
+                if (mobilemodel.length > 6){
+                this.dataConverter(mobilemodel.slice(6))
+            } else{
+                return
+            }
+         } else {
+
+
+            this.convertedData.push(mobilemodel[0])
+
+            for (let i=1; i<index; i++){
+
+            this.convertedData.push({title:"function",
+                pass: mobilemodel[i].pass,
+                issue: mobilemodel[i + index].issue,
+                resolution: mobilemodel[i + 2*index].resolution,
+                replacement: mobilemodel[i + 3*index].replacement,
+                qa: mobilemodel[i + 4*index].qa,
+                signoff: mobilemodel[i + 5*index].signoff,
+                })
+
+                finalIndex = i + 5*index
+
+            }
+                
+
+         }
+
+         ++finalIndex
+
+         console.log('the final index and the slice', finalIndex, mobilemodel.slice(finalIndex))
+
+         this.dataConverter(mobilemodel.slice(finalIndex))
       }
     
         
