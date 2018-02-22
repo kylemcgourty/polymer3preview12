@@ -36,6 +36,7 @@
             this.location = ""
 
 
+            console.log('data in add procedure', data)
             if (data) {
 
                 if (data.length > 1) {
@@ -117,7 +118,6 @@
             data.forEach((item, i) => {
                  item.id = i
             })
-
 
             this.data = data
 
