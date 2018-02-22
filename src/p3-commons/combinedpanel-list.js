@@ -493,10 +493,10 @@ export class CombinedpanelList extends LitElement {
             this.searchurl = this.url
         } else {
             let baseurl = this.url.split("/")
-
-            if (baseurl[2] == "vendor") {
+            console.log(baseurl)
+            if (baseurl[1] == "vendor") {
                 this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
-            } else if (baseurl[2] = "customer") {
+            } else if (baseurl[1] = "customer") {
                 this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
             }
         }
