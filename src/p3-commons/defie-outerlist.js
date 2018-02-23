@@ -328,7 +328,7 @@
                                                             <input disabled value="${this.col8}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                            <input style="display:${this.editableCheck(item.col8.editable)};  border-bottom: ${item.col8.border};" value="${item.col8.value}" data-align$="${item.col8.textalign}" on-focusout="${() =>this.inputEvent8(item)}" on-tap="${()=> this.tapEvent8(item)}" class="input1 inputnum">
+                                                            <input style="display:${this.editableCheck(item.col8.editable)};  border-bottom: ${item.col8.border};" id$="col8-${item.id}" value="${item.col8.value}" data-align$="${item.col8.textalign}" on-focusout="${() =>this.inputEvent8(item)}" on-tap="${()=> this.tapEvent8(item)}" class="input1 inputnum">
                                                             <input style="display:${this.editableCheck1(item.col8.editable)};  border-bottom: ${item.col8.border};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -550,11 +550,13 @@
         }
 
         tapEvent8(item) {
+
+           
             this.dispatchEvent(new CustomEvent('tapEvent8', {
                 bubbles: true,
                 composed: true,
                 detail: {
-                    item: item
+                    item: item,
                 }
             }))
         }
