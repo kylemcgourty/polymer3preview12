@@ -328,7 +328,8 @@
                                                             <input disabled value="${this.col8}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                            <input disabled value="${item.col8.value}" data-align$="${item.col8.textalign}" class="input1 inputnum">
+                                                            <input style="display:${this.editableCheck(item.col8.editable)};  border-bottom: ${item.col8.border};" id$="col8-${item.id}" value="${item.col8.value}" data-align$="${item.col8.textalign}" on-focusout="${() =>this.inputEvent8(item)}" on-tap="${()=> this.tapEvent8(item)}" class="input1 inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col8.editable)};  border-bottom: ${item.col8.border};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -338,8 +339,8 @@
                                                             <input disabled value="${this.col9}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                            <input style="display:${this.editableCheck(item.col9.editable)};" value="${item.col9.value}" data-align$="${item.col9.textalign}" on-focusout="${() =>this.inputEvent9(item)}" class="outline input1 inputnum">
-                                                            <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
+                                                            <input style="display:${this.editableCheck(item.col9.editable)};  border-bottom: ${item.col9.border};" value="${item.col9.value}" data-align$="${item.col9.textalign}" on-focusout="${() =>this.inputEvent9(item)}" on-tap="${()=> this.tapEvent9(item)}" class="outline input1 inputnum">
+                                                            <input style="display:${this.editableCheck1(item.col9.editable)};  border-bottom: ${item.col9.border};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
                                             </div>
@@ -538,8 +539,40 @@
             }))
         }
 
+        inputEvent8(item) {
+            this.dispatchEvent(new CustomEvent('inputEvent8', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    item: item
+                }
+            }))
+        }
+
+        tapEvent8(item) {
+
+           
+            this.dispatchEvent(new CustomEvent('tapEvent8', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    item: item,
+                }
+            }))
+        }
+
         inputEvent9(item) {
             this.dispatchEvent(new CustomEvent('inputEvent9', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    item: item
+                }
+            }))
+        }
+
+        tapEvent9(item) {
+            this.dispatchEvent(new CustomEvent('tapEvent9', {
                 bubbles: true,
                 composed: true,
                 detail: {

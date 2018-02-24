@@ -33,7 +33,15 @@
 
         }
 
-        open(data, color) {
+        open(data, color, mobile) {
+
+            if (mobile){
+                this.mobiledata = JSON.parse(JSON.stringify(data))
+                this.dataConverter(JSON.parse(JSON.stringify(this.mobiledata)))
+                data = this.convertedData
+
+                console.log('the data afte rconversion', data)
+            }
 
 
             if (data) {
@@ -133,6 +141,8 @@
             </div>`
                 }
 
+
+
             this.data = data
                 
             render(datatable(data), this.shadowRoot.getElementById('table')) 
@@ -145,9 +155,12 @@
             elem.style.setProperty('--title-background-normal', color)
 
 
-             this.data1 = data
+            if (!mobile){
+                this.data1 = data
 
-             this.converter()
+
+                this.converter()
+             }
 
             const mobiledatatable = items => {
 
@@ -179,7 +192,7 @@
                                                         </div>
                                                         <div style="display: ${this.computeDisplay1(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle">
-                                                                    <input disabled class="input1" value="${item.procedures}">
+                                                                    <input id="procedures-${item.id}" disabled class="input1" value="${item.procedures}">
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input id="data-${item.id}" class="input1" value="${item.columndata}">
@@ -192,8 +205,7 @@
                                 </div>`}
 
 
-                                console.log('the mobile data', this.mobiledata)
-
+                                console.log('the mobile data before render', this.mobiledata)
                      this.mobiledata.forEach((item, i) => {
                         item.id = i
                      })
@@ -312,6 +324,8 @@
             let result = this.data1.slice(this.start, this.end)
 
 
+
+
             let group = []
 
 
@@ -327,6 +341,8 @@
             let l4 = 3 * length / 6
             let l5 = 4 * length / 6
             let l6 = 5 * length / 6
+
+
 
 
 
@@ -391,18 +407,22 @@
 
       addProcedure(){
 
-        console.log('add procedure called')
-        this.dispatchEvent(new CustomEvent('addProcedure', {compose: true, bubbles: true}))
+        this.dispatchEvent(new CustomEvent('addProcedure', {compose: true, bubbles: true, detail: {data : this.retrieveData()}}))
       }
       
 
       addFunction(item){
 
-         this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true, detail: { item: item}}))
+         this.dispatchEvent(new CustomEvent('addFunction', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData()}}))
       }
 
       addFunctionMobile(item){
-         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item}}))
+
+      
+
+        console.log('value of retrieved',  this.mobiledata, item)
+
+         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.mobiledata}}))
 
       }
 
@@ -419,6 +439,8 @@
                 this.data[i].signoff = this.shadowRoot.getElementById('signoff-'+i).value
 
             }
+
+            return  this.data
         } else {
             for (var i=0; i < this.mobiledata.length; i++ ){
 
@@ -445,13 +467,24 @@
             
             }
 
-            console.log('the qa mobile data', this.mobiledata, this.data)
 
             this.convertedData = []
 
             this.dataConverter(this.mobiledata)
 
-            console.log('the converted data', this.convertedData)
+
+             this.convertedData.unshift({
+                    procedures: "Functions",
+                    pass: "Pass | Fail",
+                    issue: "Issue",
+                    resolution: "Resolution",
+                    replacement: "Replacement",
+                    qa: "QA",
+                    signoff: "Sign Off"
+
+                })
+
+             return this.convertedData
 
         }
 
@@ -462,6 +495,7 @@
 
         let bool = true
 
+
         while(bool) {
 
             if (this.mobiledata[index] == undefined || this.mobiledata[index].title == "procedure-title"){
@@ -469,6 +503,9 @@
             }
 
             this.mobiledata[index][type] = this.shadowRoot.getElementById('data-'+index).value
+            let index2 = index + 1
+            this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('procedures-'+index2).value
+
 
             ++index
         }
@@ -477,6 +514,7 @@
       }
 
       dataConverter(mobilemodel){
+
 
         if (mobilemodel.length == 0){
             return
@@ -502,19 +540,26 @@
 
          if (index == 1){
                 if (mobilemodel.length > 6){
+                delete mobilemodel[0].columndata
+                this.convertedData.push(mobilemodel[0])
                 this.dataConverter(mobilemodel.slice(6))
+                return
             } else{
+                delete mobilemodel[0].columndata
+                this.convertedData.push(mobilemodel[0])
                 return
             }
          } else {
 
-
+            delete mobilemodel[0].columndata
             this.convertedData.push(mobilemodel[0])
+
 
             for (let i=1; i<index; i++){
 
             this.convertedData.push({title:"function",
                 pass: mobilemodel[i].pass,
+                procedures: mobilemodel[i].procedures,
                 issue: mobilemodel[i + index].issue,
                 resolution: mobilemodel[i + 2*index].resolution,
                 replacement: mobilemodel[i + 3*index].replacement,
@@ -531,7 +576,6 @@
 
          ++finalIndex
 
-         console.log('the final index and the slice', finalIndex, mobilemodel.slice(finalIndex))
 
          this.dataConverter(mobilemodel.slice(finalIndex))
       }

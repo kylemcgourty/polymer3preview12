@@ -206,7 +206,7 @@
                         <div style="display: ${this.binfo.info4_display}" class="my-content">
                             <div class="col-xs-3">${this.binfo.info4}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo4" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
+                                    <input class="input col-xs-9" id="binfo4" value="${this.model.binfovalues.binfo4_value}" on-focusout=${() => {this.binfo4focus(this.shadowRoot.getElementById("binfo4").value)}} disabled="${this.disabledinput.binfo4}">
                             </div>
                             <div id="${this.searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo4}">
                                 <iron-icon id="${this.searchid.binfo4}" on-tap="${(e) => this.changepanel(e)}" icon="search" class="hover"></iron-icon>
@@ -215,7 +215,7 @@
                         <div style="display: ${this.binfo.info5_display}" class="my-content">
                             <div class="col-xs-3">${this.binfo.info5}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo5" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
+                                    <input class="input col-xs-9" id="binfo5" value="${this.model.binfovalues.binfo5_value}"  disabled="${this.disabledinput.binfo5}">
                             </div>
                             <div id="${this.searchid.binfo5}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo5}">
                                 <iron-icon id="${this.searchid.binfo5}" on-tap="${(e) => this.changepanel(e)}" icon="search" class="hover"></iron-icon>
@@ -481,7 +481,15 @@
             }
         }
         
-        
+       binfo4focus(value){
+            this.dispatchEvent(new CustomEvent('binfo4focus', {
+                        composed: true,
+                        bubbles: true,
+                        detail: {
+                            item: value
+                        }
+            }))
+       } 
 
         ready() {
             super.ready()

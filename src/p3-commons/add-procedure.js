@@ -112,12 +112,17 @@
 
         }
 
-        openfunction(data) {
+        openfunction(data, mobile) {
+
+            if (mobile){
+                this.mobile = true
+            } else {
+                this.mobile = false
+            }
 
             data.forEach((item, i) => {
                  item.id = i
             })
-
 
             this.data = data
 
@@ -311,6 +316,7 @@
             if (this.functions){
 
                 this.data.push({
+                    columndata: "",
                     procedures: "",
                     pass: "",
                     issue: "",
@@ -359,6 +365,21 @@
              this.data.forEach((item, i) => {
                  this.data[i].procedures = this.shadowRoot.getElementById('procedure-'+item.id).value
             })
+
+             if (this.functions && this.mobile){
+                       this.dispatchEvent(new CustomEvent('mobilefunctions', {
+                    bubbles: true,
+                    composed: true,
+                    detail: {
+                        data: this.data
+                    }
+                }))
+
+                   this.mobile = false
+
+                   return
+
+             }
 
             if (this.functions){
 
