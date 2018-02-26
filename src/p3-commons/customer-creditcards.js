@@ -7,7 +7,7 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 import '../../src/p3-commons/search-inner.js'
 
 
-export class CombinedpanelList extends LitElement {
+export class CustomerCreditcards extends LitElement {
     static get properties() {
         return {
             panelname: {
@@ -249,6 +249,7 @@ export class CombinedpanelList extends LitElement {
         this.newpage = false
         this.editpage = true
         this.listpage = true
+
         this.arrayvalues = arrayvalues
         this.panelname = panelname
         this.displaylist = displaylist
@@ -264,6 +265,11 @@ export class CombinedpanelList extends LitElement {
         this.singleObject.fieldvalue8 = ""
         this.singleObject.fieldvalue9 = ""
         this.singleObject.fieldvalue10 = ""
+        this.singleObject.fieldvalue11 = ""
+        this.singleObject.fieldvalue12 = ""
+        this.singleObject.fieldvalue13 = ""
+        this.singleObject.fieldvalue14 = ""
+        this.singleObject.fieldvalue15 = ""
         this.singleObject.id = Number
         this.singleObject.status = Boolean
 
@@ -272,25 +278,12 @@ export class CombinedpanelList extends LitElement {
         if (typeof url === 'string') this.url = url;
         let baseurl = this.url.split("/")
 
-        if (baseurl[2] == "vendor") {
-            this.searchurl = "/vendor/search/" + `${BElocation}` + "/" + baseurl[5]
-            // this.set('searchoption', "vendorid")
-        } else if (baseurl[2] = "customer") {
-            this.searchurl = "/customer/search/" + `${BElocation}` + "/" + baseurl[5]
+        this.searchurl = "/customer/search/" + `${BElocation}` + "/" + baseurl[5]
 
-        }
-
-        if (this.panelname == "Billing" || this.panelname == "Shipping") {
-            this.spacer = "margin-top:220px"
-        } else if (this.panelname == "Trade") {
-            this.spacer = "margin-top:120px"
-        } else {
-            this.spacer = "margin-top:160px"
-        }
+        this.spacer = "margin-top:0px"
 
         const datatable = (item, newpage, spacer) => {
             return html ` 
-
                     <div class="title-rightpaneldraw">
                         New ${ panelname } Info
                     </div>
@@ -301,85 +294,146 @@ export class CombinedpanelList extends LitElement {
                         </div>
                     </div>
                     <div class="title-style side-padding">
-                        <div class="my-content" style="display: ${ displaylist.displayfield1 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue1" value="${ item.fieldvalue1 }">
+                      <div class='row'>
+                          <div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">ACH</div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield1 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue1" value="${ item.fieldvalue1 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield2 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue2" value="${ item.fieldvalue2 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield3 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue3" value="${ item.fieldvalue3 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield4 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue4" value="${ item.fieldvalue4 }">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield2 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue2" value="${ item.fieldvalue2 }">
+                      </div>
+                      <div class='row'>
+                        <div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">Wire Info</div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield5 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue5" value="${ item.fieldvalue5 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield6 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue6" value="${ item.fieldvalue6 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield7 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue7" value="${ item.fieldvalue7 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield8 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue8" value="${ item.fieldvalue8 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield9 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue9" value="${ item.fieldvalue9 }">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield3 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue3" value="${ item.fieldvalue3 }">
+                      </div>
+                      <div class='row'>
+                        <div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">Credit Card</div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield10 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue10" value="${ item.fieldvalue10 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield4 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue4" value="${ item.fieldvalue4 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield11 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname11 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue11" value="${ item.fieldvalue11 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield5 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue5" value="${ item.fieldvalue5 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield12 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname12 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue12" value="${ item.fieldvalue12 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield6 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue6" value="${ item.fieldvalue6 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield13 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname13 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue13" value="${ item.fieldvalue13 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield7 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue7" value="${ item.fieldvalue7 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield14 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname14 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue14" value="${ item.fieldvalue14 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield8 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue8" value="${ item.fieldvalue8 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield15 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname15 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="newfieldvalue15" value="${ item.fieldvalue15 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield9 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue9" value="${ item.fieldvalue9 }">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield10 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="newfieldvalue10" value="${ item.fieldvalue10 }">
-                                </div>
-                            </div>
+                          </div>
                         </div>
                         <div class="my-content">
                         </div>
@@ -423,8 +477,13 @@ export class CombinedpanelList extends LitElement {
         this.singleObject.fieldvalue8 = this.shadowRoot.getElementById('newfieldvalue8').value
         this.singleObject.fieldvalue9 = this.shadowRoot.getElementById('newfieldvalue9').value
         this.singleObject.fieldvalue10 = this.shadowRoot.getElementById('newfieldvalue10').value
+        this.singleObject.fieldvalue11 = this.shadowRoot.getElementById('newfieldvalue11').value
+        this.singleObject.fieldvalue12 = this.shadowRoot.getElementById('newfieldvalue12').value
+        this.singleObject.fieldvalue13 = this.shadowRoot.getElementById('newfieldvalue13').value
+        this.singleObject.fieldvalue14 = this.shadowRoot.getElementById('newfieldvalue14').value
+        this.singleObject.fieldvalue15 = this.shadowRoot.getElementById('newfieldvalue15').value
         this.singleObject.status = true
-        console.log(this.singleObject)
+        console.log(this.arrayvalues)
         var newObj = {}
         this.arrayvalues.map((key, index) => {
             var newNumber = parseInt(index) + 1
@@ -489,17 +548,10 @@ export class CombinedpanelList extends LitElement {
         var BElocation = this.panelname.toLowerCase()
 
         if (typeof url === 'string') this.url = url
-        if (this.panelname == "Profile") {
-            this.searchurl = this.url
-        } else {
-            let baseurl = this.url.split("/")
-            console.log(baseurl)
-            if (baseurl[1] == "vendor") {
-                this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
-            } else if (baseurl[1] = "customer") {
-                this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
-            }
-        }
+
+        let baseurl = this.url.split("/")
+
+        this.searchurl = "/customer/type/" + "credit" + "/" + baseurl[4] + "/" + baseurl[5]
         this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
         this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
         this.shadowRoot.querySelector('#ajaxList').generateRequest()
@@ -597,12 +649,11 @@ export class CombinedpanelList extends LitElement {
         }
 
         if (this.model.length > 0) {
-            if (this.panelname === "Billing") {
-                this.model[length - 1].visibility2 = false
+                this.model[length - 1].visibility2 = true
                 this.model[length - 1].visibility3 = false
                 this.model[length - 1].visibility4 = false
-                if (this.model[length - 1].id === 1000) {
-                    this.model[length - 1].visibility2 = false
+                if (this.model[length - 1].id === 10001) {
+                    this.model[length - 1].visibility2 = true
                     this.model[length - 1].visibility3 = true
                     this.model[length - 1].visibility4 = true
                     // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
@@ -612,73 +663,8 @@ export class CombinedpanelList extends LitElement {
                     // this.notifyPath('model.' + (length - 1) + '.visibility3')
                     // this.notifyPath('model.' + (length - 1) + '.visibility4')
                 }
-            } else if (this.panelname === "Shipping") {
-                this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = false
-                this.model[length - 1].visibility4 = false
-                if (this.model[length - 1].id === 10000) {
-                    this.model[length - 1].visibility2 = false
-                    this.model[length - 1].visibility3 = true
-                    this.model[length - 1].visibility4 = true
-                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
-                }
-            } else if (this.panelname === "Contact") {
-                this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = false
-                this.model[length - 1].visibility4 = false
-                if (this.model[length - 1].id === 100000) {
-                    this.model[length - 1].visibility2 = false
-                    this.model[length - 1].visibility3 = true
-                    this.model[length - 1].visibility4 = true
-                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
-                }
-            } else if (this.panelname === "Bank") {
-                this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = false
-                this.model[length - 1].visibility4 = false
-                if (this.model[length - 1].id === 101) {
-                    this.model[length - 1].visibility2 = false
-                    this.model[length - 1].visibility3 = true
-                    this.model[length - 1].visibility4 = true
-                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
-                }
-            } else if (this.panelname === "Trade") {
-                this.model[length - 1].visibility2 = false
-                this.model[length - 1].visibility3 = false
-                this.model[length - 1].visibility4 = false
-                if (this.model[length - 1].id === 1001) {
-                    this.model[length - 1].visibility2 = false
-                    this.model[length - 1].visibility3 = true
-                    this.model[length - 1].visibility4 = true
-                    // this.set('model.' + (length - 1) + '.visibility2', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility3', 'hidden')
-                    // this.set('model.' + (length - 1) + '.visibility4', 'hidden')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility2')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility3')
-                    // this.notifyPath('model.' + (length - 1) + '.visibility4')
-                }
-            } else if (this.panelname === "Profile") {
-                for (let i = 0; i < this.model.length; i++) {
-                    this.model[i].visibility2 = false
-                    this.model[i].visibility3 = true
-                    this.model[i].visibility4 = true
-                }
-            }
+            console.log("model visibility   ", this.model)
+
         }
 
         const datatable = (items, listpage, panelname, searchdisplay, searchkeyindexes, searchfields, displaylist, fieldnamelist) => {
@@ -704,14 +690,17 @@ export class CombinedpanelList extends LitElement {
                     <div class="row layout horizontal">
                         <div class="my-content"></div>
                         <div class="layout vertical" style="width: 100%;">
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">ACH</div>
+                            </div>
                             <div class="my-content" style="display: ${ displaylist.displayfield1 }; height:19px">
                                 <div class="col-xs-3">${ fieldnamelist.fieldname1 }</div>
                                 <div class="text-right col-xs-9" style="float:right">
                                    <div class="layout horizontal">
                                     <input disabled class="iconinput input" value="${ item.fieldvalue1 }" >
-                                    <paper-icon-button hidden=${ item.visibility2 } class="right-icon1 smalleranimation" icon="icons:settings-overscan" on-tap="${() => this.populateObject(item)}"></paper-icon-button>
-                                    <paper-icon-button hidden=${ item.visibility3 } class="right-icon2 smalleranimation" icon="create" on-tap="${() => this.edit(item)}"></paper-icon-button>
-                                    <paper-icon-button hidden=${ item.visibility4 } class="right-icon3 smalleranimation" icon="icons:close" on-tap="${() => this.delete(item)}"></paper-icon-button>
+                                    <paper-icon-button hidden="true" class="right-icon1 smalleranimation" icon="icons:settings-overscan" on-tap="${() => this.populateObject(item)}"></paper-icon-button>
+                                    <paper-icon-button hidden=${ item.visibility3 } class="right-icon1 smalleranimation" icon="create" on-tap="${() => this.edit(item)}"></paper-icon-button>
+                                    <paper-icon-button hidden=${ item.visibility4 } class="right-icon2 smalleranimation" icon="icons:close" on-tap="${() => this.delete(item)}"></paper-icon-button>
                                   </div>
                                 </div>
                             </div>
@@ -738,6 +727,9 @@ export class CombinedpanelList extends LitElement {
                                         <input disabled class="input" value="${ item.fieldvalue4 }">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">Wire Info</div>
                             </div>
                             <div class="my-content" style="display: ${ displaylist.displayfield5 }">
                                 <div class="col-xs-3">${ fieldnamelist.fieldname5 }</div>
@@ -779,11 +771,54 @@ export class CombinedpanelList extends LitElement {
                                     </div>
                                 </div>
                             </div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">Credit Card</div>
+                            </div>
                             <div class="my-content" style="display: ${ displaylist.displayfield10 }">
                                 <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
                                 <div class="text-right col-xs-9" style="float:right">
                                     <div>
                                         <input disabled class="input" value="${ item.fieldvalue10 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield11 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname11 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue11 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield12 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname12 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue12 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield13 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname13 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue13 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield14 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname14 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue14 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield15 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname15 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input disabled class="input" value="${ item.fieldvalue15 }">
                                     </div>
                                 </div>
                             </div>
@@ -818,13 +853,7 @@ export class CombinedpanelList extends LitElement {
             this.temporaryHolder = tempSingleObject
         }
 
-        if (this.panelname == "Billing" || this.panelname == "Shipping") {
-            this.spacer = "margin-top:220px"
-        } else if (this.panelname == "Trade") {
-            this.spacer = "margin-top:120px"
-        } else {
-            this.spacer = "margin-top:160px"
-        }
+        this.spacer = "margin-top:0px"
 
         const datatable = (item, panelname, displaylist, fieldnamelist, spacer) => {
             return html ` 
@@ -838,85 +867,146 @@ export class CombinedpanelList extends LitElement {
                         </div>
                     </div>
                     <div class="title-style side-padding">
-                        <div class="my-content" style="display: ${ displaylist.displayfield1 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue1" value="${ item.fieldvalue1 }">
+                        <div class='row'>
+                          <div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">ACH</div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield1 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname1 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue1" value="${ item.fieldvalue1 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield2 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue2" value="${ item.fieldvalue2 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield3 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue3" value="${ item.fieldvalue3 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield4 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue4" value="${ item.fieldvalue4 }">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield2 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname2 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue2" value="${ item.fieldvalue2 }">
+                      </div>
+                      <div class='row'>
+                        <div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">Wire Info</div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield5 }">
+                                <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue5" value="${ item.fieldvalue5 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield6 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue6" value="${ item.fieldvalue6 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield7 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue7" value="${ item.fieldvalue7 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield8 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue8" value="${ item.fieldvalue8 }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield9 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue9" value="${ item.fieldvalue9 }">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield3 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname3 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue3" value="${ item.fieldvalue3 }">
+                      </div>
+                      <div class='row'>
+                        <div>
+                            <div class="my-content top-margin">
+                                <div class="col-xs-3" style="font-size: 15px; font-weight: bold">Credit Card</div>
+                            </div>
+                            <div class="my-content" style="display: ${ displaylist.displayfield10 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue10" value="${ item.fieldvalue10 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield4 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname4 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue4" value="${ item.fieldvalue4 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield11 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname11 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue11" value="${ item.fieldvalue11 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield5 }">
-                            <div class="col-xs-3"> ${ fieldnamelist.fieldname5 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue5" value="${ item.fieldvalue5 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield12 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname12 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue12" value="${ item.fieldvalue12 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield6 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname6 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue6" value="${ item.fieldvalue6 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield13 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname13 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue13" value="${ item.fieldvalue13 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield7 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname7 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue7" value="${ item.fieldvalue7 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield14 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname14 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue14" value="${ item.fieldvalue14 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield8 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname8 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue8" value="${ item.fieldvalue8 }">
+                            <div class="my-content" style="display: ${ displaylist.displayfield15 }">
+                                <div class="col-xs-3">${ fieldnamelist.fieldname15 }</div>
+                                <div class="text-right col-xs-9" style="float:right">
+                                    <div>
+                                        <input class="input" id="editfieldvalue15" value="${ item.fieldvalue15 }">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield9 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname9 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue9" value="${ item.fieldvalue9 }">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-content" style="display: ${ displaylist.displayfield10 }">
-                            <div class="col-xs-3">${ fieldnamelist.fieldname10 }</div>
-                            <div class="text-right col-xs-9" style="float:right">
-                                <div>
-                                    <input class="input" id="editfieldvalue10" value="${ item.fieldvalue10 }">
-                                </div>
-                            </div>
+                          </div>
                         </div>
                         <div class="my-content">
                         </div>
@@ -988,6 +1078,11 @@ export class CombinedpanelList extends LitElement {
         this.singleObject.fieldvalue8 = this.shadowRoot.getElementById('editfieldvalue8').value
         this.singleObject.fieldvalue9 = this.shadowRoot.getElementById('editfieldvalue9').value
         this.singleObject.fieldvalue10 = this.shadowRoot.getElementById('editfieldvalue10').value
+        this.singleObject.fieldvalue11 = this.shadowRoot.getElementById('editfieldvalue11').value
+        this.singleObject.fieldvalue12 = this.shadowRoot.getElementById('editfieldvalue12').value
+        this.singleObject.fieldvalue13 = this.shadowRoot.getElementById('editfieldvalue13').value
+        this.singleObject.fieldvalue14 = this.shadowRoot.getElementById('editfieldvalue14').value
+        this.singleObject.fieldvalue15 = this.shadowRoot.getElementById('editfieldvalue15').value
         this.singleObject.status = true
 
 
@@ -1201,62 +1296,15 @@ export class CombinedpanelList extends LitElement {
       /* ////////////////END FLEXBOX /////////////// */
             
 
-        /*STANDARDIZED CSS*/
-          .col-xs-3 {
-            position: relative;
-            text-align: right;
-            min-height: 1px;
-            padding-left: 0px;
-            padding-right: 0px;
-            width: 15%;
-            float: left;
-        }
-
-          .col-xs-9 {
-            position: relative;
-            min-height: 1px;
-            padding-left: 0px;
-            padding-right: 0px;
-            width: 80%;
-        }
-
-         .input {
-            width: 100%;
-            text-align: initial;
-            border: none;
-            background-color: #eee;
-            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
-
-            font-size: 13.3px;
-
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-          .my-content {
-            display: block;
-            position: relative;
-            word-wrap: break-word;
-        }
-
-           .text-right {
-            text-align: right;
-        }
-
-
-    /*END STANDARDIZED CSS*/
-
-
-
-        #paperToggle {
+              #paperToggle {
             min-height: 40px;
             min-width: 40px;
         }
-
-         :host {
+        
+        :host {
             display: block;
         }
-
+        
         iron-icon {
             height: 20px;
             width: 20px;
@@ -1268,106 +1316,95 @@ export class CombinedpanelList extends LitElement {
             width: 100%;
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
         }
-        /*        .leftcontent {
-                        background-color: #eee;
-            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
-        }*/
 
         .iron-position {
             text-align: left;
             padding-left: 35px;
         }
-
+        
         .table-padding {
             padding-left: 16px;
             padding-right: 16px;
-            /*margin-top: 26px;*/
-            margin-top: 4%;
+            margin-top: 26px;
             height: 100vh
         }
-
+        
         .search-container {
             position: relative;
             width: 70%;
         }
-
+        
         #listpage {
             overflow-y: auto;
             height: 100vh;
         }
-
+        
         .results-container {
             margin-top: 12px;
             height: 76vh;
         }
-        /*.results-container {
-            background-color: #eee;
-            width: 100%;
-            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
-        }*/
-
+        
         iron-list {
             flex: 1 1 auto;
         }
-
+        
         .status-container {
             width: 83px;
             margin-left: 5%;
         }
-
+        
         .search-icon {
             position: absolute;
-            /*top: -3px;*/
             top: -6px;
             right: 0;
         }
-
+        
         .search {
             width: 100%;
         }
-
+        
         .view {
             border: none;
             color: blue;
             background: #eee;
             font-size: 14px;
         }
-
+        
         .view:focus {
             outline: none!important;
         }
-
+        
         #searchQuery {
             width: 100%;
             border: none;
             outline: none;
             border-bottom: 1px solid black;
         }
-
+        
         #searchQuery::placeholder {
             font-size: 17px;
         }
-
+        
         #searchQuery::-webkit-input-placeholder {
             font-size: 17px;
         }
-
+        
         #searchQuery:-moz-placeholder {
             font-size: 17px;
         }
-
+        
         #searchQuery::-moz-placeholder {
             font-size: 17px;
         }
-
+        
         #searchQuery:-ms-input-placeholder {
             font-size: 17px;
         }
-
+        
         .dropdown {
             margin-left: 26px;
         }
-
+        
         paper-listbox {
             width: 100px;
             display: block;
@@ -1375,18 +1412,18 @@ export class CombinedpanelList extends LitElement {
             color: #212121;
             overflow: hidden;
         }
-
+        
         paper-dropdown-menu {
             display: block;
             margin-top: -15px;
             width: 100px;
         }
-
+        
         paper-item.iron-selected {
             font-weight: bold;
             color: blue;
         }
-
+        
         .layout-horizontal {
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -1395,102 +1432,93 @@ export class CombinedpanelList extends LitElement {
             background-color: #eee;
             margin-top: 9px;
         }
-
+        
         div[class^="group"] {
             /*padding-left: 9px;*/
-            margin-left: 9px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
         }
-
+        
         div[class^="box"] {
-            min-height: 29px;
+            /*min-height: 29px;*/
             min-height: 20px;
-            margin-top: auto;
-            margin-bottom: auto;
-            \ width: 100%;
         }
-
+        
         div[class^="bd"] {
             display: block;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-            height: 29px;
-
-
-            font-size: 13px;
-            /*vertical-align: center!important;*/
-            line-height: 2.5;
+            /*min-height: 35px;*/
+            /*line-height: 2.5;*/
+            /*padding-left: 3px;*/
         }
-
+        
         div[class^="bd"]:first-child {
-            width: 15%;
-            /*vertical-align: center;*/
+            width: 53%;
         }
-
+        
         div[class^="bd"]:nth-child(3),
         div[class^="bd"]:nth-child(2) {
-            /*width: 100%;*/
-            width: 50%;
-            /*vertical-align: center;*/
+            width: 100%;
         }
-
+        
         div[class^="group"],
         div[class^="box"] {
             width: 100%
         }
-        /* div[class^="group7"],
+        
+    /*    div[class^="group7"],
         div[class^="box7"] {
             width: 98.5%!important
         }*/
-
+        
         .searchcontainer {
             margin-top: 9px;
         }
-
+        
         .s-container1 div,
         .s-container2 div {
             margin-top: 8px;
-            /* margin-left: 20px; */
             width: 109px;
         }
-
+        
         .mobile-options {
             min-width: 73px;
             width: 5.1%;
         }
-
+        
         .options {
             min-width: 73px;
             width: 5.1%;
         }
-
+        
         .desk-opts {
             visibility: collapse;
             width: 0px;
             height: 0px;
             min-width: 0px;
         }
-
+        
         .mobi-icon {
             height: 0px;
             padding: 0;
             width: 0px;
         }
-
+        
         #list {
             flex: 1 1 auto;
         }
-
-       
-
-        .iconinput {
-            // padding-right: 122px;
-            box-sizing: border-box;
+        
+        .input {
+            width: 100%;
+            text-align: initial;
+            border: none;
+            background-color: #eee;
+            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
         }
-
+        
         .input-textarea-edit {
             min-height: 57px;
             padding: 6px 2px;
@@ -1500,7 +1528,7 @@ export class CombinedpanelList extends LitElement {
             background-color: white;
             border-bottom: 1px dotted #000;
         }
-
+        
         .input-textarea-list {
             min-height: 24px;
             max-width: 350px;
@@ -1509,17 +1537,34 @@ export class CombinedpanelList extends LitElement {
             border-color: white;
             background-color: white;
         }
-
-     
+        
+        .text-right {
+            text-align: right;
+        }
+        
         .col-xs-12 {
             position: relative;
             min-height: 1px;
         }
-
-       
-
-     
-
+        
+        .col-xs-3 {
+            position: relative;
+            text-align: right;
+            min-height: 1px;
+            padding-left: 0px;
+            padding-right: 0px;
+            width: 15%;
+            float: left;
+        }
+        
+        .col-xs-9 {
+            position: relative;
+            min-height: 1px;
+            padding-left: 0px;
+            padding-right: 0px;
+            width: 80%;
+        }
+        
         .title-rightpaneldraw {
             font-size: 16px;
             background-color: #e6e6e6;
@@ -1527,18 +1572,18 @@ export class CombinedpanelList extends LitElement {
             padding-bottom: 0%;
             padding-top: 3%;
         }
-
+        
         .title-rightpaneldraw-list {
             font-size: 16px;
             margin-top: 20px;
         }
-
+        
         .cl-listborder {
             border: 1px solid lightgray;
             border-radius: 7px;
             background-color: #FFF;
         }
-
+        
         .table-row {
             line-height: 48px;
             background-color: white;
@@ -1546,47 +1591,51 @@ export class CombinedpanelList extends LitElement {
             font-size: 13px;
             font-weight: 500;
         }
-
+        
         .last-column {
             padding-right: 10px;
         }
-
-      
-
+        
+        .my-content {
+            font-size: 14px;
+            /*min-height: 24px;*/
+            clear:both;
+        }
+        
         .right-icon {
             position: absolute;
             right: 27px;
             bottom: 21px;
             z-index: 0;
         }
-
+        
         .right-text {
             text-align: right;
         }
-
+        
         .main-button {
             background-color: var(--title-background-normal);
             color: var(--title-normal);
         }
-
+        
         .uploadicon {
             margin-top: 24px;
             min-height: 24px;
         }
-
+        
         .title-top {
             padding-top: 10px;
         }
-
+        
         .bottom {
             position: relative;
             float: left;
         }
-
+        
         .bottom-listicon {
             float: top;
         }
-
+        
         .search-row {
             margin-left: 0;
             margin-top: 0px;
@@ -1596,17 +1645,18 @@ export class CombinedpanelList extends LitElement {
             height: 48px;
             position: relative;
         }
-
+        
+        
         .card-padding {
             padding-left: 15px;
             padding-right: 15px;
         }
-
+        
         .row-style {
             padding-left: 0px;
             padding-right: 0px;
         }
-
+        
         .title-style1 {
             padding-bottom: 0px;
             background-color: white;
@@ -1617,18 +1667,18 @@ export class CombinedpanelList extends LitElement {
             margin-bottom: 20px;
             padding-top: 24px;
         }
-
+        
         .side-padding {
             padding-left: 16px;
             padding-right: 16px;
             margin-top: 4%;
         }
-
+        
         .CL-popup {
             padding-right: 0px;
             padding-left: 0px;
         }
-
+        
         .icon-style {
             color: gray;
             float: right;
@@ -1637,48 +1687,48 @@ export class CombinedpanelList extends LitElement {
             border: 1px solid gray;
             margin-right: 40px;
         }
-
+        
         .float-right {
             justify-content: flex-end;
         }
-
+        
         .move-left {
             margin-left: -3.4%;
         }
-
+        
         .fitting-width {
             width: 98%;
         }
-
+        
         .float-left {
             float: left;
         }
-
+        
         .set-height {
             height: 24px;
         }
-
+        
         .padding-bottom {
             padding-bottom: 7px;
         }
-
+        
         .title-font {
             font-size: 17px;
         }
-
+        
         .close-interface {
             position: relative;
             top: -27px;
             text-align: right;
             left: -14px;
         }
-
+        
         .close-interface span {
             display: inline-block;
             height: 25px;
             width: 50px;
         }
-
+        
         #title {
             --paper-input-container-label: {
                 font-size: 13px!important;
@@ -1689,6 +1739,157 @@ export class CombinedpanelList extends LitElement {
             }
             ;
         }
+        
+        .top-icons: {
+            position:; relative;
+        }
+
+        /*@media (max-width: 479px) {
+            .search-row {
+                margin-left: 0px;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                height: 48px;
+                position: relative;
+                width: 50%;
+            }
+            .options {
+                height: 30px;
+            }
+            div[class^="box"] {
+                height: 30px;
+            }
+            div[class^="bd"] {
+                height: 30px;
+                line-height: 2.5;
+            }
+            div[class^="group"] {
+                height: 30px;
+                padding-left: 0px;
+                width: 100%;
+            }
+            .layout-horizontal {
+                height: 30px;
+            }
+            .ilrow:nth-child(1) .layout-horizontal {
+                margin-top: 0px;
+            }
+            #expanded {
+                height: 206px;
+            }
+            div[class^="box2"] {
+                height: 60px!important;
+            }
+            div[class^="bd2"] {
+                height: 60px!important;
+                line-height: 2.5;
+            }
+            div[class^="group2"] {
+                height: 60px!important;
+            }
+            .group1 {
+                width: 78vw!important;
+                padding-left: 0px!important;
+                min-width: 69vw;
+            }
+            .bd1-1 {
+                width: 42vw;
+                max-width: 42vw;
+            }
+            .bd1-2 {
+                width: 34vw;
+                max-width: 34vw;
+            }
+            .bd2-mob {
+                width: 14vw;
+                height: 60px;
+            }
+            .bd2-1 {
+                width: 77vw;
+                white-space: normal!important;
+                overflow: visible!important;
+                height: 60px;
+                padding-left: 1vw;
+            }
+            .bd3-1,
+            .bd4-1,
+            .bd5-1,
+            .bd6-1 {
+                width: 35vw;
+                padding-left: 1vw;
+            }
+            .bd3-2,
+            .bd4-2,
+            .bd5-2,
+            .bd6-2 {
+                width: 40vw;
+            }
+            .big-frame {
+                padding: 0px 0px;
+                background: rgba(238, 238, 238, 0.5);
+            }
+            .search-padding {
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            .right-icon {
+                max-width: 24px;
+                max-height: 24px;
+                width: 24px;
+                height: 24px;
+            }
+            only-mobile {
+                display: inline-block;
+            }
+            .lightgrey-padding {
+                padding-top: 0;
+                padding-left: 4vw;
+                padding-right: 4vw;
+                padding-bottom: 4vw;
+                background-color: rgba(238, 238, 238, 1.0);
+            }
+            .lightgrey-padding-inner {
+                background-color: #fff;
+                min-height: 2700px;
+            }
+            .bottom {
+                margin-right: 0px;
+            }
+            .search {
+                width: 100%
+            }
+            .mobile-opts {
+                display: block;
+            }
+            .desk-icon {
+                height: 0px;
+                padding: 0;
+                width: 0px;
+            }
+            .mob-icon {
+                height: 48px;
+                width: 48px;
+                margin-left: -6px;
+                padding-top: 0px;
+            }
+            .rm-icon-mid {
+                height: 40px;
+                width: 40px;
+                padding-left: 3px;
+                padding-top: 2px;
+                padding-bottom: 12px;
+            }
+            section {
+                display: block;
+                padding: 0;
+            }
+            .button-row {
+                padding-right: 8px;
+            }
+            .visible-xs {
+                display: inline-block !important;
+            }
+        }*/
 
         .right-icon1 {
             position: absolute;
@@ -1715,6 +1916,9 @@ export class CombinedpanelList extends LitElement {
             z-index: 0;
         }
 
+        .button-row {
+            padding-top: 16px;
+        }
         .smalleranimation, host {
           padding: 0px;
           height: 19px;
@@ -1732,4 +1936,4 @@ export class CombinedpanelList extends LitElement {
         `
     }
 }
-customElements.define("combinedpanel-list", CombinedpanelList);
+customElements.define("customer-creditcards", CustomerCreditcards);
