@@ -396,7 +396,7 @@ export class DefieMenu extends PolymerElement {
               <apcreditmemos-shell apcm="[[apcm]]" name="apcreditmemos" setting="[[setting]]"></apcreditmemos-shell>
 
 
-                <cashreceipts-shell name="cashreceipts" setting="[[setting]]"></cashreceipts-shell>
+                <cashreceipt-shell name="cashreceipt" setting="[[setting]]"></cashreceipt-shell>
 
 
             </iron-pages>
@@ -573,8 +573,6 @@ export class DefieMenu extends PolymerElement {
                         "approvetopay-report": "approvetopay",
                         "apcreditmemo-new": "apcreditmemos",
                         "apcreditmemo": "apcreditmemos",
-                        "cashreceipt-new": "cashreceipts",
-                        "cashreceipt": "cashreceipts",
                     }
                 }
             },
@@ -665,8 +663,6 @@ export class DefieMenu extends PolymerElement {
                     "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
                     "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
                     "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
-                    "cashreceipt-new": "/cashreceipts/src/cashreceipts-shell.js",
-                    "cashreceipts": "/cashreceipts/src/cashreceipts-shell.js",
 
                     }
                 }
