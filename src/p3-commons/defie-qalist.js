@@ -40,7 +40,6 @@
                 this.dataConverter(JSON.parse(JSON.stringify(this.mobiledata)))
                 data = this.convertedData
 
-                console.log('the data afte rconversion', data)
             }
 
 
@@ -205,7 +204,6 @@
                                 </div>`}
 
 
-                                console.log('the mobile data before render', this.mobiledata)
                      this.mobiledata.forEach((item, i) => {
                         item.id = i
                      })
@@ -420,13 +418,11 @@
 
       
 
-        console.log('value of retrieved',  this.mobiledata, item)
-
-         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.mobiledata}}))
+         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData(true)}}))
 
       }
 
-      retrieveData(){
+      retrieveData(mobile){
 
         if (window.innerWidth > 1842){
             for (var i=1; i < this.data.length; i++){
@@ -467,6 +463,10 @@
             
             }
 
+            if (mobile){
+                return this.mobiledata
+            }
+
 
             this.convertedData = []
 
@@ -488,7 +488,6 @@
 
         }
 
-         // return this.data
       }
 
       seeker(index, type){
@@ -503,6 +502,8 @@
             }
 
             this.mobiledata[index][type] = this.shadowRoot.getElementById('data-'+index).value
+            this.mobiledata[index]["columndata"] = this.shadowRoot.getElementById('data-'+index).value
+
             let index2 = index + 1
             this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('procedures-'+index2).value
 

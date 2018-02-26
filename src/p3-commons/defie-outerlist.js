@@ -328,7 +328,12 @@
                                                             <input disabled value="${this.col8}" class="input1" disabled>
                                                     </div>
                                                     <div class="bd9-2 datapoint">
-                                                            <input style="display:${this.editableCheck(item.col8.editable)};  border-bottom: ${item.col8.border};" id$="col8-${item.id}" value="${item.col8.value}" data-align$="${item.col8.textalign}" on-focusout="${() =>this.inputEvent8(item)}" on-tap="${()=> this.tapEvent8(item)}" class="input1 inputnum">
+                                                            <div style="display:${this.readEditMode1(item.col8.editMode1)}">
+                                                                <input style="display:${this.editableCheck(item.col8.editable)};  border-bottom: ${item.col8.border};" id$="col8-1-${item.id}" value="${item.col8.value}" data-align$="${item.col8.textalign}" on-tap="${()=> this.tapEvent8(item)}" class="input1 inputnum">
+                                                            </div>
+                                                            <div style="display:${this.readEditMode2(item.col8.editMode2)}">
+                                                                <input style="display:${this.editableCheck(item.col8.editable)};  border-bottom: ${item.col8.border};" id$="col8-2-${item.id}" value="${item.col8.value}" data-align$="${item.col8.textalign}" on-focusout="${() =>this.inputEvent8(this.shadowRoot.getElementById('col8-2-'+item.id).value, item)}" class="input1 inputnum">
+                                                            </div>
                                                             <input style="display:${this.editableCheck1(item.col8.editable)};  border-bottom: ${item.col8.border};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
                                                     </div>
                                                 </div>
@@ -398,6 +403,27 @@
                 }
             }
         
+        readEditMode1(val){
+            if (val == undefined){
+                return "flex"
+            } else if (val == true){
+                return "flex"
+            } else {
+                return "none"
+            }
+
+        }
+
+        readEditMode2(val){
+            if (val == undefined){
+                return "none"
+            } else if (val == true){
+                return "flex"
+            } else {
+                return "none"
+            }
+
+        }
 
 
         specialevent(item) {
@@ -539,11 +565,14 @@
             }))
         }
 
-        inputEvent8(item) {
+        inputEvent8(value, item) {
+
+            console.log(' inp 8', value)
             this.dispatchEvent(new CustomEvent('inputEvent8', {
                 bubbles: true,
                 composed: true,
                 detail: {
+                    value: value,
                     item: item
                 }
             }))
