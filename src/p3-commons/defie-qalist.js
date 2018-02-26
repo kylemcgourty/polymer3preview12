@@ -58,7 +58,6 @@
 
             if (data) {
               
-              console.log('data in open', data)
                 
                 data.forEach((item, i) => {
                     item.id = i
@@ -287,7 +286,6 @@
         sizeAdjuster(){
             this.end = window.innerWidth
 
-            console.log('the start and end', this.start, this.end)
 
             if (this.start <= 1843 && this.end >1843){
                 this.smallScreenResize()
@@ -303,11 +301,9 @@
 
         //convert from a notebook/mobile screen
         smallScreenResize(){
-                        console.log('in small screen size')
 
             let mobiledata = this.retrieveMobile()
 
-            console.log('the retrieve mobiledata', mobiledata)
             this.open(mobiledata, this.color, true)
 
 
@@ -317,13 +313,11 @@
         //convert fomr a large screen
         largeScreenResize(){
 
-            console.log('in large screen size')
 
 
            let data = this.retrieveDeskTop()
 
 
-            console.log('the mobiledata going in', this.mobiledata)
 
             this.open(data, this.color)
 
@@ -418,7 +412,6 @@
 
 
 
-            console.log('the result in converter', JSON.parse(JSON.stringify(result)))
             let group = []
 
 
@@ -437,29 +430,23 @@
 
 
 
-            console.log("the group len in converter abd numbers", group.length, group, l1, l2, l3, l4, l5, l6)
 
            for (var i=0; i<group.length; i++){
 
 
-                    console.log('index in loop', i)
                 if (i < l2) {
-                    console.log('in if pass', group[i])
                     group[i].columndata = group[i].pass
                     continue;
                 }
                  if ((l2 <= i) && (i < l3)) {
-                    console.log('in issue', i, l2, l3)
                     group[i].columndata = group[i].issue
                     continue;
                 }
                  if ((l3 <= i)&& (i < l4)) {
-                    console.log('in if column data', group[i].resolution)
                     group[i].columndata = group[i].resolution
                     continue;
                 }
                  if ((l4 <= i) && (i < l5)) {
-                    console.log('in  replacment', group[i].replacement)
                     group[i].columndata = group[i].replacement
                     continue;
                 }
@@ -475,7 +462,6 @@
 
             }
 
-            console.log('the group after', JSON.parse(JSON.stringify(group)))
 
             group[l1].columndata = "Pass | Fail"
             group[l1].title = "procedure-title"
