@@ -367,6 +367,7 @@
             })
 
              if (this.functions && this.mobile){
+
                        this.dispatchEvent(new CustomEvent('mobilefunctions', {
                     bubbles: true,
                     composed: true,
