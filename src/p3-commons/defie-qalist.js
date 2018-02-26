@@ -504,8 +504,8 @@
             this.mobiledata[index][type] = this.shadowRoot.getElementById('data-'+index).value
             this.mobiledata[index]["columndata"] = this.shadowRoot.getElementById('data-'+index).value
 
-            let index2 = index + 1
-            this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('procedures-'+index2).value
+            // let index2 = index + 1
+            this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('procedures-'+index).value
 
 
             ++index
