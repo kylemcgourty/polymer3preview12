@@ -16,14 +16,6 @@ export class ChartofAccountsList extends LitElement {
                     return []
                 }
             },
-            subaccounts: {
-                type: Array,
-                reflectToAttribute: true,
-                notify: true,
-                value: function() {
-                    return []
-                }
-            },
             typemodel: {
                 type: String,
                 reflectToAttribute: true,
@@ -45,7 +37,7 @@ export class ChartofAccountsList extends LitElement {
     }
 
     renderItems() {
-        const types = (account, subaccounts) => {
+        const types = (account) => {
             return html `
             <div>
             ${repeat (
@@ -54,25 +46,26 @@ export class ChartofAccountsList extends LitElement {
                  item => html`
                         <div class="unit">
                             <div>
-                                <div class="title layout horizontal">
-                                    ${ item.account } (${item.low} - ${item.high}) <paper-icon-button class="toggler less" on-tap="showless" id="less[[index]]" style="display:{{less}}" icon="icons:expand-less"></paper-icon-button>
-                                    <paper-icon-button class="toggler more" on-tap="showmore" id="more[[index]]" style="display:{{more}}" icon="icons:expand-more"></paper-icon-button>
+                                <div class="title layout horizontal" style="display:${ item.titlevisibility }">
+                                    ${ item.account } (${item.low} - ${item.high}) 
+                                    <!-- <paper-icon-button class="toggler less" on-tap="showless" id="less[[index]]" style="display:{{less}}" icon="icons:expand-less"></paper-icon-button> -->
+                                    <!-- <paper-icon-button class="toggler more" on-tap="showmore" id="more[[index]]" style="display:{{more}}" icon="icons:expand-more"></paper-icon-button> -->
+                                </div>
+                                <div class="my-content layout horizontal" style="display:${ item.subtitlevisibility }">
+                                    <div class="accountdetail">
+                                        <input disabled class="input" id="account-${item.id}" value="${item.account}" on-tap="${(item) => this.senddata(item)}">
+                                    </div>
+                                    <div class="accountdetail">
+                                        <input disabled class="input" id="accountno-${item.id}" value="${item.accountno}" on-tap="${(item) => this.senddata(item)}">
+                                    </div>
                                 </div>
                             </div>
                           `
                          )}
-                    <div>`;
-                }
+            <div>`;
+        }
 
-
-        render(types(this.account, this.subaccounts), this.shadowRoot.querySelector('#table'))
-        // for (let i = 0 ; i < this.subaccounts.length; i++){
-        //     for(let j=0; i< this.subaccounts[i].length, j++){
-        //         submodel = this.subaccounts[i].[j].length
-
-        //         render(subtypes(submodel), this.shadowRoot.querySelector('#subaccounts-'+subid))
-        //     }
-        // }
+        render(types(this.account), this.shadowRoot.querySelector('#table'))
     }
 
     open(profileid) {
@@ -87,14 +80,33 @@ export class ChartofAccountsList extends LitElement {
 
         if (data != "") {
             this.account = [];
-            this.subaccounts = [];
             for (let i = 0; i < data.length; i++) {
-                this.account.push(data[i])
-                this.subaccounts.push(data[i].accounts)
+                console.log(data[i].accountno)
+                if (data[i].accountno === undefined) {
+                    this.account.push({
+                        account: data[i].account,
+                        accountno: "title",
+                        low: data[i].low,
+                        high: data[i].high,
+                        titlevisibility: "block",
+                        subtitlevisibility: "none",
+                        id: i,
+                    })
+                    for (let j = 0; j < data[i].accounts.length; j++) {
+                        this.account.push({
+                            account: data[i].accounts[j].account,
+                            accountno: data[i].accounts[j].accountno,
+                            low: "sub",
+                            high: "sub",
+                            titlevisibility: "none",
+                            subtitlevisibility: "flex",
+                            id: i + "." + j,
+                        })
+                    }
+                }
             }
         }
         console.log(this.account)
-        console.log(this.subaccounts)
         this.renderItems()
     }
 
@@ -121,8 +133,9 @@ export class ChartofAccountsList extends LitElement {
 
         let account = this.shadowRoot.getElementById('account-' + id).value
         let accountno = this.shadowRoot.getElementById('accountno-' + id).value
+        console.log(account, accountno)
 
-        this.dispatchEvent(new CustomEvent('apaccounts', {
+        this.dispatchEvent(new CustomEvent('chartofaccounts', {
             composed: true,
             bubbles: true,
             detail: {
