@@ -37,14 +37,28 @@
 
             if (mobile){
                 this.mobiledata = JSON.parse(JSON.stringify(data))
+                this.convertedData = []
                 this.dataConverter(JSON.parse(JSON.stringify(this.mobiledata)))
+                 this.convertedData.unshift({
+                    procedures: "Functions",
+                    pass: "Pass | Fail",
+                    issue: "Issue",
+                    resolution: "Resolution",
+                    replacement: "Replacement",
+                    qa: "QA",
+                    signoff: "Sign Off"
+
+                })
                 data = this.convertedData
 
             }
 
+            this.color = color
+
 
             if (data) {
               
+              console.log('data in open', data)
                 
                 data.forEach((item, i) => {
                     item.id = i
@@ -252,6 +266,84 @@
 
         }
 
+        resize(e){
+            this.resizedData, this.small, this.large
+
+             
+            if (!this.start){
+                this.start = window.innerWidth
+            }
+
+
+
+            
+                this.debounce(this.sizeAdjuster, 500)()
+
+
+
+                
+        }
+
+        sizeAdjuster(){
+            this.end = window.innerWidth
+
+            console.log('the start and end', this.start, this.end)
+
+            if (this.start <= 1843 && this.end >1843){
+                this.smallScreenResize()
+
+            } else if (this.start > 1843 && this.end <= 1843){
+                this.largeScreenResize()
+
+            } 
+                this.start = undefined
+                return
+         
+        }
+
+        smallScreenResize(){
+                        console.log('in small screen size')
+
+            let mobiledata = this.retrieveMobile()
+
+            console.log('the retrieve mobiledata', mobiledata)
+            this.open(mobiledata, this.color, true)
+
+
+        }
+
+
+        largeScreenResize(){
+
+            console.log('in large screen size')
+
+
+            this.data1 = this.retrieveDeskTop()
+
+            this.converter()
+
+            console.log('the mobiledata going in', this.mobiledata)
+
+            this.open(this.mobiledata, this.color, true)
+
+         
+                    
+        }
+
+
+            debounce(func, wait, immediate) {
+            this.timeout;
+            return function() {
+                var context = this, args = arguments;
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(function() {
+                    this.timeout = null;
+                    if (!immediate) func.apply(context, args);
+                }, wait);
+                if (immediate && !this.timeout) func.apply(context, args);
+            }.bind(this);
+        }
+
 
          converter() {
 
@@ -419,6 +511,55 @@
       
 
          this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData(true)}}))
+
+      }
+
+
+      retrieveMobile() {
+            for (var i=0; i < this.mobiledata.length; i++ ){
+
+                let j = i + 1
+                if (this.mobiledata[i].columndata == "Pass | Fail" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "pass")
+                } else if (this.mobiledata[i].columndata == "Issues" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "issue")
+
+                } else if (this.mobiledata[i].columndata == "Resolution" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "resolution")
+
+                } else if (this.mobiledata[i].columndata == "Replacement" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "replacement")
+
+                } else if (this.mobiledata[i].columndata == "QA" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "qa")
+
+                } else if (this.mobiledata[i].columndata == "Sign Off" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "signoff")
+
+                } 
+
+            
+            }
+
+                return this.mobiledata
+
+      }
+
+
+      retrieveDeskTop(){
+            for (var i=1; i < this.data.length; i++){
+                this.data[i].procedures = this.shadowRoot.getElementById('procedures-'+i).value
+                this.data[i].pass = this.shadowRoot.getElementById('pass-'+i).value
+                this.data[i].issue = this.shadowRoot.getElementById('issue-'+i).value
+                this.data[i].resolution = this.shadowRoot.getElementById('resolution-'+i).value
+                this.data[i].replacement = this.shadowRoot.getElementById('replacement-'+i).value
+                this.data[i].qa = this.shadowRoot.getElementById('qa-'+i).value
+                this.data[i].signoff = this.shadowRoot.getElementById('signoff-'+i).value
+
+            }
+
+            return  this.data
+
 
       }
 
