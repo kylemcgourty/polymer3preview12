@@ -368,7 +368,6 @@
 
              if (this.functions && this.mobile){
 
-                console.log('the data before send', this.data)
                        this.dispatchEvent(new CustomEvent('mobilefunctions', {
                     bubbles: true,
                     composed: true,
