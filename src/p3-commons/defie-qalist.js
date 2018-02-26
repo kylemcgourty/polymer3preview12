@@ -172,7 +172,7 @@
                 this.data1 = data
 
 
-                this.converter()
+                this.convertToMobile()
              }
 
             const mobiledatatable = items => {
@@ -277,7 +277,7 @@
 
 
             
-                this.debounce(this.sizeAdjuster, 500)()
+                this.debounce(this.sizeAdjuster, 200)()
 
 
 
@@ -301,6 +301,7 @@
          
         }
 
+        //convert from a notebook/mobile screen
         smallScreenResize(){
                         console.log('in small screen size')
 
@@ -313,24 +314,24 @@
         }
 
 
+        //convert fomr a large screen
         largeScreenResize(){
 
             console.log('in large screen size')
 
 
-            this.data1 = this.retrieveDeskTop()
+           let data = this.retrieveDeskTop()
 
-            this.converter()
 
             console.log('the mobiledata going in', this.mobiledata)
 
-            this.open(this.mobiledata, this.color, true)
+            this.open(data, this.color)
 
          
                     
         }
 
-
+            //debouncer
             debounce(func, wait, immediate) {
             this.timeout;
             return function() {
@@ -345,7 +346,9 @@
         }
 
 
-         converter() {
+
+        //convert to mobile
+         convertToMobile() {
 
 
 
@@ -415,7 +418,7 @@
 
 
 
-
+            console.log('the result in converter', JSON.parse(JSON.stringify(result)))
             let group = []
 
 
@@ -434,26 +437,45 @@
 
 
 
+            console.log("the group len in converter abd numbers", group.length, group, l1, l2, l3, l4, l5, l6)
+
+           for (var i=0; i<group.length; i++){
 
 
-            group.forEach(function(item, index) {
-
-                if (index < l2) {
-                    item.columndata = item.pass
-                } else if (l2 <= index < l3) {
-                    item.columndata = item.issue
-                } else if (l3 <= index < l4) {
-                    item.columndata = item.resolution
-                } else if (l4 <= index < l5) {
-                    item.columndata = item.replacement
-                } else if (l5 <= index < l6) {
-                    item.columndata = item.qa
-                } else if (l6 <= index) {
-                    item.columndata = item.signoff
+                    console.log('index in loop', i)
+                if (i < l2) {
+                    console.log('in if pass', group[i])
+                    group[i].columndata = group[i].pass
+                    continue;
+                }
+                 if ((l2 <= i) && (i < l3)) {
+                    console.log('in issue', i, l2, l3)
+                    group[i].columndata = group[i].issue
+                    continue;
+                }
+                 if ((l3 <= i)&& (i < l4)) {
+                    console.log('in if column data', group[i].resolution)
+                    group[i].columndata = group[i].resolution
+                    continue;
+                }
+                 if ((l4 <= i) && (i < l5)) {
+                    console.log('in  replacment', group[i].replacement)
+                    group[i].columndata = group[i].replacement
+                    continue;
+                }
+                 if ((l5 <= i)&& (i < l6)) {
+                    group[i].columndata = group[i].qa
+                    continue;
+                }
+                 if (l6 <= i)  {
+                    group[i].columndata = group[i].signoff
+                    continue;
                 }
 
 
-            })
+            }
+
+            console.log('the group after', JSON.parse(JSON.stringify(group)))
 
             group[l1].columndata = "Pass | Fail"
             group[l1].title = "procedure-title"
