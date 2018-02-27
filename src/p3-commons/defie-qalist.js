@@ -516,8 +516,6 @@
 
       addFunctionMobile(item){
 
-        console.log('the data to be sent', this.retrieveData(true))
-
          this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData(true)}}))
 
       }
