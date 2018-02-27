@@ -89,8 +89,8 @@
                                                                         <div class="bd1-1" data-procedure$="${item.title}">
                                                                                 <input id$="procedures-${item.id}" disabled class="input1" value="${item.procedures}">
                                                                         </div>
-                                                                        <paper-icon-button class="procedure-icons" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
-                                                                        <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></paper-icon-button>
+                                                                        <paper-icon-button class="procedure-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
+                                                                        <paper-icon-button class="function-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></paper-icon-button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="group4 layout horizontal wrap" data-procedure$="${item.title}">
@@ -199,7 +199,7 @@
                                                         <div style="display: ${this.computeDisplay(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle layout horizontal">
                                                                     <input disabled value="${item.procedures}" class="input1">
-                                                                <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${() =>{this.addFunctionMobile(item)}}" icon="add-circle"></paper-icon-button>
+                                                                <paper-icon-button class="function-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${() =>{this.addFunctionMobile(item)}}" icon="add-circle"></paper-icon-button>
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input disabled value="${item.columndata}" class="input1">
@@ -236,6 +236,12 @@
 
                   }
 
+        }
+
+        showIcon(){
+            if (this.view){
+                return "none!important"
+            } 
         }
 
          computeDisplay(val, item) {
