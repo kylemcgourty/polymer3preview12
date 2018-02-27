@@ -1340,6 +1340,7 @@
             overflow: hidden;
             font-size: 13px;
             padding-right: 5px;
+            box-sizing: border-box;
         }
 
         .desktop-only {
