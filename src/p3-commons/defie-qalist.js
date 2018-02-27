@@ -38,6 +38,8 @@
 
             this.color = color
             this.view = view
+            this.data = []
+            this.mobiledata = []
 
             if (mobile){
                 this.mobiledata = JSON.parse(JSON.stringify(data))
@@ -586,6 +588,8 @@
 
       retrieveData(mobile){
 
+
+        console.log('the szie of dta before being retrieved', this.data)
         if (window.innerWidth > 1842){
             for (var i=1; i < this.data.length; i++){
                 this.data[i].procedures = this.shadowRoot.getElementById('procedures-'+i).value

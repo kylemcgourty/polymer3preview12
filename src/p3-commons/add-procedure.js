@@ -34,6 +34,7 @@
 
             this.name = ""
             this.location = ""
+            this.data = []
 
 
             if (data) {
@@ -57,6 +58,8 @@
                     this.setTitle('Function Title')
 
                     this.setTable(this.data)
+
+                    this.functions = false
 
                     return
                 }
