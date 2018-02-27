@@ -302,7 +302,11 @@
             } else if (this.start > 1843 && this.end <= 1843){
                 this.largeScreenResize()
 
-            } 
+            } else if (this.start == this.end && this.start <= 1843){
+                this.largeScreenResize()
+            } else if (this.start == this.end && this.start > 1843){
+                this.smallScreenResize()
+            }
                 this.start = undefined
                 return
          
@@ -524,6 +528,8 @@
       }
 
       addFunctionMobile(item){
+
+        console.log('the item and the data', item, this.retrieveData(true))
 
          this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData(true)}}))
 
@@ -1882,7 +1888,8 @@
                 width: 64%;
             }
             .input1 {
-                width: 100%;
+                width: 98%;
+                margin: 2px;
             }
             .core,
             .data,
