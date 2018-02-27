@@ -204,7 +204,7 @@
                                                         </div>
                                                         <div style="display: ${this.computeDisplay1(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle">
-                                                                    <input id="procedures-${item.id}" disabled class="input1" value="${item.procedures}">
+                                                                    <input id="mobprocedures-${item.id}" disabled class="input1" value="${item.procedures}">
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input id="data-${item.id}" class="input1" value="${item.columndata}">
@@ -516,7 +516,7 @@
 
       addFunctionMobile(item){
 
-      
+        console.log('the data to be sent', this.retrieveData(true))
 
          this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData(true)}}))
 
@@ -654,7 +654,7 @@
             this.mobiledata[index]["columndata"] = this.shadowRoot.getElementById('data-'+index).value
 
             // let index2 = index + 1
-            this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('procedures-'+index).value
+            this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('mobprocedures-'+index).value
 
 
             ++index
