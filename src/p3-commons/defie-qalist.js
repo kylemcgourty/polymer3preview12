@@ -33,7 +33,11 @@
 
         }
 
-        open(data, color, mobile) {
+        open(data, color, mobile, view) {
+
+
+            this.color = color
+            this.view = view
 
             if (mobile){
                 this.mobiledata = JSON.parse(JSON.stringify(data))
@@ -53,8 +57,7 @@
 
             }
 
-            this.color = color
-
+            
 
             if (data) {
               
