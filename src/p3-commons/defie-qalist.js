@@ -531,7 +531,6 @@
 
       addFunctionMobile(item){
 
-        console.log('the item and the data', item, this.retrieveData(true))
 
          this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData(true)}}))
 
@@ -589,7 +588,6 @@
       retrieveData(mobile){
 
 
-        console.log('the szie of dta before being retrieved', this.data)
         if (window.innerWidth > 1842){
             for (var i=1; i < this.data.length; i++){
                 this.data[i].procedures = this.shadowRoot.getElementById('procedures-'+i).value
