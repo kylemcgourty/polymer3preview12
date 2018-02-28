@@ -49,29 +49,27 @@ import '../../src/p3-commons/search-inner.js'
                                             </div>
                                              <div style="display:${this.configurer(item.description)}" class="title layout horizontal">
                                                     <div class="productno">
-                                                        {{item.mfgpn}}
+                                                        ${item.mfgpn}
                                                     </div>
                                                     <div class="qty">
-                                                        {{item.qty}}
+                                                        ${item.qty}
                                                     </div>
                                                     <div class="partid">
-                                                        {{item.idver}}
+                                                        ${item.idver}
                                                     </div>
                                                     <div class="description">
-                                                        {{item.description}}
+                                                        ${item.description}
                                                     </div>
                                                     <div class="serialnumbers">
-                                                        {{item.serialnumbers}}
+                                                        ${item.serialnumbers}
                                                     </div>
                                                 </div>
                                                 <div  style="display:${this.configurer(item.description)}" class="layout horizontal wrap">
                                                             <div style="display:${this.configurer2(item.description)}" class="barcodecontainer">
                                                                 <div class="box">
-                                                                    [[compute(index)]]
+                                                                    ${this.compute(item.id)}
                                                                 </div>
-                                                                <iron-input bind-value="{{bc.barcode}}" class=box-input>
-                                                                    <input class="input">
-                                                                </iron-input>
+                                                                    <input value="${item.barcode}}" class="input box-input">
                                                             </div>
                                                 
                                             
@@ -100,7 +98,7 @@ import '../../src/p3-commons/search-inner.js'
 
 configurer(description){
     if (description || description == ""){
-        return "block"
+        return "flex"
     } else {
         return "none"
     }
@@ -113,6 +111,10 @@ configurer2(description){
         return "flex"
     }
 }
+
+compute(i) {
+            return i + 1
+        }
 
 
 
