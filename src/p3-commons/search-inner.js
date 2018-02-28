@@ -56,7 +56,6 @@ export class SearchInner extends LitElement {
 
     initialresponse() {
         const searchtypes = (searchdisplay, searchkeyindexes, searchfields)  => {
-
             return html`
                 <div style="display: ${ searchdisplay.display }; padding-bottom:24px">
                     <div class="search-flex layout horizontal">
@@ -105,8 +104,6 @@ export class SearchInner extends LitElement {
       `
           ;
         }
-
-
 
         render(searchtypes(this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.querySelector('#searchinnertable'))
 

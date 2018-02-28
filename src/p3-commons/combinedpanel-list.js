@@ -564,7 +564,7 @@ export class CombinedpanelList extends LitElement {
             });
             var length = ir.response.results.length
 
-        } else if (e.detail.response.results != null) {
+        } else if (e.detail.response != null && e.detail.response.results != null) {
             e.detail.response.results.map((item) => {
 
                 var newObj = {};
@@ -580,20 +580,20 @@ export class CombinedpanelList extends LitElement {
                 this.model.push(newObj)
             });
             var length = e.detail.response.results.length
-        }
 
-        //no match record
-        if (this.model.length == 0 && !this.shadowRoot.getElementById('noMatchesError')) {
-            var error = document.createElement("div")
-            error.textContent = "No matching results"
-            error.style = "Color: red";
-            error.id = "noMatchesError"
-            this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
-            this.model = ""
-        }
+            //no match record
+            if (this.model.length == 0 && !this.shadowRoot.getElementById('noMatchesError')) {
+                var error = document.createElement("div")
+                error.textContent = "No matching results"
+                error.style = "Color: red";
+                error.id = "noMatchesError"
+                this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+                this.model = ""
+            }
 
-        if (this.model.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
-            this.shadowRoot.getElementById('noMatchesError').remove()
+            if (this.model.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
+                this.shadowRoot.getElementById('noMatchesError').remove()
+            }
         }
 
         if (this.model.length > 0) {
