@@ -59,7 +59,7 @@ import '../../src/p3-commons/search-inner.js'
 
             this.data= response.detail.response.results
 
-            this.data.forEach((item, i) => { item.id = i})
+            this.data.forEach((item, i) => { item.id = i; item.qty =0})
 
             const datatable = (data, searchdisplay, searchkeyindexes, searchfields)=> {
                 return html`<div>
@@ -76,7 +76,7 @@ import '../../src/p3-commons/search-inner.js'
                                         <input disabled value="${item.idver}" class="input">
                                 </div>
                                 <div class="qtyholder"><span class="qty key" on-tap="${()=>{this.add(item)}}"> Qty </span>
-                                        <input value="${item.qty}"  class="input">
+                                        <input id$="qty-${item.id}" value="${item.qty}"  class="input">
                                 </div>
                                 <div on-tap="${()=>{this.add(item)}}"><span class="description key"> Description </span>
                                         <input disabled value="${item.description}" class="input">
@@ -112,6 +112,8 @@ import '../../src/p3-commons/search-inner.js'
         }
 
         add(item) {
+
+            item.qty = this.shadowRoot.getElementById('qty-'+item.id).value
             this.dispatchEvent(new CustomEvent('BarcodeParts', {
                 composed: true,
                 bubbles: true,
@@ -280,6 +282,9 @@ import '../../src/p3-commons/search-inner.js'
         .qtyholder .input {
             background-color: white;
             width: 100px;
+            border: 1px solid black;
+            padding-left: 3px;
+            border-radius: 3px;
         }
 
         .head {
