@@ -159,12 +159,8 @@
                 }
 
 
-
             this.data = data
-                
             render(datatable(data), this.shadowRoot.getElementById('table')) 
-
-
 
             let elem = this.shadowRoot.querySelector('.unit')
 
@@ -174,8 +170,6 @@
 
             if (!mobile){
                 this.data1 = data
-
-
                 this.convertToMobile()
              }
 
@@ -186,7 +180,7 @@
                               <div class="procedures-mobile">
                                 <div class="layout horizontal title-border mobileheader">
                                     <div class="mobiletitle "> Functions </div>
-                                    <paper-icon-button class="procedure-icons"  on-tap="${()=>{this.addProcedure()}}" icon="icons:add-circle-outline"></paper-icon-button>
+                                    <paper-icon-button class="procedure-icons"  style="display:${this.showIcon()}"  on-tap="${()=>{this.addProcedure()}}" icon="icons:add-circle-outline"></paper-icon-button>
 
                                 </div>
 
