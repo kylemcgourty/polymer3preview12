@@ -153,6 +153,7 @@ export class AdminOptionDictionary extends LitElement {
             case "hostingtype": data = [{word: "SAAS"}, {word: "Self-Host"}, {word: "Cloud Provider"}]; break;
             default: data = [];
         }
+        return data;
     }
 
     static get observers() {
