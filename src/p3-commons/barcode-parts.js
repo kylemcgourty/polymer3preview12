@@ -11,7 +11,7 @@ import '../../src/p3-commons/search-inner.js'
 
 
 
-  export class BarcodeParts extends PolymerElement {
+  export class BarcodeParts extends LitElement {
         
         static get properties() {
             return {
@@ -43,9 +43,9 @@ import '../../src/p3-commons/search-inner.js'
                     query: "",
                     option: "idver"
                 }
-                this.$.ajaxSearch.url = "/inventory/search/"+profileid
-                this.$.ajaxSearch.body = JSON.stringify(querypackage)
-                this.$.ajaxSearch.generateRequest();
+                this.shadowRoot.getElementById('ajaxSearch').url = "/inventory/search/"+profileid
+                this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify(querypackage)
+                this.shadowRoot.getElementById('ajaxSearch').generateRequest();
 
             } 
 
@@ -57,9 +57,9 @@ import '../../src/p3-commons/search-inner.js'
         receiveQueryResults(response) {
             console.log('the resp', response)
 
-            this.set('data', response.detail.response.results)
+            this.data= response.detail.response.results
 
-            data.forEach((item, i) => { item.id = i})
+            this.data.forEach((item, i) => { item.id = i})
 
             const datatable = (data, searchdisplay, searchkeyindexes, searchfields)=> {
                 return html`<div>
@@ -95,7 +95,7 @@ import '../../src/p3-commons/search-inner.js'
 
         newFunction() {
 
-            this.push('data', {
+            this.data.push({
                 procedures: "",
                 pass: "",
                 issue: "",
@@ -107,8 +107,8 @@ import '../../src/p3-commons/search-inner.js'
 
         }
 
-        remove(e) {
-            this.splice('data', e.model.index, 1)
+        remove(item) {
+            this.data.splice(item.id, 1)
         }
 
         add(item) {
@@ -344,7 +344,7 @@ import '../../src/p3-commons/search-inner.js'
                 <paper-button class="button" on-tap="close" raised>Cancel</paper-button>
             </div>
         </div>
-        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" url="/inventory/search" on-response="receiveQueryResults" content-type="application/json"></iron-ajax>`
+        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" url="/inventory/search" on-response="${this.receiveQueryResults.bind(this)}" content-type="application/json"></iron-ajax>`
         }
 
     }
