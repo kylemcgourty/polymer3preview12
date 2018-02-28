@@ -181,6 +181,7 @@ export class DefieMenu extends PolymerElement {
         .alink {
             text-decoration: none;
                 color: #6b6b6b;
+                font-size: 13px;
             
         }
 
@@ -365,6 +366,10 @@ export class DefieMenu extends PolymerElement {
 
 
                 <qachecklists-shell setting="[[setting]]" name="qachecklists"></qachecklists-shell>
+
+                <barcodes-shell setting="[[setting]]" name="barcodes"></barcodes-shell>
+
+
 
 
 
@@ -573,6 +578,8 @@ export class DefieMenu extends PolymerElement {
                         "approvetopay-report": "approvetopay",
                         "apcreditmemo-new": "apcreditmemos",
                         "apcreditmemo": "apcreditmemos",
+                        "barcode-new": "barcodes",
+                        "barcodes": "barcodes",
                     }
                 }
             },
@@ -636,6 +643,8 @@ export class DefieMenu extends PolymerElement {
                     "boms": "/boms/src/boms-shell.js",
                     "bom-new": "/boms/src/boms-shell.js",
                     "qachecklists": "/qachecklists/src/qachecklists-shell.js",
+                    "barcode-new": "/barcodes/src/barcodes-shell.js",
+                    "barcodes": "/barcodes/src/barcodes-shell.js",
                     "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
                     "releasedboms": "/releasedboms/src/releasedboms-shell.js",
                     "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
