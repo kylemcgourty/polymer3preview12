@@ -626,7 +626,7 @@
         }
         
         .container {
-            height: 33px;
+            height: 15px;
             margin-bottom: 14px;
         }
         
