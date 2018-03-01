@@ -38,16 +38,16 @@ import '../../src/p3-commons/search-inner.js'
             console.log('data in bc list', data)
             this.data= data
 
-            this.data.forEach((item, i) => { item.id = i; item.qty =0})
+            this.data.forEach((item, i) => { item.id = i})
 
             const datatable = (data)=> {
-                return html`<div>
+                return html`<div >
                 ${repeat (
                         data,
                         item => item.id,
                         item => html`       <div>
                                             </div>
-                                             <div style="display:${this.configurer(item.description)}" class="title layout horizontal">
+                                             <div class="container title layout horizontal">
                                                     <div class="productno">
                                                         ${item.mfgpn}
                                                     </div>
@@ -63,6 +63,7 @@ import '../../src/p3-commons/search-inner.js'
                                                     <div class="serialnumbers">
                                                         ${item.serialnumbers}
                                                     </div>
+                                                     <iron-icon class="delete" icon="close" on-tap="${()=>{this.delete(item)}}"></iron-icon>
                                                 </div>
                                                 <div id$="placement-${item.id}"   class="layout horizontal wrap">
                                                 <div> 
@@ -87,48 +88,42 @@ import '../../src/p3-commons/search-inner.js'
 setBarcodes(data, placementid){
 
     console.log('the data and placementid', data, placementid)
+
+    data.forEach((item, i) => {item.id = i +1})
     const datatable = (data)=> {
-                return html`<div>
+                return html`
                 ${repeat (
                         data,
                         item => item.id,
                         item => html`       
                             <div  class="barcodecontainer">
                                 <div class="box">
-                                    ${this.compute(item.id)}
+                                    ${item.id}
                                 </div>
                                     <input value="${item.barcode}" class="input box-input">
                             </div>
                       `
                 )}
-                </div>`
+                `
             }
 
             render(datatable(data), this.shadowRoot.getElementById('placement-'+placementid))
 
 }
 
-configurer(description){
-    if (description || description == ""){
-        return "flex"
-    } else {
-        return "none"
-    }
-}
 
-configurer2(description){
-    console.log('cf2 values', description)
-    if (description || description == ""){
-        return "none"
-    } else {
-        return "flex"
-    }
-}
+delete(item) {
 
-compute(i) {
-            return i + 1
+    this.datacopy = this.data.slice()
+
+    for (var i=0; i< this.datacopy.length; i++){
+        if (item.id ==this.datacopy[i].id){
+            this.data.splice(i, 1)
         }
+    }
 
+    this.open(this.data)
+}
 
 
         newFunction() {
@@ -424,6 +419,7 @@ compute(i) {
             height: 40px;
             font-size: 17px;
             box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.4);
+            line-height: 2.3;
         }
 
         .container:nth-child(2) .title {
@@ -432,7 +428,13 @@ compute(i) {
         }
 
 
+        .container:nth-child(2) .delete {
+            display: none;
+        }
 
+        .delete {
+
+        }
 
         .components {
             color: blue;
@@ -682,7 +684,7 @@ compute(i) {
             margin-top: 6px;
             height: 22px;
             background-color: #c6c9ce;
-            line-height: 1.7;
+            line-height: 1.5;
         }
 
         .container {
