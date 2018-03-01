@@ -90,6 +90,7 @@ setBarcodes(data, placementid){
     console.log('the data and placementid', data, placementid)
 
     data.forEach((item, i) => {item.id = i +1})
+    this.placementid = placementid
     const datatable = (data)=> {
                 return html`
                 ${repeat (
@@ -100,7 +101,7 @@ setBarcodes(data, placementid){
                                 <div class="box">
                                     ${item.id}
                                 </div>
-                                    <input value="${item.barcode}" class="input box-input">
+                                    <input id$="barcode-${this.placementid}-${item.id}" value="${item.barcode}" class="input box-input">
                             </div>
                       `
                 )}
@@ -109,6 +110,21 @@ setBarcodes(data, placementid){
 
             render(datatable(data), this.shadowRoot.getElementById('placement-'+placementid))
 
+}
+
+retrieveData(){
+    for (var i=1; i<this.data.length; i++){
+        this.data[i].id = String(this.data[i].id)
+        this.data[i].qty = Number(this.data[i].qty)
+        for (var j=0; j<this.data[i].barcodes.length; j++){
+            let z = j + 1
+            console.log('the values of i and j', i, j,  this.shadowRoot.getElementById('barcode-'+i+"-"+z).value)
+            this.data[i].barcodes[j].barcode = this.shadowRoot.getElementById('barcode-'+i+"-"+z).value
+        }
+    }
+
+    console.log('the barcode data', this.data)
+    return this.data
 }
 
 
