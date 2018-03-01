@@ -67,12 +67,12 @@ export class CustomerSidepanel extends LitElement {
         this.searchdisplay.display = "block"
 
         this.profileid = profileid;
-        
+
         this.generateSearch(false, false, true)
 
 
     }
-    ready(){
+    ready() {
         super.ready();
         this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
             this.generateSearch(e);
@@ -82,7 +82,7 @@ export class CustomerSidepanel extends LitElement {
         });
     }
     generateSearch(e, pass, retrieveAll) {
-       let query
+        let query
         if (e.detail) {
             if (e.detail.inputValue === "") {
                 retrieveAll = true;
@@ -138,10 +138,12 @@ export class CustomerSidepanel extends LitElement {
                 error.textContent = "No matching results"
                 error.style = "Color: red";
                 error.id = "noMatchesError"
-                this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+                if (this.shadowRoot.querySelector('#container') != null) {
+                    this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+                }
                 this.data = ""
             }
-      
+
             if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
                 this.shadowRoot.getElementById('noMatchesError').remove()
             }
