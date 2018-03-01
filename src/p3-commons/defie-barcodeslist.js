@@ -35,7 +35,6 @@ import '../../src/p3-commons/search-inner.js'
 
         open(data){
 
-            console.log('data in bc list', data)
             this.data= data
 
             this.data.forEach((item, i) => { item.id = i})
@@ -87,7 +86,6 @@ import '../../src/p3-commons/search-inner.js'
 
 setBarcodes(data, placementid){
 
-    console.log('the data and placementid', data, placementid)
 
     data.forEach((item, i) => {item.id = i +1})
     this.placementid = placementid
@@ -118,12 +116,10 @@ retrieveData(){
         this.data[i].qty = Number(this.data[i].qty)
         for (var j=0; j<this.data[i].barcodes.length; j++){
             let z = j + 1
-            console.log('the values of i and j', i, j,  this.shadowRoot.getElementById('barcode-'+i+"-"+z).value)
             this.data[i].barcodes[j].barcode = this.shadowRoot.getElementById('barcode-'+i+"-"+z).value
         }
     }
 
-    console.log('the barcode data', this.data)
     return this.data
 }
 
