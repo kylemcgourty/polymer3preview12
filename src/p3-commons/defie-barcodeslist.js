@@ -40,12 +40,12 @@ import '../../src/p3-commons/search-inner.js'
 
             this.data.forEach((item, i) => { item.id = i; item.qty =0})
 
-            const datatable = (data, searchdisplay, searchkeyindexes, searchfields)=> {
+            const datatable = (data)=> {
                 return html`<div>
                 ${repeat (
                         data,
                         item => item.id,
-                        item => html`       
+                        item => html`       <div>
                                             </div>
                                              <div style="display:${this.configurer(item.description)}" class="title layout horizontal">
                                                     <div class="productno">
@@ -64,13 +64,8 @@ import '../../src/p3-commons/search-inner.js'
                                                         ${item.serialnumbers}
                                                     </div>
                                                 </div>
-                                                <div  style="display:${this.configurer(item.description)}" class="layout horizontal wrap">
-                                                            <div style="display:${this.configurer2(item.description)}" class="barcodecontainer">
-                                                                <div class="box">
-                                                                    ${this.compute(item.id)}
-                                                                </div>
-                                                                    <input value="${item.barcode}}" class="input box-input">
-                                                            </div>
+                                                <div id$="placement-${item.id}"   class="layout horizontal wrap">
+                                                <div> 
                                                 
                                             
                       `
@@ -81,20 +76,37 @@ import '../../src/p3-commons/search-inner.js'
             render(datatable(this.data), this.shadowRoot.getElementById('table'))
 
 
-            const dadf =`<section class="list part-number-sub-list">
-                            <div class="">
-                                <div class="lightgrey-padding-inner1">
-                                    <iron-list items="{{barcodes}}" scroll-target="document">
-                                        <template>
-                                            <div class="container">
-                                                
-                                        </template>
-                                    </iron-list>
-                                </div>
-                        </section>`
+            for(var i=1 ; i<this.data.length; i++){
+                 this.setBarcodes(this.data[i].barcodes, this.data[i].id)
+
+            }
 
 }
 
+
+setBarcodes(data, placementid){
+
+    console.log('the data and placementid', data, placementid)
+    const datatable = (data)=> {
+                return html`<div>
+                ${repeat (
+                        data,
+                        item => item.id,
+                        item => html`       
+                            <div  class="barcodecontainer">
+                                <div class="box">
+                                    ${this.compute(item.id)}
+                                </div>
+                                    <input value="${item.barcode}" class="input box-input">
+                            </div>
+                      `
+                )}
+                </div>`
+            }
+
+            render(datatable(data), this.shadowRoot.getElementById('placement-'+placementid))
+
+}
 
 configurer(description){
     if (description || description == ""){
@@ -105,6 +117,7 @@ configurer(description){
 }
 
 configurer2(description){
+    console.log('cf2 values', description)
     if (description || description == ""){
         return "none"
     } else {
