@@ -626,7 +626,7 @@
         }
         
         .container {
-            height: 33px;
+            height: 15px;
             margin-bottom: 14px;
         }
         
@@ -666,13 +666,20 @@
             display: flex;
             flex-direction: column;
         }
+
+         @media (max-width: 767px) {
+            .col-xs-9{
+                width: 70%;
+            }
+
+
         </style>
         <div id="page">
             <div class="title-rightpaneldraw">Procedures</div>
             <div style="background-color: #e6e6e6;">
                 <div class="close-interface">
                     <span on-tap="close">Close</span>
-                    <iron-icon icon="close" on-tap="close"></iron-icon>
+                    <iron-icon icon="close" on-tap="${()=>{this.close()}}"></iron-icon>
                 </div>
             </div>
             <div class="table-padding">
