@@ -147,7 +147,7 @@ export class PartSidepanel extends LitElement {
             let tempArray = [];
             let tempArray2 = [];
             let tempArray3 = [];
-
+             
             if (request != null) {
 
                 if (request.detail) {
@@ -201,6 +201,22 @@ export class PartSidepanel extends LitElement {
 
 
                 this.data = tempArray3;
+            } else {
+                this.data = ""
+            }
+
+            if (!this.shadowRoot.getElementById('noMatchesError')) {
+                var error = document.createElement("div")
+                error.textContent = "No matching results"
+                error.style = "Color: red";
+                error.id = "noMatchesError"
+                if (this.shadowRoot.querySelector('#container') != null) {
+                    this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+                }
+            }
+
+            if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
+                this.shadowRoot.getElementById('noMatchesError').remove()
             }
 
             console.log('the data in parts', this.data)
@@ -301,23 +317,6 @@ export class PartSidepanel extends LitElement {
             }
 
             render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.querySelector('#partpanel'))
-
-            if (request == null && !this.shadowRoot.getElementById('noMatchesError')) {
-                var error = document.createElement("div")
-                error.textContent = "No matching results"
-                error.style = "Color: red";
-                error.id = "noMatchesError"
-                this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
-                this.data = ""
-            }
-
-            if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
-                this.shadowRoot.getElementById('noMatchesError').remove()
-            }
-
-
-           
-
         }
 
     }

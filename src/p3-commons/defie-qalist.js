@@ -33,16 +33,33 @@
 
         }
 
-        open(data, color, mobile) {
+        open(data, color, mobile, view) {
+
+
+            this.color = color
+            this.view = view
+            this.data = []
+            this.mobiledata = []
 
             if (mobile){
                 this.mobiledata = JSON.parse(JSON.stringify(data))
+                this.convertedData = []
                 this.dataConverter(JSON.parse(JSON.stringify(this.mobiledata)))
+                 this.convertedData.unshift({
+                    procedures: "Functions",
+                    pass: "Pass | Fail",
+                    issue: "Issue",
+                    resolution: "Resolution",
+                    replacement: "Replacement",
+                    qa: "QA",
+                    signoff: "Sign Off"
+
+                })
                 data = this.convertedData
 
-                console.log('the data afte rconversion', data)
             }
 
+            
 
             if (data) {
               
@@ -74,8 +91,8 @@
                                                                         <div class="bd1-1" data-procedure$="${item.title}">
                                                                                 <input id$="procedures-${item.id}" disabled class="input1" value="${item.procedures}">
                                                                         </div>
-                                                                        <paper-icon-button class="procedure-icons" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
-                                                                        <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></paper-icon-button>
+                                                                        <paper-icon-button class="procedure-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
+                                                                        <paper-icon-button class="function-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></paper-icon-button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="group4 layout horizontal wrap" data-procedure$="${item.title}">
@@ -159,7 +176,7 @@
                 this.data1 = data
 
 
-                this.converter()
+                this.convertToMobile()
              }
 
             const mobiledatatable = items => {
@@ -184,7 +201,7 @@
                                                         <div style="display: ${this.computeDisplay(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle layout horizontal">
                                                                     <input disabled value="${item.procedures}" class="input1">
-                                                                <paper-icon-button class="function-icons" data-procedure$="${item.title}" on-tap="${() =>{this.addFunctionMobile(item)}}" icon="add-circle"></paper-icon-button>
+                                                                <paper-icon-button class="function-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${() =>{this.addFunctionMobile(item)}}" icon="add-circle"></paper-icon-button>
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input disabled value="${item.columndata}" class="input1">
@@ -192,7 +209,7 @@
                                                         </div>
                                                         <div style="display: ${this.computeDisplay1(item.title)}" class="layout horizontal functionscontainer">
                                                             <div data-procedure$="${item.title}" class="mobile-functions mobile-proceduretitle">
-                                                                    <input id="procedures-${item.id}" disabled class="input1" value="${item.procedures}">
+                                                                    <input id="mobprocedures-${item.id}" disabled class="input1" value="${item.procedures}">
                                                             </div>
                                                             <div data-procedure$="${item.title}" class="mobile-functions">
                                                                     <input id="data-${item.id}" class="input1" value="${item.columndata}">
@@ -205,7 +222,6 @@
                                 </div>`}
 
 
-                                console.log('the mobile data before render', this.mobiledata)
                      this.mobiledata.forEach((item, i) => {
                         item.id = i
                      })
@@ -222,6 +238,12 @@
 
                   }
 
+        }
+
+        showIcon(){
+            if (this.view){
+                return "none!important"
+            } 
         }
 
          computeDisplay(val, item) {
@@ -254,8 +276,88 @@
 
         }
 
+        resize(e){
+            this.resizedData, this.small, this.large
 
-         converter() {
+             
+            if (!this.start){
+                this.start = window.innerWidth
+            }
+
+
+
+            
+                this.debounce(this.sizeAdjuster, 200)()
+
+
+
+                
+        }
+
+        sizeAdjuster(){
+            this.end = window.innerWidth
+
+
+            if (this.start <= 1843 && this.end >1843){
+                this.smallScreenResize()
+
+            } else if (this.start > 1843 && this.end <= 1843){
+                this.largeScreenResize()
+
+            } else if (this.start == this.end && this.start <= 1843){
+                this.largeScreenResize()
+            } else if (this.start == this.end && this.start > 1843){
+                this.smallScreenResize()
+            }
+                this.start = undefined
+                return
+         
+        }
+
+        //convert from a notebook/mobile screen
+        smallScreenResize(){
+
+            let mobiledata = this.retrieveMobile()
+
+            this.open(mobiledata, this.color, true)
+
+
+        }
+
+
+        //convert fomr a large screen
+        largeScreenResize(){
+
+
+
+           let data = this.retrieveDeskTop()
+
+
+
+            this.open(data, this.color)
+
+         
+                    
+        }
+
+            //debouncer
+            debounce(func, wait, immediate) {
+            this.timeout;
+            return function() {
+                var context = this, args = arguments;
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(function() {
+                    this.timeout = null;
+                    if (!immediate) func.apply(context, args);
+                }, wait);
+                if (immediate && !this.timeout) func.apply(context, args);
+            }.bind(this);
+        }
+
+
+
+        //convert to mobile
+         convertToMobile() {
 
 
 
@@ -325,7 +427,6 @@
 
 
 
-
             let group = []
 
 
@@ -345,25 +446,37 @@
 
 
 
+           for (var i=0; i<group.length; i++){
 
-            group.forEach(function(item, index) {
 
-                if (index < l2) {
-                    item.columndata = item.pass
-                } else if (l2 <= index < l3) {
-                    item.columndata = item.issue
-                } else if (l3 <= index < l4) {
-                    item.columndata = item.resolution
-                } else if (l4 <= index < l5) {
-                    item.columndata = item.replacement
-                } else if (l5 <= index < l6) {
-                    item.columndata = item.qa
-                } else if (l6 <= index) {
-                    item.columndata = item.signoff
+                if (i < l2) {
+                    group[i].columndata = group[i].pass
+                    continue;
+                }
+                 if ((l2 <= i) && (i < l3)) {
+                    group[i].columndata = group[i].issue
+                    continue;
+                }
+                 if ((l3 <= i)&& (i < l4)) {
+                    group[i].columndata = group[i].resolution
+                    continue;
+                }
+                 if ((l4 <= i) && (i < l5)) {
+                    group[i].columndata = group[i].replacement
+                    continue;
+                }
+                 if ((l5 <= i)&& (i < l6)) {
+                    group[i].columndata = group[i].qa
+                    continue;
+                }
+                 if (l6 <= i)  {
+                    group[i].columndata = group[i].signoff
+                    continue;
                 }
 
 
-            })
+            }
+
 
             group[l1].columndata = "Pass | Fail"
             group[l1].title = "procedure-title"
@@ -418,15 +531,62 @@
 
       addFunctionMobile(item){
 
-      
 
-        console.log('value of retrieved',  this.mobiledata, item)
-
-         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.mobiledata}}))
+         this.dispatchEvent(new CustomEvent('addFunctionMobile', {compose: true, bubbles: true, detail: { item: item, data : this.retrieveData(true)}}))
 
       }
 
-      retrieveData(){
+
+      retrieveMobile() {
+            for (var i=0; i < this.mobiledata.length; i++ ){
+
+                let j = i + 1
+                if (this.mobiledata[i].columndata == "Pass | Fail" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "pass")
+                } else if (this.mobiledata[i].columndata == "Issues" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "issue")
+
+                } else if (this.mobiledata[i].columndata == "Resolution" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "resolution")
+
+                } else if (this.mobiledata[i].columndata == "Replacement" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "replacement")
+
+                } else if (this.mobiledata[i].columndata == "QA" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "qa")
+
+                } else if (this.mobiledata[i].columndata == "Sign Off" && this.mobiledata[j] && this.mobiledata[j].title != "procedure-title"){
+                    this.seeker(j, "signoff")
+
+                } 
+
+            
+            }
+
+                return this.mobiledata
+
+      }
+
+
+      retrieveDeskTop(){
+            for (var i=1; i < this.data.length; i++){
+                this.data[i].procedures = this.shadowRoot.getElementById('procedures-'+i).value
+                this.data[i].pass = this.shadowRoot.getElementById('pass-'+i).value
+                this.data[i].issue = this.shadowRoot.getElementById('issue-'+i).value
+                this.data[i].resolution = this.shadowRoot.getElementById('resolution-'+i).value
+                this.data[i].replacement = this.shadowRoot.getElementById('replacement-'+i).value
+                this.data[i].qa = this.shadowRoot.getElementById('qa-'+i).value
+                this.data[i].signoff = this.shadowRoot.getElementById('signoff-'+i).value
+
+            }
+
+            return  this.data
+
+
+      }
+
+      retrieveData(mobile){
+
 
         if (window.innerWidth > 1842){
             for (var i=1; i < this.data.length; i++){
@@ -467,6 +627,10 @@
             
             }
 
+            if (mobile){
+                return this.mobiledata
+            }
+
 
             this.convertedData = []
 
@@ -488,7 +652,6 @@
 
         }
 
-         // return this.data
       }
 
       seeker(index, type){
@@ -503,8 +666,10 @@
             }
 
             this.mobiledata[index][type] = this.shadowRoot.getElementById('data-'+index).value
-            let index2 = index + 1
-            this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('procedures-'+index2).value
+            this.mobiledata[index]["columndata"] = this.shadowRoot.getElementById('data-'+index).value
+
+            // let index2 = index + 1
+            this.mobiledata[index]["procedures"] = this.shadowRoot.getElementById('mobprocedures-'+index).value
 
 
             ++index
@@ -1725,7 +1890,8 @@
                 width: 64%;
             }
             .input1 {
-                width: 100%;
+                width: 98%;
+                margin: 2px;
             }
             .core,
             .data,

@@ -176,7 +176,7 @@ export class OptionDictionary extends LitElement {
             case "status4values": data = [{word: "Open"}, {word: "Partial"}, {word: "Closed"}, {word: "Void"}]; break;
             case "status2values": data = [{word: "Active"}, {word: "Inactive"}]; break;
             case "roles": data = [{word: "Super Admin"}, {word: "Group Admin"}, {word: "User"}]; break;
-            case "privileges": data = [{word: "Full"}, {word: "View"}, {word: "Edit"}]; break;
+            case "privileges": data = [{word: "Full"}, {word: "View"}, {word: "Edit | View"}]; break;
             case "hostingtype": data = [{word: "SAAS"}, {word: "Self-Host"}, {word: "Cloud Provider"}]; break;
             case "empty": data = []; break;
             default: data = [];

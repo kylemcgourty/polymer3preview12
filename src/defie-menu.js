@@ -181,6 +181,7 @@ export class DefieMenu extends PolymerElement {
         .alink {
             text-decoration: none;
                 color: #6b6b6b;
+                font-size: 13px;
             
         }
 
@@ -366,6 +367,10 @@ export class DefieMenu extends PolymerElement {
 
                 <qachecklists-shell setting="[[setting]]" name="qachecklists"></qachecklists-shell>
 
+                <barcodes-shell setting="[[setting]]" name="barcodes"></barcodes-shell>
+
+
+
 
 
 
@@ -396,7 +401,7 @@ export class DefieMenu extends PolymerElement {
               <apcreditmemos-shell apcm="[[apcm]]" name="apcreditmemos" setting="[[setting]]"></apcreditmemos-shell>
 
 
-                <cashreceipts-shell name="cashreceipts" setting="[[setting]]"></cashreceipts-shell>
+                <cashreceipt-shell name="cashreceipt" setting="[[setting]]"></cashreceipt-shell>
 
 
             </iron-pages>
@@ -573,8 +578,8 @@ export class DefieMenu extends PolymerElement {
                         "approvetopay-report": "approvetopay",
                         "apcreditmemo-new": "apcreditmemos",
                         "apcreditmemo": "apcreditmemos",
-                        "cashreceipt-new": "cashreceipts",
-                        "cashreceipt": "cashreceipts",
+                        "barcode-new": "barcodes",
+                        "barcodes": "barcodes",
                     }
                 }
             },
@@ -638,6 +643,8 @@ export class DefieMenu extends PolymerElement {
                     "boms": "/boms/src/boms-shell.js",
                     "bom-new": "/boms/src/boms-shell.js",
                     "qachecklists": "/qachecklists/src/qachecklists-shell.js",
+                    "barcode-new": "/barcodes/src/barcodes-shell.js",
+                    "barcodes": "/barcodes/src/barcodes-shell.js",
                     "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
                     "releasedboms": "/releasedboms/src/releasedboms-shell.js",
                     "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
@@ -665,8 +672,6 @@ export class DefieMenu extends PolymerElement {
                     "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
                     "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
                     "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
-                    "cashreceipt-new": "/cashreceipts/src/cashreceipts-shell.js",
-                    "cashreceipts": "/cashreceipts/src/cashreceipts-shell.js",
 
                     }
                 }

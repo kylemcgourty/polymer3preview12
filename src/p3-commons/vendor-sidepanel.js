@@ -131,16 +131,16 @@ export class VendorSidepanel extends LitElement {
                 error.textContent = "No matching results"
                 error.style = "Color: red";
                 error.id = "noMatchesError"
-                this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'));
+                if (this.shadowRoot.querySelector('#container') != null) {
+                    this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
+                }
+                this.data = ""
             }
 
-            if (!this.data) {
-                this.data = [];
-            }
-      
             if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
                 this.shadowRoot.getElementById('noMatchesError').remove()
             }
+
 
 
             const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {

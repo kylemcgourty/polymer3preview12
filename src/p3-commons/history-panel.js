@@ -92,11 +92,19 @@ export class HistoryPanel extends LitElement {
         return v;
     }
 
-    getRecord(e) {
+    getRecord(item) {
 
-        let record = e;
+        let record = item;
 
-        this.shadowRoot.querySelector("#ajaxSingle").url = this.getSingleUrlPrefix + "/" + record.id + "/" + record.idver;
+        if (this.getSingleUrlPrefix.includes('qasingle')){
+            let idver = record.col1
+            let id =record.col1.split("-")[0]
+             this.shadowRoot.querySelector("#ajaxSingle").url = this.getSingleUrlPrefix + "/" + id+"/" + idver;
+        } else {
+             this.shadowRoot.querySelector("#ajaxSingle").url = this.getSingleUrlPrefix + "/" + record.id + "/" + record.idver;
+
+        }
+
         this.shadowRoot.querySelector("#ajaxSingle").generateRequest();
     }
 
