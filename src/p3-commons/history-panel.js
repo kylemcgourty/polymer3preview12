@@ -110,7 +110,7 @@ export class HistoryPanel extends LitElement {
 
     receiveSingle(e) {
 
-        let record = e.detail.response.results
+        let record = e.detail.response.results || e.detail.response
 
         this.dispatchEvent(new CustomEvent(this.selectedEventName, {
             composed: true,
