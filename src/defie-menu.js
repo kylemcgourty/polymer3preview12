@@ -369,7 +369,7 @@ export class DefieMenu extends PolymerElement {
 
 
 
-                <profiles-shell setting="[[setting]]" fromlicensor="[[fromlicensor]]" name="profiles"></profiles-shell>
+                <profiles-shell setting="[[setting]]" name="profiles"></profiles-shell>
 
                 <users-shell setting="[[setting]]" name="users"></users-shell>
 
@@ -687,9 +687,6 @@ export class DefieMenu extends PolymerElement {
 
     constructor() {
         super()
-        this.addEventListener('toProfileView', e => {
-            this.set('fromlicensor', e.detail.model)
-        });
         this.addEventListener('ToWelcomeEvent', e => {
             this.toWelcomePage(e);
         });
