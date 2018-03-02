@@ -43,7 +43,6 @@ import '../../src/p3-commons/search-inner.js'
 
             this.data= data
 
-            console.log('the set data', JSON.parse(JSON.stringify(this.data)))
 
             this.data.forEach((item, i) => { item.id = i})
 
@@ -124,7 +123,6 @@ setBarcodes(data, placementid){
 
 retrieveData(){
 
-    console.log('the data in retrieve', this.data)
     for (var i=1; i<this.data.length; i++){
         this.data[i].id = String(this.data[i].id)
         this.data[i].qty = Number(this.data[i].qty)
