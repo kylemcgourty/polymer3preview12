@@ -88,7 +88,6 @@ export class PartSidepanel extends LitElement {
     }
     generateSearch(e, pass, retrieveAll) {
         let query
-        console.log(e)
         if (e.detail) {
             if (e.detail.inputValue === "") {
                 retrieveAll = true;
@@ -109,7 +108,6 @@ export class PartSidepanel extends LitElement {
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
-        console.log("querypackage querypackage :  ", querypackage)
 
         this.shadowRoot.querySelector('#ajaxSearch').url = "/inventory/search/" + this.profileid
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
