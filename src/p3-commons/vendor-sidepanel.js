@@ -62,7 +62,9 @@ export class VendorSidepanel extends LitElement {
         this.searchdisplay = {}
         this.searchdisplay.display = "block"
 
-        this.profileid = profileid;
+        if (profileid) {
+            this.profileid = profileid;
+        }
         
         this.generateSearch(false, false, true)
 
