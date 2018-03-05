@@ -942,7 +942,7 @@ export class DefieMenu extends PolymerElement {
         this.set('leftservices', e.detail.services)
         this.getSetting(sessionStorage.getItem("PR"))
 
-        this.$.serviceajax.generateRequest();
+        // this.$.serviceajax.generateRequest();
     }
 
 

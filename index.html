@@ -79,19 +79,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                 if (data.auth && data.customtoken != "") {
                                     firebase.auth().signInWithCustomToken(data.customtoken).then(function(someData) {
                                         console.log("Success", someData)
-                                        // uiConfig.signInSuccessUrl="/www.google.com";
-                                         console.log(uiConfig)
                                         $("#firebaseui-auth-container").hide();
                                         $("#defie-menu").show();
 
                                         var d = document.getElementById("defie-menu");
-                                        d.set("route.path", "/welcome");
-                                        d.notifyPath("route.path");
+                                        d.toWelcomePage({detail: {services: data.services}});
+                                        sessionStorage.setItem('UR', data.ur);
+                                        sessionStorage.setItem('PR', data.pr);
                                         console.log("Success");
-                                        // return true
                                     }).catch(function(error) {
-                                        // Handle Errors here.
-                                        console.log("XXXXXXXX      ")
                                         var errorCode = error.code;
                                         var errorMessage = error.message;
                                         // ...
