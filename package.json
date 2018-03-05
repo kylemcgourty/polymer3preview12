@@ -77,7 +77,17 @@
     "@polymer/iron-selector": "3.0.0-pre.7",
     "pify": "3.0.0",
     "camelcase": "4.1.0",
-    "depd": "1.1.2"
+    "depd": "1.1.2",
+    "has-flag": "3.0.0",
+    "lodash": "4.17.5",
+    "process-nextick-args": "2.0.0",
+    "vinyl": "2.1.0",
+    "clone-stats": "1.0.0",
+    "replace-ext": "1.0.0",
+    "mime-types": "2.1.17",
+    "qs": "6.4.0",
+    "assert-plus": "1.0.0",
+    "extsprintf": "1.4.0"
   },
   "dependencies": {
     "@polymer/app-layout": "^3.0.0-pre.7",
@@ -102,6 +112,7 @@
     "@polymer/paper-toast": "^3.0.0-pre.7",
     "@polymer/polymer": "^3.0.0-pre.7",
     "@webcomponents/webcomponentsjs": "^1.0.18",
+    "firebase": "^4.10.1",
     "lit-html": "^0.8.0",
     "p3-commons": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
     "postcss": "^6.0.14",

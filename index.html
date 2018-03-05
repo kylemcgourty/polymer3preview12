@@ -7,17 +7,133 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+    <script>
+    function postAjax(url, data, success) {
+        var params = typeof data == 'string' ? data : Object.keys(data).map(
+            function(k) { return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+        ).join('&');
+
+        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+        xhr.open('POST', url);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState > 3 && xhr.status == 200) { success(xhr.responseText); }
+        };
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+        return xhr;
+    }
+
+    function getRecaptchaMode() {
+        // Quick way of checking query params in the fragment. If we add more config
+        // we might want to actually parse the fragment as a query string.
+        return location.hash.indexOf('recaptcha=invisible') !== -1 ?
+            'invisible' : 'normal';
+    }
+
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDlxTfrrZJ3pGsfsTnxi77IzJX9Bi9ro7U",
+        authDomain: "fq-web.firebaseapp.com",
+        databaseURL: "https://fq-web.firebaseio.com",
+        projectId: "fq-web",
+        storageBucket: "fq-web.appspot.com",
+        messagingSenderId: "835246494390"
+    };
+    firebase.initializeApp(config);
+    var CLIENT_ID = 'jwang@defie.co';
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // FirebaseUI config.
+    var uiConfig = {
+        // Url to redirect to after a successful sign-in.
+        'signInSuccessUrl': '/welcome',
+        'callbacks': {
+            'signInSuccess': function(user, credential, redirectUrl) {
+                if (window.opener) {
+                    // The widget has been opened in a popup, so close the window
+                    // and return false to not redirect the opener.
+                    window.close();
+                    return false;
+                } else {
+                    // The widget has been used in redirect mode, so we redirect to the signInSuccessUrl.
+                    firebase.auth().currentUser.getIdToken( /* forceRefresh */ true).then(function(idToken) {
+                        // Send token to your backend via HTTPS\
+                        var ldata = { idtoken: idToken };
+                        console.log(ldata);
+                        $.ajax({
+                            url: "http://localhost/user/loginjwt",
+                            dataType: 'json',
+                            type: "POST",
+                            contentType: 'application/json',
+                            data: JSON.stringify(ldata),
+                            success: function(data) {
+                                console.log("Response from be", data);
+                                if (data.auth && data.customtoken != "") {
+                                    firebase.auth().signInWithCustomToken(data.customtoken).then(function(someData) {
+                                        console.log("Success", someData)
+                                        // uiConfig.signInSuccessUrl="/www.google.com";
+                                         console.log(uiConfig)
+                                        $("#firebaseui-auth-container").hide();
+                                        $("#defie-menu").show();
+                                        // return true
+                                    }).catch(function(error) {
+                                        // Handle Errors here.
+                                        console.log("XXXXXXXX      ")
+                                        var errorCode = error.code;
+                                        var errorMessage = error.message;
+                                        // ...
+
+                                    });
+                                }
+                            },
+                        });
+
+                    }).catch(function(error) {
+                        // Handle error
+                        console.log(error)
+                    });
+
+
+                    return false;
+                }
+            }
+        },
+        'signInOptions': [
+            // TODO(developer): Remove the providers you don't need for your app.
+            {
+                provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                // Required to enable this provider in One-Tap Sign-up.
+                authMethod: 'https://accounts.google.com',
+                // Required to enable ID token credentials for this provider.
+                clientId: CLIENT_ID
+            },
+            {
+                provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+                recaptchaParameters: {
+                    size: getRecaptchaMode()
+                }
+            }
+        ],
+        // Terms of service url.
+        'tosUrl': 'https://www.google.com',
+        'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
+            firebaseui.auth.CredentialHelper.GOOGLE_YOLO : firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+    };
+    ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
     <meta charset="utf-8">
     <meta name="generator" content="Polymer Starter Kit">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
     <title>My App</title>
     <meta name="description" content="My App description">
-
     <!--
       The `<base>` tag below is present to support two advanced deployment options:
       1) Differential serving. 2) Serving from a non-root path.
@@ -29,138 +145,114 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
     -->
     <base href="/">
-
-
-
-
     <link rel="icon" href="images/icon-72x72.png">
-
     <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="manifest.json">
-
     <!-- See https://goo.gl/qRE0vM -->
     <meta name="theme-color" content="#3f51b5">
-
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="My App">
-
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="My App">
-
     <!-- Homescreen icons -->
     <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
     <link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
     <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
-
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3f51b5">
     <meta name="msapplication-tap-highlight" content="no">
-
     <script>
-      /**
-      * [polymer-root-path]
-      *
-      * By default, we set `Polymer.rootPath` to the server root path (`/`).
-      * Leave this line unchanged if you intend to serve your app from the root
-      * path (e.g., with URLs like `my.domain/` and `my.domain/view1`).
-      *
-      * If you intend to serve your app from a non-root path (e.g., with URLs
-      * like `my.domain/services-shell/` and `my.domain/services-shell/view1`), edit this line
-      * to indicate the path from which you'll be serving, including leading
-      * and trailing slashes (e.g., `/services-shell/`).
-      */
-      window.Polymer = {rootPath: '/'};
+    /**
+     * [polymer-root-path]
+     *
+     * By default, we set `Polymer.rootPath` to the server root path (`/`).
+     * Leave this line unchanged if you intend to serve your app from the root
+     * path (e.g., with URLs like `my.domain/` and `my.domain/view1`).
+     *
+     * If you intend to serve your app from a non-root path (e.g., with URLs
+     * like `my.domain/services-shell/` and `my.domain/services-shell/view1`), edit this line
+     * to indicate the path from which you'll be serving, including leading
+     * and trailing slashes (e.g., `/services-shell/`).
+     */
+    window.Polymer = { rootPath: '/' };
     </script>
-
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
     <!-- <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script> -->
-
     <!-- Load your application shell -->
     <!-- <link rel="import" href="src/services-shell.html">
     <link rel="import" href="bower_components/paper-toast/paper-toast.html"> -->
-<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-
-<script type="module" src="../src/defie-menu.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="../src/defie-menu.js"></script>
     <!-- Import the my-app element's module. -->
-
     <!-- <script type="module" src="/licensors/src/licensors-shell.js"></script> -->
     <!-- <script type="module" src="/licuser/src/licusers-shell.js"></script> -->
-    
-    
     <script type="module" src="/signin/src/signin-shell.js"></script>
     <!-- <script type="module" src="/services/src/services-shell.js"></script> -->
-
     <!-- <script type="module" src="/profiles/src/profiles-shell.js"></script> -->
     <!-- <script type="module" src="/users/src/users-shell.js"></script> -->
     <!-- <script type="module" src="/apcreditmemos/src/apcreditmemos-shell.js"></script> -->
-
- 
     <!-- <script type="module" src="/inventorys/src/partnumbers-shell.js"></script> -->
-    
     <!-- <script type="module" src="/customers/src/customers-shell.js"></script> -->
     <!-- <script type="module" src="/quotes/src/quotes-shell.js"></script> -->
     <!-- <script type="module" src="/salesorders/src/salesorders-shell.js"></script> -->
     <!-- <script type="module" src="/invoices/src/invoices-shell.js"></script> -->
     <!-- <script type="module" src="/returnsos/src/returnsos-shell.js"></script> -->
     <!-- <script type="module" src="/creditmemos/src/creditmemos-shell.js"></script> -->
-
     <!-- <script type="module" src="/createinvoices/src/createinvoices-shell.js"></script> -->
     <!-- <script type="module" src="/createcreditmemos/src/createcreditmemos-shell.js"></script> -->
-
-<!--     <script type="module" src="/customerrmas/src/customerrmas-shell.js"></script> 
+    <!--     <script type="module" src="/customerrmas/src/customerrmas-shell.js"></script> 
     <script type="module" src="/customershiprmas/src/customershiprmas-shell.js"></script> 
     <script type="module" src="/customerreceivermas/src/customerreceivermas-shell.js"></script>  -->
-
     <!-- <script type="module" src="/apdistributedaccounts/src/apdistributedaccounts-shell.js"></script> -->
     <!-- <script type="module" src="/apchartofaccounts/src/apchartofaccounts-shell.js"></script> -->
-
     <!-- <script type="module" src="/vendors/src/vendors-shell.js"></script>  -->
     <!-- <script type="module" src="/purchaseorders/src/purchaseorders-shell.js"></script>  -->
     <!-- <script type="module" src="/receivepos/src/receivepos-shell.js"></script>  -->
     <!-- <script type="module" src="/returnpos/src/returnpos-shell.js"></script>  -->
     <!-- <script type="module" src="/shipreturnpos/src/shipreturnpos-shell.js"></script>  -->
-
-<!--     <script type="module" src="/vendorrmas/src/vendorrmas-shell.js"></script> 
+    <!--     <script type="module" src="/vendorrmas/src/vendorrmas-shell.js"></script> 
     <script type="module" src="/vendorshiprmas/src/vendorshiprmas-shell.js"></script> 
     <script type="module" src="/vendorreceivermas/src/vendorreceivermas-shell.js"></script> -->
-    
     <!-- <script type="module" src="/boms/src/boms-shell.js"></script> -->
     <!-- <script type="module" src="/releasedboms/src/releasedboms-shell.js"></script> -->
     <!-- <script type="module" src="/buildorders/src/buildorders-shell.js"></script> -->
     <!-- <script type="module" src="/releasedbuildorders/src/releasedbuildorders-shell.js"></script> -->
     <!-- <script type="module" src="/workorders/src/workorders-shell.js"></script> -->
     <!-- <script type="module" src="/finishworkorders/src/finishworkorders-shell.js"></script> -->
-
     <!-- <script type="module" src="/accountspayables/src/accountspayable-shell.js"></script> -->
     <!-- <script type="module" src="/approvetopays/src/approvetopay-shell.js"></script> -->
     <!-- <script type="module" src="/accountsreceivables/src/accountsreceivable-shell.js"></script> -->
-
-
     <!-- <script type="module" src="/cashreceipts/src/cashreceipt-shell.js"></script> -->
-    
-
     <!-- Add any global styles for body, document, etc. -->
     <style>
-      body {
+    body {
         margin: 0;
         font-family: 'Roboto', 'Noto', sans-serif;
         line-height: 1.5;
         font-size: 14px;
         min-height: 100vh;
         background-color: #eeeeee;
-      }
+    }
 
 
     #printpage {
         display: none;
     }
-    
+
+    #firebaseui-auth-container {
+        display: block;
+    }
+
+    #defie-menu {
+        display: none;
+    }
+
     @media print {
         #printpage {
             display: block;
@@ -170,22 +262,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             visibility: hidden;
             display: none;
         }
-     
+        #firebaseui-auth-container {
+            visibility: hidden;
+            display: none;
+        }
     }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <paper-toast id="toast">
         <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()"></span>
     </paper-toast>
-
-  <defie-menu id="defie-menu"></defie-menu>
-
-  <div id="printpage"></div>
+    <div id="firebaseui-auth-container"></div>
+    <defie-menu id="defie-menu"></defie-menu>
+    <div id="printpage"></div>
     <noscript>
-      Please enable JavaScript to view this website.
+        Please enable JavaScript to view this website.
     </noscript>
-
-    <!-- Built with love using Polymer Starter Kit
   </body>
 </html>
