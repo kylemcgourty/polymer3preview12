@@ -15,74 +15,24 @@ export class EnterPaymentPanel extends LitElement {
                     return {}
                 }
             },
-            bmodel: {
-                type: Object,
-                reflectToAttribute: true,
-                notify: true
-            },
-            smodel: {
-                type: Object,
-                reflectToAttribute: true,
-                notify: true
-            },
-            showbilling: {
-                type: Boolean,
-                notify: true,
-                value: true,
-                // isToggle: true
-            },
-            showshipping: {
-                type: Boolean,
-                notify: true,
-                value: true,
-                isToggle: true
-            },
-            showsoinfo: {
-                type: Boolean,
-                notify: true,
-                value: true,
-                isToggle: true
-            },
-            showshippinginfo: {
-                type: Boolean,
-                notify: true,
-                value: true,
-                isToggle: true
-            },
-            showpaymentinfo1: {
-                type: String,
-                notify: true,
-                value: "none",
-                isToggle: true
-            },
             showpaymentinfo2: {
                 type: String,
                 notify: true,
-                value: "none",
                 isToggle: true
             },
             showpaymentinfo3: {
                 type: String,
                 notify: true,
-                value: "none",
                 isToggle: true
             },
             showpaymentinfo4: {
                 type: String,
                 notify: true,
-                value: "none",
                 isToggle: true
             },
             showpaymentinfo5: {
                 type: String,
                 notify: true,
-                value: "none",
-                isToggle: true
-            },
-            toggleIcon1: {
-                type: String,
-                notify: true,
-                value: "expand-more",
                 isToggle: true
             },
             toggleIcon2: {
@@ -120,20 +70,26 @@ export class EnterPaymentPanel extends LitElement {
 
     constructor() {
         super();
+        this.showpaymentinfo2 = "none";
+        this.showpaymentinfo3 = "none";
+        this.showpaymentinfo4 = "none";
+        this.showpaymentinfo5 = "none";
     }
 
     open(showpaymentinfo) {
 
-        this.set(showpaymentinfo, "block")
+        console.log("showpaymentinfo is", showpaymentinfo);
 
-        if (this.previouspaymentinfo.length >= 1) {
-            var previous = this.previouspaymentinfo.pop();
-            if (previous != showpaymentinfo) {
-                this.set(previous, "none")
-            }
-        }
+        this[showpaymentinfo] = "block";
 
-        this.push('previouspaymentinfo', showpaymentinfo)
+        // if (this.previouspaymentinfo.length >= 1) {
+        //     var previous = this.previouspaymentinfo.pop();
+        //     if (previous != showpaymentinfo) {
+        //         this.set(previous, "none")
+        //     }
+        // }
+
+        // this.push('previouspaymentinfo', showpaymentinfo)
 
     }
 
@@ -159,17 +115,6 @@ export class EnterPaymentPanel extends LitElement {
                     bubbles: true,
                 }))
                 break;
-        }
-    }
-
-
-    togglePaymentInfo1(e) {
-        if (this.showpaymentinfo1 === "block") {
-            this.set('showpaymentinfo1', "none")
-            this.set('toggleIcon1', 'expand-more')
-        } else {
-            this.set('showpaymentinfo1', "block")
-            this.set('toggleIcon1', 'expand-less')
         }
     }
 
@@ -246,7 +191,11 @@ export class EnterPaymentPanel extends LitElement {
         super.ready();
     }
 
-    render() {
+    render({ showpaymentinfo2, showpaymentinfo3, showpaymentinfo4, showpaymentinfo5 }) {
+
+        console.log("showpayments");
+        console.log(showpaymentinfo2, " ", showpaymentinfo3, " ", showpaymentinfo4, " ", showpaymentinfo5);
+
         return html`<style include="shared-styles iron-flex iron-flex-alignment">
 
       .card {
@@ -964,221 +913,215 @@ export class EnterPaymentPanel extends LitElement {
            
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         
-                        <section style="display: {{showpaymentinfo2}}" class="nopadding nomargin margin-left payment-right">
+                        <section style="display: ${showpaymentinfo2}" class="nopadding nomargin margin-left payment-right">
                             <div class="my-content">
                                 <div class="title title-margin">
-                                    <span on-tap="showDropdown" data-id="showshippinginfo">[[binfo.title]]
-                                                    </span>
-
+                                    <span on-tap="showDropdown" data-id="showshippinginfo">${binfo.title}</span>
                                 </div>
                             </div>
                             <div >
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[binfo.info1]]</div>
+                                    <div class="col-xs-3">${binfo.info1}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo1_value}}">
-                                            <input class="input" disabled="[[disabledinput.binfo1]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.binfovalues.binfo1_value}">
+                                            <input class="input" disabled="${disabledinput.binfo1}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.binfo1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo1]]">
-                                        <iron-icon id="[[searchid.binfo1]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.binfo1}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.binfo1}">
+                                        <iron-icon id="${searchid.binfo1}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content" on-tap="openDatePicker">
-                                    <div class="col-xs-3">[[binfo.info2]]</div>
+                                    <div class="col-xs-3">${binfo.info2}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo2_value}}">
-                                            <input class="input" disabled="[[disabledinput.binfo2]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.binfovalues.binfo2_value}">
+                                            <input class="input" disabled="${disabledinput.binfo2}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.binfo2]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo2]]">
-                                        <iron-icon id="[[searchid.binfo2]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.binfo2}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.binfo2}">
+                                        <iron-icon id="${searchid.binfo2}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[binfo.info3]]</div>
+                                    <div class="col-xs-3">${binfo.info3}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo3_value}}">
-                                            <input class="input" disabled="[[disabledinput.binfo3]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.binfovalues.binfo3_value}">
+                                            <input class="input" disabled="${disabledinput.binfo3}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.binfo3]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo3]]">
-                                        <iron-icon id="[[searchid.binfo3]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.binfo3}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.binfo3}">
+                                        <iron-icon id="${searchid.binfo3}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[binfo.info4]]</div>
+                                    <div class="col-xs-3">${binfo.info4}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo4_value}}">
-                                            <input class="input" disabled="[[disabledinput.binfo4]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.binfovalues.binfo4_value}">
+                                            <input class="input" disabled="${disabledinput.binfo4}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.binfo4]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo4]]">
-                                        <iron-icon id="[[searchid.binfo4]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.binfo4}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.binfo4}">
+                                        <iron-icon id="${searchid.binfo4}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[binfo.info5]]</div>
+                                    <div class="col-xs-3">${binfo.info5}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.binfovalues.binfo5_value}}">
-                                            <input class="input" disabled="[[disabledinput.binfo5]]" on-focusout="doCalculate">
+                                        <iron-input class="col-xs-9" bind-value="${model.binfovalues.binfo5_value}">
+                                            <input class="input" disabled="${disabledinput.binfo5}" on-focusout="doCalculate">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.binfo5]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.binfo5]]">
-                                        <iron-icon id="[[searchid.binfo5]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.binfo5}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.binfo5}">
+                                        <iron-icon id="${searchid.binfo5}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 
                             </div>
                         </section>
-                        <section style="display: {{showpaymentinfo3}}" class="nomargin nopadding margin-right payment-right">
+                        <section style="display: ${showpaymentinfo3}" class="nomargin nopadding margin-right payment-right">
                             <div class="my-content">
                                 <div class="title title-margin">
-                                    <span on-tap="showDropdown" data-id="showsoinfo">[[cinfo.title]]
+                                    <span on-tap="showDropdown" data-id="showsoinfo">${cinfo.title}
                                     </span>
 
                                 </div>
                             </div>
                             <div >
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[cinfo.info1]]</div>
+                                    <div class="col-xs-3">${cinfo.info1}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.cinfovalues.cinfo1_value}}">
-                                            <input class="input" disabled="[[disabledinput.cinfo1]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.cinfovalues.cinfo1_value}">
+                                            <input class="input" disabled="${disabledinput.cinfo1}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.cinfo1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.cinfo1]]">
-                                        <iron-icon id="[[searchid.cinfo1]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.cinfo1}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.cinfo1}">
+                                        <iron-icon id="${searchid.cinfo1}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[cinfo.info2]]</div>
+                                    <div class="col-xs-3">${cinfo.info2}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.cinfovalues.cinfo2_value}}">
-                                            <input class="input" disabled="[[disabledinput.cinfo2]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.cinfovalues.cinfo2_value}">
+                                            <input class="input" disabled="${disabledinput.cinfo2}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.cinfo2]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.cinfo2]]">
-                                        <iron-icon id="[[searchid.cinfo2]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.cinfo2}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.cinfo2}">
+                                        <iron-icon id="${searchid.cinfo2}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[cinfo.info3]]</div>
+                                    <div class="col-xs-3">${cinfo.info3}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.cinfovalues.cinfo3_value}}">
-                                            <input class="input" disabled="[[disabledinput.cinfo3]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.cinfovalues.cinfo3_value}">
+                                            <input class="input" disabled="${disabledinput.cinfo3}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.cinfo3]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.cinfo3]]">
-                                        <iron-icon id="[[searchid.cinfo3]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.cinfo3}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.cinfo3}">
+                                        <iron-icon id="${searchid.cinfo3}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[cinfo.info4]]</div>
+                                    <div class="col-xs-3">${cinfo.info4}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.cinfovalues.cinfo4_value}}">
-                                            <input class="input" disabled="[[disabledinput.cinfo4]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.cinfovalues.cinfo4_value}">
+                                            <input class="input" disabled="${disabledinput.cinfo4}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.cinfo4]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.cinfo4]]">
-                                        <iron-icon id="[[searchid.cinfo4]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.cinfo4}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.cinfo4}">
+                                        <iron-icon id="${searchid.cinfo4}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[cinfo.info5]]</div>
+                                    <div class="col-xs-3">${cinfo.info5}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.cinfovalues.cinfo5_value}}">
-                                            <input class="input" disabled="[[disabledinput.cinfo5]]" on-focusout="doCalculate">
+                                        <iron-input class="col-xs-9" bind-value="${model.cinfovalues.cinfo5_value}">
+                                            <input class="input" disabled="${disabledinput.cinfo5}" on-focusout="doCalculate">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.cinfo5]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.cinfo5]]">
-                                        <iron-icon id="[[searchid.cinfo5]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.cinfo5}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.cinfo5}">
+                                        <iron-icon id="${searchid.cinfo5}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 
                             </div>
                         </section>
-                        <section style="display: {{showpaymentinfo4}}" class="nopadding nomargin margin-left payment-right">
+                        <section style="display: ${showpaymentinfo4}" class="nopadding nomargin margin-left payment-right">
                             <div class="my-content">
                                 <div class="title title-margin">
-                                    <span on-tap="showDropdown" data-id="showshippinginfo">[[dinfo.title]]
-                                                    </span>
-
+                                    <span on-tap="showDropdown" data-id="showshippinginfo">${dinfo.title}</span>
                                 </div>
                             </div>
                             <div >
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[dinfo.info1]]</div>
+                                    <div class="col-xs-3">${dinfo.info1}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.dinfovalues.dinfo1_value}}">
-                                            <input class="input" disabled="[[disabledinput.dinfo1]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.dinfovalues.dinfo1_value}">
+                                            <input class="input" disabled="${disabledinput.dinfo1}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.dinfo1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.dinfo1]]">
-                                        <iron-icon id="[[searchid.dinfo1]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.dinfo1}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.dinfo1}">
+                                        <iron-icon id="${searchid.dinfo1}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content" on-tap="openDatePicker">
-                                    <div class="col-xs-3">[[dinfo.info2]]</div>
+                                    <div class="col-xs-3">${dinfo.info2}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.dinfovalues.dinfo2_value}}">
-                                            <input class="input" disabled="[[disabledinput.dinfo2]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.dinfovalues.dinfo2_value}">
+                                            <input class="input" disabled="${disabledinput.dinfo2}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.dinfo2]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.dinfo2]]">
-                                        <iron-icon id="[[searchid.dinfo2]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.dinfo2}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.dinfo2}">
+                                        <iron-icon id="${searchid.dinfo2}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[dinfo.info3]]</div>
+                                    <div class="col-xs-3">${dinfo.info3}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.dinfovalues.dinfo3_value}}">
-                                            <input class="input" disabled="[[disabledinput.dinfo3]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.dinfovalues.dinfo3_value}">
+                                            <input class="input" disabled="${disabledinput.dinfo3}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.dinfo3]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.dinfo3]]">
-                                        <iron-icon id="[[searchid.dinfo3]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.dinfo3}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.dinfo3}">
+                                        <iron-icon id="${searchid.dinfo3}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[dinfo.info4]]</div>
+                                    <div class="col-xs-3">${dinfo.info4}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.dinfovalues.dinfo4_value}}">
-                                            <input class="input" disabled="[[disabledinput.dinfo4]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.dinfovalues.dinfo4_value}">
+                                            <input class="input" disabled="${disabledinput.dinfo4}">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.dinfo4]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.dinfo4]]">
-                                        <iron-icon id="[[searchid.dinfo4]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.dinfo4}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.dinfo4}">
+                                        <iron-icon id="${searchid.dinfo4}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[dinfo.info5]]</div>
+                                    <div class="col-xs-3">${dinfo.info5}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.dinfovalues.dinfo5_value}}">
-                                            <input class="input" disabled="[[disabledinput.dinfo5]]" on-focusout="doCalculate">
+                                        <iron-input class="col-xs-9" bind-value="${model.dinfovalues.dinfo5_value}">
+                                            <input class="input" disabled="${disabledinput.dinfo5}" on-focusout="doCalculate">
                                         </iron-input>
                                     </div>
-                                    <div id="[[searchid.dinfo5]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.dinfo5]]">
-                                        <iron-icon id="[[searchid.dinfo5]]" on-tap="changepanel" icon="search" class="hover"></iron-icon>
+                                    <div id="${searchid.dinfo5}" class="right-icon1 iron-bottom-padding" style="display: ${displaysearch.dinfo5}">
+                                        <iron-icon id="${searchid.dinfo5}" on-tap="changepanel" icon="search" class="hover"></iron-icon>
                                     </div>
                                 </div>
                                 
                             </div>
                         </section>
-                        <section style="display: {{showpaymentinfo5}}" class="nomargin nopadding margin-right payment-right">
+                        <section style="display: ${showpaymentinfo5}" class="nomargin nopadding margin-right payment-right">
                             <div class="my-content">
                                 <div class="title title-margin">
-                                    <span on-tap="showDropdown" data-id="showsoinfo">[[einfo.title]]
-                                    </span>
-
+                                    <span on-tap="showDropdown" data-id="showsoinfo">${einfo.title}</span>
                                 </div>
                             </div>
                             <div >
                                 <div class="my-content">
-                                    <div class="col-xs-3">[[einfo.info1]]</div>
+                                    <div class="col-xs-3">${einfo.info1}</div>
                                     <div class="text-right">
-                                        <iron-input class="col-xs-9" bind-value="{{model.einfovalues.einfo1_value}}">
-                                            <input class="input" disabled="[[disabledinput.einfo1]]">
+                                        <iron-input class="col-xs-9" bind-value="${model.einfovalues.einfo1_value}">
+                                            <input class="input" disabled="${disabledinput.einfo1}">
                                         </iron-input>
                                     </div>
                                     <div id="[[searchid.einfo1]]" class="right-icon1 iron-bottom-padding" style="display: [[displaysearch.einfo1]]">

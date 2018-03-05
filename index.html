@@ -83,6 +83,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                          console.log(uiConfig)
                                         $("#firebaseui-auth-container").hide();
                                         $("#defie-menu").show();
+
+                                        var d = document.getElementById("defie-menu");
+                                        d.set("route.path", "/welcome");
+                                        d.notifyPath("route.path");
+                                        console.log("Success");
                                         // return true
                                     }).catch(function(error) {
                                         // Handle Errors here.
