@@ -39,6 +39,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             'invisible' : 'normal';
     }
 
+    function signOut() {
+        firebase.auth().signOut().then(function() {
+            $("#firebaseui-auth-container").show();
+            $("#defie-menu").hide();
+
+            sessionStorage.removeItem('UR');
+            sessionStorage.removeItem('PR');
+            ui.start('#firebaseui-auth-container', uiConfig);
+            console.log('Signed Out');
+        }, function(error) {
+            console.error('Sign Out Error', error);
+        });
+    }
+
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyDlxTfrrZJ3pGsfsTnxi77IzJX9Bi9ro7U",

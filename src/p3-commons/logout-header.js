@@ -34,7 +34,8 @@
             this.dispatchEvent(new CustomEvent('signoutGoogleLogin', {
                 composed: true,
                 bubbles: true,
-            })) 
+            }))
+            window.signOut();
         }
         response(request) {
             var result = request.detail.response;
