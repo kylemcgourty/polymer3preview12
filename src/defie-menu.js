@@ -52,6 +52,7 @@ import '../node_modules/@polymer/paper-toast/paper-toast.js'
 // import '/salesorders/src/salesorders-shell.js'
 
 
+import '../src/welcome-page.js'
 
 
 
@@ -312,7 +313,9 @@ export class DefieMenu extends PolymerElement {
                 </template>
             </app-drawer>
             <iron-pages id="custIronPages" selected="[[option]]" attr-for-selected="name" fallback-selection="view404" role="main">
+                <welcome-page name="welcome"></welcome-page>
                 <signin-shell name="signin"></signin-shell>
+
 
                 <services-shell name="services" setting="[[setting]]"></services-shell>
 
@@ -486,7 +489,7 @@ export class DefieMenu extends PolymerElement {
                         "homepage": "signin",
                         "signin": "signin",
                         "signin-authenticate": "signin",
-                        "welcome": "signin",
+                        "welcome": "welcome",
 
                         "apdistributedaccounts-new": "apdistributedaccounts",
                         "apchartofaccounts-new": "apchartofaccounts",
@@ -588,6 +591,7 @@ export class DefieMenu extends PolymerElement {
                 type: Object,
                 value: function() {
                     return {
+                    "welcome": "/signin/src/signin-shell.js",
                     "users": "/users/src/users-shell.js",
                     "user-new": "/users/src/users-shell.js",
                     "partnumbers": "/inventorys/src/partnumbers-shell.js",
@@ -811,20 +815,30 @@ export class DefieMenu extends PolymerElement {
 
         let module = this.importList[route]
 
-
-        if (route == "signin" || route == "signin-authenticate" || route == "welcome") {
+        console.log(module)
+        console.log(route)
+        if (route == "signin" || route == "signin-authenticate" ) {
             return;
         }
 
+       if (route == "welcome") {
+            this.set('option', 'welcome')
+            return;
+        }
+
+        console.log(Array.isArray(module))
         if (Array.isArray(module)) {
             Promise.all(module.map( (item) => {import(item)} )).then(() =>{
                 this.set('option', this.ServicesList[route])
             })
         } else {
             import(module).then((mod) =>{
+                console.log("this Serviceslist  ",this.ServicesList[route])
                 this.set('option', this.ServicesList[route])
             })
         }
+
+        console.log('the set option', this.option)
     }
 
 
@@ -942,7 +956,7 @@ export class DefieMenu extends PolymerElement {
         this.set('leftservices', e.detail.services)
         this.getSetting(sessionStorage.getItem("PR"))
 
-        // this.$.serviceajax.generateRequest();
+        this.$.serviceajax.generateRequest();
     }
 
 
