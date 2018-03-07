@@ -815,8 +815,6 @@ export class DefieMenu extends PolymerElement {
 
         let module = this.importList[route]
 
-        console.log(module)
-        console.log(route)
         if (route == "signin" || route == "signin-authenticate" ) {
             return;
         }
@@ -826,19 +824,15 @@ export class DefieMenu extends PolymerElement {
             return;
         }
 
-        console.log(Array.isArray(module))
         if (Array.isArray(module)) {
             Promise.all(module.map( (item) => {import(item)} )).then(() =>{
                 this.set('option', this.ServicesList[route])
             })
         } else {
             import(module).then((mod) =>{
-                console.log("this Serviceslist  ",this.ServicesList[route])
                 this.set('option', this.ServicesList[route])
             })
         }
-
-        console.log('the set option', this.option)
     }
 
 

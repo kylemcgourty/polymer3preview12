@@ -16,11 +16,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
     <script>
-    function googlelogin() {
-        console.log("XCCC")
-        return;
-    }
-
     function getRecaptchaMode() {
         // Quick way of checking query params in the fragment. If we add more config
         // we might want to actually parse the fragment as a query string.
@@ -79,10 +74,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             contentType: 'application/json',
                             data: JSON.stringify(ldata),
                             success: function(data) {
-                                console.log("Response from be", data);
                                 if (data.auth && data.customtoken != "") {
                                     firebase.auth().signInWithCustomToken(data.customtoken).then(function(someData) {
-                                        console.log("Success", someData)
                                         $("#login-container").hide();
                                         $("#defie-menu").show();
 
