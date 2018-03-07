@@ -33,9 +33,16 @@ import '../../src/p3-commons/search-inner.js'
 
        
 
-        open(data){
+        open(data, view){
+
+            if (view == true){
+                this.view = true
+            } else {
+                this.view =false
+            }
 
             this.data= data
+
 
             this.data.forEach((item, i) => { item.id = i})
 
@@ -62,9 +69,9 @@ import '../../src/p3-commons/search-inner.js'
                                                     <div class="serialnumbers">
                                                         ${item.serialnumbers}
                                                     </div>
-                                                     <iron-icon class="delete" icon="close" on-tap="${()=>{this.delete(item)}}"></iron-icon>
+                                                     <iron-icon class="delete" editOnly$="${this.view}" icon="close" on-tap="${()=>{this.delete(item)}}"></iron-icon>
                                                 </div>
-                                                <div id$="placement-${item.id}"   class="layout horizontal wrap">
+                                                <div id$="placement-${item.id}"  class="layout horizontal wrap">
                                                 <div> 
                                                 
                                             
@@ -86,6 +93,10 @@ import '../../src/p3-commons/search-inner.js'
 
 setBarcodes(data, placementid){
 
+    if (data == undefined || data.length == 0){
+        return
+    }
+
 
     data.forEach((item, i) => {item.id = i +1})
     this.placementid = placementid
@@ -99,7 +110,7 @@ setBarcodes(data, placementid){
                                 <div class="box">
                                     ${item.id}
                                 </div>
-                                    <input id$="barcode-${this.placementid}-${item.id}" value="${item.barcode}" class="input box-input">
+                                    <input disabled="${this.view}" id$="barcode-${this.placementid}-${item.id}" value="${item.barcode}" class="input box-input">
                             </div>
                       `
                 )}
@@ -111,6 +122,7 @@ setBarcodes(data, placementid){
 }
 
 retrieveData(){
+
     for (var i=1; i<this.data.length; i++){
         this.data[i].id = String(this.data[i].id)
         this.data[i].qty = Number(this.data[i].qty)
@@ -369,6 +381,10 @@ delete(item) {
         border-radius: 5px;
         background-color: #fff;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+
+      iron-icon[editOnly = true]{
+        display: none;
       }
 
     paper-drawer-panel {
