@@ -591,91 +591,91 @@ export class DefieMenu extends PolymerElement {
                 type: Object,
                 value: function() {
                     return {
-                    "welcome": "/signin/src/signin-shell.js",
-                    "users": "/users/src/users-shell.js",
-                    "user-new": "/users/src/users-shell.js",
-                    "partnumbers": "/inventorys/src/partnumbers-shell.js",
-                    "partnumber-new":"/inventorys/src/partnumbers-shell.js",
-                    "salesorders": "/salesorders/src/salesorders-shell.js",
-                    "salesorder-new": "/salesorders/src/salesorders-shell.js",
-                    "customers": "/customers/src/customers-shell.js",
-                    "customer-new": "/customers/src/customers-shell.js",
-                    "licensors": "/licensors/src/licensors-shell.js",
-                    "licensor-new": "/licensors/src/licensors-shell.js",
-                    "services": "/services/src/services-shell.js",
-                    "service-new": "/services/src/services-shell.js",
-                    "profiles": "/profiles/src/profiles-shell.js",
-                    "profile-new": "/profiles/src/profiles-shell.js",
-                    "profile-view": "/profiles/src/profiles-shell.js",
-                    "apdistributedaccounts-new": "/apdistributedaccounts/src/apdistributedaccounts-shell.js",
-                    "apchartofaccounts-new": "/apchartofaccounts/src/apchartofaccounts-shell.js",
-                    
-                    "accountsreceivable": "/accountsreceivables/src/accountsreceivable-shell.js",
-                    "ar-customers": "/accountsreceivables/src/accountsreceivable-shell.js",
-                    "customerrma-new": "/customerrmas/src/customerrmas-shell.js",
-                    "customerrmas": "/customerrmas/src/customerrmas-shell.js",
-                    "customershiprma-new": "/customershiprmas/src/customershiprmas-shell.js",
-                    "customershiprmas": "/customershiprmas/src/customershiprmas-shell.js",
-                    "customerreceiverma-new": "/customerreceivermas/src/customerreceivermas-shell.js",
-                    "customerreceivermas": "/customerreceivermas/src/customerreceivermas-shell.js",
-                    "vendorrma-new": "/vendorrmas/src/vendorrmas-shell.js",
-                    "vendorrmas": "/vendorrmas/src/vendorrmas-shell.js",
-                    "vendorshiprma-new": "/vendorshiprmas/src/vendorshiprmas-shell.js",
-                    "vendorshiprmas": "/vendorshiprmas/src/vendorshiprmas-shell.js",
-                    "vendorreceiverma-new": "/vendorreceivermas/src/vendorreceivermas-shell.js",
-                    "vendorreceivermas": "/vendorreceivermas/src/vendorreceivermas-shell.js",
-                    "shipreturnpo-new": "/shipreturnpos/src/shipreturnpos-shell.js",
-                    "shipreturnpos": "/shipreturnpos/src/shipreturnpos-shell.js",
-                    "purchaseorder-new": "/purchaseorders/src/purchaseorders-shell.js",
-                    "purchaseorders": "/purchaseorders/src/purchaseorders-shell.js",
-                    "receivepo-new": "/receivepos/src/receivepos-shell.js",
-                    "receivepos": "/receivepos/src/receivepos-shell.js",
-                    "returnpo-new": "/returnpos/src/returnpos-shell.js",
-                    "returnpos":"/returnpos/src/returnpos-shell.js",
-                    "returnso-new": "/returnsos/src/returnsos-shell.js",
-                    "returnsos":"/returnsos/src/returnsos-shell.js",
-                    "creditmemo-new": "/creditmemos/src/creditmemos-shell.js",
-                    "creditmemos": "/creditmemos/src/creditmemos-shell.js",
-                    "createcreditmemo-new": "/createcreditmemos/src/createcreditmemos-shell.js",
-                    "createcreditmemos": "/createcreditmemos/src/createcreditmemos-shell.js",
-                    "licuser-new": "/licuser/src/licusers-shell.js",
-                    "licusers": "/licuser/src/licusers-shell.js",
-                    "createinvoice-new": "/createinvoices/src/createinvoices-shell.js",
-                    "createinvoices": "/createinvoices/src/createinvoices-shell.js",
-                    "invoice-new": "/invoices/src/invoices-shell.js",
-                    "invoices": "/invoices/src/invoices-shell.js",
-                    "boms": "/boms/src/boms-shell.js",
-                    "bom-new": "/boms/src/boms-shell.js",
-                    "qachecklists": "/qachecklists/src/qachecklists-shell.js",
-                    "barcodes-new": "/barcodes/src/barcodes-shell.js",
-                    "barcodes": "/barcodes/src/barcodes-shell.js",
-                    "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
-                    "releasedboms": "/releasedboms/src/releasedboms-shell.js",
-                    "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
-                    "buildorders": "/buildorders/src/buildorders-shell.js",
-                    "buildorder-new": "/buildorders/src/buildorders-shell.js",
-                    "releasedbuildorders": "/releasedbuildorders/src/releasedbuildorders-shell.js",
-                    "releasebuildorder-new": "/releasedbuildorders/src/releasedbuildorders-shell.js",
-                    "workorders": "/workorders/src/workorders-shell.js",
-                    "workorder-new": "/workorders/src/workorders-shell.js",
-                    "finishworkorders": "/finishworkorders/src/finishworkorders-shell.js",
-                    "finishworkorder-new": "/finishworkorders/src/finishworkorders-shell.js",
-                    "deployedworkorders": "/deployedworkorders/src/deployedworkorders-shell.js",
-                    "deployedworkorder-new": "/deployedworkorders/src/deployedworkorders-shell.js",
-                    "vendor-new": "/vendors/src/vendors-shell.js",
-                    "vendors": "/vendors/src/vendors-shell.js",
-                    "quote-new": "/quotes/src/quotes-shell.js",
-                    "quotes": "/quotes/src/quotes-shell.js",
-                    "accountspayable-new": "/accountspayables/src/accountspayable-shell.js",
-                    "accountspayable": "/accountspayables/src/accountspayable-shell.js",
-                    "ap-vendors": ["/accountspayables/src/accountspayable-shell.js", "/approvetopays/src/approvetopay-shell.js"],
-                    "ap-status": "/accountspayables/src/accountspayable-shell.js",
-                    "approvetopay-new": "/approvetopays/src/approvetopay-shell.js",
-                    "approvetopay-check": "/approvetopays/src/approvetopay-shell.js",
-                    "approvetopay": "/approvetopays/src/approvetopay-shell.js",
-                    "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
-                    "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
-                    "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
+                        "welcome": "/signin/src/signin-shell.js",
+                        "users": "/users/src/users-shell.js",
+                        "user-new": "/users/src/users-shell.js",
+                        "partnumbers": "/inventorys/src/partnumbers-shell.js",
+                        "partnumber-new": "/inventorys/src/partnumbers-shell.js",
+                        "salesorders": "/salesorders/src/salesorders-shell.js",
+                        "salesorder-new": "/salesorders/src/salesorders-shell.js",
+                        "customers": "/customers/src/customers-shell.js",
+                        "customer-new": "/customers/src/customers-shell.js",
+                        "licensors": "/licensors/src/licensors-shell.js",
+                        "licensor-new": "/licensors/src/licensors-shell.js",
+                        "services": "/services/src/services-shell.js",
+                        "service-new": "/services/src/services-shell.js",
+                        "profiles": "/profiles/src/profiles-shell.js",
+                        "profile-new": "/profiles/src/profiles-shell.js",
+                        "profile-view": "/profiles/src/profiles-shell.js",
+                        "apdistributedaccounts-new": "/apdistributedaccounts/src/apdistributedaccounts-shell.js",
+                        "apchartofaccounts-new": "/apchartofaccounts/src/apchartofaccounts-shell.js",
+
+                        "accountsreceivable": "/accountsreceivables/src/accountsreceivable-shell.js",
+                        "ar-customers": "/accountsreceivables/src/accountsreceivable-shell.js",
+                        "customerrma-new": "/customerrmas/src/customerrmas-shell.js",
+                        "customerrmas": "/customerrmas/src/customerrmas-shell.js",
+                        "customershiprma-new": "/customershiprmas/src/customershiprmas-shell.js",
+                        "customershiprmas": "/customershiprmas/src/customershiprmas-shell.js",
+                        "customerreceiverma-new": "/customerreceivermas/src/customerreceivermas-shell.js",
+                        "customerreceivermas": "/customerreceivermas/src/customerreceivermas-shell.js",
+                        "vendorrma-new": "/vendorrmas/src/vendorrmas-shell.js",
+                        "vendorrmas": "/vendorrmas/src/vendorrmas-shell.js",
+                        "vendorshiprma-new": "/vendorshiprmas/src/vendorshiprmas-shell.js",
+                        "vendorshiprmas": "/vendorshiprmas/src/vendorshiprmas-shell.js",
+                        "vendorreceiverma-new": "/vendorreceivermas/src/vendorreceivermas-shell.js",
+                        "vendorreceivermas": "/vendorreceivermas/src/vendorreceivermas-shell.js",
+                        "shipreturnpo-new": "/shipreturnpos/src/shipreturnpos-shell.js",
+                        "shipreturnpos": "/shipreturnpos/src/shipreturnpos-shell.js",
+                        "purchaseorder-new": "/purchaseorders/src/purchaseorders-shell.js",
+                        "purchaseorders": "/purchaseorders/src/purchaseorders-shell.js",
+                        "receivepo-new": "/receivepos/src/receivepos-shell.js",
+                        "receivepos": "/receivepos/src/receivepos-shell.js",
+                        "returnpo-new": "/returnpos/src/returnpos-shell.js",
+                        "returnpos": "/returnpos/src/returnpos-shell.js",
+                        "returnso-new": "/returnsos/src/returnsos-shell.js",
+                        "returnsos": "/returnsos/src/returnsos-shell.js",
+                        "creditmemo-new": "/creditmemos/src/creditmemos-shell.js",
+                        "creditmemos": "/creditmemos/src/creditmemos-shell.js",
+                        "createcreditmemo-new": "/createcreditmemos/src/createcreditmemos-shell.js",
+                        "createcreditmemos": "/createcreditmemos/src/createcreditmemos-shell.js",
+                        "licuser-new": "/licuser/src/licusers-shell.js",
+                        "licusers": "/licuser/src/licusers-shell.js",
+                        "createinvoice-new": "/createinvoices/src/createinvoices-shell.js",
+                        "createinvoices": "/createinvoices/src/createinvoices-shell.js",
+                        "invoice-new": "/invoices/src/invoices-shell.js",
+                        "invoices": "/invoices/src/invoices-shell.js",
+                        "boms": "/boms/src/boms-shell.js",
+                        "bom-new": "/boms/src/boms-shell.js",
+                        "qachecklists": "/qachecklists/src/qachecklists-shell.js",
+                        "barcodes-new": "/barcodes/src/barcodes-shell.js",
+                        "barcodes": "/barcodes/src/barcodes-shell.js",
+                        "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
+                        "releasedboms": "/releasedboms/src/releasedboms-shell.js",
+                        "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
+                        "buildorders": "/buildorders/src/buildorders-shell.js",
+                        "buildorder-new": "/buildorders/src/buildorders-shell.js",
+                        "releasedbuildorders": "/releasedbuildorders/src/releasedbuildorders-shell.js",
+                        "releasebuildorder-new": "/releasedbuildorders/src/releasedbuildorders-shell.js",
+                        "workorders": "/workorders/src/workorders-shell.js",
+                        "workorder-new": "/workorders/src/workorders-shell.js",
+                        "finishworkorders": "/finishworkorders/src/finishworkorders-shell.js",
+                        "finishworkorder-new": "/finishworkorders/src/finishworkorders-shell.js",
+                        "deployedworkorders": "/deployedworkorders/src/deployedworkorders-shell.js",
+                        "deployedworkorder-new": "/deployedworkorders/src/deployedworkorders-shell.js",
+                        "vendor-new": "/vendors/src/vendors-shell.js",
+                        "vendors": "/vendors/src/vendors-shell.js",
+                        "quote-new": "/quotes/src/quotes-shell.js",
+                        "quotes": "/quotes/src/quotes-shell.js",
+                        "accountspayable-new": "/accountspayables/src/accountspayable-shell.js",
+                        "accountspayable": "/accountspayables/src/accountspayable-shell.js",
+                        "ap-vendors": ["/accountspayables/src/accountspayable-shell.js", "/approvetopays/src/approvetopay-shell.js"],
+                        "ap-status": "/accountspayables/src/accountspayable-shell.js",
+                        "approvetopay-new": "/approvetopays/src/approvetopay-shell.js",
+                        "approvetopay-check": "/approvetopays/src/approvetopay-shell.js",
+                        "approvetopay": "/approvetopays/src/approvetopay-shell.js",
+                        "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
+                        "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
+                        "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
 
                     }
                 }
@@ -774,7 +774,7 @@ export class DefieMenu extends PolymerElement {
         this.addEventListener('toFinishworkorderNew', e => {
             this.set('fromwo', e.detail.model)
         });
-         this.addEventListener('toDeployedWorkOrderNew', e => {
+        this.addEventListener('toDeployedWorkOrderNew', e => {
             this.set('fromfwo', e.detail.model)
         });
         this.addEventListener('RBOMtoWONew', e => {
@@ -785,12 +785,12 @@ export class DefieMenu extends PolymerElement {
         });
         this.addEventListener('logoutapp', e => {
             this.set('route.path', "")
-        this.showMenu = false;
+            this.showMenu = false;
 
         });
 
         this.addEventListener('CloseMenuEvent', e => {
-           this.$.startDrawer.toggle()
+            this.$.startDrawer.toggle()
 
         });
 
@@ -815,21 +815,21 @@ export class DefieMenu extends PolymerElement {
 
         let module = this.importList[route]
 
-        if (route == "signin" || route == "signin-authenticate" ) {
+        if (route == "signin" || route == "signin-authenticate") {
             return;
         }
 
-       if (route == "welcome") {
+        if (route == "welcome") {
             this.set('option', 'welcome')
             return;
         }
 
         if (Array.isArray(module)) {
-            Promise.all(module.map( (item) => {import(item)} )).then(() =>{
+            Promise.all(module.map((item) => { import (item) })).then(() => {
                 this.set('option', this.ServicesList[route])
             })
         } else {
-            import(module).then((mod) =>{
+            import (module).then((mod) => {
                 this.set('option', this.ServicesList[route])
             })
         }
@@ -930,7 +930,7 @@ export class DefieMenu extends PolymerElement {
 
     userResponse(e) {
 
-        
+
 
         this.set('leftservices', e.detail.response.results)
 
@@ -949,7 +949,8 @@ export class DefieMenu extends PolymerElement {
         this.showMenu = true;
         this.set('leftservices', e.detail.services)
         this.getSetting(sessionStorage.getItem("PR"))
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.$.serviceajax.headers['CustomToken'] = ct;
         this.$.serviceajax.generateRequest();
     }
 
@@ -1023,7 +1024,7 @@ export class DefieMenu extends PolymerElement {
         var results = response.detail.response
 
         if (results) {
-           
+
             this.setting = results
             sessionStorage.setItem("PR", this.setting.id)
 
@@ -1058,6 +1059,8 @@ export class DefieMenu extends PolymerElement {
 
     getSetting(id) {
         id ? id : id = 50000
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.$.ajaxSetting.headers['CustomToken'] = ct;
         this.$.ajaxSetting.url = "/profile/setting/" + id;
         this.$.ajaxSetting.generateRequest();
     }
@@ -1071,6 +1074,8 @@ export class DefieMenu extends PolymerElement {
     }
 
     getDefaultShipto() {
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.$.ajaxShipto.headers['CustomToken'] = ct;
         this.$.ajaxShipto.url = "/profile/defaultaddress";
         this.$.ajaxShipto.generateRequest();
     }
@@ -1085,7 +1090,8 @@ export class DefieMenu extends PolymerElement {
         ur == undefined || null ? ur = 1 : ur
         this.$.serviceajax.url = "/service/leftservice"
 
-
+        // let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        // this.$.serviceajax.headers['CustomToken'] = ct;
         // this.$.serviceajax.url = "/api/user/services/" + ur
         // this.$.serviceajax.generateRequest()
         // this.showMenu = true;
@@ -1093,12 +1099,13 @@ export class DefieMenu extends PolymerElement {
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {
 
-        let ur = sessionStorage.getItem("UR")
+            let ur = sessionStorage.getItem("UR")
 
-
-        this.$.userajax.url = "/user/services/" + ur
-        this.$.userajax.generateRequest()
-        this.showMenu = true;
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.$.userajax.headers['CustomToken'] = ct;
+            this.$.userajax.url = "/user/services/" + ur
+            this.$.userajax.generateRequest()
+            this.showMenu = true;
 
 
 
@@ -1109,6 +1116,8 @@ export class DefieMenu extends PolymerElement {
 
             let ur = sessionStorage.getItem("UR")
             ur == undefined || ur == null ? ur = 1 : ur
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.$.serviceajax.headers['CustomToken'] = ct;
             this.$.serviceajax.url = "/service/leftservice"
             // this.$.serviceajax.url = "/api/user/services/" + ur
             this.$.serviceajax.generateRequest()
@@ -1120,7 +1129,8 @@ export class DefieMenu extends PolymerElement {
 
         this.shadowRoot.addEventListener('LicensorSettings', e => {
             let id = e.detail.id
-
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.$.ajaxSetting1.headers['CustomToken'] = ct;
             this.$.ajaxSetting1.url = "/licensor/setting/" + id;
             this.$.ajaxSetting1.generateRequest();
 
@@ -1128,7 +1138,8 @@ export class DefieMenu extends PolymerElement {
 
         this.shadowRoot.addEventListener('ProfileSettings', e => {
             let id = e.detail.id
-
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.$.ajaxSetting2.headers['CustomToken'] = ct;
             this.$.ajaxSetting2.url = "/profile/setting/" + id;
             this.$.ajaxSetting2.generateRequest();
 
