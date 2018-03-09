@@ -952,6 +952,7 @@ export class DefieMenu extends PolymerElement {
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
         this.$.serviceajax.headers['CustomToken'] = ct;
         this.$.serviceajax.generateRequest();
+        this.getDefaultShipto();
     }
 
 
@@ -1067,6 +1068,7 @@ export class DefieMenu extends PolymerElement {
 
 
     responseShipto(response) {
+        console.log(response)
         var results = response.detail.response
         if (results) {
             this.licensoraddress = results
@@ -1080,12 +1082,10 @@ export class DefieMenu extends PolymerElement {
         this.$.ajaxShipto.generateRequest();
     }
 
-
     ready() {
         super.ready()
 
-        this.getDefaultShipto();
-
+        // this.getDefaultShipto()
         let ur = sessionStorage.getItem("UR")
         ur == undefined || null ? ur = 1 : ur
         this.$.serviceajax.url = "/service/leftservice"

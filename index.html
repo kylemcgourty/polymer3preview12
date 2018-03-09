@@ -75,16 +75,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             contentType: 'application/json',
                             data: JSON.stringify(ldata),
                             success: function(data) {
+                              console.log(data)
                                 if (data.auth && data.customtoken != "") {
                                     firebase.auth().signInWithCustomToken(data.customtoken).then(function(someData) {
-                                        $("#login-container").hide();
-                                        $("#defie-menu").show();
 
                                         var d = document.getElementById("defie-menu");
                                         d.toWelcomePage({ detail: { services: data.services } });
                                         sessionStorage.setItem('UR', data.ur);
                                         sessionStorage.setItem('PR', data.pr);
                                         sessionStorage.setItem('CUSTOMTOKEN', data.customtoken);
+                                        console.log(data.customtoken)
+                                        console.log(sessionStorage)
+                                        $("#login-container").hide();
+                                        $("#defie-menu").show();
                                         console.log("Success");
 
                                     }).catch(function(error) {
@@ -124,9 +127,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
         ],
         // Terms of service url.
-        'tosUrl': 'https://www.google.com',
-        'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
-            firebaseui.auth.CredentialHelper.GOOGLE_YOLO : firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+        // 'tosUrl': 'https://www.google.com',
+        // 'credentialHelper': CLIENT_ID && CLIENT_ID != 'YOUR_OAUTH_CLIENT_ID' ?
+        //     firebaseui.auth.CredentialHelper.GOOGLE_YOLO : firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
     };
     ui.start('#firebaseui-auth-container', uiConfig);
     </script>
