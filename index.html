@@ -40,7 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyC2KZaWOsHkZ8I0o0Gbt9_gEFLAMJ_pyfA",
-        authDomain: "dev-defie.firebaseapp.com",
+        authDomain: "defie.co",
         databaseURL: "https://dev-defie.firebaseio.com",
         projectId: "dev-defie",
         storageBucket: "dev-defie.appspot.com",
@@ -78,6 +78,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                               console.log(data)
                                 if (data.auth && data.customtoken != "") {
                                     firebase.auth().signInWithCustomToken(data.customtoken).then(function(someData) {
+                                        $("#login-container").hide();
+                                        $("#defie-menu").show();
+                                        console.log("Success before");
 
                                         var d = document.getElementById("defie-menu");
                                         d.toWelcomePage({ detail: { services: data.services } });
@@ -86,8 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         sessionStorage.setItem('CUSTOMTOKEN', data.customtoken);
                                         console.log(data.customtoken)
                                         console.log(sessionStorage)
-                                        $("#login-container").hide();
-                                        $("#defie-menu").show();
+
                                         console.log("Success");
 
                                     }).catch(function(error) {

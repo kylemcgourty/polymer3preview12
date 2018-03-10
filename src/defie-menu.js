@@ -952,7 +952,7 @@ export class DefieMenu extends PolymerElement {
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
         this.$.serviceajax.headers['CustomToken'] = ct;
         this.$.serviceajax.generateRequest();
-        this.getDefaultShipto();
+        // this.getDefaultShipto();
     }
 
 
