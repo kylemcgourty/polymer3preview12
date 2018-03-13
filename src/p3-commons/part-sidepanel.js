@@ -108,7 +108,8 @@ export class PartSidepanel extends LitElement {
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = "/inventory/search/" + this.profileid
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -120,7 +121,7 @@ export class PartSidepanel extends LitElement {
         if (response != null) {
             this.responselist(response.detail.response.results, true)
         } else {
-             this.responselist(response, true)
+            this.responselist(response, true)
         }
     }
 
@@ -145,7 +146,7 @@ export class PartSidepanel extends LitElement {
             let tempArray = [];
             let tempArray2 = [];
             let tempArray3 = [];
-             
+
             if (request != null) {
 
                 if (request.detail) {
@@ -219,7 +220,7 @@ export class PartSidepanel extends LitElement {
 
             console.log('the data in parts', this.data)
 
-             const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
+            const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
                 return html ` 
                 <div class="title-rightpaneldraw">
                     Search Products

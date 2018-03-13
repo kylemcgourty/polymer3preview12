@@ -69,6 +69,8 @@ export class ChartofAccountsList extends LitElement {
     }
 
     open(profileid) {
+                let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxOption').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxOption').url = "/chartofaccounts/" + profileid
         this.shadowRoot.querySelector('#ajaxOption').generateRequest();
     }

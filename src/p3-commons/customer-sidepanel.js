@@ -103,7 +103,8 @@ export class CustomerSidepanel extends LitElement {
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = "/customer/search/" + this.profileid
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()

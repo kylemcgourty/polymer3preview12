@@ -149,6 +149,8 @@ export class RMARelationList extends LitElement {
         } else if (this.vrmaid)(
             this.shadowRoot.querySelector("#ajaxrmaHistory").url = this.url + this.profileid + "/" + this.model.companyid + "/" + this.vrmaid
         )
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxrmaHistory').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector("#ajaxrmaHistory").generateRequest();
 
     }
@@ -228,7 +230,8 @@ export class RMARelationList extends LitElement {
             this.shadowRoot.querySelector("#ajaxSingle").url = "/shipvrma/" + this.profileid + "/" + this.vendorid + "/" + id + "/" + idver
         }
 
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSingle').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector("#ajaxSingle").generateRequest()
     }
 
@@ -300,7 +303,7 @@ export class RMARelationList extends LitElement {
             // this.route.path = '/vendorreceivermas/view/' + record.shipto.companyname + '/' + record.idver
 
             // this.path = ""
-        } else if (this.url == "/requestvrma/GetshipHistory/"){
+        } else if (this.url == "/requestvrma/GetshipHistory/") {
             console.log("VENDSHIP")
             this.dispatchEvent(new CustomEvent("toVendorShipRMAView", {
                 composed: true,

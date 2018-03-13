@@ -65,12 +65,12 @@ export class VendorSidepanel extends LitElement {
         if (profileid) {
             this.profileid = profileid;
         }
-        
+
         this.generateSearch(false, false, true)
 
 
     }
-    ready(){
+    ready() {
         super.ready();
         this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
             this.generateSearch(e);
@@ -80,7 +80,7 @@ export class VendorSidepanel extends LitElement {
         });
     }
     generateSearch(e, pass, retrieveAll) {
-       let query
+        let query
         if (e.detail) {
             if (e.detail.inputValue === "") {
                 retrieveAll = true;
@@ -102,7 +102,8 @@ export class VendorSidepanel extends LitElement {
             query: query.toString().toLowerCase(),
             option: searchoption
         }
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = "/vendor/search/" + this.profileid
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()

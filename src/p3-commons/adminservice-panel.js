@@ -1,62 +1,62 @@
-import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { LitElement } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+import { render, html } from '../../node_modules/lit-html/lib/lit-extended.js';
 
- export class AdminServicePanel extends LitElement {
-     
-     static get properties() {
-         return {
-             searchoption: {
-                 type: String,
-             },
-         }
-     }
+export class AdminServicePanel extends LitElement {
 
-     open(useProfileOnly) {
-         if (useProfileOnly === true) {
-             this.getProfileList();
-         } else {
-             this.getList()
-         }
-     }
+    static get properties() {
+        return {
+            searchoption: {
+                type: String,
+            },
+        }
+    }
 
-     constructor() {
-         super();
-     }
+    open(useProfileOnly) {
+        if (useProfileOnly === true) {
+            this.getProfileList();
+        } else {
+            this.getList()
+        }
+    }
 
-     responselist(response) {
-         if (response.detail) {
-             let result = response.detail.response;
-             let data = result.results.services;
+    constructor() {
+        super();
+    }
 
-             this.data = [];
+    responselist(response) {
+        if (response.detail) {
+            let result = response.detail.response;
+            let data = result.results.services;
 
-             this.data = data.map((app, i) => {
-                 var newAppObj = app
-                 var color;
-                 var even = i % 2
-                 i % 2 === 0 ? color = '#f7f8f9' : color = 'white'
-                 newAppObj.color = color;
-                 newAppObj.title = app.name;
-                 newAppObj.headername = "App";
-                 newAppObj.headerversion = "Version";
+            this.data = [];
 
-                 return newAppObj;
-             })
-         }
-         let dt = this.data
-         this.data = []
-         setTimeout(() => {
-             this.data = dt
-             this.renderItems();
-         }, 10)
-     }
+            this.data = data.map((app, i) => {
+                var newAppObj = app
+                var color;
+                var even = i % 2
+                i % 2 === 0 ? color = '#f7f8f9' : color = 'white'
+                newAppObj.color = color;
+                newAppObj.title = app.name;
+                newAppObj.headername = "App";
+                newAppObj.headerversion = "Version";
 
-     renderItems() {
+                return newAppObj;
+            })
+        }
+        let dt = this.data
+        this.data = []
+        setTimeout(() => {
+            this.data = dt
+            this.renderItems();
+        }, 10)
+    }
+
+    renderItems() {
         const types = data => {
 
-            return html`
+            return html `
             ${repeat (
                  data,
                  item => item.id,
@@ -84,83 +84,88 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
         // this.data.forEach(function(item, index){
         //     item.id = index;
         // });
-        
+
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
     }
 
-     getList() {
-         this.shadowRoot.querySelector('#ajaxlist').url = "/service/leftservice";
-         this.shadowRoot.querySelector('#ajaxlist').generateRequest();
-     }
+    getList() {
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxlist').headers['CustomToken'] = ct;
+        this.shadowRoot.querySelector('#ajaxlist').url = "/service/leftservice";
+        this.shadowRoot.querySelector('#ajaxlist').generateRequest();
+    }
 
-     getProfileList() {
-         this.shadowRoot.querySelector('#ajaxGetProfile').url = "/profile/masterprofile"
-         this.shadowRoot.querySelector('#ajaxGetProfile').generateRequest();
-     }
+    getProfileList() {
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxGetProfile').headers['CustomToken'] = ct;
+        this.shadowRoot.querySelector('#ajaxGetProfile').url = "/profile/masterprofile"
+        this.shadowRoot.querySelector('#ajaxGetProfile').generateRequest();
+    }
 
 
-     generateSearch(e, pass, retrieveAll) {
-         if (e) {
-             if (e.keyCode !== 13 && e.type == "keypress") {
-                 return
-             }
-         }
-         let query = this.shadowRoot.querySelector('#searchQuery').value.trim();
-         if (retrieveAll) {
-             query = ""
-             this.searchoption = 'id'
-         }
-         let querypackage = {
-             query: query.toString().toLowerCase(),
-             option: this.searchoption,
-         }
+    generateSearch(e, pass, retrieveAll) {
+        if (e) {
+            if (e.keyCode !== 13 && e.type == "keypress") {
+                return
+            }
+        }
+        let query = this.shadowRoot.querySelector('#searchQuery').value.trim();
+        if (retrieveAll) {
+            query = ""
+            this.searchoption = 'id'
+        }
+        let querypackage = {
+            query: query.toString().toLowerCase(),
+            option: this.searchoption,
+        }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
+        this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
+        this.shadowRoot.querySelector('#ajaxSearch').generateRequest();
 
-         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
-         this.shadowRoot.querySelector('#ajaxSearch').generateRequest();
+    }
 
-     }
+    sendService(data) {
 
-     sendService(data) {
+        this.dispatchEvent(new CustomEvent('sendService', {
+            composed: true,
+            bubbles: true,
+            detail: {
+                service: data
+            }
+        }))
 
-         this.dispatchEvent(new CustomEvent('sendService', {
-             composed: true,
-             bubbles: true,
-             detail: {
-                 service: data
-             }
-         }))
+    }
 
-     }
+    expandService(e) {
+        let index = e.model.index
+        if (this.data[index].layout === "service") {
+            this.set('data.' + index + ".layout", "service1")
+        } else {
+            this.set('data.' + index + ".layout", "service")
+        }
 
-     expandService(e) {
-         let index = e.model.index
-         if (this.data[index].layout === "service") {
-             this.set('data.' + index + ".layout", "service1")
-         } else {
-             this.set('data.' + index + ".layout", "service")
-         }
+        index = index + 1
+        let bool = true
+        while (bool) {
+            if (this.data[index] == undefined || this.data[index].role == "main") {
+                break;
+            }
 
-         index = index + 1
-         let bool = true
-         while (bool) {
-             if (this.data[index] == undefined || this.data[index].role == "main") {
-                 break;
-             }
+            if (this.data[index].display == "none") {
+                this.set('data.' + index + '.display', "")
+            } else {
+                this.set('data.' + index + '.display', "none")
 
-             if (this.data[index].display == "none") {
-                 this.set('data.' + index + '.display', "")
-             } else {
-                 this.set('data.' + index + '.display', "none")
+            }
 
-             }
+            index = index + 1
+        }
+    }
 
-             index = index + 1
-         }
-     }
-
-     render({data}) {
-         return html`
+    render({ data }) {
+        return html `
         <style include="shared-styles iron-flex iron-flex-alignment">
         #paperToggle {
             min-height: 40px;
@@ -564,7 +569,7 @@ import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
             <iron-ajax id="ajaxlist" method="GET" handle-as="json" on-response=${this.responselist.bind(this)} content-type="application/json"></iron-ajax>
             <iron-ajax id="ajaxGetProfile" method="GET" handle-as="json" on-response=${this.responselist.bind(this)} content-type="application/json"></iron-ajax>
     `
-     }
+    }
 
- }
- customElements.define('adminservice-panel', AdminServicePanel);
+}
+customElements.define('adminservice-panel', AdminServicePanel);

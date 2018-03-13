@@ -63,6 +63,8 @@ export class APDistributedAccountsList extends LitElement {
 
     open(profileid, typemodel) {
         this.typemodel = typemodel;
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxOption').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxOption').url = "/accounts/getAccounts/" + profileid
         this.shadowRoot.querySelector('#ajaxOption').generateRequest();
     }

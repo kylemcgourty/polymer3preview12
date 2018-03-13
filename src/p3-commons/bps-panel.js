@@ -1,65 +1,66 @@
+import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
 
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
 
-  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-
-  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 import '../../src/p3-commons/search-inner.js'
 
 
 
-    
-    class BPSPanel extends LitElement {
-      
-        
 
-        static get properties() {
+class BPSPanel extends LitElement {
 
-            return {
-                typemodel: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: "",
-                },
-                savemodel: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                    value: "",
-                },
-                admin: {
-                    type: String,
-                    reflectToAttribute: true,
-                    notify: true,
-                }
+
+
+    static get properties() {
+
+        return {
+            typemodel: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+                value: "",
+            },
+            savemodel: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+                value: "",
+            },
+            admin: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
             }
         }
-        constructor() {
-            super()
-        }
+    }
+    constructor() {
+        super()
+    }
 
-        
-        open(url, title, searchfields, searchkeyindexes) {
 
-            this.searchfields = searchfields
-            this.searchkeyindexes = searchkeyindexes
+    open(url, title, searchfields, searchkeyindexes) {
 
-           console.log('the new search fields', this.searchfields)
+        this.searchfields = searchfields
+        this.searchkeyindexes = searchkeyindexes
 
-            this.searchdisplay = {}
-            this.searchdisplay.display = "block"
+        console.log('the new search fields', this.searchfields)
 
-            this.title = title
-            this.shadowRoot.getElementById('ajaxQA').url = url
-            this.shadowRoot.getElementById('ajaxQA').generateRequest();
-            
-        }
+        this.searchdisplay = {}
+        this.searchdisplay.display = "block"
 
-       generateSearch(e, pass, retrieveAll) {
-       let query
+        this.title = title
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.getElementById('ajaxQA').headers['CustomToken'] = ct;
+        this.shadowRoot.getElementById('ajaxQA').url = url
+        this.shadowRoot.getElementById('ajaxQA').generateRequest();
+
+    }
+
+    generateSearch(e, pass, retrieveAll) {
+        let query
         if (e.detail) {
             if (e.detail.inputValue === "") {
                 retrieveAll = true;
@@ -80,7 +81,8 @@ import '../../src/p3-commons/search-inner.js'
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = "/customer/search/" + this.profileid
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -105,19 +107,19 @@ import '../../src/p3-commons/search-inner.js'
         var data = this.searched || this.model
         this.responselist(data, true)
     }
-        receiveData(response) {
+    receiveData(response) {
 
-            this.data = response.detail.response
+        this.data = response.detail.response
 
-            this.data == null ? this.data = [] : this.data
+        this.data == null ? this.data = [] : this.data
 
-            this.data = this.data.map((item, i) => {
-                item.id = i+1
-                return item
-            })
+        this.data = this.data.map((item, i) => {
+            item.id = i + 1
+            return item
+        })
 
-            const datatable = (data, searchdisplay, searchkeyindexes, searchfields)=> {
-                return html`<div class="title-rightpaneldraw">${this.title} </div>
+        const datatable = (data, searchdisplay, searchkeyindexes, searchfields) => {
+            return html `<div class="title-rightpaneldraw">${this.title} </div>
             <div style="background-color: #e6e6e6;">
                 <div class="close-interface">
                     <span on-tap="close">Close</span>
@@ -171,73 +173,73 @@ import '../../src/p3-commons/search-inner.js'
                     `)}
                 </div>
                 `
+        }
+
+        console.log('data befre redner', this.searchkeyindexes, this.searchfields)
+
+        render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.getElementById('page'))
+    }
+
+
+    add() {
+        this.push('data', {
+            qachecklist: ""
+        })
+    }
+
+    openChoice(e) {
+
+        console.log('oc called', e)
+
+        let choice = e.model.item.qachecklist
+        let index = e.model.index
+
+        this.dispatchEvent(new CustomEvent('qachecklist', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                item: this.data[index],
+
             }
 
-            console.log('data befre redner', this.searchkeyindexes, this.searchfields)
-
-            render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.getElementById('page'))
-        }
-     
-
-        add() {
-            this.push('data', {
-                qachecklist: ""
-            })
-        }
-
-        openChoice(e) {
-
-            console.log('oc called', e)
-
-            let choice = e.model.item.qachecklist
-            let index = e.model.index
-
-            this.dispatchEvent(new CustomEvent('qachecklist', {
-                bubbles: true,
-                composed: true,
-                detail: {
-                    item: this.data[index],
-
-                }
 
 
+        }))
+    }
+    toSignIn() {
 
-            }))
-        }
-        toSignIn() {
+        this.dispatchEvent(new CustomEvent('toSignIn', {
+            bubbles: true,
+            composed: true
+        }))
+    }
 
-            this.dispatchEvent(new CustomEvent('toSignIn', {
-                bubbles: true,
-                composed: true
-            }))
-        }
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            bubbles: true,
+            composed: true
+        }))
+    }
 
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                bubbles: true,
-                composed: true
-            }))
-        }
+    remove(e) {
 
-        remove(e) {
+        this.splice('data', e.model.index, 1)
 
-            this.splice('data', e.model.index, 1)
+    }
 
-        }
+    ready() {
+        super.ready()
 
-        ready(){
-            super.ready()
+        this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
+            this.generateSearch(e);
+        });
+        this.shadowRoot.addEventListener('selectedSearchOption', e => {
+            this.setSearchOption(e);
+        });
+    }
 
-            this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
-                this.generateSearch(e);
-            });
-            this.shadowRoot.addEventListener('selectedSearchOption', e => {
-                this.setSearchOption(e);
-            });
-        }
-
-          render() {
-            return html`
+    render() {
+        return html `
         <style include="iron-flex iron-flex-alignment">
 
           /*  //////////////FLEX BOX/////////  */
@@ -949,7 +951,7 @@ import '../../src/p3-commons/search-inner.js'
         </div>
         <iron-ajax id="ajaxQA" method="GET" handle-as="json" on-response="${this.receiveData.bind(this)}" content-type="application/json"></iron-ajax>
         </div>`
-        }
-
     }
-   customElements.define('bps-panel', BPSPanel);
+
+}
+customElements.define('bps-panel', BPSPanel);
