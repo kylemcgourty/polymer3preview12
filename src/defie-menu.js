@@ -918,7 +918,7 @@ export class DefieMenu extends PolymerElement {
         // if (link) {
 
         //     if (privilege == "View" && link.includes("-new")) {
-        //         return "display: none;"
+        //         return "display: none;"a
 
         //     } else {
         //         return "display: block;"
@@ -952,7 +952,7 @@ export class DefieMenu extends PolymerElement {
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
         this.$.serviceajax.headers['CustomToken'] = ct;
         this.$.serviceajax.generateRequest();
-        // this.getDefaultShipto();
+        this.getDefaultShipto();
     }
 
 
