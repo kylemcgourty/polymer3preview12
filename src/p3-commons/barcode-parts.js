@@ -1,29 +1,27 @@
+import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 
-  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
 
-
-  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-
-  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 import '../../src/p3-commons/search-inner.js'
 
 
 
-  export class BarcodeParts extends LitElement {
-        
-        static get properties() {
-            return {
-                statuslist: {
-                    type: Array,
-                    reflectToAttribute: true,
-                    notify: true
-                },
-            }
+export class BarcodeParts extends LitElement {
+
+    static get properties() {
+        return {
+            statuslist: {
+                type: Array,
+                reflectToAttribute: true,
+                notify: true
+            },
         }
-        constructor() {
-            super();
+    }
+    constructor() {
+        super();
 
         this.searchfields = {}
         this.searchfields.searchfield1 = "Part id"
@@ -39,51 +37,53 @@ import '../../src/p3-commons/search-inner.js'
 
         this.searchdisplay = {}
         this.searchdisplay.display = "block"
-        }
+    }
 
-        static get observers() {
-            return []
+    static get observers() {
+        return []
 
-        }
+    }
 
-        open(data, profileid) {
+    open(data, profileid) {
 
 
-      
+
 
         this.profileid = profileid
 
         this.generateSearch(false, false, true)
 
 
-            let temp = [];
+        let temp = [];
 
-            if (data.length == 0) {
+        if (data.length == 0) {
 
-                let querypackage = {
-                    query: "",
-                    option: "idver"
-                }
-                this.shadowRoot.getElementById('ajaxSearch').url = "/inventory/search/"+profileid
-                this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify(querypackage)
-                this.shadowRoot.getElementById('ajaxSearch').generateRequest();
+            let querypackage = {
+                query: "",
+                option: "idver"
+            }
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.getElementById('ajaxSearch').headers['CustomToken'] = ct;
+            this.shadowRoot.getElementById('ajaxSearch').url = "/inventory/search/" + profileid
+            this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify(querypackage)
+            this.shadowRoot.getElementById('ajaxSearch').generateRequest();
 
-            } 
-
-
-
-            // this.set('data', temp)
         }
 
-        receiveQueryResults(response) {
-            console.log('the resp', response)
+
+
+        // this.set('data', temp)
+    }
+
+    receiveQueryResults(response) {
+        console.log('the resp', response)
 
 
 
-            this.data= response.detail.response.results
+        this.data = response.detail.response.results
 
         if (this.data == null) {
-             if (this.data == null && !this.shadowRoot.getElementById('noMatchesError')) {
+            if (this.data == null && !this.shadowRoot.getElementById('noMatchesError')) {
                 var error = document.createElement("div")
                 error.textContent = "No matching results"
                 error.style = "Color: red";
@@ -91,13 +91,16 @@ import '../../src/p3-commons/search-inner.js'
                 this.shadowRoot.querySelector('#container').insertBefore(error, this.shadowRoot.querySelector('#ilcontainer'))
                 this.data = []
             }
-        } 
+        }
 
 
-            this.data.forEach((item, i) => { item.id = i; item.qty =0})
+        this.data.forEach((item, i) => {
+            item.id = i;
+            item.qty = 0
+        })
 
-            const datatable = (data, searchdisplay, searchkeyindexes, searchfields)=> {
-                return html`<div>
+        const datatable = (data, searchdisplay, searchkeyindexes, searchfields) => {
+            return html `<div>
                 <div id="container" class="table-padding">
 
                 <search-inner searchdisplay="${ searchdisplay }" searchkeyindexes="${ searchkeyindexes }" searchfields="${ searchfields }"></search-inner>
@@ -127,18 +130,18 @@ import '../../src/p3-commons/search-inner.js'
                 )}
                 </div>
                 </div>`
-            }
-
-            render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.getElementById('table'))
-
-
-
-
-            if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
-                this.shadowRoot.getElementById('noMatchesError').remove()
-            }
-
         }
+
+        render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.getElementById('table'))
+
+
+
+
+        if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
+            this.shadowRoot.getElementById('noMatchesError').remove()
+        }
+
+    }
 
     generateSearch(e, pass, retrieveAll) {
         let query
@@ -162,13 +165,14 @@ import '../../src/p3-commons/search-inner.js'
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = "/inventory/search/" + this.profileid
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
     }
 
-  
+
 
     setSearchOption(e) {
 
@@ -185,61 +189,61 @@ import '../../src/p3-commons/search-inner.js'
     }
 
 
-        newFunction() {
+    newFunction() {
 
-            this.data.push({
-                procedures: "",
-                pass: "",
-                issue: "",
-                resolution: "",
-                qa: "",
-                title: "function"
-            })
+        this.data.push({
+            procedures: "",
+            pass: "",
+            issue: "",
+            resolution: "",
+            qa: "",
+            title: "function"
+        })
 
 
-        }
+    }
 
-        remove(item) {
-            this.data.splice(item.id, 1)
-        }
+    remove(item) {
+        this.data.splice(item.id, 1)
+    }
 
-        add(item) {
+    add(item) {
 
-            item.qty = this.shadowRoot.getElementById('qty-'+item.id).value
-            this.dispatchEvent(new CustomEvent('BarcodeParts', {
-                composed: true,
-                bubbles: true,
-                detail: {
-                    data: item
-                }
-            }))
-        }
-
-        close() {
-            this.dispatchEvent(new CustomEvent('closePanel', {
-                composed: true,
-                bubbles: true
-            }))
-        }
-        returnCheck(i) {
-            if (i === 0) {
-                return true;
-            } else {
-                return false
+        item.qty = this.shadowRoot.getElementById('qty-' + item.id).value
+        this.dispatchEvent(new CustomEvent('BarcodeParts', {
+            composed: true,
+            bubbles: true,
+            detail: {
+                data: item
             }
-        }
-        ready() {
-            super.ready()
+        }))
+    }
 
-            this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
+    close() {
+        this.dispatchEvent(new CustomEvent('closePanel', {
+            composed: true,
+            bubbles: true
+        }))
+    }
+    returnCheck(i) {
+        if (i === 0) {
+            return true;
+        } else {
+            return false
+        }
+    }
+    ready() {
+        super.ready()
+
+        this.shadowRoot.addEventListener('selectedInnerSearchOption', e => {
             this.generateSearch(e);
         });
         this.shadowRoot.addEventListener('selectedSearchOption', e => {
             this.setSearchOption(e);
         });
-        }
-        render() {
-            return html`<style include="shared-styles iron-flex iron-flex-alignment">
+    }
+    render() {
+        return html `<style include="shared-styles iron-flex iron-flex-alignment">
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -449,7 +453,7 @@ import '../../src/p3-commons/search-inner.js'
             </div>
         </div>
         <iron-ajax id="ajaxSearch" method="POST" handle-as="json" url="/inventory/search" on-response="${this.receiveQueryResults.bind(this)}" content-type="application/json"></iron-ajax>`
-        }
-
     }
+
+}
 customElements.define("barcode-parts", BarcodeParts);

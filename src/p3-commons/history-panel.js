@@ -1,9 +1,9 @@
-import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
-import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 export class HistoryPanel extends LitElement {
-    
+
     static get properties() {
         return {
 
@@ -26,8 +26,7 @@ export class HistoryPanel extends LitElement {
     }
 
     static get observers() {
-        return [
-        ]
+        return []
     }
 
     constructor() {
@@ -38,7 +37,7 @@ export class HistoryPanel extends LitElement {
 
     propByString(o, s) {
         s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-        s = s.replace(/^\./, '');           // strip a leading dot
+        s = s.replace(/^\./, ''); // strip a leading dot
         var a = s.split('.');
         for (var i = 0, n = a.length; i < n; ++i) {
             var k = a[i];
@@ -51,7 +50,7 @@ export class HistoryPanel extends LitElement {
         return o;
     }
 
-    open(cols, getHistoryUrl, getSingleUrlPrefix, selectedEventName, pageTitle='History') {
+    open(cols, getHistoryUrl, getSingleUrlPrefix, selectedEventName, pageTitle = 'History') {
 
         this.scrollTop()
 
@@ -65,24 +64,25 @@ export class HistoryPanel extends LitElement {
         this.col1title = col1.title
         this.col1name = col1.name;
         this.col1formatter = col1.formatter
-        if (!this.col1formatter) { this.col1formatter = this.defaultColumnFormatter}
+        if (!this.col1formatter) { this.col1formatter = this.defaultColumnFormatter }
 
         let col2 = cols[1];
         this.col2title = col2.title
         this.col2name = col2.name;
         this.col2formatter = col2.formatter
-        if (!this.col2formatter) { this.col2formatter = this.defaultColumnFormatter}
+        if (!this.col2formatter) { this.col2formatter = this.defaultColumnFormatter }
 
         let col3 = cols[2];
         this.col3title = col3.title
         this.col3name = col3.name;
         this.col3formatter = col3.formatter
-        if (!this.col3formatter) { this.col3formatter = this.defaultColumnFormatter}
+        if (!this.col3formatter) { this.col3formatter = this.defaultColumnFormatter }
         // End column definitions
 
         this.selectedEventName = selectedEventName;
         this.pageTitle = pageTitle;
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxHistory').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector("#ajaxHistory").url = getHistoryUrl;
         this.shadowRoot.querySelector("#ajaxHistory").generateRequest();
 
@@ -96,15 +96,15 @@ export class HistoryPanel extends LitElement {
 
         let record = item;
 
-        if (this.getSingleUrlPrefix.includes('qasingle')){
+        if (this.getSingleUrlPrefix.includes('qasingle')) {
             let idver = record.col1
-            let id =record.col1.split("-")[0]
-             this.shadowRoot.querySelector("#ajaxSingle").url = this.getSingleUrlPrefix + "/" + id+"/" + idver;
+            let id = record.col1.split("-")[0]
+            this.shadowRoot.querySelector("#ajaxSingle").url = this.getSingleUrlPrefix + "/" + id + "/" + idver;
         } else {
-             this.shadowRoot.querySelector("#ajaxSingle").url = this.getSingleUrlPrefix + "/" + record.id + "/" + record.idver;
-
+            this.shadowRoot.querySelector("#ajaxSingle").url = this.getSingleUrlPrefix + "/" + record.id + "/" + record.idver;
         }
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSingle').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector("#ajaxSingle").generateRequest();
     }
 
@@ -157,7 +157,7 @@ export class HistoryPanel extends LitElement {
         this.latestidver = this.results[0].idver
 
         const histlist = data => {
-            return html`
+            return html `
             ${repeat (
                 data,
                 item => item.idver,
@@ -195,8 +195,8 @@ export class HistoryPanel extends LitElement {
         super.ready()
     }
 
-    render({history, url}) {
-        return html`<style include="shared-styles iron-flex iron-flex-alignment">
+    render({ history, url }) {
+        return html `<style include="shared-styles iron-flex iron-flex-alignment">
         #paperToggle {
             min-height: 40px;
             min-width: 40px;

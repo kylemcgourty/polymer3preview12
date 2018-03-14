@@ -90,11 +90,11 @@ export class SendEmail extends LitElement {
             },
         }
     }
-  
+
     constructor() {
         super();
 
-             this._email = {}
+        this._email = {}
     }
 
 
@@ -154,9 +154,9 @@ export class SendEmail extends LitElement {
 
     }
 
-    clearContacts(){
-        this.shadowRoot.getElementById('emailfilter').clearContacts(); 
-        this.shadowRoot.getElementById('emailfiltercc').clearContacts(); 
+    clearContacts() {
+        this.shadowRoot.getElementById('emailfilter').clearContacts();
+        this.shadowRoot.getElementById('emailfiltercc').clearContacts();
 
     }
 
@@ -173,12 +173,13 @@ export class SendEmail extends LitElement {
     send(e) {
         document.querySelector('#toast').show("Sending message.");
 
-        let emails1 =this.shadowRoot.getElementById('emailfilter').returnEmails()
-        let emails2 =this.shadowRoot.getElementById('emailfiltercc').returnEmails()
+        let emails1 = this.shadowRoot.getElementById('emailfilter').returnEmails()
+        let emails2 = this.shadowRoot.getElementById('emailfiltercc').returnEmails()
 
         this._email.to = this._email.to.concat(emails1).concat(emails2)
 
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.getElementById('ajax').headers['CustomToken'] = ct;
         this.shadowRoot.getElementById('ajax').url = this.posturl;
         this.shadowRoot.getElementById('ajax').body = JSON.stringify(this._email);
 
@@ -192,8 +193,8 @@ export class SendEmail extends LitElement {
     success(request) {
         document.querySelector('#toast').show("Sent successfully.");
 
-        this._email.subject= ""
-        this._email.message= ""
+        this._email.subject = ""
+        this._email.message = ""
     }
     ajaxerror() {
         document.querySelector('#toast').show("Error sending email.");
@@ -212,7 +213,7 @@ export class SendEmail extends LitElement {
     }
     render({}) {
 
-        return html`
+        return html `
 
 <style include="iron-flex iron-flex-alignment">
 

@@ -1,7 +1,7 @@
-import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { LitElement } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+import { render, html } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 export class AdminOptionDictionary extends LitElement {
 
@@ -30,7 +30,7 @@ export class AdminOptionDictionary extends LitElement {
                 type: String,
                 reflectToAttribute: true,
                 notify: true,
-                value: "",  
+                value: "",
             },
             admin: {
                 type: String,
@@ -47,7 +47,7 @@ export class AdminOptionDictionary extends LitElement {
 
     submit() {
 
-        let self=this;
+        let self = this;
 
         if (this.data) {
             let str = ""
@@ -57,16 +57,18 @@ export class AdminOptionDictionary extends LitElement {
             })
             this.savemodel = str;
         }
-        this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/"+this.typemodel;
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSubmit').headers['CustomToken'] = ct;
+        this.shadowRoot.querySelector('#ajaxSubmit').url = "/optionsetting/option/" + this.typemodel;
         this.shadowRoot.querySelector('#ajaxSubmit').body = JSON.stringify(this.savemodel);
         this.shadowRoot.querySelector('#ajaxSubmit').generateRequest();
     }
     responseSubmit(request) {
 
         var auth = request.detail.response.auth
-        if (auth){
-             document.querySelector('#toast').text = 'Saved successfully.';
-                document.querySelector('#toast').show();
+        if (auth) {
+            document.querySelector('#toast').text = 'Saved successfully.';
+            document.querySelector('#toast').show();
             this.close();
         }
     }
@@ -82,8 +84,9 @@ export class AdminOptionDictionary extends LitElement {
         }
 
         this.admin = 'superuser';
-        
-        this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+this.typemodel;
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxOption').headers['CustomToken'] = ct;
+        this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/" + this.typemodel;
         this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
         this.shadowRoot.querySelector('#ajaxOption').generateRequest();
     }
@@ -114,57 +117,94 @@ export class AdminOptionDictionary extends LitElement {
         let data = [];
 
         switch (this.typemodel) {
-            case "ptypes": data = [{word: "Spare"}, {word: "Component"}, {word: "Product"}, {word: "Others"}]; break;
+            case "ptypes":
+                data = [{ word: "Spare" }, { word: "Component" }, { word: "Product" }, { word: "Others" }];
+                break;
             case "custcategories":
             case "vendcategories":
-            case "categories": data = [{word: "Hardware"}, {word: "Software"}, {word: "Service"}, {word: "Others"}]; break;
+            case "categories":
+                data = [{ word: "Hardware" }, { word: "Software" }, { word: "Service" }, { word: "Others" }];
+                break;
             case "vendshipvia":
-            case "custshipvia": data = [{word:"Will Call" },{word:"Deliver" },{word:"Trucking" },{word:"Other Freight" },{word:"UPS Ground" },
-                                        {word:"UPS 3 day Select" },{word:"UPS 2 day Air" },{word:"UPS 2 Day Air Early AM" },{word:"UPS Next day Saver" },
-                                        {word:"UPS Next day Air" },{word:"UPS Next day Air Early AM" },{word:"UPS Worldwide Express Plus" },
-                                        {word:"UPS Worldwide Express" },{word:"UPS Worldwide Saver (Express)" },{word:"UPS Worldwide Expedited" },
-                                        {word:"FedEx Ground" },{word:"FedEx 3 Day Freight" },{word:"FedEx Express Saver" },{word:"FedEx 2 Day Freight" },
-                                        {word:"FedEx 1 Day freight" },{word:"FedEx 2 Day" },{word:"FedEx Standard Overnight" },
-                                        {word:"FedEx Priority Overnight" },{word:"FedEx First Overnight" },{word:"FedEx International Priority" },
-                                        {word:"FedEx International Freight" },{word:"FedEx International Economy Freight" },{word:"FedEx International Economy" }]; break;
+            case "custshipvia":
+                data = [{ word: "Will Call" }, { word: "Deliver" }, { word: "Trucking" }, { word: "Other Freight" }, { word: "UPS Ground" },
+                    { word: "UPS 3 day Select" }, { word: "UPS 2 day Air" }, { word: "UPS 2 Day Air Early AM" }, { word: "UPS Next day Saver" },
+                    { word: "UPS Next day Air" }, { word: "UPS Next day Air Early AM" }, { word: "UPS Worldwide Express Plus" },
+                    { word: "UPS Worldwide Express" }, { word: "UPS Worldwide Saver (Express)" }, { word: "UPS Worldwide Expedited" },
+                    { word: "FedEx Ground" }, { word: "FedEx 3 Day Freight" }, { word: "FedEx Express Saver" }, { word: "FedEx 2 Day Freight" },
+                    { word: "FedEx 1 Day freight" }, { word: "FedEx 2 Day" }, { word: "FedEx Standard Overnight" },
+                    { word: "FedEx Priority Overnight" }, { word: "FedEx First Overnight" }, { word: "FedEx International Priority" },
+                    { word: "FedEx International Freight" }, { word: "FedEx International Economy Freight" }, { word: "FedEx International Economy" }
+                ];
+                break;
             case "custcreditmethods":
-            case "vendcreditmethods": data = [{word: "Refund"}, {word: "Open Credit"}, {word: "Exchange"}, {word: "Repair"}]; break;
+            case "vendcreditmethods":
+                data = [{ word: "Refund" }, { word: "Open Credit" }, { word: "Exchange" }, { word: "Repair" }];
+                break;
             case "custproductconditions":
-            case "vendproductconditions": data = [{word: "Unopen"}, {word: "Opened"}, {word: "Miss Parts"}, {word: "Miss Documents"}]; break;
+            case "vendproductconditions":
+                data = [{ word: "Unopen" }, { word: "Opened" }, { word: "Miss Parts" }, { word: "Miss Documents" }];
+                break;
             case "custreturnreasons":
-            case "vendreturnreasons": data = [{word: "Over Stock"}, {word: "Dead on Arrival"}, {word: "Wrong Part"}, {word: "Damage"}, {word: "No Longer Need"}]; break;
+            case "vendreturnreasons":
+                data = [{ word: "Over Stock" }, { word: "Dead on Arrival" }, { word: "Wrong Part" }, { word: "Damage" }, { word: "No Longer Need" }];
+                break;
             case "vendissues":
-            case "custissues": data = [{word: "DOA"}, {word: "Defective"}, {word: "Physical Damage"}, {word: "Wrong Product"}]; break;
+            case "custissues":
+                data = [{ word: "DOA" }, { word: "Defective" }, { word: "Physical Damage" }, { word: "Wrong Product" }];
+                break;
             case "custpriorities":
-            case "vendpriorities": data = [{word: "Urgent"}, {word: "High"}, {word: "Medium"}, {word: "Low"}]; break;
+            case "vendpriorities":
+                data = [{ word: "Urgent" }, { word: "High" }, { word: "Medium" }, { word: "Low" }];
+                break;
             case "custrequests":
-            case "vendrequests": data = [{word: "Credit"},{word: "Refund"},{word: "Adv. Replacement"},{word: "Replacement"},{word: "Repair"}]; break;
+            case "vendrequests":
+                data = [{ word: "Credit" }, { word: "Refund" }, { word: "Adv. Replacement" }, { word: "Replacement" }, { word: "Repair" }];
+                break;
             case "custservices":
-            case "vendservices": data = [{word: "Platinum"}, {word: "Gold"}, {word: "Silver"}, {word: "Bronze"}]; break;
-            case "departments": data = [{word: "Human Resources"}, {word: "Engineering"}, {word: "Sales"}]; break;
-            case "groups": data = [{word: "Sales"}, {word: "Engineering"}, {word: "Accounting"}]; break;
+            case "vendservices":
+                data = [{ word: "Platinum" }, { word: "Gold" }, { word: "Silver" }, { word: "Bronze" }];
+                break;
+            case "departments":
+                data = [{ word: "Human Resources" }, { word: "Engineering" }, { word: "Sales" }];
+                break;
+            case "groups":
+                data = [{ word: "Sales" }, { word: "Engineering" }, { word: "Accounting" }];
+                break;
             case "profileterms":
             case "vendterms":
-            case "custterms": data = [{word: "COD"}, {word: "Net 1"}, {word: "Net 30"}, {word: "Net 60"}]; break;
-            case "status4values": data = [{word: "Open"}, {word: "Partial"}, {word: "Closed"}, {word: "Void"}]; break;
-            case "status2values": data = [{word: "Active"}, {word: "Inactive"}]; break;
-            case "roles": data = [{word: "Super Admin"}, {word: "Group Admin"}, {word: "User"}]; break;
-            case "privileges": data = [{word: "Full"}, {word: "View"}, {word: "Edit | View"}]; break;
-            case "hostingtype": data = [{word: "SAAS"}, {word: "Self-Host"}, {word: "Cloud Provider"}]; break;
-            default: data = [];
+            case "custterms":
+                data = [{ word: "COD" }, { word: "Net 1" }, { word: "Net 30" }, { word: "Net 60" }];
+                break;
+            case "status4values":
+                data = [{ word: "Open" }, { word: "Partial" }, { word: "Closed" }, { word: "Void" }];
+                break;
+            case "status2values":
+                data = [{ word: "Active" }, { word: "Inactive" }];
+                break;
+            case "roles":
+                data = [{ word: "Super Admin" }, { word: "Group Admin" }, { word: "User" }];
+                break;
+            case "privileges":
+                data = [{ word: "Full" }, { word: "View" }, { word: "Edit | View" }];
+                break;
+            case "hostingtype":
+                data = [{ word: "SAAS" }, { word: "Self-Host" }, { word: "Cloud Provider" }];
+                break;
+            default:
+                data = [];
         }
         return data;
     }
 
     static get observers() {
-        return [
-        ]
+        return []
     }
 
     renderItems() {
         const types = data => {
 
-            return html`
+            return html `
             <div>
             ${repeat (
                  data,
@@ -179,10 +219,10 @@ export class AdminOptionDictionary extends LitElement {
             <div>`;
         }
 
-        this.data.forEach(function(item, index){
+        this.data.forEach(function(item, index) {
             item.id = index;
         });
-        
+
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
     }
@@ -230,9 +270,9 @@ export class AdminOptionDictionary extends LitElement {
         this.renderItems();
     }
 
-    render({admin, title}) {
+    render({ admin, title }) {
 
-        return html`
+        return html `
 
         <style include="iron-flex iron-flex-alignment">
         :host {

@@ -113,6 +113,7 @@
     "@polymer/polymer": "^3.0.0-pre.7",
     "@webcomponents/webcomponentsjs": "^1.0.18",
     "firebase": "^4.10.1",
+    "firebaseui": "^2.6.3",
     "lit-html": "^0.8.0",
     "p3-commons": "git+ssh://git@gitlabnew.defie.co:p3/p3-commons.git",
     "postcss": "^6.0.14",

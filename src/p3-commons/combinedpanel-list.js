@@ -178,6 +178,8 @@ export class CombinedpanelList extends LitElement {
             let spliturl = this.searchurl.split("/")
             this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
         }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -212,6 +214,8 @@ export class CombinedpanelList extends LitElement {
             let spliturl = this.searchurl.split("/")
             this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
         }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -434,7 +438,8 @@ export class CombinedpanelList extends LitElement {
 
         this.singleObject = {}
         this.singleObject = newObj
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajax1').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajax1').url = this.url
         this.shadowRoot.querySelector('#ajax1').body = JSON.stringify(this.singleObject)
         this.shadowRoot.querySelector('#ajax1').generateRequest()
@@ -500,6 +505,8 @@ export class CombinedpanelList extends LitElement {
                 this.searchurl = "/customer/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
             }
         }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxList').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
         this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
         this.shadowRoot.querySelector('#ajaxList').generateRequest()
@@ -951,6 +958,8 @@ export class CombinedpanelList extends LitElement {
         //         }
         //     }
         // }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxDelete').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxDelete').url = this.url + "/" + item.id
         this.shadowRoot.querySelector('#ajaxDelete').body = JSON.stringify(this.singleObject)
         this.shadowRoot.querySelector('#ajaxDelete').generateRequest()
@@ -959,6 +968,8 @@ export class CombinedpanelList extends LitElement {
     responseDelete(request) {
         var result = request.detail.response;
         if (result) {
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.querySelector('#ajaxList').headers['CustomToken'] = ct;
             document.querySelector('#toast').text = "Removed successfully, refreshing in 2s.";
             document.querySelector('#toast').show();
             setTimeout(function() {
@@ -1003,7 +1014,8 @@ export class CombinedpanelList extends LitElement {
 
         this.singleObject = {}
         this.singleObject = newObj
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSave').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSave').url = this.url + "/" + this.singleObject.id
         this.shadowRoot.querySelector('#ajaxSave').body = JSON.stringify(this.singleObject)
         this.shadowRoot.querySelector('#ajaxSave').generateRequest()
@@ -1017,6 +1029,8 @@ export class CombinedpanelList extends LitElement {
         } else {
             document.querySelector('#toast').text = "Saved successfully.";
             document.querySelector('#toast').show();
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.querySelector('#ajaxList').headers['CustomToken'] = ct;
             this.shadowRoot.querySelector('#ajaxList').generateRequest()
             this.listpage = false;
             this.editpage = true;

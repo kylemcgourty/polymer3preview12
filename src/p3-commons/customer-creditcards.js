@@ -178,6 +178,8 @@ export class CustomerCreditcards extends LitElement {
             let spliturl = this.searchurl.split("/")
             this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
         }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -212,6 +214,8 @@ export class CustomerCreditcards extends LitElement {
             let spliturl = this.searchurl.split("/")
             this.queryurl = spliturl[1] + "/search/" + spliturl[3] + "/" + spliturl[4] + "/" + spliturl[5]
         }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSearch').url = this.queryurl
         this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
         this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
@@ -493,7 +497,8 @@ export class CustomerCreditcards extends LitElement {
 
         this.singleObject = {}
         this.singleObject = newObj
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajax1').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajax1').url = this.url
         this.shadowRoot.querySelector('#ajax1').body = JSON.stringify(this.singleObject)
         this.shadowRoot.querySelector('#ajax1').generateRequest()
@@ -552,6 +557,8 @@ export class CustomerCreditcards extends LitElement {
         let baseurl = this.url.split("/")
 
         this.searchurl = "/customer/type/" + "credit" + "/" + baseurl[4] + "/" + baseurl[5]
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxList').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxList').url = this.searchurl
         this.shadowRoot.querySelector('#ajaxList').body = JSON.stringify()
         this.shadowRoot.querySelector('#ajaxList').generateRequest()
@@ -632,7 +639,7 @@ export class CustomerCreditcards extends LitElement {
                 this.model.push(newObj)
             });
             var length = e.detail.response.results.length
-            
+
             //no match record
             if (this.model.length == 0 && !this.shadowRoot.getElementById('noMatchesError')) {
                 var error = document.createElement("div")
@@ -1043,6 +1050,8 @@ export class CustomerCreditcards extends LitElement {
         //         }
         //     }
         // }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxDelete').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxDelete').url = this.url + "/" + item.id
         this.shadowRoot.querySelector('#ajaxDelete').body = JSON.stringify(this.singleObject)
         this.shadowRoot.querySelector('#ajaxDelete').generateRequest()
@@ -1061,6 +1070,8 @@ export class CustomerCreditcards extends LitElement {
                 document.querySelector('#toast').text = "Removed successfully, refreshing now.";
                 document.querySelector('#toast').show();
             }, 2000);
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.querySelector('#ajaxList').headers['CustomToken'] = ct;
             setTimeout(this.shadowRoot.querySelector('#ajaxList').generateRequest.bind(this.shadowRoot.querySelector('#ajaxList')), 2000);
         } else {
             document.querySelector('#toast').text = "Error removing.";
@@ -1100,7 +1111,8 @@ export class CustomerCreditcards extends LitElement {
 
         this.singleObject = {}
         this.singleObject = newObj
-
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSave').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSave').url = this.url + "/" + this.singleObject.id
         this.shadowRoot.querySelector('#ajaxSave').body = JSON.stringify(this.singleObject)
         this.shadowRoot.querySelector('#ajaxSave').generateRequest()
@@ -1114,6 +1126,8 @@ export class CustomerCreditcards extends LitElement {
         } else {
             document.querySelector('#toast').text = "Saved successfully.";
             document.querySelector('#toast').show();
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.querySelector('#ajaxList').headers['CustomToken'] = ct;
             this.shadowRoot.querySelector('#ajaxList').generateRequest()
             this.listpage = false;
             this.editpage = true;

@@ -1,195 +1,195 @@
-
 import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 
-  import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
 
 
 import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
-  export class DefieEmailfilter extends LitElement {
-       
+export class DefieEmailfilter extends LitElement {
 
-       
-        static get properties() {
-            return {
-                oldlen: {
-                    type: Number,
-                    value: 0
-                },
-                tags: {
-                    type: Array,
-                    notify: true,
-                    observer: "setDisplay",
-                    value: function() {
-                        return [];
-                    }
-                },
-                label: {
-                    type: String,
-                    reflectToAttribute: true,
-                },
-                display: {
-                    type: Boolean,
-                    value: false
-                },
-                smallRow: {
-                    type: Boolean,
-                    value: false
-                },
-                url: {
-                    type: String,
-                    value: ""
-                },
-                results: {
-                    type: Array,
-                    notify: true,
-                    value: function() {
-                        return [];
-                    }
-                },
-                modelCustomerlist1: {
-                    type: Object,
-                    value: undefined,
-                    reflectToAttribute: true,
-                },
-                map: {
-                    type: Array,
-                    value: function() {
-                        return [{
-                            key: "name",
-                            isMain: true
-                        }, {
-                            key: "email",
-                            isTarget: true
-                        }];
-                    }
-                },
-                lineWidth: {
-                    type: Number,
-                    value: 0
-                },
-                mapString: {
-                    type: String,
-                    value: ""
-                },
-                searchstring: {
-                    type: String,
-                    notify: true,
-                    value: ""
-                },
-                notTaggable: {
-                    type: Boolean,
-                    value: false
-                },
-                autoValidate: {
-                    type: Boolean,
-                    value: false
-                },
-                required: {
-                    type: Boolean,
-                    value: false
-                },
-                singleValue: {
-                    type: Boolean,
-                    value: false
-                },
-                displaySelected: {
-                    type: Boolean,
-                    value: false
-                },
-                text: {
-                    type: String,
-                    value: ""
-                },
-                preString: {
-                    type: String,
-                    notify: true,
-                    value: "",
-                    observer: "resetUrl"
+
+
+    static get properties() {
+        return {
+            oldlen: {
+                type: Number,
+                value: 0
+            },
+            tags: {
+                type: Array,
+                notify: true,
+                observer: "setDisplay",
+                value: function() {
+                    return [];
                 }
+            },
+            label: {
+                type: String,
+                reflectToAttribute: true,
+            },
+            display: {
+                type: Boolean,
+                value: false
+            },
+            smallRow: {
+                type: Boolean,
+                value: false
+            },
+            url: {
+                type: String,
+                value: ""
+            },
+            results: {
+                type: Array,
+                notify: true,
+                value: function() {
+                    return [];
+                }
+            },
+            modelCustomerlist1: {
+                type: Object,
+                value: undefined,
+                reflectToAttribute: true,
+            },
+            map: {
+                type: Array,
+                value: function() {
+                    return [{
+                        key: "name",
+                        isMain: true
+                    }, {
+                        key: "email",
+                        isTarget: true
+                    }];
+                }
+            },
+            lineWidth: {
+                type: Number,
+                value: 0
+            },
+            mapString: {
+                type: String,
+                value: ""
+            },
+            searchstring: {
+                type: String,
+                notify: true,
+                value: ""
+            },
+            notTaggable: {
+                type: Boolean,
+                value: false
+            },
+            autoValidate: {
+                type: Boolean,
+                value: false
+            },
+            required: {
+                type: Boolean,
+                value: false
+            },
+            singleValue: {
+                type: Boolean,
+                value: false
+            },
+            displaySelected: {
+                type: Boolean,
+                value: false
+            },
+            text: {
+                type: String,
+                value: ""
+            },
+            preString: {
+                type: String,
+                notify: true,
+                value: "",
+                observer: "resetUrl"
             }
         }
-        static get observers() {
-            return [
-              
-            ]
-        }
-        constructor() {
-            super();
+    }
+    static get observers() {
+        return [
+
+        ]
+    }
+    constructor() {
+        super();
 
 
-            
-        }
 
-        open(profileid, customerid, url){
-            this.profileid = profileid
-            this.customerid = customerid
-            this.url = url
+    }
 
-            this.emails = []
-            this.shadowRoot.getElementById('searchstring').value = ""
+    open(profileid, customerid, url) {
+        this.profileid = profileid
+        this.customerid = customerid
+        this.url = url
+
+        this.emails = []
+        this.shadowRoot.getElementById('searchstring').value = ""
+        this.clearContacts()
+        this.showAlteredEmails([])
+        this.counter = 0
+    }
+
+
+
+    returnEmails() {
+        return this.listofemails = this.emails.map((item, i) => {
+            return item.email
+        })
+    }
+
+
+
+    ready() {
+        super.ready()
+    }
+
+    searchContacts(e) {
+
+        if (e.keyCode == 13) {
+            this.insertQuick()
             this.clearContacts()
-            this.showAlteredEmails([])
-            this.counter = 0
+            return
         }
 
+        let search = this.shadowRoot.getElementById('searchstring').value
+        let url = this.url;
 
+        if (!url || !url.includes("search")) {
+            url = "/customer/search/contact/" + this.profileid + "/" + this.customerid;
+        }
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.getElementById('ajaxSearch').headers['CustomToken'] = ct;
+        this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify({ "option": "name_l", "query": search })
+        this.shadowRoot.getElementById('ajaxSearch').url = url;
+        this.shadowRoot.getElementById('ajaxSearch').generateRequest()
 
-        returnEmails() {
-            return this.listofemails = this.emails.map((item, i) =>{
-                return item.email
-            })
+    }
+
+    receiveContacts(e) {
+
+        if (e.detail.response.results == null) {
+            return
         }
 
+        this.contacts = []
 
-
-        ready() {
-            super.ready()
+        for (var i = 0; i < e.detail.response.results.length; i++) {
+            let item = e.detail.response.results[i]
+            if (item.name == " " && item.email == "") {
+                continue;
+            } else {
+                item.id = i
+                this.contacts.push(item)
+            }
         }
 
-        searchContacts(e) {
-
-            if(e.keyCode == 13){
-                this.insertQuick()
-                this.clearContacts()
-                return
-            }
-
-            let search = this.shadowRoot.getElementById('searchstring').value
-            let url = this.url;
-
-            if (!url || !url.includes("search")) {
-                url = "/customer/search/contact/" + this.profileid + "/" + this.customerid;
-            }
-
-            this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify({"option": "name_l", "query": search})
-            this.shadowRoot.getElementById('ajaxSearch').url =  url;
-            this.shadowRoot.getElementById('ajaxSearch').generateRequest()
-
-        }
-
-        receiveContacts(e) {
-
-            if (e.detail.response.results == null){
-                return
-            }
-
-            this.contacts = []
-
-            for (var i=0; i< e.detail.response.results.length; i++){
-                let item = e.detail.response.results[i]
-                if (item.name == " " && item.email == ""){
-                    continue;
-                } else {
-                    item.id = i
-                    this.contacts.push(item)
-                }
-            }
-
-            const contacts = people => {
-                return html`
+        const contacts = people => {
+            return html `
                     <div>
                      ${repeat (
                         people,
@@ -203,19 +203,19 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         )}
 
                      </div>`
-            }
-
-            render(contacts(this.contacts), this.shadowRoot.getElementById('contacts'))
-
         }
 
+        render(contacts(this.contacts), this.shadowRoot.getElementById('contacts'))
 
-        clearContacts() {
+    }
 
 
-            this.empty = []
-            const contacts = people => {
-                return html`
+    clearContacts() {
+
+
+        this.empty = []
+        const contacts = people => {
+            return html `
                     <div>
                      ${repeat (
                         people,
@@ -229,45 +229,45 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         )}
 
                      </div>`
-            }
-
-            render(contacts(this.empty), this.shadowRoot.getElementById('contacts'))
         }
 
-          addEmail(e){
+        render(contacts(this.empty), this.shadowRoot.getElementById('contacts'))
+    }
 
-            this.block = true;
+    addEmail(e) {
 
-            let contactID = e.path[1].id.split("contact")[1]
+        this.block = true;
 
-            let contact = this.contacts[contactID]
+        let contactID = e.path[1].id.split("contact")[1]
 
-            contact.id = this.counter++
+        let contact = this.contacts[contactID]
+
+        contact.id = this.counter++
 
             this.emails.push(contact)
 
-            this.shadowRoot.getElementById('searchstring').value = ""
+        this.shadowRoot.getElementById('searchstring').value = ""
 
-            this.showAlteredEmails(this.emails)
+        this.showAlteredEmails(this.emails)
 
-            this.clearContacts()
+        this.clearContacts()
 
+    }
+
+    insertEmail(e) {
+
+
+        if (this.shadowRoot.getElementById('searchstring').value == "") {
+            return
         }
 
-        insertEmail(e){
-
-
-            if (this.shadowRoot.getElementById('searchstring').value == ""){
-                return
-            }
-
-            setTimeout(()=>{
-            if (this.block){
+        setTimeout(() => {
+            if (this.block) {
                 this.block = false;
                 return;
             }
 
-            this.emails.push({email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++})
+            this.emails.push({ email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++ })
 
             this.shadowRoot.getElementById('searchstring').value = ""
 
@@ -275,57 +275,57 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
             this.showAlteredEmails(this.emails)
 
             this.clearContacts()
-            }, 300)
-
-            
+        }, 300)
 
 
+
+
+    }
+
+    insertQuick(e) {
+
+
+        this.emails.push({ email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++ })
+
+        this.shadowRoot.getElementById('searchstring').value = ""
+
+
+        this.showAlteredEmails(this.emails)
+
+
+
+    }
+
+    edit(bool) {
+        if (bool) {
+            return "none"
+        } else {
+            return "flex"
+        }
+    }
+
+    edit1(bool) {
+        if (bool) {
+            return "flex"
+        } else {
+            return "none"
+        }
+    }
+
+    editEmail(e) {
+
+
+        if (!e.path[1].id) {
+            return
         }
 
-        insertQuick(e){
+        let emailID = e.path[1].id.split("email")[1]
 
+        this.emails[emailID].edit = true
 
-            this.emails.push({email: this.shadowRoot.getElementById('searchstring').value, edit: true, id: this.counter++})
-
-            this.shadowRoot.getElementById('searchstring').value = ""
-
-
-            this.showAlteredEmails(this.emails)
-
-
-
-        }
-
-        edit(bool) {
-            if (bool){
-                return "none"
-            } else {
-                return "flex"
-            }
-        }
-
-        edit1(bool) {
-            if (bool){
-                return "flex"
-            } else {
-                return "none"
-            }
-        }
-
-        editEmail(e) {
-
-
-            if (!e.path[1].id){
-                return
-            }
-
-            let emailID = e.path[1].id.split("email")[1]
-
-           this.emails[emailID].edit = true
-
-                this.showAlteredEmails(this.emails)
-            const emails = emails => {
-                return html`
+        this.showAlteredEmails(this.emails)
+        const emails = emails => {
+            return html `
                     <div class="emailholder layout horizontal wrap">
                      ${repeat (
                         emails,
@@ -341,19 +341,19 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         )}
 
                      </div>`
-            }
-
-
-            render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
-
-
         }
 
 
-        showAlteredEmails(emaillist){
+        render(emails(this.emails), this.shadowRoot.getElementById('emaillist'))
 
-            const emails = emails => {
-                return html`
+
+    }
+
+
+    showAlteredEmails(emaillist) {
+
+        const emails = emails => {
+            return html `
                     <div class="emailholder layout horizontal wrap">
                      ${repeat (
                         emails,
@@ -368,53 +368,53 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
                         )}
 
                      </div>`
+        }
+
+
+        render(emails(emaillist), this.shadowRoot.getElementById('emaillist'))
+
+    }
+
+
+    returnEmail(e) {
+        if (e.keyCode == 13) {
+
+            let id = e.path[0].id
+            let personid = id.split("edited")[1]
+            this.emails[personid].email = this.shadowRoot.getElementById(id).value
+            this.showAlteredEmails(this.emails)
+
+
+
+        }
+    }
+
+    returnEmail1(e) {
+
+        let id = e.path[0].id
+        let personid = id.split("edited")[1]
+        this.emails[personid].email = this.shadowRoot.getElementById(id).value
+        this.showAlteredEmails(this.emails)
+
+    }
+
+    delete(e) {
+        let id = e.path[0].id
+        let personid = id.split("identifier")[1]
+
+        for (var i = 0; i < this.emails.length; i++) {
+            if (personid == this.emails[i].id) {
+                this.emails.splice(i, 1)
+                break;
             }
-
-
-            render(emails(emaillist), this.shadowRoot.getElementById('emaillist'))
-
         }
 
+        this.showAlteredEmails(this.emails)
+    }
 
-        returnEmail(e) {
-            if (e.keyCode == 13){
 
-                let id = e.path[0].id
-                let personid = id.split("edited")[1]
-                this.emails[personid].email = this.shadowRoot.getElementById(id).value
-                this.showAlteredEmails(this.emails)
-
-                
-
-            }
-        }
-
-        returnEmail1(e) {
-
-                let id = e.path[0].id
-                let personid = id.split("edited")[1]
-                this.emails[personid].email = this.shadowRoot.getElementById(id).value
-                this.showAlteredEmails(this.emails)
-
-        }
-
-        delete(e) {
-                let id = e.path[0].id
-                let personid = id.split("identifier")[1]
-
-                for (var i=0; i < this.emails.length; i++){
-                    if (personid == this.emails[i].id){
-                        this.emails.splice(i, 1)
-                        break;
-                    }
-                }
-
-                this.showAlteredEmails(this.emails)
-        }
-       
-
-         render({label}) {
-        return html` <style include="shared-styles iron-flex iron-flex-alignment">
+    render({ label }) {
+        return html ` <style include="shared-styles iron-flex iron-flex-alignment">
 
             /*  //////////////FLEX BOX/////////  */
 
@@ -1011,9 +1011,9 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
        `
     }
 
-       
 
 
-    }
 
-    customElements.define('defie-emailfilter', DefieEmailfilter)
+}
+
+customElements.define('defie-emailfilter', DefieEmailfilter)

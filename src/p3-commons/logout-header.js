@@ -1,57 +1,59 @@
-  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+  import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 
   export class LogoutHeader extends LitElement {
-        
-        static get properties() {
-            return {
-                model: {
-                    type: String,
-                    notify: true
-                },
-            }
-        }
 
-        constructor() {
-            super();
-            // Utils.apply(this);
-        }
+      static get properties() {
+          return {
+              model: {
+                  type: String,
+                  notify: true
+              },
+          }
+      }
 
-        hider(soid) {
+      constructor() {
+          super();
+          // Utils.apply(this);
+      }
 
-            if (soid) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        showError(e) {
-            var msg = e.detail.request.xhr.response.error;
-            if (msg) document.querySelector('#toast').show(msg);
-        }
-        logout() {
-            this.shadowRoot.querySelector('#ajaxlogout').generateRequest();
-            this.dispatchEvent(new CustomEvent('signoutGoogleLogin', {
-                composed: true,
-                bubbles: true,
-            }))
-            window.signOut();
-        }
-        response(request) {
-            var result = request.detail.response;
-            if (result.auth) {
-                document.querySelector('#toast').text = result.error;
-                document.querySelector('#toast').show();
-            } else {
-                this.dispatchEvent(new CustomEvent('logoutapp', {composed: true, bubbles: true}));
-                // window.location.reload(false);
-                // this.route.path = '';
-                sessionStorage.clear()
-            }
-        }
+      hider(soid) {
 
-        render({}) {
-        return html`<style>
+          if (soid) {
+              return false;
+          } else {
+              return true;
+          }
+      }
+      showError(e) {
+          var msg = e.detail.request.xhr.response.error;
+          if (msg) document.querySelector('#toast').show(msg);
+      }
+      logout() {
+          let ct = sessionStorage.getItem("CUSTOMTOKEN")
+          this.shadowRoot.querySelector('#ajaxlogout').headers['CustomToken'] = ct;
+          this.shadowRoot.querySelector('#ajaxlogout').generateRequest();
+          this.dispatchEvent(new CustomEvent('signoutGoogleLogin', {
+              composed: true,
+              bubbles: true,
+          }))
+          window.signOut();
+      }
+      response(request) {
+          var result = request.detail.response;
+          if (result.auth) {
+              document.querySelector('#toast').text = result.error;
+              document.querySelector('#toast').show();
+          } else {
+              this.dispatchEvent(new CustomEvent('logoutapp', { composed: true, bubbles: true }));
+              // window.location.reload(false);
+              // this.route.path = '';
+              sessionStorage.clear()
+          }
+      }
+
+      render({}) {
+          return html `<style>
         #paperToggle {
             min-height: 40px;
             min-width: 40px;
@@ -118,7 +120,7 @@
         <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}"></app-route>
         <iron-ajax method="GET" id="ajaxlogout" url="/user/logout" handle-as="json" on-response=${this.response.bind(this)} on-error="showError" content-type="application/json"></iron-ajax>`
-    }
-    }
+      }
+  }
 
- customElements.define('logout-header', LogoutHeader);
+  customElements.define('logout-header', LogoutHeader);

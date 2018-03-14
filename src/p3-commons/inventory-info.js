@@ -33,7 +33,7 @@
       static get observers() {
           return []
       }
-    
+
       constructor() {
           super();
           this.model = {};
@@ -46,6 +46,8 @@
       }
       open(url) {
           if (typeof url === 'string') this.url = url;
+          let ct = sessionStorage.getItem("CUSTOMTOKEN")
+          this.shadowRoot.querySelector('#ajaxList').headers['CustomToken'] = ct;
           this.shadowRoot.querySelector('#ajaxList').url = this.url
           this.shadowRoot.querySelector('#ajaxList').generateRequest();
 

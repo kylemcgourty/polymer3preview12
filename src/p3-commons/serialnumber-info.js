@@ -1,7 +1,7 @@
-import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { LitElement } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+import { render, html } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 
 export class SerialNumberInfo extends LitElement {
@@ -53,7 +53,7 @@ export class SerialNumberInfo extends LitElement {
         }
     }
 
-  
+
 
     constructor() {
         super()
@@ -102,6 +102,8 @@ export class SerialNumberInfo extends LitElement {
     }
 
     launchModelToDB() {
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.shadowRoot.querySelector('#ajaxSave1').headers['CustomToken'] = ct;
         this.shadowRoot.querySelector('#ajaxSave1').body = JSON.stringify(this.largeModel);
         this.shadowRoot.querySelector('#ajaxSave1').generateRequest();
     }
@@ -121,8 +123,8 @@ export class SerialNumberInfo extends LitElement {
 
         let module = './serialnumber-list.js'
 
-        import(module).then((mod) =>{
-                this.shadowRoot.querySelector('#sn').setQty(this.item, this.qty, this.launch, this.starter)
+        import (module).then((mod) => {
+            this.shadowRoot.querySelector('#sn').setQty(this.item, this.qty, this.launch, this.starter)
         }).then(() => {
             this.shadowRoot.querySelector('#sn').addSN()
         })
@@ -169,21 +171,21 @@ export class SerialNumberInfo extends LitElement {
         if (response.detail.response.results) {
             document.querySelector('#toast').text = "Serial numbers and HWR numbers updated successfully";
             document.querySelector('#toast').show();
-        this.dispatchEvent(new CustomEvent(this.ender, {
-            bubbles: true,
-            composed: true,
-            detail: {
-                item: this.item,
-                model: response.detail.response.results
-            }
-        }))
-        this.dispatchEvent(new CustomEvent('closePanel', {
-            bubbles: true,
-            composed: true
-        }))
-    } else {
-        return
-    }
+            this.dispatchEvent(new CustomEvent(this.ender, {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    item: this.item,
+                    model: response.detail.response.results
+                }
+            }))
+            this.dispatchEvent(new CustomEvent('closePanel', {
+                bubbles: true,
+                composed: true
+            }))
+        } else {
+            return
+        }
     }
 
     isPart(type) {
@@ -196,10 +198,10 @@ export class SerialNumberInfo extends LitElement {
     gotmid() {
 
         if (!this.attached) {
-        this.shadowRoot.addEventListener(this.launch, function() {
-            this.launchModelToDB()
-        }.bind(this));
-        this.attached = true;
+            this.shadowRoot.addEventListener(this.launch, function() {
+                this.launchModelToDB()
+            }.bind(this));
+            this.attached = true;
         }
 
     }

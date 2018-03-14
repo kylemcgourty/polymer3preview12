@@ -1,7 +1,7 @@
-import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { LitElement } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+import { render, html } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 export class OptionDictionary extends LitElement {
 
@@ -24,13 +24,13 @@ export class OptionDictionary extends LitElement {
                 type: String,
                 reflectToAttribute: true,
                 notify: true,
-                value: "",  
+                value: "",
             },
             index: {
                 type: Number,
                 reflectToAttribute: true,
                 notify: true,
-                value: 0,  
+                value: 0,
             }
         }
     }
@@ -39,47 +39,47 @@ export class OptionDictionary extends LitElement {
         super()
         this.data = [];
         this.link2typemodel = {
-                        "/partnumber-new": "status2values",
-                        "/partnumbers": "status2values",
-                        "/customer-new": "status2values",
-                        "/customers": "status2values",
-                        "/vendor-new": "status2values",
-                        "/vendors": "status2values",
-                        "/quote-new": "status2values",
-                        "/quotes": "status2values",
-                        "/salesorder-new": "status4values",
-                        "/salesorders": "status4values",
-                        "/invoice-new": "empty",
-                        "/invoices": "empty",
-                        "/returnso-new": "status4values",
-                        "/returnsos": "status4values",
-                        "/creditmemo-new": "empty",
-                        "/creditmemos": "empty",
-                        "/customerreceiverma-new": "status4values",
-                        "/customerreceivermas": "status4values",
-                        "/customershiprma-new": "status4values",
-                        "/customershiprmas": "status4values",
-                        "/customerrma-new": "status4values",
-                        "/customerrmas": "status4values",
-                        "/purchaseorder-new": "status4values",
-                        "/purchaseorders": "status4values",
-                        "/receivepo-new": "status4values",
-                        "/receivepos": "status4values",
-                        "/returnpo-new": "status4values",
-                        "/returnpos": "status4values",
-                        "/shipreturnpo-new": "empty",
-                        "/shipreturnpos": "empty",
-                        "/vendorreceiverma-new": "status4values",
-                        "/vendorreceivermas": "status4values",
-                        "/vendorshiprma-new": "status4values",
-                        "/vendorshiprmas": "status4values",
-                        "/vendorrma-new": "status4values",
-                        "/vendorrmas": "status4values",
-                        "/user-new": "status2values",
-                        "/users": "status2values",
-                        "/profile-new": "empty",
-                        "/profiles": "empty",
-                    };
+            "/partnumber-new": "status2values",
+            "/partnumbers": "status2values",
+            "/customer-new": "status2values",
+            "/customers": "status2values",
+            "/vendor-new": "status2values",
+            "/vendors": "status2values",
+            "/quote-new": "status2values",
+            "/quotes": "status2values",
+            "/salesorder-new": "status4values",
+            "/salesorders": "status4values",
+            "/invoice-new": "empty",
+            "/invoices": "empty",
+            "/returnso-new": "status4values",
+            "/returnsos": "status4values",
+            "/creditmemo-new": "empty",
+            "/creditmemos": "empty",
+            "/customerreceiverma-new": "status4values",
+            "/customerreceivermas": "status4values",
+            "/customershiprma-new": "status4values",
+            "/customershiprmas": "status4values",
+            "/customerrma-new": "status4values",
+            "/customerrmas": "status4values",
+            "/purchaseorder-new": "status4values",
+            "/purchaseorders": "status4values",
+            "/receivepo-new": "status4values",
+            "/receivepos": "status4values",
+            "/returnpo-new": "status4values",
+            "/returnpos": "status4values",
+            "/shipreturnpo-new": "empty",
+            "/shipreturnpos": "empty",
+            "/vendorreceiverma-new": "status4values",
+            "/vendorreceivermas": "status4values",
+            "/vendorshiprma-new": "status4values",
+            "/vendorshiprmas": "status4values",
+            "/vendorrma-new": "status4values",
+            "/vendorrmas": "status4values",
+            "/user-new": "status2values",
+            "/users": "status2values",
+            "/profile-new": "empty",
+            "/profiles": "empty",
+        };
     }
 
     open(props) {
@@ -106,11 +106,13 @@ export class OptionDictionary extends LitElement {
                 this.data = props.data;
             }
         }
-        
-        if (this.data.length >0) {
+
+        if (this.data.length > 0) {
             this.renderItems();
         } else {
-            this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/"+this.typemodel;
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.querySelector('#ajaxOption').headers['CustomToken'] = ct;
+            this.shadowRoot.querySelector('#ajaxOption').url = "/optionsetting/option/" + this.typemodel;
             this.shadowRoot.querySelector('#ajaxOption').body = JSON.stringify(this.model);
             this.shadowRoot.querySelector('#ajaxOption').generateRequest();
         }
@@ -142,58 +144,97 @@ export class OptionDictionary extends LitElement {
         let data = [];
 
         switch (this.typemodel) {
-            case "ptypes": data = [{word: "Spare"}, {word: "Component"}, {word: "Product"}, {word: "Others"}]; break;
+            case "ptypes":
+                data = [{ word: "Spare" }, { word: "Component" }, { word: "Product" }, { word: "Others" }];
+                break;
             case "custcategories":
             case "vendcategories":
-            case "categories": data = [{word: "Hardware"}, {word: "Software"}, {word: "Service"}, {word: "Others"}]; break;
+            case "categories":
+                data = [{ word: "Hardware" }, { word: "Software" }, { word: "Service" }, { word: "Others" }];
+                break;
             case "vendshipvia":
-            case "custshipvia": data = [{word:"Will Call" },{word:"Deliver" },{word:"Trucking" },{word:"Other Freight" },{word:"UPS Ground" },
-                                        {word:"UPS 3 day Select" },{word:"UPS 2 day Air" },{word:"UPS 2 Day Air Early AM" },{word:"UPS Next day Saver" },
-                                        {word:"UPS Next day Air" },{word:"UPS Next day Air Early AM" },{word:"UPS Worldwide Express Plus" },
-                                        {word:"UPS Worldwide Express" },{word:"UPS Worldwide Saver (Express)" },{word:"UPS Worldwide Expedited" },
-                                        {word:"FedEx Ground" },{word:"FedEx 3 Day Freight" },{word:"FedEx Express Saver" },{word:"FedEx 2 Day Freight" },
-                                        {word:"FedEx 1 Day freight" },{word:"FedEx 2 Day" },{word:"FedEx Standard Overnight" },
-                                        {word:"FedEx Priority Overnight" },{word:"FedEx First Overnight" },{word:"FedEx International Priority" },
-                                        {word:"FedEx International Freight" },{word:"FedEx International Economy Freight" },{word:"FedEx International Economy" }]; break;
+            case "custshipvia":
+                data = [{ word: "Will Call" }, { word: "Deliver" }, { word: "Trucking" }, { word: "Other Freight" }, { word: "UPS Ground" },
+                    { word: "UPS 3 day Select" }, { word: "UPS 2 day Air" }, { word: "UPS 2 Day Air Early AM" }, { word: "UPS Next day Saver" },
+                    { word: "UPS Next day Air" }, { word: "UPS Next day Air Early AM" }, { word: "UPS Worldwide Express Plus" },
+                    { word: "UPS Worldwide Express" }, { word: "UPS Worldwide Saver (Express)" }, { word: "UPS Worldwide Expedited" },
+                    { word: "FedEx Ground" }, { word: "FedEx 3 Day Freight" }, { word: "FedEx Express Saver" }, { word: "FedEx 2 Day Freight" },
+                    { word: "FedEx 1 Day freight" }, { word: "FedEx 2 Day" }, { word: "FedEx Standard Overnight" },
+                    { word: "FedEx Priority Overnight" }, { word: "FedEx First Overnight" }, { word: "FedEx International Priority" },
+                    { word: "FedEx International Freight" }, { word: "FedEx International Economy Freight" }, { word: "FedEx International Economy" }
+                ];
+                break;
             case "custcreditmethods":
-            case "vendcreditmethods": data = [{word: "Refund"}, {word: "Open Credit"}, {word: "Exchange"}, {word: "Repair"}]; break;
+            case "vendcreditmethods":
+                data = [{ word: "Refund" }, { word: "Open Credit" }, { word: "Exchange" }, { word: "Repair" }];
+                break;
             case "custproductconditions":
-            case "vendproductconditions": data = [{word: "Unopen"}, {word: "Opened"}, {word: "Miss Parts"}, {word: "Miss Documents"}]; break;
+            case "vendproductconditions":
+                data = [{ word: "Unopen" }, { word: "Opened" }, { word: "Miss Parts" }, { word: "Miss Documents" }];
+                break;
             case "custreturnreasons":
-            case "vendreturnreasons": data = [{word: "Over Stock"}, {word: "Dead on Arrival"}, {word: "Wrong Part"}, {word: "Damage"}, {word: "No Longer Need"}]; break;
+            case "vendreturnreasons":
+                data = [{ word: "Over Stock" }, { word: "Dead on Arrival" }, { word: "Wrong Part" }, { word: "Damage" }, { word: "No Longer Need" }];
+                break;
             case "vendissues":
-            case "custissues": data = [{word: "DOA"}, {word: "Defective"}, {word: "Physical Damage"}, {word: "Wrong Product"}]; break;
+            case "custissues":
+                data = [{ word: "DOA" }, { word: "Defective" }, { word: "Physical Damage" }, { word: "Wrong Product" }];
+                break;
             case "custpriorities":
-            case "vendpriorities": data = [{word: "Urgent"}, {word: "High"}, {word: "Medium"}, {word: "Low"}]; break;
+            case "vendpriorities":
+                data = [{ word: "Urgent" }, { word: "High" }, { word: "Medium" }, { word: "Low" }];
+                break;
             case "custrequests":
-            case "vendrequests": data = [{word: "Credit"},{word: "Refund"},{word: "Adv. Replacement"},{word: "Replacement"},{word: "Repair"}]; break;
+            case "vendrequests":
+                data = [{ word: "Credit" }, { word: "Refund" }, { word: "Adv. Replacement" }, { word: "Replacement" }, { word: "Repair" }];
+                break;
             case "custservices":
-            case "vendservices": data = [{word: "Platinum"}, {word: "Gold"}, {word: "Silver"}, {word: "Bronze"}]; break;
-            case "departments": data = [{word: "Human Resources"}, {word: "Engineering"}, {word: "Sales"}]; break;
-            case "groups": data = [{word: "Sales"}, {word: "Engineering"}, {word: "Accounting"}]; break;
-            case "vendterms": 
-            case "custterms": data = [{word: "0"}, {word: "1"}, {word: "30"}, {word: "60"}]; break;
-            case "status4values": data = [{word: "Open"}, {word: "Partial"}, {word: "Closed"}, {word: "Void"}]; break;
-            case "status2values": data = [{word: "Active"}, {word: "Inactive"}]; break;
-            case "roles": data = [{word: "Super Admin"}, {word: "Group Admin"}, {word: "User"}]; break;
-            case "privileges": data = [{word: "Full"}, {word: "View"}, {word: "Edit | View"}]; break;
-            case "hostingtype": data = [{word: "SAAS"}, {word: "Self-Host"}, {word: "Cloud Provider"}]; break;
-            case "empty": data = []; break;
-            default: data = [];
+            case "vendservices":
+                data = [{ word: "Platinum" }, { word: "Gold" }, { word: "Silver" }, { word: "Bronze" }];
+                break;
+            case "departments":
+                data = [{ word: "Human Resources" }, { word: "Engineering" }, { word: "Sales" }];
+                break;
+            case "groups":
+                data = [{ word: "Sales" }, { word: "Engineering" }, { word: "Accounting" }];
+                break;
+            case "vendterms":
+            case "custterms":
+                data = [{ word: "0" }, { word: "1" }, { word: "30" }, { word: "60" }];
+                break;
+            case "status4values":
+                data = [{ word: "Open" }, { word: "Partial" }, { word: "Closed" }, { word: "Void" }];
+                break;
+            case "status2values":
+                data = [{ word: "Active" }, { word: "Inactive" }];
+                break;
+            case "roles":
+                data = [{ word: "Super Admin" }, { word: "Group Admin" }, { word: "User" }];
+                break;
+            case "privileges":
+                data = [{ word: "Full" }, { word: "View" }, { word: "Edit | View" }];
+                break;
+            case "hostingtype":
+                data = [{ word: "SAAS" }, { word: "Self-Host" }, { word: "Cloud Provider" }];
+                break;
+            case "empty":
+                data = [];
+                break;
+            default:
+                data = [];
         }
 
         return data;
     }
 
     static get observers() {
-        return [
-        ]
+        return []
     }
 
     renderItems() {
         const types = data => {
 
-            return html`
+            return html `
             <div>
             ${repeat (
                  data,
@@ -207,10 +248,10 @@ export class OptionDictionary extends LitElement {
             <div>`;
         }
 
-        this.data.forEach(function(item, index){
+        this.data.forEach(function(item, index) {
             item.id = index;
         });
-        
+
 
         render(types(this.data), this.shadowRoot.querySelector('#table'))
     }
@@ -245,9 +286,9 @@ export class OptionDictionary extends LitElement {
         }))
     }
 
-    render({title}) {
+    render({ title }) {
 
-        return html`
+        return html `
 
         <style include="iron-flex iron-flex-alignment">
         :host {

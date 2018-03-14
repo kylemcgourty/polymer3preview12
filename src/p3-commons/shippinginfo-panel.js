@@ -1,180 +1,182 @@
-  import {LitElement, html} from '../../node_modules/@polymer/lit-element/lit-element.js'
+  import { LitElement, html } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
 
 
-  import {render} from '../../node_modules/lit-html/lib/lit-extended.js';
+  import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
-import '../../../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
+  import '../../../node_modules/@polymer/paper-checkbox/paper-checkbox.js'
 
-export class ShippingInfoPanel extends LitElement {
-    static get properties() {
-        return {
-            _inventory: {
-                type: Object,
-                notify: true,
-                value: function() {
-                    return {};
-                }
-            },
-            model: {
-                type: Object,
-                notify: true,
-                value: function() {
-                    return {};
-                }
-            },
-            olditem: {
-                type: Object,
-                notify: true,
-                value: function() {
-                    return {};
-                }
-            },
-            url: {
-                type: String,
-                notify: true
-            },
-            queryMatches: {
-                type: Boolean,
-                observer: 'mySize'
-            },
-            display: {
-                type: Boolean,
-                value: false,
-                notify: true,
-            },
-            lineitemIndex: {
-                reflectToAttribute: true,
-                type: Number
-            },
-            headercolor: {
-                type: String,
-                reflectToAttribute: true
-            },
-            item: {
-                type: Object,
+  export class ShippingInfoPanel extends LitElement {
+      static get properties() {
+          return {
+              _inventory: {
+                  type: Object,
+                  notify: true,
+                  value: function() {
+                      return {};
+                  }
+              },
+              model: {
+                  type: Object,
+                  notify: true,
+                  value: function() {
+                      return {};
+                  }
+              },
+              olditem: {
+                  type: Object,
+                  notify: true,
+                  value: function() {
+                      return {};
+                  }
+              },
+              url: {
+                  type: String,
+                  notify: true
+              },
+              queryMatches: {
+                  type: Boolean,
+                  observer: 'mySize'
+              },
+              display: {
+                  type: Boolean,
+                  value: false,
+                  notify: true,
+              },
+              lineitemIndex: {
+                  reflectToAttribute: true,
+                  type: Number
+              },
+              headercolor: {
+                  type: String,
+                  reflectToAttribute: true
+              },
+              item: {
+                  type: Object,
 
-            }
-        }
-    }
+              }
+          }
+      }
 
-    static get observers() {
-        return []
-    }
-
-
-    constructor() {
-        super()
-        this.item = {};
-        this.url = "";
-    }
-
-    addDim(e) {
-        var str = this.item.dimension
-        if (str.includes("Inch(s)")) {
-            return
-        } else {
-            var d = this.shadowRoot.querySelector("#dimension").value + " inch(s)"
-            this.item.dimension = d
-        }
+      static get observers() {
+          return []
+      }
 
 
-        const newDimension = () =>html` <input class="input1" id="dimension" label="x" placeholder="Inches" on-focusout=${this.addDim.bind(this)} value="${this.item.dimension}">`
-        render(newDimension(), this.shadowRoot.querySelector("#dimensionholder"))
+      constructor() {
+          super()
+          this.item = {};
+          this.url = "";
+      }
 
-    }
-
-    addWeight(weight) {
-        var str = this.item.netweight
-        if (str.includes("Lb(s)")) {
-            return
-        } else {
-            var w = this.shadowRoot.querySelector("#netweight").value + " lb(s)"
-            this.item.netweight =w
-
-        }
-
-        const newWeight = () =>html`<input class="input1" id="netweight" placeholder="Lbs" on-focusout=${this.addWeight.bind(this)} value="${this.item.netweight}">`
-
-        render(newWeight(), this.shadowRoot.querySelector("#netweightholder"))
-    }
-
-    save() {
-
-        this.largeModel.lineitems[this.modelIndex].tracking = this.shadowRoot.querySelector("#tracking").value
-        this.largeModel.lineitems[this.modelIndex].useccn = this.shadowRoot.querySelector("#useccn").value
-        this.largeModel.lineitems[this.modelIndex].hstariff = this.shadowRoot.querySelector("#hstariff").value
-        this.largeModel.lineitems[this.modelIndex].dimension = this.shadowRoot.querySelector("#dimension").value
-        this.largeModel.lineitems[this.modelIndex].netweight = this.shadowRoot.querySelector("#netweight").value
-        this.largeModel.lineitems[this.modelIndex].incoterms = this.shadowRoot.querySelector("#incoterms").value
-        this.largeModel.lineitems[this.modelIndex].countryoforigin = this.shadowRoot.querySelector("#countryoforigin").value
-        this.largeModel.lineitems[this.modelIndex].display = this.shadowRoot.querySelector("#display").checked
+      addDim(e) {
+          var str = this.item.dimension
+          if (str.includes("Inch(s)")) {
+              return
+          } else {
+              var d = this.shadowRoot.querySelector("#dimension").value + " inch(s)"
+              this.item.dimension = d
+          }
 
 
-        this.item.updatecheck = true;
-        this.shadowRoot.querySelector('#ajaxSave1').body = JSON.stringify(this.largeModel);
-        this.shadowRoot.querySelector('#ajaxSave1').generateRequest();
-    }
+          const newDimension = () => html ` <input class="input1" id="dimension" label="x" placeholder="Inches" on-focusout=${this.addDim.bind(this)} value="${this.item.dimension}">`
+          render(newDimension(), this.shadowRoot.querySelector("#dimensionholder"))
 
-    open(url, item, model, index) {
-        if (typeof url === 'string') this.url= url
-        this.item =item
-        this.item.display= item.display
-        this.item.useccn = item.useccn
-        this.largeModel = model
-        this.modelIndex = index
-    }
+      }
 
-    close() {
-        this.dispatchEvent(new CustomEvent('closePanel', {
-            bubbles: true,
-            composed: true
-        }))
-    }
+      addWeight(weight) {
+          var str = this.item.netweight
+          if (str.includes("Lb(s)")) {
+              return
+          } else {
+              var w = this.shadowRoot.querySelector("#netweight").value + " lb(s)"
+              this.item.netweight = w
 
-    clean() {
-        this.item.serialnumbers = null
-        this.item.hwr = null
-        this.item.useccn = null
-        this.item.hstariff = null
-        this.item.netweight = null
-        this.item.dimension = null
-        this.item.product = null
-        this.item.incoterms = null
-        this.item.countryoforigin = null
-        this.item.other = null
-    }
+          }
 
-    response(response) {
+          const newWeight = () => html `<input class="input1" id="netweight" placeholder="Lbs" on-focusout=${this.addWeight.bind(this)} value="${this.item.netweight}">`
 
-        if (response.detail.response.results){
-        document.querySelector('#toast').text = "Shipping info updated successfully";
-        document.querySelector('#toast').show();
-        this.dispatchEvent(new CustomEvent(this.ender, {
-            bubbles: true,
-            composed: true,
-            detail: {
-                item: this.item,
-                model: response.detail.response.results
-            }
-        }))
-        this.dispatchEvent(new CustomEvent('closePanel', {
-            bubbles: true,
-            composed: true
-        }))
-        this.dispatchEvent(new CustomEvent('getPartsList', {
-            bubbles: true,
-            composed: true,
-        }))
+          render(newWeight(), this.shadowRoot.querySelector("#netweightholder"))
+      }
 
-        }   
-    }
+      save() {
 
-    ready() {
-        super.ready()
-    }
-    render({}) {
-        return html `
+          this.largeModel.lineitems[this.modelIndex].tracking = this.shadowRoot.querySelector("#tracking").value
+          this.largeModel.lineitems[this.modelIndex].useccn = this.shadowRoot.querySelector("#useccn").value
+          this.largeModel.lineitems[this.modelIndex].hstariff = this.shadowRoot.querySelector("#hstariff").value
+          this.largeModel.lineitems[this.modelIndex].dimension = this.shadowRoot.querySelector("#dimension").value
+          this.largeModel.lineitems[this.modelIndex].netweight = this.shadowRoot.querySelector("#netweight").value
+          this.largeModel.lineitems[this.modelIndex].incoterms = this.shadowRoot.querySelector("#incoterms").value
+          this.largeModel.lineitems[this.modelIndex].countryoforigin = this.shadowRoot.querySelector("#countryoforigin").value
+          this.largeModel.lineitems[this.modelIndex].display = this.shadowRoot.querySelector("#display").checked
+
+
+          this.item.updatecheck = true;
+          let ct = sessionStorage.getItem("CUSTOMTOKEN")
+          this.shadowRoot.querySelector('#ajaxSave1').headers['CustomToken'] = ct;
+          this.shadowRoot.querySelector('#ajaxSave1').body = JSON.stringify(this.largeModel);
+          this.shadowRoot.querySelector('#ajaxSave1').generateRequest();
+      }
+
+      open(url, item, model, index) {
+          if (typeof url === 'string') this.url = url
+          this.item = item
+          this.item.display = item.display
+          this.item.useccn = item.useccn
+          this.largeModel = model
+          this.modelIndex = index
+      }
+
+      close() {
+          this.dispatchEvent(new CustomEvent('closePanel', {
+              bubbles: true,
+              composed: true
+          }))
+      }
+
+      clean() {
+          this.item.serialnumbers = null
+          this.item.hwr = null
+          this.item.useccn = null
+          this.item.hstariff = null
+          this.item.netweight = null
+          this.item.dimension = null
+          this.item.product = null
+          this.item.incoterms = null
+          this.item.countryoforigin = null
+          this.item.other = null
+      }
+
+      response(response) {
+
+          if (response.detail.response.results) {
+              document.querySelector('#toast').text = "Shipping info updated successfully";
+              document.querySelector('#toast').show();
+              this.dispatchEvent(new CustomEvent(this.ender, {
+                  bubbles: true,
+                  composed: true,
+                  detail: {
+                      item: this.item,
+                      model: response.detail.response.results
+                  }
+              }))
+              this.dispatchEvent(new CustomEvent('closePanel', {
+                  bubbles: true,
+                  composed: true
+              }))
+              this.dispatchEvent(new CustomEvent('getPartsList', {
+                  bubbles: true,
+                  composed: true,
+              }))
+
+          }
+      }
+
+      ready() {
+          super.ready()
+      }
+      render({}) {
+          return html `
          <style include="shared-styles">
         #page {
             height: 100vh;
@@ -433,6 +435,6 @@ export class ShippingInfoPanel extends LitElement {
         <iron-ajax id="ajaxList" url="${this.url}" method="GET" on-response="successList"></iron-ajax>
         <iron-ajax id="ajaxSave1" url="${this.url}" method="PUT" on-response="${this.response.bind(this)}"></iron-ajax>
         `
-    }
-}
-customElements.define('shippinginfo-panel', ShippingInfoPanel);
+      }
+  }
+  customElements.define('shippinginfo-panel', ShippingInfoPanel);
