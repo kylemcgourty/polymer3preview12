@@ -655,7 +655,7 @@ export class DefieMenu extends PolymerElement {
                         "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
                            "barcodes-new": "/barcodes/src/barcodes-shell.js",
                         "barcodes": "/barcodes/src/barcodes-shell.js",
-                        "shippinglabel-new": "/shippinglabels/src/shippinglabels-shell.js",
+                        "shippinglabels-new": "/shippinglabels/src/shippinglabels-shell.js",
                         "shippinglabels": "/shippinglabels/src/shippinglabels-shell.js",
                         "releasedboms": "/releasedboms/src/releasedboms-shell.js",
                         "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
