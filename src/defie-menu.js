@@ -653,7 +653,7 @@ export class DefieMenu extends PolymerElement {
                         "bom-new": "/boms/src/boms-shell.js",
                         "qachecklists": "/qachecklists/src/qachecklists-shell.js",
                         "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
-                           "barcodes-new": "/barcodes/src/barcodes-shell.js",
+                        "barcodes-new": "/barcodes/src/barcodes-shell.js",
                         "barcodes": "/barcodes/src/barcodes-shell.js",
                         "shippinglabels-new": "/shippinglabels/src/shippinglabels-shell.js",
                         "shippinglabels": "/shippinglabels/src/shippinglabels-shell.js",
@@ -1098,7 +1098,7 @@ export class DefieMenu extends PolymerElement {
         let ur = sessionStorage.getItem("UR")
         ur == undefined || null ? ur = 1 : ur
         this.$.serviceajax.url = "/service/leftservice"
-        sessionStorage.setItem('CUSTOMTOKEN', "abc123");
+        // sessionStorage.setItem('CUSTOMTOKEN', "abc123");
 
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
