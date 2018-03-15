@@ -700,7 +700,9 @@ export class DefieMenu extends PolymerElement {
             this.toWelcomePage(e);
         });
         this.addEventListener('printpage', e => {
+            $("#defie-menu").hide();
             window.print();
+            $("#defie-menu").show();
         });
         this.addEventListener('toparts', e => {
             this.set('toparts', e.detail.model)
