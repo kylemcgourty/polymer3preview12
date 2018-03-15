@@ -34,6 +34,59 @@
             }
         }
 
+
+        retrieveData(){
+
+            this.label = {};
+
+            this.label.companyname = this.shadowRoot.getElementById('company').value
+            this.label.address = this.shadowRoot.getElementById('address').value
+            this.label.phone = this.shadowRoot.getElementById('phone').value
+
+            this.label.shipcompanyname = this.shadowRoot.getElementById('shipcompany').value
+            this.label.shipattention = this.shadowRoot.getElementById('shipattention').value
+            this.label.shipaddress = this.shadowRoot.getElementById('shipaddress').value
+            this.label.shipphone = this.shadowRoot.getElementById('shipphone').value
+
+
+            this.label.company = this.shadowRoot.getElementById('company').value
+            this.label.company = this.shadowRoot.getElementById('company').value
+            this.label.company = this.shadowRoot.getElementById('company').value
+
+
+            this.label.pn1 = this.shadowRoot.getElementById('partnumber1').value;
+            this.label.pn2 = this.shadowRoot.getElementById('partnumber2').value;
+            this.label.pn3 = this.shadowRoot.getElementById('partnumber3').value;
+            this.label.pn4 = this.shadowRoot.getElementById('partnumber4').value;
+            this.label.pn5 = this.shadowRoot.getElementById('partnumber5').value;
+            this.label.hwr = this.shadowRoot.getElementById('hwr').value;
+
+            this.label.sn1 = this.shadowRoot.getElementById('labelsn1').value
+            this.label.sn2 = this.shadowRoot.getElementById('labelsn2').value
+            this.label.sn3 = this.shadowRoot.getElementById('labelsn3').value
+            this.label.sn4 = this.shadowRoot.getElementById('labelsn4').value
+            this.label.sn5 = this.shadowRoot.getElementById('labelsn5').value
+            this.label.hwrsn = this.shadowRoot.getElementById('hwrsn').value
+
+            this.label.description1 = this.shadowRoot.getElementById('description1').value
+            this.label.description2 = this.shadowRoot.getElementById('description2').value
+            this.label.description3 = this.shadowRoot.getElementById('description3').value
+            this.label.description4 = this.shadowRoot.getElementById('description4').value
+            this.label.description5 = this.shadowRoot.getElementById('description5').value
+            this.label.hwrdescription = this.shadowRoot.getElementById('hwrdescription').value
+
+
+            this.label.po = this.shadowRoot.getElementById('po').value
+            this.label.goodsmarking = this.shadowRoot.getElementById('goodsmarking').value
+            this.label.bcount1 = this.shadowRoot.getElementById('bcount1').value.toString()
+            this.label.bcount2 = this.shadowRoot.getElementById('bcount2').value.toString()
+            this.label.weight = this.shadowRoot.getElementById('weight').value
+
+            return this.label
+
+
+        }
+
         selectVersion(e) {
             var index = e.model.index;
 
@@ -204,30 +257,22 @@
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                    <iron-input class="col-xs-9 input" bind-value="${this.label.companyname}">
-                                                        <input class="input1">
-                                                    </iron-input>
+                                                        <input id$="company" value="${this.label.companyname}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                    <iron-input class="col-xs-9 input" bind-value="${this.label.address}">
-                                                        <input class="input1">
-                                                    </iron-input>
+                                                        <input id$="address" value="${this.label.address}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                    <iron-input class="col-xs-9 input" bind-value="${this.label.phone}">
-                                                        <input class="input1">
-                                                    </iron-input>
+                                                        <input id$="phone" value="${this.label.phone}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                    <iron-input disabled class="col-xs-9 input">
-                                                        <input class="input1">
-                                                    </iron-input>
+                                                        <input class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                         </div>
@@ -242,30 +287,22 @@
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                        <iron-input class="col-xs-9 input" bind-value="${this.label.shipcompanyname}">
-                                                            <input class="input1">
-                                                        </iron-input>
+                                                            <input id$="shipcompany" value="${this.label.shipcompanyname}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                        <iron-input class="col-xs-9 input" bind-value="${this.label.shipattention}">
-                                                            <input class="input1">
-                                                        </iron-input>
+                                                            <input id$="shipattention" value="${this.label.shipattention}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                        <iron-input class="col-xs-9 input" bind-value="${this.label.shipaddress}">
-                                                            <input class="input1">
-                                                        </iron-input>
+                                                            <input id$="shipaddress" value="${this.label.shipaddress}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                        <iron-input class="col-xs-9 input" bind-value="${this.label.shipphone}">
-                                                            <input class="input1">
-                                                        </iron-input>
+                                                            <input id$="shipphone" value="${this.label.shipphone}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                             </div>
@@ -274,167 +311,121 @@
                                         <div class="col-pns">
                                         <div class="col-md-halfL">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${this.labelsn1}" height="100" width="100"></scan-code>
+                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn1}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"><span class="description"> Product No:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.partnumber1}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input  id$="partnumber1" value="${this.partnumber1}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.description1}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="description1" value="${this.description1}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                <iron-input bind-value="${this.labelsn1}" id="pn11" class="input sn-input">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input value="${this.labelsn1}" id$="labelsn1" class="sn-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${this.labelsn2}" height="100" width="100"></scan-code>
+                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn2}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"><span class="description"> PSU #1:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.partnumber2}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="partnumber2" value="${this.partnumber2}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"><span class="description"> Description:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.description2}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="description2" value="${this.description2}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                <iron-input bind-value="${this.labelsn2}" id="pn11" class="input sn-input">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="labelsn2" value="${this.labelsn2}" class="sn-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL1">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${this.labelsn4}" height="100" width="100"></scan-code>
+                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn4}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">HDD #1:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.partnumber4}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="partnumber4" value="${this.partnumber4}" class=" enteredpn input1">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.description4}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="description4" value="${this.description4}" class=" enteredpn input1">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                <iron-input bind-value="${this.labelsn4}" id="pn11" class="input sn-input">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="labelsn4" value="${this.labelsn4}" class="sn-input input1">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-halfR">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${this.hwrsn}" height="100" width="100"></scan-code>
+                                                <scan-code id$="my_barcode" type="qrcode" data="${this.hwrsn}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">Model No:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.hwr}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="hwr" value="${this.hwr}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.hwrdescription}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="hwrdescription" value="${this.hwrdescription}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="hwr-words">HWR: </span>
-                                                <iron-input bind-value="${this.hwrsn}" id="pn11" class="input hwr-input">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="hwrsn" value="${this.hwrsn}" class="input1 hwr-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${this.labelsn3}" height="100" width="100"></scan-code>
+                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn3}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">PSU #2:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.partnumber3}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="partnumber3" value="${this.partnumber3}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.description3}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="description3" value="${this.description3}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                <iron-input bind-value="${this.labelsn3}" id="pn11" class="input sn-input">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="labelsn3" value="${this.labelsn3}" class="input1 sn-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR1">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${this.labelsn5}" height="100" width="100"></scan-code>
+                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn5}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">HDD #2:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.partnumber5}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="partnumber5" value="${this.partnumber5}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                <iron-input class="enteredpn input" bind-value="${this.description5}">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="description5" value="${this.description5}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                <iron-input bind-value="${this.labelsn5}" id="pn11" class="input sn-input">
-                                                    <input class="input1">
-                                                </iron-input>
+                                                    <input id$="labelsn5" value="${this.labelsn5}" class="input1 sn-input">
                                             </div>
                                         </div>
                                     </div>
                                     <div style="clear: both;"></div>
                                     <div class="col-desc">
                                         <div class="detail-header1"> PO No. </div>
-                                        <iron-input bind-value="${this.po}" class="desc-input">
-                                            <input class="input1">
-                                        </iron-input>
+                                            <input id$="po" value="${this.po}" class="desc-input input1">
                                     </div>
                                     <!--   <div class="col-desc">
                                         <div class="detail-header1"> Goods Marking </div>
-                                        <iron-input bind-value="${this.goodsmarking}" class="desc-input"><input class="input1"></iron-input>
                                     </div> -->
                                     <!--   <div class="col-desc">
                                         <div class="detail-header1"> Description </div>
-                                        <iron-input bind-value="${this.description}" class="desc-input"><input class="input1"></iron-input>
                                     </div> -->
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
                                             <div class="detail-header"> Box Count </div>
-                                            <iron-input bind-value="${this.bcount1}" style="float: left;" class="input1 detail-input1">
-                                                <input class="input1">
-                                            </iron-input>
+                                                <input id$="bcount1" style="float: left;"  value="${this.bcount1}" class="input1 detail-input1">
                                             <div class="of"> of </div>
-                                            <iron-input bind-value="${this.bcount2}" style="float: right;" class="input1 detail-input1">
-                                                <input class="input1">
-                                            </iron-input>
+                                                <input id$="bcount2" style="float: left;"  value="${this.bcount2}" class="input1 detail-input1">
                                             <div style="clear: both"></div>
                                         </div>
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottom1">
                                             <div class="detail-header"> Weight (lbs) </div>
-                                            <iron-input bind-value="${this.weight}" class="input1 detail-input">
-                                                <input class="input1">
-                                            </iron-input>
+                                                <input id$="weight" value="${this.weight}" class="input1  detail-input">
                                         </div>
                                     </div>
                                     <div class="col-desc-bot">

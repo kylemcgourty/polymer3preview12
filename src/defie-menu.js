@@ -1101,8 +1101,8 @@ export class DefieMenu extends PolymerElement {
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
         // this.$.serviceajax.url = "/api/user/services/" + ur
-        // this.$.serviceajax.generateRequest()
-        // this.showMenu = true;
+        this.$.serviceajax.generateRequest()
+        this.showMenu = true;
 
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {
