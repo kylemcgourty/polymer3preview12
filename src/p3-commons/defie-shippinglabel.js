@@ -139,25 +139,14 @@
 
             if (Object.keys(model).length > 0) {
 
-                if (this.location === "salesorder") {
-                    this.set('label.companyname', model.billto.companyname);
-                    this.set('label.address', model.billto.address1 + ', ' + model.billto.country);
-                    this.set('label.phone', model.billto.phone);
+                    this.label.companyname= ""
+                    this.label.address= ""
+                    this.label.phone= ""
 
-                    this.set('label.shipcompanyname', model.shipto.companyname)
-                    this.set('label.shipattention', model.shipto.attention)
-                    this.set('label.shipaddress', model.shipto.address1 + ', ' + model.shipto.country)
-                    this.set('label.shipphone', model.shipto.phone)
-                } else if (this.location === "releasedbuildorder") {
-
-                    this.set('label.companyname', model.customer);
-                    this.set('label.address', model.address1 + ', ' + model.address2 + ', ' + model.country);
-                    this.set('label.phone', model.phone);
-
-                    this.set('label.shipcompanyname', "");
-                    this.set('label.shipattention', "");
-                    this.set('label.shipaddress', "");
-                    this.set('label.shipphone', "")
+                    this.label.shipcompanyname= ""
+                    this.label.shipattention= ""
+                    this.label.shipaddress= ""
+                    this.label.shipphone= ""
 
                 }
 
@@ -243,7 +232,7 @@
 
 
                 }
-            }
+            
 
             const shippinglabel = (data)=> {
                 return html`<div >
