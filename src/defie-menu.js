@@ -404,7 +404,7 @@ export class DefieMenu extends PolymerElement {
               <apcreditmemos-shell apcm="[[apcm]]" name="apcreditmemos" setting="[[setting]]"></apcreditmemos-shell>
 
 
-                <cashreceipt-shell name="cashreceipt" setting="[[setting]]"></cashreceipt-shell>
+                <cashreceipts-shell name="cashreceipts" setting="[[setting]]"></cashreceipts-shell>
 
                 <shippinglabels-shell name="shippinglabels" setting="[[setting]]"></shippinglabels-shell>
 
@@ -588,6 +588,8 @@ export class DefieMenu extends PolymerElement {
                         "barcodes": "barcodes",
                         "shippinglabels-new": "shippinglabels",
                         "shippinglabels": "shippinglabels",
+                        "cashreceipts-new": "cashreceipts",
+                        "cashreceipts": "cashreceipts",
                     }
                 }
             },
@@ -683,6 +685,8 @@ export class DefieMenu extends PolymerElement {
                         "approvetopay-report": "/approvetopays/src/approvetopay-shell.js",
                         "apcreditmemo-new": "/apcreditmemos/src/apcreditmemos-shell.js",
                         "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
+                        "cashreceipts-new": "/cashreceipts/src/cashreceipts-shell.js",
+                        "cashreceipts": "/cashreceipts/src/cashreceipts-shell.js",
 
                     }
                 }
@@ -1099,6 +1103,9 @@ export class DefieMenu extends PolymerElement {
         ur == undefined || null ? ur = 1 : ur
         this.$.serviceajax.url = "/service/leftservice"
         // sessionStorage.setItem('CUSTOMTOKEN', "abc123");
+
+        // sessionStorage.setItem('UR', 2);
+        // sessionStorage.setItem('PR', 50000);
 
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
