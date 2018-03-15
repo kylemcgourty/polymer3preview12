@@ -36,8 +36,7 @@
 
 
         retrieveData(){
-
-            this.label = {};
+            this.label = this.model
 
             this.label.companyname = this.shadowRoot.getElementById('company').value
             this.label.address = this.shadowRoot.getElementById('address').value
@@ -77,7 +76,6 @@
 
 
             this.label.po = this.shadowRoot.getElementById('po').value
-            this.label.goodsmarking = this.shadowRoot.getElementById('goodsmarking').value
             this.label.bcount1 = this.shadowRoot.getElementById('bcount1').value.toString()
             this.label.bcount2 = this.shadowRoot.getElementById('bcount2').value.toString()
             this.label.weight = this.shadowRoot.getElementById('weight').value
@@ -87,151 +85,13 @@
 
         }
 
-        selectVersion(e) {
-            var index = e.model.index;
-
-            this.partnumber1 = model.shippinglabel[index].pn1;
-            this.partnumber2 = model.shippinglabel[index].pn2;
-            this.partnumber3 = model.shippinglabel[index].pn3;
-            this.partnumber4 = model.shippinglabel[index].pn4;
-            this.partnumber5 = model.shippinglabel[index].pn5;
-            this.hwr = model.shippinglabel[index].hwr;
-
-
-            this.labelsn1 = model.shippinglabel[index].sn1;
-            this.labelsn2 = model.shippinglabel[index].sn2;
-            this.labelsn3 = model.shippinglabel[index].sn3;
-            this.labelsn4 = model.shippinglabel[index].sn4;
-            this.labelsn5 = model.shippinglabel[index].sn5;
-            this.hwrsn = model.shippinglabel[index].hwrsn;
-
-            this.description1 = model.shippinglabel[index].description1;
-            this.description2 = model.shippinglabel[index].description2;
-            this.description3 = model.shippinglabel[index].description3;
-            this.description4 = model.shippinglabel[index].description4;
-            this.description5 = model.shippinglabel[index].description5;
-            this.hwrdescription = model.shippinglabel[index].hwrdescription;
-
-
-
-            this.po = model.shippinglabel[index].po;
-            this.goodsmarking = model.shippinglabel[index].goodsmarking;
-            this.description = model.shippinglabel[index].description;
-            this.bcount1 = model.shippinglabel[index].bcount1;
-            this.bcount2 = model.shippinglabel[index].bcount2;
-
-            this.weight = model.shippinglabel[index].weight;
-
-            this.id = model.shippinglabel[index].id;
-
-            model.shippinglabelindex = index;
-
-            this.saveVersion = true;
-
-        }
-
+       
 
         initializer(model) {
             // this.fire('closePanel', {})
 
-            this.label = {};
+            this.model= model;
 
-
-            if (Object.keys(model).length > 0) {
-
-                    this.label.companyname= ""
-                    this.label.address= ""
-                    this.label.phone= ""
-
-                    this.label.shipcompanyname= ""
-                    this.label.shipattention= ""
-                    this.label.shipaddress= ""
-                    this.label.shipphone= ""
-
-                }
-
-
-                if (model.fromedit) {
-
-
-                    this.saveVersion = true;
-
-                    this.partnumber1 = model.shippinglabel[model.shippinglabelindex].pn1;
-                    this.partnumber2 = model.shippinglabel[model.shippinglabelindex].pn2;
-                    this.partnumber3 = model.shippinglabel[model.shippinglabelindex].pn3;
-                    this.partnumber4 = model.shippinglabel[model.shippinglabelindex].pn4;
-                    this.partnumber5 = model.shippinglabel[model.shippinglabelindex].pn5;
-                    this.hwr = model.shippinglabel[model.shippinglabelindex].hwr;
-
-
-                    this.labelsn1 = model.shippinglabel[model.shippinglabelindex].sn1;
-                    this.labelsn2 = model.shippinglabel[model.shippinglabelindex].sn2;
-                    this.labelsn3 = model.shippinglabel[model.shippinglabelindex].sn3;
-                    this.labelsn4 = model.shippinglabel[model.shippinglabelindex].sn4;
-                    this.labelsn5 = model.shippinglabel[model.shippinglabelindex].sn5;
-                    this.hwrsn = model.shippinglabel[model.shippinglabelindex].hwrsn;
-
-                    this.description1 = model.shippinglabel[model.shippinglabelindex].description1;
-                    this.description2 = model.shippinglabel[model.shippinglabelindex].description2;
-                    this.description3 = model.shippinglabel[model.shippinglabelindex].description3;
-                    this.description4 = model.shippinglabel[model.shippinglabelindex].description4;
-                    this.description5 = model.shippinglabel[model.shippinglabelindex].description5;
-                    this.hwrdescription = model.shippinglabel[model.shippinglabelindex].hwrdescription;
-
-
-
-
-                    this.po = model.shippinglabel[model.shippinglabelindex].po;
-                    this.goodsmarking = model.shippinglabel[model.shippinglabelindex].goodsmarking;
-                    this.bcount1 = model.shippinglabel[model.shippinglabelindex].bcount1;
-                    this.bcount2 = model.shippinglabel[model.shippinglabelindex].bcount2;
-
-                    this.weight = model.shippinglabel[model.shippinglabelindex].weight;
-
-                    this.id = model.shippinglabel[model.shippinglabelindex].id;
-
-                    model.fromedit = "";
-
-
-                } else if (Object.keys(model).length > 0) {
-                    this.saveVersion = false;
-
-                    this.partnumber1 = "";
-                    this.partnumber2 = "";
-                    this.partnumber3 = "";
-                    this.partnumber4 = "";
-                    this.partnumber5 = "";
-                    this.hwr = "";
-
-
-                    this.labelsn1 = "";
-                    this.labelsn2 = "";
-                    this.labelsn3 = "";
-                    this.labelsn4 = "";
-                    this.labelsn5 = "";
-                    this.hwrsn = "";
-
-                    this.description1 = "";
-                    this.description2 = "";
-                    this.description3 = "";
-                    this.description4 = "";
-                    this.description5 = "";
-                    this.hwrdescription = "";
-
-
-
-
-                    this.po = "";
-                    this.goodsmarking = "";
-                    this.bcount1 = "";
-                    this.bcount2 = "";
-
-                    this.weight = "";
-
-                    this.id = ""
-
-
-                }
             
 
             const shippinglabel = (data)=> {
@@ -246,17 +106,17 @@
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input id$="company" value="${this.label.companyname}" class="input1 col-xs-9">
+                                                        <input id="company" value="${model.companyname}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input id$="address" value="${this.label.address}" class="input1 col-xs-9">
+                                                        <input id="address" value="${model.address}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input id$="phone" value="${this.label.phone}" class="input1 col-xs-9">
+                                                        <input id="phone" value="${model.phone}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
@@ -276,22 +136,22 @@
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id$="shipcompany" value="${this.label.shipcompanyname}" class="input1 col-xs-9">
+                                                            <input id="shipcompany" value="${model.shipcompanyname}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id$="shipattention" value="${this.label.shipattention}" class="input1 col-xs-9">
+                                                            <input id="shipattention" value="${model.shipattention}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id$="shipaddress" value="${this.label.shipaddress}" class="input1 col-xs-9">
+                                                            <input id="shipaddress" value="${model.shipaddress}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id$="shipphone" value="${this.label.shipphone}" class="input1 col-xs-9">
+                                                            <input id="shipphone" value="${model.shipphone}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                             </div>
@@ -300,101 +160,101 @@
                                         <div class="col-pns">
                                         <div class="col-md-halfL">
                                             <div class="scancode">
-                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn1}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn1}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"><span class="description"> Product No:</span>
-                                                    <input  id$="partnumber1" value="${this.partnumber1}" class="input1 enteredpn">
+                                                    <input  id="partnumber1" value="${model.pn1}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id$="description1" value="${this.description1}" class="input1 enteredpn">
+                                                    <input id="description1" value="${model.description1}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input value="${this.labelsn1}" id$="labelsn1" class="sn-input input1">
+                                                    <input value="${model.sn1}" id="labelsn1" class="sn-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL">
                                             <div class="scancode">
-                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn2}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn2}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"><span class="description"> PSU #1:</span>
-                                                    <input id$="partnumber2" value="${this.partnumber2}" class="input1 enteredpn">
+                                                    <input id="partnumber2" value="${model.pn2}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"><span class="description"> Description:</span>
-                                                    <input id$="description2" value="${this.description2}" class="input1 enteredpn">
+                                                    <input id="description2" value="${model.description2}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id$="labelsn2" value="${this.labelsn2}" class="sn-input input1">
+                                                    <input id="labelsn2" value="${model.sn2}" class="sn-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL1">
                                             <div class="scancode">
-                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn4}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">HDD #1:</span>
-                                                    <input id$="partnumber4" value="${this.partnumber4}" class=" enteredpn input1">
+                                                    <input id="partnumber4" value="${model.pn4}" class=" enteredpn input1">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id$="description4" value="${this.description4}" class=" enteredpn input1">
+                                                    <input id="description4" value="${model.description4}" class=" enteredpn input1">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id$="labelsn4" value="${this.labelsn4}" class="sn-input input1">
+                                                    <input id="labelsn4" value="${model.sn4}" class="sn-input input1">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-halfR">
                                             <div class="scancode">
-                                                <scan-code id$="my_barcode" type="qrcode" data="${this.hwrsn}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.hwrsn}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">Model No:</span>
-                                                    <input id$="hwr" value="${this.hwr}" class="input1 enteredpn">
+                                                    <input id="hwr" value="${model.hwr}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id$="hwrdescription" value="${this.hwrdescription}" class="input1 enteredpn">
+                                                    <input id="hwrdescription" value="${model.hwrdescription}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="hwr-words">HWR: </span>
-                                                    <input id$="hwrsn" value="${this.hwrsn}" class="input1 hwr-input">
+                                                    <input id="hwrsn" value="${model.hwrsn}" class="input1 hwr-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR">
                                             <div class="scancode">
-                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn3}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn3}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">PSU #2:</span>
-                                                    <input id$="partnumber3" value="${this.partnumber3}" class="input1 enteredpn">
+                                                    <input id="partnumber3" value="${model.pn3}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id$="description3" value="${this.description3}" class="input1 enteredpn">
+                                                    <input id="description3" value="${model.description3}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id$="labelsn3" value="${this.labelsn3}" class="input1 sn-input">
+                                                    <input id="labelsn3" value="${model.sn3}" class="input1 sn-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR1">
                                             <div class="scancode">
-                                                <scan-code id$="my_barcode" type="qrcode" data="${this.labelsn5}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn5}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">HDD #2:</span>
-                                                    <input id$="partnumber5" value="${this.partnumber5}" class="input1 enteredpn">
+                                                    <input id="partnumber5" value="${model.pn5}" class="input1 enteredpn">
                                             </div>
                                             <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id$="description5" value="${this.description5}" class="input1 enteredpn">
+                                                    <input id="description5" value="${model.description5}" class="input1 enteredpn">
                                             </div>
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id$="labelsn5" value="${this.labelsn5}" class="input1 sn-input">
+                                                    <input id="labelsn5" value="${model.sn5}" class="input1 sn-input">
                                             </div>
                                         </div>
                                     </div>
                                     <div style="clear: both;"></div>
                                     <div class="col-desc">
                                         <div class="detail-header1"> PO No. </div>
-                                            <input id$="po" value="${this.po}" class="desc-input input1">
+                                            <input id="po" value="${model.po}" class="desc-input input1">
                                     </div>
                                     <!--   <div class="col-desc">
                                         <div class="detail-header1"> Goods Marking </div>
@@ -405,16 +265,16 @@
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
                                             <div class="detail-header"> Box Count </div>
-                                                <input id$="bcount1" style="float: left;"  value="${this.bcount1}" class="input1 detail-input1">
+                                                <input id="bcount1" style="float: left;"  value="${model.bcount1}" class="input1 detail-input1">
                                             <div class="of"> of </div>
-                                                <input id$="bcount2" style="float: left;"  value="${this.bcount2}" class="input1 detail-input1">
+                                                <input id="bcount2" style="float: left;"  value="${model.bcount2}" class="input1 detail-input1">
                                             <div style="clear: both"></div>
                                         </div>
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottom1">
                                             <div class="detail-header"> Weight (lbs) </div>
-                                                <input id$="weight" value="${this.weight}" class="input1  detail-input">
+                                                <input id="weight" value="${model.weight}" class="input1  detail-input">
                                         </div>
                                     </div>
                                     <div class="col-desc-bot">
@@ -423,7 +283,7 @@
                 </div>`
             }
 
-            render(shippinglabel(this.data), this.shadowRoot.getElementById('table'))
+            render(shippinglabel(model), this.shadowRoot.getElementById('table'))
 
 
 
