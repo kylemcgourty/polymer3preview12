@@ -836,6 +836,7 @@ export class DefieMenu extends PolymerElement {
                 this.set('option', this.ServicesList[route])
             })
         } else {
+
             import (module).then((mod) => {
                 this.set('option', this.ServicesList[route])
             })
@@ -1075,7 +1076,6 @@ export class DefieMenu extends PolymerElement {
 
 
     responseShipto(response) {
-        console.log(response)
         var results = response.detail.response
         if (results) {
             this.licensoraddress = results
@@ -1096,6 +1096,7 @@ export class DefieMenu extends PolymerElement {
         let ur = sessionStorage.getItem("UR")
         ur == undefined || null ? ur = 1 : ur
         this.$.serviceajax.url = "/service/leftservice"
+        sessionStorage.setItem('CUSTOMTOKEN', "abc123");
 
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
