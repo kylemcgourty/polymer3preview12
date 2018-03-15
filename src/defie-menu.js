@@ -406,6 +406,9 @@ export class DefieMenu extends PolymerElement {
 
                 <cashreceipt-shell name="cashreceipt" setting="[[setting]]"></cashreceipt-shell>
 
+                <shippinglabels-shell name="shippinglabels" setting="[[setting]]"></shippinglabels-shell>
+
+
 
             </iron-pages>
             
@@ -583,6 +586,8 @@ export class DefieMenu extends PolymerElement {
                         "apcreditmemo": "apcreditmemos",
                         "barcodes-new": "barcodes",
                         "barcodes": "barcodes",
+                        "shippinglabels-new": "shippinglabels",
+                        "shippinglabels": "shippinglabels",
                     }
                 }
             },
@@ -647,9 +652,11 @@ export class DefieMenu extends PolymerElement {
                         "boms": "/boms/src/boms-shell.js",
                         "bom-new": "/boms/src/boms-shell.js",
                         "qachecklists": "/qachecklists/src/qachecklists-shell.js",
-                        "barcodes-new": "/barcodes/src/barcodes-shell.js",
-                        "barcodes": "/barcodes/src/barcodes-shell.js",
                         "qachecklist-new": "/qachecklists/src/qachecklists-shell.js",
+                           "barcodes-new": "/barcodes/src/barcodes-shell.js",
+                        "barcodes": "/barcodes/src/barcodes-shell.js",
+                        "shippinglabels-new": "/shippinglabels/src/shippinglabels-shell.js",
+                        "shippinglabels": "/shippinglabels/src/shippinglabels-shell.js",
                         "releasedboms": "/releasedboms/src/releasedboms-shell.js",
                         "releasebom-new": "/releasedboms/src/releasedboms-shell.js",
                         "buildorders": "/buildorders/src/buildorders-shell.js",
@@ -831,6 +838,7 @@ export class DefieMenu extends PolymerElement {
                 this.set('option', this.ServicesList[route])
             })
         } else {
+
             import (module).then((mod) => {
                 this.set('option', this.ServicesList[route])
             })
@@ -1070,7 +1078,6 @@ export class DefieMenu extends PolymerElement {
 
 
     responseShipto(response) {
-        console.log(response)
         var results = response.detail.response
         if (results) {
             this.licensoraddress = results
@@ -1091,6 +1098,7 @@ export class DefieMenu extends PolymerElement {
         let ur = sessionStorage.getItem("UR")
         ur == undefined || null ? ur = 1 : ur
         this.$.serviceajax.url = "/service/leftservice"
+        sessionStorage.setItem('CUSTOMTOKEN', "abc123");
 
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
