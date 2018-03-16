@@ -1099,9 +1099,9 @@ export class DefieMenu extends PolymerElement {
         super.ready()
 
         // this.getDefaultShipto()
-        let ur = sessionStorage.getItem("UR")
-        ur == undefined || null ? ur = 1 : ur
-        this.$.serviceajax.url = "/service/leftservice"
+        // let ur = sessionStorage.getItem("UR")
+        // ur == undefined || null ? ur = 1 : ur
+        // this.$.serviceajax.url = "/service/leftservice"
         // sessionStorage.setItem('CUSTOMTOKEN', "abc123");
 
         // sessionStorage.setItem('UR', 2);
@@ -1112,6 +1112,7 @@ export class DefieMenu extends PolymerElement {
         // this.$.serviceajax.url = "/api/user/services/" + ur
         // this.$.serviceajax.generateRequest()
         // this.showMenu = true;
+
 
 
         document.querySelector('defie-menu').addEventListener('userservices', e => {
