@@ -46,8 +46,6 @@ class BPSPanel extends LitElement {
         this.searchfields = searchfields
         this.searchkeyindexes = searchkeyindexes
 
-        console.log('the new search fields', this.searchfields)
-
         this.searchdisplay = {}
         this.searchdisplay.display = "block"
 
@@ -174,9 +172,6 @@ class BPSPanel extends LitElement {
                 </div>
                 `
         }
-
-        console.log('data befre redner', this.searchkeyindexes, this.searchfields)
-
         render(datatable(this.data, this.searchdisplay, this.searchkeyindexes, this.searchfields), this.shadowRoot.getElementById('page'))
     }
 
@@ -188,8 +183,6 @@ class BPSPanel extends LitElement {
     }
 
     openChoice(e) {
-
-        console.log('oc called', e)
 
         let choice = e.model.item.qachecklist
         let index = e.model.index

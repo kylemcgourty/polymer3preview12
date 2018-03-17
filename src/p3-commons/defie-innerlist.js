@@ -642,7 +642,6 @@
 
         updateIL2(liIndex, lineitem) {
 
-            console.log('liindex', liIndex, lineitem)
 
             let ind = liIndex + 1
             let nodes = this.shadowRoot.querySelector('#shipping-' + ind).classList
@@ -666,7 +665,6 @@
 
         ILSerials(e) {
             let ind = e.model.index
-            console.log('the index', ind, e)
             this.shadowRoot.querySelector('#serials-' + ind).classList.toggle('show')
             this.shadowRoot.querySelector('#serials2-' + ind).classList.toggle('show')
             this.shadowRoot.querySelector('#HWRlabel-' + ind).classList.toggle('show')
@@ -698,7 +696,6 @@
 
         showSN(item, selected) {
             if (window.innerWidth > 479) {
-                console.log('inside showsh', selected)
                 return selected ? "showSN" : "nil"
 
             }
@@ -710,7 +707,6 @@
 
             collection.serials || collection.serials == "" ? collection = collection.serials : collection
 
-            console.log('the collection', collection)
 
             if (collection == undefined || collection.length == 0) {
                 return "none"
@@ -745,7 +741,6 @@
                 return "none"
             }
 
-            console.log('the display', display)
 
             if (display.display) {
 

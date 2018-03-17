@@ -78,12 +78,10 @@ export class ChartofAccountsList extends LitElement {
     responseOption(request) {
 
         var data = request.detail.response.chartofaccounts
-        console.log(data)
 
         if (data != "") {
             this.account = [];
             for (let i = 0; i < data.length; i++) {
-                console.log(data[i].accountno)
                 if (data[i].accountno === undefined) {
                     this.account.push({
                         account: data[i].account,
@@ -108,12 +106,10 @@ export class ChartofAccountsList extends LitElement {
                 }
             }
         }
-        console.log(this.account)
         this.renderItems()
     }
 
     showless(e) {
-        console.log('sl e', e)
         let index = e.model.index;
         this.shadowRoot.querySelector('#group' + index).style.display = "none"
         this.shadowRoot.querySelector('#more' + index).style.display = "block"
@@ -122,7 +118,6 @@ export class ChartofAccountsList extends LitElement {
 
 
     showmore(e) {
-        console.log('sm e', e)
         let index = e.model.index;
         this.shadowRoot.querySelector('#group' + index).style.display = "block"
         this.shadowRoot.querySelector('#more' + index).style.display = "none"
@@ -135,7 +130,6 @@ export class ChartofAccountsList extends LitElement {
 
         let account = this.shadowRoot.getElementById('account-' + id).value
         let accountno = this.shadowRoot.getElementById('accountno-' + id).value
-        console.log(account, accountno)
 
         this.dispatchEvent(new CustomEvent('chartofaccounts', {
             composed: true,

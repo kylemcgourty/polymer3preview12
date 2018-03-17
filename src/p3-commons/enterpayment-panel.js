@@ -78,8 +78,6 @@ export class EnterPaymentPanel extends LitElement {
 
     open(showpaymentinfo) {
 
-        console.log("showpaymentinfo is", showpaymentinfo);
-
         this[showpaymentinfo] = "block";
 
         // if (this.previouspaymentinfo.length >= 1) {
@@ -192,10 +190,6 @@ export class EnterPaymentPanel extends LitElement {
     }
 
     render({ showpaymentinfo2, showpaymentinfo3, showpaymentinfo4, showpaymentinfo5 }) {
-
-        console.log("showpayments");
-        console.log(showpaymentinfo2, " ", showpaymentinfo3, " ", showpaymentinfo4, " ", showpaymentinfo5);
-
         return html`<style include="shared-styles iron-flex iron-flex-alignment">
 
       .card {

@@ -487,7 +487,6 @@ export class CustomerCreditcards extends LitElement {
         this.singleObject.fieldvalue14 = this.shadowRoot.getElementById('newfieldvalue14').value
         this.singleObject.fieldvalue15 = this.shadowRoot.getElementById('newfieldvalue15').value
         this.singleObject.status = true
-        console.log(this.arrayvalues)
         var newObj = {}
         this.arrayvalues.map((key, index) => {
             var newNumber = parseInt(index) + 1
@@ -672,7 +671,6 @@ export class CustomerCreditcards extends LitElement {
                 // this.notifyPath('model.' + (length - 1) + '.visibility3')
                 // this.notifyPath('model.' + (length - 1) + '.visibility4')
             }
-            console.log("model visibility   ", this.model)
 
         }
 

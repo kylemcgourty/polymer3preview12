@@ -227,7 +227,6 @@ export class PrimaryDAModule extends LitElement {
         }
         else {
             // if (this.data.accounts === null) {
-            //     console.log("in if null")
             //     this.set("data.accounts", [{
             //         account: "",
             //         accountno: "",
@@ -244,7 +243,6 @@ export class PrimaryDAModule extends LitElement {
             // }
 
             // else {
-            //     console.log("inside if not null")
             //     this.push('data.accounts', {
             //         account: "",
             //         accountno: "",
