@@ -197,7 +197,7 @@
                         <div style="display: ${this.binfo.info3_display}" class="my-content">
                             <div class="col-xs-3">${this.binfo.info3}</div>
                             <div class="text-right">
-                                    <input class="input col-xs-9" id="binfo3" value="${this.model.binfovalues.binfo3_value}" disabled="${this.disabledinput.binfo3}">
+                                    <input class="input col-xs-9" id="binfo3" value="${this.model.binfovalues.binfo3_value}" placeholder="${this.model.datePlaceholder}" disabled="${this.disabledinput.binfo3}">
                             </div>
                             <div id="${this.searchid.binfo3}" class="right-icon1 iron-bottom-padding" style="display: ${this.displaysearch.binfo3}">
                                 <iron-icon id="${this.searchid.binfo3}" on-tap="${(e) => this.changepanel(e)}" icon="search" class="hover"></iron-icon>
