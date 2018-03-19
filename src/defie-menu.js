@@ -1098,10 +1098,10 @@ export class DefieMenu extends PolymerElement {
     ready() {
         super.ready()
 
-        this.getDefaultShipto()
+        // this.getDefaultShipto()
         // let ur = sessionStorage.getItem("UR")
         // ur == undefined || null ? ur = 1 : ur
-        // this.$.serviceajax.url = "/service/leftservice"
+        this.$.serviceajax.url = "/service/leftservice"
         // sessionStorage.setItem('CUSTOMTOKEN', "abc123");
 
         // sessionStorage.setItem('UR', 2);

@@ -266,7 +266,7 @@ export class ModuleBillshipto extends LitElement {
 
                             </div>
                         </div>
-                        <div class="my-content">
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist4}">
                             <div class="col-xs-3">${this.ainfo.info4}</div>
                             <div class="text-right">
                                     <input class="input col-xs-9" id="ainfo4" value="${this.model.ainfovalues.ainfo4_value}" disabled="${this.disabledinput.ainfo4}">
@@ -276,7 +276,7 @@ export class ModuleBillshipto extends LitElement {
 
                             </div>
                         </div>
-                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist5}">
                             <div class="col-xs-3">${this.ainfo.info5}</div>
                             <div class="text-right">
                                     <input class="input col-xs-9" id="ainfo5" value="${this.model.ainfovalues.ainfo5_value}" disabled="${this.disabledinput.ainfo5}">
@@ -327,7 +327,7 @@ export class ModuleBillshipto extends LitElement {
 
                             </div>
                         </div>
-                        <div class="my-content">
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist4}">
                             <div class="col-xs-3">${this.binfo.info4}</div>
                             <div class="text-right">
                                     <input class="input col-xs-9" id="binfo4" value="${this.model.binfovalues.binfo4_value}" disabled="${this.disabledinput.binfo4}">
@@ -337,7 +337,7 @@ export class ModuleBillshipto extends LitElement {
 
                             </div>
                         </div>
-                        <div class="my-content" style="display: ${this.displaysearch.truncatelist}">
+                        <div class="my-content" style="display: ${this.displaysearch.truncatelist5}">
                             <div class="col-xs-3">${this.binfo.info5}</div>
                             <div class="text-right">
                                     <input class="input col-xs-9" id="binfo5" value="${this.model.binfovalues.binfo5_value}" disabled="${this.disabledinput.binfo5}">
