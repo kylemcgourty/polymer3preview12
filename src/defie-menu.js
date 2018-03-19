@@ -1101,17 +1101,17 @@ export class DefieMenu extends PolymerElement {
         this.getDefaultShipto()
         // let ur = sessionStorage.getItem("UR")
         // ur == undefined || null ? ur = 1 : ur
-        // this.$.serviceajax.url = "/service/leftservice"
-        // sessionStorage.setItem('CUSTOMTOKEN', "abc123");
+        this.$.serviceajax.url = "/service/leftservice"
+        sessionStorage.setItem('CUSTOMTOKEN', "abc123");
 
-        // sessionStorage.setItem('UR', 2);
-        // sessionStorage.setItem('PR', 50000);
+        sessionStorage.setItem('UR', 2);
+        sessionStorage.setItem('PR', 50000);
 
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
         // this.$.serviceajax.url = "/api/user/services/" + ur
-        // this.$.serviceajax.generateRequest()
-        // this.showMenu = true;
+        this.$.serviceajax.generateRequest()
+        this.showMenu = true;
 
 
 

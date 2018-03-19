@@ -47,15 +47,36 @@ export class SearchByDate extends LitElement {
     }
 
     setGS(e) {
+
+        if (!this.shadowRoot.querySelector('input[name="searchoptions"]:checked')) {
+            document.querySelector('#toast').text = "Please select casch receipt, non-cash receipt, or both";
+            document.querySelector('#toast').show();
+            return
+        }
+
+        if (!this.shadowRoot.querySelector('input[name="displaytype"]:checked')) {
+            document.querySelector('#toast').text = "Please select summary or detail";
+            document.querySelector('#toast').show();
+            return
+        }
+
+
+        if (!this.shadowRoot.getElementById("startdate").value || !this.shadowRoot.getElementById("enddate").value) {
+            document.querySelector('#toast').text = "Please enter a start and end date";
+            document.querySelector('#toast').show();
+            return
+        }
+
         
         this.dispatchEvent(new CustomEvent("generateSearch", {
             bubbles: true,
             composed: true,
             detail: {
-                id: this.shadowRoot.querySelector('input[name="searchoptions"]:checked').id,
-                keyCode: e.keyCode,
-                type: e.type,
-                inputValue: this.shadowRoot.querySelector("#searchQuery").value.trim(),
+                type: this.shadowRoot.querySelector('input[name="searchoptions"]:checked').id,
+                display: this.shadowRoot.querySelector('input[name="displaytype"]:checked').id,
+                startDate: this.shadowRoot.querySelector("#startdate").value.trim(),
+                endDate: this.shadowRoot.querySelector("#enddate").value.trim(),
+
             }
         }))
     }
@@ -89,46 +110,52 @@ export class SearchByDate extends LitElement {
         const searchtypes = data => {
 
             return html`
-                    <form>
                     <div class="layout horizontal">
                         <div class="datecontainer layout horizontal">
                             <div class="titles layout vertical">
                                 <div class="datetitle"> Start date </div>
                                 <div class="datetitle"> End date </div>
                             </div>
-                            <div clas="layout vertical">
+                            <div clas="datecontainer layout vertical">
                                 <input id="startdate" placeholder="MM/DD/YEAR"  class="input1">
                                 <input id="enddate"  placeholder="MM/DD/YEAR" class="input1">
                             </div>
+                            <form>
+                            <div clas="layout vertical">
+                                <input type="radio" id="summary" name="displaytype"  class="searchfield"><span class="field">Summary </span>
+                                <input type="radio" id="detail"  name="displaytype" class="searchfield"><span class="field">Detail </detail>
+                            </div>
+                            </form>
                         </div>
-                        <div class="searchoptions layout horizontal wrap">
-                            <div  class="singleoption" style="visibility: ${ data[0][0] }">
-                                <input checked="checked" on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" name="searchoptions" class="searchfield" type="radio"><span class="field"> ${ data[0][0] } </span>
+                        <form>
+                        <div class="searchoptions layout vertical wrap">
+                            <div  class="singleoption" style="display: ${ data[0][0] }">
+                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" name="searchoptions" class="searchfield" type="radio"><span class="field"> ${ data[0][0] } </span>
                             </div>
-                            <div  class="singleoption" style="visibility: ${ data[1][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[1][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[1][0] }</span>
+                            <div  class="singleoption" style="display: ${ data[1][0] }">
+                                <input id="${ data[1][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[1][0] }</span>
                             </div>
-                            <div  class="singleoption" style="visibility: ${ data[2][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[2][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[2][0] }</span>
+                            <div  class="singleoption" style="display: ${ data[2][0] }">
+                                <input id="${ data[2][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[2][0] }</span>
                             </div>
-                            <div  class="singleoption" style="visibility: ${ data[3][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[3][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[3][0] }</span>
+                            <div  class="singleoption" style="display: ${ data[3][0] }">
+                                <input id="${ data[3][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[3][0] }</span>
                             </div>
-                            <div  class="singleoption" style="visibility: ${ data[4][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[4][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[4][0] }</span>
+                            <div  class="singleoption" style="display: ${ data[4][0] }">
+                                <input id="${ data[4][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[4][0] }</span>
                             </div>
-                            <div  class="singleoption" style="visibility: ${ data[5][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[5][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"><span class="field">  ${ data[5][0] }</span>
+                            <div  class="singleoption" style="display: ${ data[5][0] }">
+                                <input id="${ data[5][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"><span class="field">  ${ data[5][0] }</span>
                             </div>
-                            <div  class="singleoption" style="visibility: ${ data[6][0] }">
+                            <div  class="singleoption" style="display: ${ data[6][0] }">
                                 <input on-tap="selectsdSO" id="${ data[6][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[6][0] }</span>
                             </div>
-                            <div class="singleoption" style="visibility: ${ data[7][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[7][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[7][0] }</span>
+                            <div class="singleoption" style="display: ${ data[7][0] }">
+                                <input id="${ data[7][1] }" value="Void" name="searchoptions" class="searchfield" type="radio"> <span class="field"> ${ data[7][0] }</span>
                             </div>
                         </div>
+                        </form>
                     </div>
-                    </form>
                     <div class="searchoptions layout horizontal">
                         <div class="searchcontainer layout vertical wrap">
                         </div>
@@ -137,17 +164,17 @@ export class SearchByDate extends LitElement {
                 <div class="tabletoptions">
                     <form>
                         <div class="layout horizontal wrap">
-                            <div class="firstoption" style="visibility: ${ data[0][1] }">
-                                <input checked="checked" on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions"  type="radio""> <span class="field"> ${ data[0][1] }</span>
+                            <div class="firstoption" style="display: ${ data[0][1] }">
+                                <input  id="${ data[0][1] }" value="Active" name="searchoptions"  type="radio""> <span class="field"> ${ data[0][1] }</span>
                             </div>
-                            <div class="singleoption" style="visibility: ${ data[0][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[1][1] }" value="Void" name="searchoptions"  type="radio">  <span class="field">${ data[0][0] }</span>
+                            <div class="singleoption" style="display: ${ data[0][0] }">
+                                <input id="${ data[1][1] }" value="Void" name="searchoptions"  type="radio">  <span class="field">${ data[0][0] }</span>
                             </div>
-                            <div class="singleoption" style="visibility: ${ data[2][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[2][1] }" value="Void" name="searchoptions"  type="radio">  <span class="field">${ data[2][0] }</span>
+                            <div class="singleoption" style="display: ${ data[2][0] }">
+                                <input id="${ data[2][1] }" value="Void" name="searchoptions"  type="radio">  <span class="field">${ data[2][0] }</span>
                             </div>
-                            <div class="singleoption" style="visibility: ${ data[3][0] }">
-                                <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[3][1] }" value="Void" name="searchoptions"  type="radio"> <span class="field"> ${ data[3][0] }</span>
+                            <div class="singleoption" style="display: ${ data[3][0] }">
+                                <input id="${ data[3][1] }" value="Void" name="searchoptions"  type="radio"> <span class="field"> ${ data[3][0] }</span>
                             </div>
                         </div>
                     </form>
@@ -156,7 +183,7 @@ export class SearchByDate extends LitElement {
                     <form>
                         <div class="layout horizontal wrap">
                             <div class="firstoption">
-                                <input checked="checked" on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions" type="radio"> <span class="field">${ data[0][0] }</span>
+                                <input  on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[0][1] }" value="Active" name="searchoptions" type="radio"> <span class="field">${ data[0][0] }</span>
                             </div>
                             <div class="singleoption">
                                 <input on-tap="${(e)=>{this.selectedSO(e)}}" id="${ data[1][1] }" value="Void" name="searchoptions" type="radio"> <span class="field">${ data[1][0] }</span>
@@ -431,7 +458,7 @@ export class SearchByDate extends LitElement {
             }
 
             .datecontainer {
-                width: 258px;
+                width: 382px;
             }
 
             .titles {
@@ -447,6 +474,7 @@ export class SearchByDate extends LitElement {
             
             .searchoptions {
                 position: relative;
+                top: -20px
             }
             
             
@@ -506,7 +534,7 @@ export class SearchByDate extends LitElement {
                 }
 
         .input1 {
-            width: 75%;
+            width: 90%;
             text-align: initial;
             border: none;
             background-color: #eee;
@@ -514,6 +542,10 @@ export class SearchByDate extends LitElement {
             margin-left: 11px;
             /* margin-right: 8px; */
             box-sizing: border-box;
+        }
+
+        .datecontainer {
+
         }
 
             @media(max-width: 1500px) {
