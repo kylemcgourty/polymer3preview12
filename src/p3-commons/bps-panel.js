@@ -223,7 +223,7 @@ class BPSPanel extends LitElement {
             bubbles: true,
             composed: true,
             detail: {
-                item: this.data[id-2],
+                item: this.data[id-1],
 
             }
 
