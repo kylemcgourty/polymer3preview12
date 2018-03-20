@@ -43,6 +43,13 @@ class BPSPanel extends LitElement {
 
     open(url, title, searchfields, searchkeyindexes) {
 
+        if (title == "QA Check List"){
+            this.eventSelector = "qa"
+        } else if (title == "Barcodes List"){
+            this.eventSelector = "bc"
+        }
+        
+
         this.searchfields = searchfields
         this.searchkeyindexes = searchkeyindexes
 
@@ -51,6 +58,8 @@ class BPSPanel extends LitElement {
 
         this.title = title
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
+
+        console.log('the token', ct)
         this.shadowRoot.getElementById('ajaxQA').headers['CustomToken'] = ct;
         this.shadowRoot.getElementById('ajaxQA').url = url
         this.shadowRoot.getElementById('ajaxQA').generateRequest();
@@ -112,10 +121,20 @@ class BPSPanel extends LitElement {
         this.data == null ? this.data = [] : this.data
 
         this.data = this.data.map((item, i) => {
+            
+            if (item.qalistidver){
+                item.procedureidver = item.qalistidver
+            }
+            if (item.barcodename || item.barcodename == ""){
+                item.procedureidver = item.idver
+                item.qaname = item.barcodename
+                item.mfgpn = item.productno
+            }
             item.id = i + 1
             return item
         })
 
+        console.log('the data going in', this.data)
         const datatable = (data, searchdisplay, searchkeyindexes, searchfields) => {
             return html `<div class="title-rightpaneldraw">${this.title} </div>
             <div style="background-color: #e6e6e6;">
@@ -132,38 +151,38 @@ class BPSPanel extends LitElement {
                         data,
                         item => item.id,
                         item => html`
-                    <div on-tap="openChoice" id="qachecklist">
+                    <div on-tap="${()=>{this.openChoice(item.id)}}" id="qachecklist">
                         <div class="ilrow layout vertical">
                             <div class="my-content" >
-                                <div class="col-xs-3">Procedure Id</div>
+                                <div class="col-xs-3">Id</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.procedureidver}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9" >
+                                        <input disabled class="input" value="${item.procedureidver}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="my-content" >
-                                <div class="col-xs-3">Procedure</div>
+                                <div class="col-xs-3">Name</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.qaname}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9">
+                                        <input disabled class="input" value="${item.qaname}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="my-content" >
                                 <div class="col-xs-3">Model</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.model}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9" >
+                                        <input disabled class="input" value="${item.model}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="my-content" >
                                 <div class="col-xs-3">Product No.</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.mfgpn}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9"  >
+                                        <input disabled class="input" value="${item.mfgpn}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -182,22 +201,35 @@ class BPSPanel extends LitElement {
         })
     }
 
-    openChoice(e) {
+    openChoice(id) {
 
-        let choice = e.model.item.qachecklist
-        let index = e.model.index
+        console.log('in in open choice',id)
+
+
+        if (this.eventSelector == "qa"){
 
         this.dispatchEvent(new CustomEvent('qachecklist', {
             bubbles: true,
             composed: true,
             detail: {
-                item: this.data[index],
+                item: this.data[id-1],
 
             }
 
+        }))
 
+    } else if (this.eventSelector == "bc"){
+         this.dispatchEvent(new CustomEvent('barcode', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                item: this.data[id-2],
+
+            }
 
         }))
+
+    }
     }
     toSignIn() {
 
@@ -433,7 +465,7 @@ class BPSPanel extends LitElement {
             min-height: 1px;
             padding-left: 0px;
             padding-right: 0px;
-            width: 80%;
+            width: 92%;
         }
 
          .input {
@@ -456,7 +488,9 @@ class BPSPanel extends LitElement {
         }
 
            .text-right {
-            text-align: right;
+                text-align: right;
+                float: right;
+                width: 83%;
         }
 
 
@@ -564,7 +598,7 @@ class BPSPanel extends LitElement {
         }
         
         .results-container {
-            margin-top: 18px;
+            margin-top: -15px;
             height: 70vh;
             display: flex;
             flex-direction: column;
