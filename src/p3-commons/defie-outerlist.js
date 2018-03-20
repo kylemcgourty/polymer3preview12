@@ -427,7 +427,6 @@
 
 
         specialevent(item) {
-            console.log('special ev fired')
             this.dispatchEvent(new CustomEvent('specialevent', {
                 bubbles: true,
                 composed: true,
@@ -566,8 +565,6 @@
         }
 
         inputEvent8(value, item) {
-
-            console.log(' inp 8', value)
             this.dispatchEvent(new CustomEvent('inputEvent8', {
                 bubbles: true,
                 composed: true,

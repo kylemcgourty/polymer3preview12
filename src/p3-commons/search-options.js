@@ -17,7 +17,6 @@ export class SearchOptions extends LitElement {
     }
 
     selectedSO(e) {
-        console.log(e.path[0].id)
         this.dispatchEvent(new CustomEvent("selectedSearchOption", {
             bubbles: true,
             composed: true,

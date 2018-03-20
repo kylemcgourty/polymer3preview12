@@ -141,7 +141,6 @@ export class PartSidepanel extends LitElement {
     }
 
     responselist(request, fromquery) {
-        console.log(request)
         if (fromquery) {
             let tempArray = [];
             let tempArray2 = [];
@@ -217,9 +216,6 @@ export class PartSidepanel extends LitElement {
             if (this.data.length > 0 && this.shadowRoot.getElementById('noMatchesError')) {
                 this.shadowRoot.getElementById('noMatchesError').remove()
             }
-
-            console.log('the data in parts', this.data)
-
             const datatable = (items, searchdisplay, searchkeyindexes, searchfields) => {
                 return html ` 
                 <div class="title-rightpaneldraw">
@@ -328,14 +324,11 @@ export class PartSidepanel extends LitElement {
     }
 
     inventoryChoice(item) {
-        console.log(item)
         let part = this.showingModel[item[9]]
         var mfgname = part.mfgname;
         var year = part.year;
         var mfgpn = part.mfgpn;
         var type = part.type;
-
-        console.log('part before fire', part)
 
         this.dispatchEvent(new CustomEvent('InventoryPartEvent', {
 

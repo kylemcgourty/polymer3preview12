@@ -428,7 +428,6 @@ export class CombinedpanelList extends LitElement {
         this.singleObject.fieldvalue9 = this.shadowRoot.getElementById('newfieldvalue9').value
         this.singleObject.fieldvalue10 = this.shadowRoot.getElementById('newfieldvalue10').value
         this.singleObject.status = true
-        console.log(this.singleObject)
         var newObj = {}
         this.arrayvalues.map((key, index) => {
             var newNumber = parseInt(index) + 1
@@ -498,7 +497,6 @@ export class CombinedpanelList extends LitElement {
             this.searchurl = this.url
         } else {
             let baseurl = this.url.split("/")
-            console.log(baseurl)
             if (baseurl[1] == "vendor") {
                 this.searchurl = "/vendor/type/" + `${BElocation}` + "/" + baseurl[4] + "/" + baseurl[5]
             } else if (baseurl[1] = "customer") {

@@ -79,7 +79,6 @@ export class APDistributedAccountsList extends LitElement {
             var theList = [];
             for (let i = 0; i < data.length; i++) {
                 if (data[i].account == this.typemodel) {
-                    console.log(data[i].accounts)
                     this.data = data[i].accounts
                     break
                 }

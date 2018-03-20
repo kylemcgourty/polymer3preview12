@@ -66,7 +66,6 @@ export class RMARelationList extends LitElement {
     }
 
     open(model, requestfrom) {
-        console.log("requestfrom in open panel", requestfrom)
         this.scrollTop()
         this.model = model
         if (requestfrom == "custrec") {
@@ -139,10 +138,6 @@ export class RMARelationList extends LitElement {
         this.rmahistory = []
         this.data = [];
         this.results = [];
-        console.log(this.rmahistory)
-
-        console.log("this.route in opne", this.route)
-        console.log("this.url in opne", this.url)
 
         if (this.crmaid) {
             this.shadowRoot.querySelector("#ajaxrmaHistory").url = this.url + this.profileid + "/" + this.model.companyid + "/" + this.crmaid
@@ -157,7 +152,6 @@ export class RMARelationList extends LitElement {
 
     receiveRecords(e) {
         this.results = e.detail.response.results
-        console.log('e', this.results.length)
 
         for (var i = 0; i < this.results.length; i++) {
             this.data.push({
@@ -178,7 +172,6 @@ export class RMARelationList extends LitElement {
         this.rmahistory = []
 
         this.rmahistory = this.data
-        console.log(this.rmahistory)
 
         this.results = this.results.reverse()
         if (this.results.length > 0) {
@@ -238,10 +231,8 @@ export class RMARelationList extends LitElement {
     receiveSingle(e) {
 
         let record = e.detail.response.results
-        console.log(record)
 
         if (this.url == "/requestcrma/GetrecHistory/" || this.url == "/receivecrma/GetrecHistory/") {
-            console.log("CUSTREC")
             this.dispatchEvent(new CustomEvent("toCustomerReceiveRMAView", {
                 composed: true,
                 bubbles: true,
@@ -262,7 +253,6 @@ export class RMARelationList extends LitElement {
 
             // this.path = ""
         } else if (this.url == "/requestcrma/GetshipHistory/") {
-            console.log("CUSTSHIP")
             this.dispatchEvent(new CustomEvent("toCustomerShipRMAView", {
                 composed: true,
                 bubbles: true,
@@ -283,7 +273,6 @@ export class RMARelationList extends LitElement {
 
             // this.path = ""
         } else if (this.url == "/requestvrma/GetrecHistory/" || this.url == "/receivevrma/GetrecHistory/") {
-            console.log("VENDREC")
             this.dispatchEvent(new CustomEvent("toVendorReceiveRMAView", {
                 composed: true,
                 bubbles: true,
@@ -304,7 +293,6 @@ export class RMARelationList extends LitElement {
 
             // this.path = ""
         } else if (this.url == "/requestvrma/GetshipHistory/") {
-            console.log("VENDSHIP")
             this.dispatchEvent(new CustomEvent("toVendorShipRMAView", {
                 composed: true,
                 bubbles: true,

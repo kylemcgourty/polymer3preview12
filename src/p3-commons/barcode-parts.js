@@ -76,10 +76,6 @@ export class BarcodeParts extends LitElement {
     }
 
     receiveQueryResults(response) {
-        console.log('the resp', response)
-
-
-
         this.data = response.detail.response.results
 
         if (this.data == null) {

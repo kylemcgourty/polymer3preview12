@@ -169,7 +169,6 @@
            `;
           }
 
-          console.log('the index and  current', this.index, this.current)
           render(types(this.data), this.shadowRoot.querySelector('#table'))
       }
 

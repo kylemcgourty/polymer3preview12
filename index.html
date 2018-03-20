@@ -75,19 +75,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             contentType: 'application/json',
                             data: JSON.stringify(ldata),
                             success: function(data) {
-                                console.log(data)
                                 if (data.auth && data.customtoken != "") {
                                     firebase.auth().signInWithCustomToken(data.customtoken).then(function(someData) {
                                         $("#login-container").hide();
                                         $("#defie-menu").show();
-                                        console.log("Success before");
-
 
                                         sessionStorage.setItem('UR', data.ur);
                                         sessionStorage.setItem('PR', data.pr);
                                         sessionStorage.setItem('CUSTOMTOKEN', data.customtoken);
-                                        console.log(data.customtoken)
-                                        console.log(sessionStorage)
                                         var d = document.getElementById("defie-menu");
                                         d.toWelcomePage({ detail: { services: data.services } });
                                         console.log("Success");

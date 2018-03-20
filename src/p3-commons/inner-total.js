@@ -43,8 +43,6 @@ export class InnerTotal extends LitElement {
     }
 
     doCalculate() {
-        console.log(this.shadowRoot.querySelector('#handling').value)
-        console.log(this.shadowRoot.querySelector('#shippingnotax').value)
         this.dispatchEvent(new CustomEvent("docalculateHS", {
             bubbles: true,
             composed: true,
@@ -68,9 +66,6 @@ export class InnerTotal extends LitElement {
     renderItems(totals, tax) {
         this.totals = totals
         this.tax = tax
-        console.log(this.tax)
-
-        console.log(this.totals)
 
         const searchtypes = (data, tax, profilesection, totalsection, viewpage) => {
 
