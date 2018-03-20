@@ -41,17 +41,68 @@ class BPSPanel extends LitElement {
     }
 
 
-    open(url, title, searchfields, searchkeyindexes) {
+    open(url, title) {
 
+        this.searchkeyindexes={}
+        this.searchfields={}
         if (title == "QA Check List"){
             this.eventSelector = "qa"
+            this.searchRoute = "/bps/qalist/search/"+ sessionStorage.getItem("PR")
+
+            this.searchkeyindexes.searchkeyindex1 = "qalistidver"
+            this.searchkeyindexes.searchkeyindex2 = "partidver_l"
+            this.searchkeyindexes.searchkeyindex3 = "qaname_l"
+            this.searchkeyindexes.searchkeyindex4 = "mfgpn_l"
+
+            this.searchfields.searchfield1 = "QA CL id"
+            this.searchfields.searchfield2 = "Part id"
+            this.searchfields.searchfield3 = "Check List"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchoption = "qalistidver"
+
         } else if (title == "Barcodes List"){
             this.eventSelector = "bc"
+            this.searchRoute = "/bps/barcodes/search/"+ sessionStorage.getItem("PR")
+
+            this.searchkeyindexes.searchkeyindex1 = "barcodeidver"
+            this.searchkeyindexes.searchkeyindex2 = "barcode_l"
+            this.searchkeyindexes.searchkeyindex3 = "partidver_l"
+            this.searchkeyindexes.searchkeyindex4 = "productno_l"
+
+            this.searchfields.searchfield1 = "Barcode id"
+            this.searchfields.searchfield2 = "Barcode"
+            this.searchfields.searchfield3 = "Part id"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchoption = "barcodeidver"
+        } else if (title == "Procedures List"){
+            this.searchfields.searchfield1 = "Procedure id"
+            this.searchfields.searchfield2 = "Procedure"
+            this.searchfields.searchfield3 = "Part id"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchkeyindexes.searchkeyindex1 = "procedureidver"
+            this.searchkeyindexes.searchkeyindex2 = "serialnumber"
+            this.searchkeyindexes.searchkeyindex3 = "partid"
+            this.searchkeyindexes.searchkeyindex4 = "productno"
+
+        } else if (title == "Shipping Labels List"){
+            
+            this.searchfields.searchfield1 = "Ship. label id"
+            this.searchfields.searchfield2 = "Shipping label"
+            this.searchfields.searchfield3 = "Part id"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchkeyindexes.searchkeyindex1 = "slidver"
+            this.searchkeyindexes.searchkeyindex2 = "shippinglabel"
+            this.searchkeyindexes.searchkeyindex3 = "partid"
+            this.searchkeyindexes.searchkeyindex4 = "productno"
+
+
         }
         
 
-        this.searchfields = searchfields
-        this.searchkeyindexes = searchkeyindexes
 
         this.searchdisplay = {}
         this.searchdisplay.display = "block"
@@ -59,40 +110,32 @@ class BPSPanel extends LitElement {
         this.title = title
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
 
-        console.log('the token', ct)
         this.shadowRoot.getElementById('ajaxQA').headers['CustomToken'] = ct;
         this.shadowRoot.getElementById('ajaxQA').url = url
         this.shadowRoot.getElementById('ajaxQA').generateRequest();
 
     }
 
-    generateSearch(e, pass, retrieveAll) {
+    generateSearch(e, pass) {
         let query
         if (e.detail) {
-            if (e.detail.inputValue === "") {
-                retrieveAll = true;
-            } else if (e.keyCode !== 13 && e.type == "keyup") {
+            if (e.keyCode !== 13 && e.type == "keyup") {
                 return
-            } else {
-                retrieveAll = false
-            }
+            } 
             query = e.detail.inputValue;
         }
 
-        if (retrieveAll) {
-            query = ""
-            this.searchoption = 'idver'
-        }
+       
 
         let querypackage = {
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
-        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
-        this.shadowRoot.querySelector('#ajaxSearch').url = "/customer/search/" + this.profileid
-        this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
-        this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
+        this.shadowRoot.getElementById('ajaxSearch').headers['CustomToken'] = ct;
+        this.shadowRoot.getElementById('ajaxSearch').url = this.searchRoute
+        this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify(querypackage)
+        this.shadowRoot.getElementById('ajaxSearch').generateRequest()
     }
 
     receiveQueryResults(response) {
@@ -103,7 +146,7 @@ class BPSPanel extends LitElement {
 
 
     setSearchOption(e) {
-        e.detail.id === "all" ? this.generateSearch(e, undefined, 'idver') : this.searchoption = e.detail.id
+         this.searchoption = e.detail.id
 
         if (e.detail) {
             this.generateSearch(e)
@@ -116,9 +159,15 @@ class BPSPanel extends LitElement {
     }
     receiveData(response) {
 
-        this.data = response.detail.response
+        console.log('res', response)
+        if (response.detail.response == null){
+            this.data = []
+        } else if (response.detail.response.results){
+            this.data = response.detail.response.results
+        } else {
+            this.data = response.detail.response
+        }
 
-        this.data == null ? this.data = [] : this.data
 
         this.data = this.data.map((item, i) => {
             
@@ -134,7 +183,6 @@ class BPSPanel extends LitElement {
             return item
         })
 
-        console.log('the data going in', this.data)
         const datatable = (data, searchdisplay, searchkeyindexes, searchfields) => {
             return html `<div class="title-rightpaneldraw">${this.title} </div>
             <div style="background-color: #e6e6e6;">
@@ -203,7 +251,6 @@ class BPSPanel extends LitElement {
 
     openChoice(id) {
 
-        console.log('in in open choice',id)
 
 
         if (this.eventSelector == "qa"){
@@ -977,6 +1024,8 @@ class BPSPanel extends LitElement {
             
         </div>
         <iron-ajax id="ajaxQA" method="GET" handle-as="json" on-response="${this.receiveData.bind(this)}" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" on-response="${this.receiveData.bind(this)}" content-type="application/json"></iron-ajax>
+
         </div>`
     }
 
