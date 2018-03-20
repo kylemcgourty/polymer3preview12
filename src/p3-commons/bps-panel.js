@@ -159,7 +159,6 @@ class BPSPanel extends LitElement {
     }
     receiveData(response) {
 
-        console.log('res', response)
         if (response.detail.response == null){
             this.data = []
         } else if (response.detail.response.results){
