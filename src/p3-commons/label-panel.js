@@ -86,122 +86,218 @@
         }
 
        
-        open(modulebillshipto, disabledinput, displaysearch, searchid, ainfo, binfo){
+        open(model){
 
+            console.log("model in open", model)
+            this.model = {}
+            this.model.shipcompanyname = model.shipto.companyname;
+            this.model.shipattention = model.shipto.attention;
+            this.model.shipaddress = model.shipto.street + ", " + model.shipto.city + ", " + model.shipto.state + ", " + model.shipto.zipcode + ", " + model.shipto.country
+            this.model.shipphone = model.shipto.phone
+
+            this.model.companyname = model.settingscompany;
+            this.model.address = model.settings.ma_street + ", " + model.settings.ma_city + ", " + model.settings.ma_state + ", " + model.settings.ma_zip + ", " + model.settings.ma_country
+            this.model.phone = model.settings.ma_phone
+
+            this.model.settings = model.settings
+
+            this.model.id = Number(model.id)
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.getElementById('ajaxLabel').headers['CustomToken'] = ct;
+            this.shadowRoot.getElementById('ajaxLabel').url = "/bps/shippinglabels/"+this.model.settings.id + "/" + this.model.id
+            this.shadowRoot.getElementById('ajaxLabel').generateRequest()
+
+        }
+
+        initialize(response){
+
+            console.log("the response", response)
+
+            if (response.detail.response.id != 0){
+                this.setModel(response.detail.response)
+            } else {
+                this.newModel()
+            }
 
            const page = () => { return html` <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <section>
                     <div class="layout horizontal container">
                         <div class="title"> PN </div>
-                        <input id="pn1" class="input1"></input>
+                        <input id="pn1" value=${this.model.pn1} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> SN </div>
-                        <input id="sn1" class="input1"></input>
+                        <input id="sn1" value=${this.model.sn1} class="input1"></input>
                      </div>
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> PN </div>
-                        <input id="pn2" class="input1"></input>
+                        <input id="pn2" value=${this.model.pn2} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> SN </div>
-                        <input id="sn2" class="input1"></input>
+                        <input id="sn2" value=${this.model.sn2} class="input1"></input>
                      </div>
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> PN </div>
-                        <input id="pn3" class="input1"></input>
+                        <input id="pn3" value=${this.model.pn3} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> SN </div>
-                        <input id="sn3" class="input1"></input>
+                        <input id="sn3" value=${this.model.sn3} class="input1"></input>
                      </div>
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> PN </div>
-                        <input id="pn4" class="input1"></input>
+                        <input id="pn4" value=${this.model.pn4} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> SN </div>
-                        <input id="sn4" class="input1"></input>
+                        <input id="sn4" value=${this.model.sn4} class="input1"></input>
                      </div>
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> PN </div>
-                        <input id="pn5" class="input1"></input>
+                        <input id="pn5" value=${this.model.pn5} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> SN </div>
-                        <input id="sn5" class="input1"></input>
+                        <input id="sn5" value=${this.model.sn5} class="input1"></input>
                      </div>
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> PN </div>
-                        <input id="pn6" class="input1"></input>
+                        <input id="pn6" value=${this.model.pn6} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> SN </div>
-                        <input id="sn6" class="input1"></input>
+                        <input id="sn6" value=${this.model.sn6} class="input1"></input>
                      </div>
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> PO No.</div>
-                        <input id="pono" class="input1"></input>
+                        <input id="pono" value=${this.model.po} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> Goods Marking </div>
-                        <input id="goodsmarking" class="input1"></input>
+                        <input id="goodsmarking" value=${this.model.goodsmarking} class="input1"></input>
                      </div>
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> Description </div>
-                        <input id="pn6" class="input1"></input>
+                        <input id="description" value=${this.model.description} class="input1"></input>
                      </div>
                      
 
                      <div class="layout horizontal container spacer">
                         <div class="title"> Box Count </div>
-                        <input id="box1" class="input1"></input>
+                        <input id="box1" value=${this.model.bcount1} class="input1"></input>
                         <div class="of"> &nbsp of </div>
-                        <input id="box2" class="input1"></input>
+                        <input id="box2" value=${this.model.bcount2} class="input1"></input>
                      </div>
                      <div class="layout horizontal container">
                         <div class="title"> Weight </div>
-                        <input id="weight" class="input1"></input>
+                        <input id="weight" value=${this.model.weight} class="input1"></input>
                      </div>
+                     <paper-button onclick="${()=>{this.save()}}" class="button" raised>Save</paper-button>
                 </section>
             </div>
            `}
 
             render(page(), this.shadowRoot.getElementById('page'))
         }
-        resetAB() {
+        
 
+        setModel(response) {
+            this.model.sn1 = response.sn1
+            this.model.sn2 = response.sn2
+            this.model.sn3 = response.sn3
+            this.model.sn4 = response.sn4
+            this.model.sn5 = response.sn5
+            this.model.sn6 = response.sn6
 
-            this.set('model', JSON.parse(JSON.stringify(this.model1)))
+            this.model.pn1 = response.pn1
+            this.model.pn2 = response.pn2
+            this.model.pn3 = response.pn3
+            this.model.pn4 = response.pn4
+            this.model.pn5 = response.pn5
+            this.model.pn6 = response.pn6
+
+            this.model.po = response.po
+            this.model.goodsmarking = response.goodsmarking
+            this.model.description = response.description
+            this.model.bcount1 = response.bcount1
+            this.model.bcount2 = response.bcount2
+
+            this.model.weight = response.weight
+        }
+
+        newModel(){
+            this.model.sn1 = ""
+            this.model.sn2 = ""
+            this.model.sn3 = ""
+            this.model.sn4 = ""
+            this.model.sn5 = ""
+            this.model.sn6 = ""
+
+            this.model.pn1 = ""
+            this.model.pn2 = ""
+            this.model.pn3 = ""
+            this.model.pn4 = ""
+            this.model.pn5 = ""
+            this.model.pn6 = ""
+
+            this.model.po = ""
+            this.model.goodsmarking = ""
+            this.model.description = ""
+            this.model.bcount1 = ""
+            this.model.bcount2 = ""
+
+            this.model.weight = ""
         }
 
         returnModel(){
 
-            this.model.ainfovalues.ainfo1_value = this.shadowRoot.getElementById('ainfo1').value
-            this.model.ainfovalues.ainfo2_value = this.shadowRoot.getElementById('ainfo2').value
-            this.model.ainfovalues.ainfo3_value = this.shadowRoot.getElementById('ainfo3').value
-            this.model.ainfovalues.ainfo4_value = this.shadowRoot.getElementById('ainfo4').value
-            this.model.ainfovalues.ainfo5_value = this.shadowRoot.getElementById('ainfo5').value
-            this.model.ainfovalues.ainfo6_value = this.shadowRoot.getElementById('ainfo6').value
-            this.model.ainfovalues.ainfo7_value = this.shadowRoot.getElementById('ainfo7').value
+            this.model.sn1 = this.shadowRoot.getElementById('sn1').value
+            this.model.sn2 = this.shadowRoot.getElementById('sn2').value
+            this.model.sn3 = this.shadowRoot.getElementById('sn3').value
+            this.model.sn4 = this.shadowRoot.getElementById('sn4').value
+            this.model.sn5 = this.shadowRoot.getElementById('sn5').value
+            this.model.sn6 = this.shadowRoot.getElementById('sn6').value
+
+            this.model.pn1 = this.shadowRoot.getElementById('pn1').value
+            this.model.pn2 = this.shadowRoot.getElementById('pn2').value
+            this.model.pn3 = this.shadowRoot.getElementById('pn3').value
+            this.model.pn4 = this.shadowRoot.getElementById('pn4').value
+            this.model.pn5 = this.shadowRoot.getElementById('pn5').value
+            this.model.pn6 = this.shadowRoot.getElementById('pn6').value
+
+            this.model.po = this.shadowRoot.getElementById('pono').value
+            this.model.goodsmarking = this.shadowRoot.getElementById('goodsmarking').value
+            this.model.description = this.shadowRoot.getElementById('description').value
+            this.model.bcount1 = this.shadowRoot.getElementById('box1').value
+            this.model.bcount2 = this.shadowRoot.getElementById('box2').value
+
+            this.model.weight = this.shadowRoot.getElementById('weight').value
 
 
-            this.model.binfovalues.binfo1_value  = this.shadowRoot.getElementById('binfo1').value
-            this.model.binfovalues.binfo2_value = this.shadowRoot.getElementById('binfo2').value
-            this.model.binfovalues.binfo3_value = this.shadowRoot.getElementById('binfo3').value
-            this.model.binfovalues.binfo4_value = this.shadowRoot.getElementById('binfo4').value
-            this.model.binfovalues.binfo5_value = this.shadowRoot.getElementById('binfo5').value
-            this.model.binfovalues.binfo6_value = this.shadowRoot.getElementById('binfo6').value
-            this.model.binfovalues.binfo7_value = this.shadowRoot.getElementById('binfo7').value
+        }
 
-            return this.model
+
+        save () {
+
+            this.returnModel()
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.shadowRoot.getElementById('ajaxSave').headers['CustomToken'] = ct;
+            this.shadowRoot.getElementById('ajaxSave').body = JSON.stringify(this.model)
+            this.shadowRoot.getElementById('ajaxSave').generateRequest()
+
+        }
+
+        response(e) {
+            document.querySelector('#toast').text = "Saved successfully";
+            document.querySelector('#toast').show();
         }
 
         
@@ -495,6 +591,13 @@
             height: 25px;
             width: 50px;
         }
+
+        .button {
+            margin-top: 26px;
+            margin-left: 41px;
+            background-color: #406aad;
+            color: white;
+        }
         
         
         </style>
@@ -509,7 +612,10 @@
                 </div>
         <div id="page" class="row">
             
-        </div>`
+        </div>
+            <iron-ajax method="PUT" id="ajaxSave" url="/bps/shippinglabels" content-type="application/json" on-response="${this.response.bind(this)}"></iron-ajax>
+            <iron-ajax method="GET" id="ajaxLabel"  content-type="application/json" on-response="${this.initialize.bind(this)}"></iron-ajax>`
+
        }
     }
 
