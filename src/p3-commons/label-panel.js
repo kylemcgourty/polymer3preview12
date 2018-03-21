@@ -88,7 +88,6 @@
        
         open(model){
 
-            console.log("model in open", model)
             this.model = {}
             this.model.shipcompanyname = model.shipto.companyname;
             this.model.shipattention = model.shipto.attention;
@@ -111,7 +110,6 @@
 
         initialize(response){
 
-            console.log("the response", response)
 
             if (response.detail.response.id != 0){
                 this.setModel(response.detail.response)
