@@ -296,6 +296,11 @@
         response(e) {
             document.querySelector('#toast').text = "Saved successfully";
             document.querySelector('#toast').show();
+
+            this.dispatchEvent(new CustomEvent('closePanel', {
+              composed: true,
+              bubbles: true
+            }))
         }
 
         
