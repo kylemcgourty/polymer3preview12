@@ -95,6 +95,8 @@
          this.ainfo = ainfo
          this.binfo = binfo
 
+         this.model.datePlaceholder ? this.model.datePlaceholder : this.model.datePlaceholder = ""
+
            const page = () => { return html` <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <section class="nomargin nopadding margin-right">
                     <div class="my-content">

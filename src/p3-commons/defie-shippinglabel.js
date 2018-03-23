@@ -94,7 +94,7 @@
 
             
 
-            const shippinglabel = (data)=> {
+            const shippinglabel = (model)=> {
                 return html`<div >
                                 <div class="row container">
                                     <div class="col-pns1">
@@ -106,22 +106,22 @@
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input id="company" value="${model.companyname}" class="input1 col-xs-9">
+                                                        <input disabled id="company" value="${model.companyname}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input id="address" value="${model.address}" class="input1 col-xs-9">
+                                                        <input disabled id="address" value="${model.address}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input id="phone" value="${model.phone}" class="input1 col-xs-9">
+                                                        <input disabled id="phone" value="${model.phone}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input class="input1 col-xs-9">
+                                                        <input disabled class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                         </div>
@@ -136,22 +136,22 @@
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id="shipcompany" value="${model.shipcompanyname}" class="input1 col-xs-9">
+                                                            <input disabled id="shipcompany" value="${model.shipcompanyname}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id="shipattention" value="${model.shipattention}" class="input1 col-xs-9">
+                                                            <input disabled id="shipattention" value="${model.shipattention}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id="shipaddress" value="${model.shipaddress}" class="input1 col-xs-9">
+                                                            <input disabled id="shipaddress" value="${model.shipaddress}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input id="shipphone" value="${model.shipphone}" class="input1 col-xs-9">
+                                                            <input disabled id="shipphone" value="${model.shipphone}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,77 +162,67 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn1}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"><span class="description"> Product No:</span>
-                                                    <input  id="partnumber1" value="${model.pn1}" class="input1 enteredpn">
+                                            <div class="partnumber"><span class="description"> PN:</span>
+                                                    <input disabled  id="partnumber1" value="${model.pn1}" class="input1 enteredpn">
                                             </div>
-                                            <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id="description1" value="${model.description1}" class="input1 enteredpn">
-                                            </div>
+                                            
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input value="${model.sn1}" id="labelsn1" class="sn-input input1">
+                                                    <input disabled value="${model.sn1}" id="labelsn1" class="sn-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL">
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn2}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"><span class="description"> PSU #1:</span>
-                                                    <input id="partnumber2" value="${model.pn2}" class="input1 enteredpn">
+                                            <div class="partnumber"><span class="description"> PN:</span>
+                                                    <input disabled id="partnumber2" value="${model.pn2}" class="input1 enteredpn">
                                             </div>
-                                            <div class="partnumber"><span class="description"> Description:</span>
-                                                    <input id="description2" value="${model.description2}" class="input1 enteredpn">
-                                            </div>
+                                            
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id="labelsn2" value="${model.sn2}" class="sn-input input1">
+                                                    <input disabled id="labelsn2" value="${model.sn2}" class="sn-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL1">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn3}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description">HDD #1:</span>
-                                                    <input id="partnumber4" value="${model.pn4}" class=" enteredpn input1">
+                                            <div class="partnumber"> <span class="description">PN:</span>
+                                                    <input disabled id="partnumber3" value="${model.pn3}" class=" enteredpn input1">
                                             </div>
-                                            <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id="description4" value="${model.description4}" class=" enteredpn input1">
-                                            </div>
+                                            
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id="labelsn4" value="${model.sn4}" class="sn-input input1">
+                                                    <input disabled id="labelsn3" value="${model.sn3}" class="sn-input input1">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-halfR">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${model.hwrsn}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">Model No:</span>
-                                                    <input id="hwr" value="${model.hwr}" class="input1 enteredpn">
+                                                    <input disabled id="partnumber4" value="${model.pn4}" class="input1 enteredpn">
                                             </div>
-                                            <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id="hwrdescription" value="${model.hwrdescription}" class="input1 enteredpn">
-                                            </div>
+                                            
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="hwr-words">HWR: </span>
-                                                    <input id="hwrsn" value="${model.hwrsn}" class="input1 hwr-input">
+                                                    <input disabled id="labelsn4" value="${model.sn4}" class="input1 hwr-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn3}" height="100" width="100"></scan-code>
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description">PSU #2:</span>
-                                                    <input id="partnumber3" value="${model.pn3}" class="input1 enteredpn">
+                                            <div class="partnumber"> <span class="description">PN:</span>
+                                                    <input disabled id="partnumber4" value="${model.pn4}" class="input1 enteredpn">
                                             </div>
-                                            <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id="description3" value="${model.description3}" class="input1 enteredpn">
-                                            </div>
+                                            
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id="labelsn3" value="${model.sn3}" class="input1 sn-input">
+                                                    <input disabled id="labelsn4" value="${model.sn4}" class="input1 sn-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR1">
@@ -240,21 +230,19 @@
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn5}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description">HDD #2:</span>
-                                                    <input id="partnumber5" value="${model.pn5}" class="input1 enteredpn">
+                                                    <input disabled id="partnumber5" value="${model.pn5}" class="input1 enteredpn">
                                             </div>
-                                            <div class="partnumber"> <span class="description">Description:</span>
-                                                    <input id="description5" value="${model.description5}" class="input1 enteredpn">
-                                            </div>
+                                            
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input id="labelsn5" value="${model.sn5}" class="input1 sn-input">
+                                                    <input disabled id="labelsn5" value="${model.sn5}" class="input1 sn-input">
                                             </div>
                                         </div>
                                     </div>
                                     <div style="clear: both;"></div>
                                     <div class="col-desc">
                                         <div class="detail-header1"> PO No. </div>
-                                            <input id="po" value="${model.po}" class="desc-input input1">
+                                            <input disabled id="po" value="${model.po}" class="desc-input input1">
                                     </div>
                                     <!--   <div class="col-desc">
                                         <div class="detail-header1"> Goods Marking </div>
@@ -265,16 +253,16 @@
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
                                             <div class="detail-header"> Box Count </div>
-                                                <input id="bcount1" style="float: left;"  value="${model.bcount1}" class="input1 detail-input1">
+                                                <input disabled id="bcount1" style="float: left;"  value="${model.bcount1}" class="input1 detail-input1">
                                             <div class="of"> of </div>
-                                                <input id="bcount2" style="float: left;"  value="${model.bcount2}" class="input1 detail-input1">
+                                                <input disabled id="bcount2" style="float: left;"  value="${model.bcount2}" class="input1 detail-input1">
                                             <div style="clear: both"></div>
                                         </div>
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottom1">
                                             <div class="detail-header"> Weight (lbs) </div>
-                                                <input id="weight" value="${model.weight}" class="input1  detail-input">
+                                                <input disabled id="weight" value="${model.weight}" class="input1  detail-input">
                                         </div>
                                     </div>
                                     <div class="col-desc-bot">

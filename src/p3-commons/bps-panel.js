@@ -41,49 +41,101 @@ class BPSPanel extends LitElement {
     }
 
 
-    open(url, title, searchfields, searchkeyindexes) {
+    open(url, title) {
 
-        this.searchfields = searchfields
-        this.searchkeyindexes = searchkeyindexes
+        this.searchkeyindexes={}
+        this.searchfields={}
+        if (title == "QA Check List"){
+            this.eventSelector = "qa"
+            this.searchRoute = "/bps/qalist/search/"+ sessionStorage.getItem("PR")
+
+            this.searchkeyindexes.searchkeyindex1 = "qalistidver"
+            this.searchkeyindexes.searchkeyindex2 = "partidver_l"
+            this.searchkeyindexes.searchkeyindex3 = "qaname_l"
+            this.searchkeyindexes.searchkeyindex4 = "mfgpn_l"
+
+            this.searchfields.searchfield1 = "QA CL id"
+            this.searchfields.searchfield2 = "Part id"
+            this.searchfields.searchfield3 = "Check List"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchoption = "qalistidver"
+
+        } else if (title == "Barcodes List"){
+            this.eventSelector = "bc"
+            this.searchRoute = "/bps/barcodes/search/"+ sessionStorage.getItem("PR")
+
+            this.searchkeyindexes.searchkeyindex1 = "barcodeidver"
+            this.searchkeyindexes.searchkeyindex2 = "barcode_l"
+            this.searchkeyindexes.searchkeyindex3 = "partidver_l"
+            this.searchkeyindexes.searchkeyindex4 = "productno_l"
+
+            this.searchfields.searchfield1 = "Barcode id"
+            this.searchfields.searchfield2 = "Barcode"
+            this.searchfields.searchfield3 = "Part id"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchoption = "barcodeidver"
+        } else if (title == "Procedures List"){
+            this.searchfields.searchfield1 = "Procedure id"
+            this.searchfields.searchfield2 = "Procedure"
+            this.searchfields.searchfield3 = "Part id"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchkeyindexes.searchkeyindex1 = "procedureidver"
+            this.searchkeyindexes.searchkeyindex2 = "serialnumber"
+            this.searchkeyindexes.searchkeyindex3 = "partid"
+            this.searchkeyindexes.searchkeyindex4 = "productno"
+
+        } else if (title == "Shipping Labels List"){
+            
+            this.searchfields.searchfield1 = "Ship. label id"
+            this.searchfields.searchfield2 = "Shipping label"
+            this.searchfields.searchfield3 = "Part id"
+            this.searchfields.searchfield4 = "Product No."
+
+            this.searchkeyindexes.searchkeyindex1 = "slidver"
+            this.searchkeyindexes.searchkeyindex2 = "shippinglabel"
+            this.searchkeyindexes.searchkeyindex3 = "partid"
+            this.searchkeyindexes.searchkeyindex4 = "productno"
+
+
+        }
+        
+
 
         this.searchdisplay = {}
         this.searchdisplay.display = "block"
 
         this.title = title
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
+
         this.shadowRoot.getElementById('ajaxQA').headers['CustomToken'] = ct;
         this.shadowRoot.getElementById('ajaxQA').url = url
         this.shadowRoot.getElementById('ajaxQA').generateRequest();
 
     }
 
-    generateSearch(e, pass, retrieveAll) {
+    generateSearch(e, pass) {
         let query
         if (e.detail) {
-            if (e.detail.inputValue === "") {
-                retrieveAll = true;
-            } else if (e.keyCode !== 13 && e.type == "keyup") {
+            if (e.keyCode !== 13 && e.type == "keyup") {
                 return
-            } else {
-                retrieveAll = false
-            }
+            } 
             query = e.detail.inputValue;
         }
 
-        if (retrieveAll) {
-            query = ""
-            this.searchoption = 'idver'
-        }
+       
 
         let querypackage = {
             query: query.toString().toLowerCase(),
             option: this.searchoption
         }
         let ct = sessionStorage.getItem("CUSTOMTOKEN")
-        this.shadowRoot.querySelector('#ajaxSearch').headers['CustomToken'] = ct;
-        this.shadowRoot.querySelector('#ajaxSearch').url = "/customer/search/" + this.profileid
-        this.shadowRoot.querySelector('#ajaxSearch').body = JSON.stringify(querypackage)
-        this.shadowRoot.querySelector('#ajaxSearch').generateRequest()
+        this.shadowRoot.getElementById('ajaxSearch').headers['CustomToken'] = ct;
+        this.shadowRoot.getElementById('ajaxSearch').url = this.searchRoute
+        this.shadowRoot.getElementById('ajaxSearch').body = JSON.stringify(querypackage)
+        this.shadowRoot.getElementById('ajaxSearch').generateRequest()
     }
 
     receiveQueryResults(response) {
@@ -94,7 +146,7 @@ class BPSPanel extends LitElement {
 
 
     setSearchOption(e) {
-        e.detail.id === "all" ? this.generateSearch(e, undefined, 'idver') : this.searchoption = e.detail.id
+         this.searchoption = e.detail.id
 
         if (e.detail) {
             this.generateSearch(e)
@@ -107,11 +159,25 @@ class BPSPanel extends LitElement {
     }
     receiveData(response) {
 
-        this.data = response.detail.response
+        if (response.detail.response == null){
+            this.data = []
+        } else if (response.detail.response.results){
+            this.data = response.detail.response.results
+        } else {
+            this.data = response.detail.response
+        }
 
-        this.data == null ? this.data = [] : this.data
 
         this.data = this.data.map((item, i) => {
+            
+            if (item.qalistidver){
+                item.procedureidver = item.qalistidver
+            }
+            if (item.barcodename || item.barcodename == ""){
+                item.procedureidver = item.idver
+                item.qaname = item.barcodename
+                item.mfgpn = item.productno
+            }
             item.id = i + 1
             return item
         })
@@ -132,38 +198,38 @@ class BPSPanel extends LitElement {
                         data,
                         item => item.id,
                         item => html`
-                    <div on-tap="openChoice" id="qachecklist">
+                    <div on-tap="${()=>{this.openChoice(item.id)}}" id="qachecklist">
                         <div class="ilrow layout vertical">
                             <div class="my-content" >
-                                <div class="col-xs-3">Procedure Id</div>
+                                <div class="col-xs-3">Id</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.procedureidver}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9" >
+                                        <input disabled class="input" value="${item.procedureidver}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="my-content" >
-                                <div class="col-xs-3">Procedure</div>
+                                <div class="col-xs-3">Name</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.qaname}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9">
+                                        <input disabled class="input" value="${item.qaname}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="my-content" >
                                 <div class="col-xs-3">Model</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.model}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9" >
+                                        <input disabled class="input" value="${item.model}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="my-content" >
                                 <div class="col-xs-3">Product No.</div>
                                 <div class="text-right">
-                                    <iron-input class="col-xs-9" bind-value="${item.mfgpn}">
-                                        <input disabled class="input">
-                                    </iron-input>
+                                    <div class="col-xs-9"  >
+                                        <input disabled class="input" value="${item.mfgpn}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -182,22 +248,34 @@ class BPSPanel extends LitElement {
         })
     }
 
-    openChoice(e) {
+    openChoice(id) {
 
-        let choice = e.model.item.qachecklist
-        let index = e.model.index
+
+
+        if (this.eventSelector == "qa"){
 
         this.dispatchEvent(new CustomEvent('qachecklist', {
             bubbles: true,
             composed: true,
             detail: {
-                item: this.data[index],
+                item: this.data[id-1],
 
             }
 
+        }))
 
+    } else if (this.eventSelector == "bc"){
+         this.dispatchEvent(new CustomEvent('barcode', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                item: this.data[id-1],
+
+            }
 
         }))
+
+    }
     }
     toSignIn() {
 
@@ -433,7 +511,7 @@ class BPSPanel extends LitElement {
             min-height: 1px;
             padding-left: 0px;
             padding-right: 0px;
-            width: 80%;
+            width: 92%;
         }
 
          .input {
@@ -456,7 +534,9 @@ class BPSPanel extends LitElement {
         }
 
            .text-right {
-            text-align: right;
+                text-align: right;
+                float: right;
+                width: 83%;
         }
 
 
@@ -564,7 +644,7 @@ class BPSPanel extends LitElement {
         }
         
         .results-container {
-            margin-top: 18px;
+            margin-top: -15px;
             height: 70vh;
             display: flex;
             flex-direction: column;
@@ -943,6 +1023,8 @@ class BPSPanel extends LitElement {
             
         </div>
         <iron-ajax id="ajaxQA" method="GET" handle-as="json" on-response="${this.receiveData.bind(this)}" content-type="application/json"></iron-ajax>
+        <iron-ajax id="ajaxSearch" method="POST" handle-as="json" on-response="${this.receiveData.bind(this)}" content-type="application/json"></iron-ajax>
+
         </div>`
     }
 
