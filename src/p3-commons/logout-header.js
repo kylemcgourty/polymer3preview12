@@ -9,12 +9,18 @@
                   type: String,
                   notify: true
               },
+              email: {
+                type: String,
+                reflectToAttribute: true,
+                notify: true,
+                value: "",
+             },
           }
       }
 
       constructor() {
           super();
-          // Utils.apply(this);
+          this.email = sessionStorage.getItem("EMAIL")
       }
 
       hider(soid) {
@@ -52,6 +58,7 @@
           }
       }
 
+
       render({}) {
           return html `<style>
         #paperToggle {
@@ -85,6 +92,10 @@
             right: 0;
             position: absolute;
         }
+        .signout1 {
+            right: 100px;
+            position: absolute;
+        }
 
         .bottom {
             min-height: 24px;
@@ -114,6 +125,9 @@
             }
         }
         </style>
+        <div class="title">
+            <div class="signout1" style="font-size: 17px;">${ this.email }</div>
+        </div>
         <div class="title" on-tap=${this.logout.bind(this)}>
             <div class="signout" style="font-size: 17px;">Sign Out</div>
         </div>
