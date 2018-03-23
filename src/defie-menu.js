@@ -182,7 +182,7 @@ export class DefieMenu extends PolymerElement {
         .alink {
             text-decoration: none;
                 color: #6b6b6b;
-                font-size: 13px;
+                font-size: 14px;
             
         }
 
