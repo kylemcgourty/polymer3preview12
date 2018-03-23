@@ -52,7 +52,7 @@ import '../node_modules/@polymer/paper-toast/paper-toast.js'
 // import '/salesorders/src/salesorders-shell.js'
 
 
-import '../src/welcome-page.js'
+// import '../src/welcome-page.js'
 
 
 
@@ -687,7 +687,7 @@ export class DefieMenu extends PolymerElement {
                         "apcreditmemo": "/apcreditmemos/src/apcreditmemos-shell.js",
                         "cashreceipts-new": "/cashreceipts/src/cashreceipts-shell.js",
                         "cashreceipts": "/cashreceipts/src/cashreceipts-shell.js",
-
+                        "welcome": "../src/welcome-page.js",
                     }
                 }
             },
@@ -832,10 +832,10 @@ export class DefieMenu extends PolymerElement {
             return;
         }
 
-        if (route == "welcome") {
-            this.set('option', 'welcome')
-            return;
-        }
+        // if (route == "welcome") {
+        //     this.set('option', 'welcome')
+        //     return;
+        // }
 
         if (Array.isArray(module)) {
             Promise.all(module.map((item) => { import (item) })).then(() => {
@@ -958,7 +958,6 @@ export class DefieMenu extends PolymerElement {
     }
 
     toWelcomePage(e) {
-
         this.set('route.path', '/welcome');
         this.showMenu = true;
         this.set('leftservices', e.detail.services)

@@ -228,7 +228,6 @@
                 <section class="welcome">
                     <main>
                         <div class="my-content signin-title centered">
-
                         </div>
                     </main>
                     <footer></footer>

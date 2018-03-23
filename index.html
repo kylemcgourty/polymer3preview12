@@ -25,7 +25,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     function signOut() {
         firebase.auth().signOut().then(function() {
-            $("#firebaseui-auth-container").show();
+            $("#login-container").show();
+            $("#defielogin-ui").show();
             $("#defie-menu").hide();
 
             sessionStorage.removeItem('UR');
