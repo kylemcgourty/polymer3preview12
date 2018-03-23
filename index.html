@@ -30,6 +30,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             sessionStorage.removeItem('UR');
             sessionStorage.removeItem('PR');
+            sessionStorage.removeItem('NAME');
+            sessionStorage.removeItem('EMAIL');
             ui.start('#firebaseui-auth-container', uiConfig);
             console.log('Signed Out');
         }, function(error) {
@@ -40,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyC2KZaWOsHkZ8I0o0Gbt9_gEFLAMJ_pyfA",
-        authDomain: "defie.co",
+        authDomain: "dev-defie.firebaseapp.com",
         databaseURL: "https://dev-defie.firebaseio.com",
         projectId: "dev-defie",
         storageBucket: "dev-defie.appspot.com",
@@ -82,6 +84,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                                         sessionStorage.setItem('UR', data.ur);
                                         sessionStorage.setItem('PR', data.pr);
+                                        sessionStorage.setItem('NAME', data.name);
+                                        sessionStorage.setItem('EMAIL', data.email);
                                         sessionStorage.setItem('CUSTOMTOKEN', data.customtoken);
                                         var d = document.getElementById("defie-menu");
                                         d.toWelcomePage({ detail: { services: data.services } });
