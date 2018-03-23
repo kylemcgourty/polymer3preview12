@@ -182,7 +182,7 @@ export class DefieMenu extends PolymerElement {
         .alink {
             text-decoration: none;
                 color: #6b6b6b;
-                font-size: 14px;
+                font-size: 13px;
             
         }
 
@@ -960,8 +960,8 @@ export class DefieMenu extends PolymerElement {
     toWelcomePage(e) {
 
         this.set('route.path', '/welcome');
-        this.set('leftservices', e.detail.services)
         this.showMenu = true;
+        this.set('leftservices', e.detail.services)
         this.getSetting(sessionStorage.getItem("PR"))
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
