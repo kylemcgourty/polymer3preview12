@@ -36,61 +36,114 @@
 
 
         retrieveData(){
-            this.label = this.model
 
-            this.label.companyname = this.shadowRoot.getElementById('company').value
-            this.label.address = this.shadowRoot.getElementById('address').value
-            this.label.phone = this.shadowRoot.getElementById('phone').value
+            if (this.editable){
+                this.model.key1 = this.shadowRoot.getElementById('key1').value
+                this.model.key2 = this.shadowRoot.getElementById('key2').value
+                this.model.key3 = this.shadowRoot.getElementById('key3').value
+                this.model.key4 = this.shadowRoot.getElementById('key4').value
+                this.model.key5 = this.shadowRoot.getElementById('key5').value
+                this.model.key6 = this.shadowRoot.getElementById('key6').value
 
-            this.label.shipcompanyname = this.shadowRoot.getElementById('shipcompany').value
-            this.label.shipattention = this.shadowRoot.getElementById('shipattention').value
-            this.label.shipaddress = this.shadowRoot.getElementById('shipaddress').value
-            this.label.shipphone = this.shadowRoot.getElementById('shipphone').value
-
-
-            this.label.company = this.shadowRoot.getElementById('company').value
-            this.label.company = this.shadowRoot.getElementById('company').value
-            this.label.company = this.shadowRoot.getElementById('company').value
-
-
-            this.label.pn1 = this.shadowRoot.getElementById('partnumber1').value;
-            this.label.pn2 = this.shadowRoot.getElementById('partnumber2').value;
-            this.label.pn3 = this.shadowRoot.getElementById('partnumber3').value;
-            this.label.pn4 = this.shadowRoot.getElementById('partnumber4').value;
-            this.label.pn5 = this.shadowRoot.getElementById('partnumber5').value;
-            this.label.hwr = this.shadowRoot.getElementById('hwr').value;
-
-            this.label.sn1 = this.shadowRoot.getElementById('labelsn1').value
-            this.label.sn2 = this.shadowRoot.getElementById('labelsn2').value
-            this.label.sn3 = this.shadowRoot.getElementById('labelsn3').value
-            this.label.sn4 = this.shadowRoot.getElementById('labelsn4').value
-            this.label.sn5 = this.shadowRoot.getElementById('labelsn5').value
-            this.label.hwrsn = this.shadowRoot.getElementById('hwrsn').value
-
-            this.label.description1 = this.shadowRoot.getElementById('description1').value
-            this.label.description2 = this.shadowRoot.getElementById('description2').value
-            this.label.description3 = this.shadowRoot.getElementById('description3').value
-            this.label.description4 = this.shadowRoot.getElementById('description4').value
-            this.label.description5 = this.shadowRoot.getElementById('description5').value
-            this.label.hwrdescription = this.shadowRoot.getElementById('hwrdescription').value
+                this.model.key7 = this.shadowRoot.getElementById('key7').value
+                this.model.key8 = this.shadowRoot.getElementById('key8').value
+                this.model.key9 = this.shadowRoot.getElementById('key9').value
+                this.model.key10 = this.shadowRoot.getElementById('key10').value
+                this.model.key11 = this.shadowRoot.getElementById('key11').value
+                this.model.key12 = this.shadowRoot.getElementById('key12').value
 
 
-            this.label.po = this.shadowRoot.getElementById('po').value
-            this.label.bcount1 = this.shadowRoot.getElementById('bcount1').value.toString()
-            this.label.bcount2 = this.shadowRoot.getElementById('bcount2').value.toString()
-            this.label.weight = this.shadowRoot.getElementById('weight').value
+                this.model.snkey1 = this.shadowRoot.getElementById('snkey1').value
+                this.model.snkey2 = this.shadowRoot.getElementById('snkey2').value
+                this.model.snkey3 = this.shadowRoot.getElementById('snkey3').value
+                this.model.snkey4 = this.shadowRoot.getElementById('snkey4').value
+                this.model.snkey5 = this.shadowRoot.getElementById('snkey5').value
+                this.model.snkey6 = this.shadowRoot.getElementById('snkey6').value
 
-            return this.label
+
+
+
+            
+           } else {
+            
+                        this.model.companyname = this.shadowRoot.getElementById('company').value
+                        this.model.address = this.shadowRoot.getElementById('address').value
+                        this.model.phone = this.shadowRoot.getElementById('phone').value
+            
+                        this.model.shipcompanyname = this.shadowRoot.getElementById('shipcompany').value
+                        this.model.shipattention = this.shadowRoot.getElementById('shipattention').value
+                        this.model.shipaddress = this.shadowRoot.getElementById('shipaddress').value
+                        this.model.shipphone = this.shadowRoot.getElementById('shipphone').value
+            
+            
+                        this.model.company = this.shadowRoot.getElementById('company').value
+                        this.model.company = this.shadowRoot.getElementById('company').value
+                        this.model.company = this.shadowRoot.getElementById('company').value
+            
+            
+                        this.model.pn1 = this.shadowRoot.getElementById('partnumber1').value;
+                        this.model.pn2 = this.shadowRoot.getElementById('partnumber2').value;
+                        this.model.pn3 = this.shadowRoot.getElementById('partnumber3').value;
+                        this.model.pn4 = this.shadowRoot.getElementById('partnumber4').value;
+                        this.model.pn5 = this.shadowRoot.getElementById('partnumber5').value;
+                        this.model.pn6 = this.shadowRoot.getElementById('partnumber6').value;
+            
+                        this.model.sn1 = this.shadowRoot.getElementById('labelsn1').value
+                        this.model.sn2 = this.shadowRoot.getElementById('labelsn2').value
+                        this.model.sn3 = this.shadowRoot.getElementById('labelsn3').value
+                        this.model.sn4 = this.shadowRoot.getElementById('labelsn4').value
+                        this.model.sn5 = this.shadowRoot.getElementById('labelsn5').value
+                        this.model.sn6 = this.shadowRoot.getElementById('labelsn6').value
+            
+            
+            
+                        this.model.po = this.shadowRoot.getElementById('po').value
+                        this.model.bcount1 = this.shadowRoot.getElementById('bcount1').value.toString()
+                        this.model.bcount2 = this.shadowRoot.getElementById('bcount2').value.toString()
+                        this.model.weight = this.shadowRoot.getElementById('weight').value
+                    }
+
+            return this.model
+                    
 
 
         }
 
        
 
-        initializer(model) {
+        initializer(model, editable) {
             // this.fire('closePanel', {})
 
             this.model= model;
+            this.editable = editable
+
+
+            if (editable){
+                this.model.key1 = ""
+                this.model.key2 = ""
+                this.model.key3 = ""
+                this.model.key4 = ""
+                this.model.key5 = ""
+                this.model.key6 = ""
+
+                this.model.key7 = ""
+                this.model.key8 = ""
+                this.model.key9 = ""
+                this.model.key10 = ""
+                this.model.key11 = ""
+                this.model.key12 = ""
+
+
+                this.model.snkey1 = ""
+                this.model.snkey2 = ""
+                this.model.snkey3 = ""
+                this.model.snkey4 = ""
+                this.model.snkey5 = ""
+                this.model.snkey6 = ""
+
+                this.disable = false;
+                this.disable1 = true;
+            }
 
             
 
@@ -106,17 +159,17 @@
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input disabled id="company" value="${model.companyname}" class="input1 col-xs-9">
+                                                        <input disabled="${this.disable1}" id="company" value="${model.companyname}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input disabled id="address" value="${model.address}" class="input1 col-xs-9">
+                                                        <input disabled="${this.disable1}" id="address" value="${model.address}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input disabled id="phone" value="${model.phone}" class="input1 col-xs-9">
+                                                        <input disabled="${this.disable1}" id="phone" value="${model.phone}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
@@ -136,22 +189,22 @@
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled id="shipcompany" value="${model.shipcompanyname}" class="input1 col-xs-9">
+                                                            <input disabled="${this.disable1}" id="shipcompany" value="${model.shipcompanyname}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled id="shipattention" value="${model.shipattention}" class="input1 col-xs-9">
+                                                            <input disabled="${this.disable1}" id="shipattention" value="${model.shipattention}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled id="shipaddress" value="${model.shipaddress}" class="input1 col-xs-9">
+                                                            <input disabled="${this.disable1}" id="shipaddress" value="${model.shipaddress}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled id="shipphone" value="${model.shipphone}" class="input1 col-xs-9">
+                                                            <input disabled="${this.disable1}" id="shipphone" value="${model.shipphone}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,39 +215,39 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn1}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"><span class="description"> PN:</span>
+                                            <div class="partnumber"><span class="description"><input disabled="${this.disable}"  id="key1" value="${model.key1}" class="input1 enteredpn"></span>
                                                     <input disabled  id="partnumber1" value="${model.pn1}" class="input1 enteredpn">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input disabled value="${model.sn1}" id="labelsn1" class="sn-input input1">
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey1" value="${model.snkey1}" class="input1"> </span>
+                                                    <input disabled value="${model.sn1}" id="labelsn1" class="hwr-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL">
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn2}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"><span class="description"> PN:</span>
-                                                    <input disabled id="partnumber2" value="${model.pn2}" class="input1 enteredpn">
+                                            <div class="partnumber"><span class="description"> <input disabled="${this.disable}"  id="key2" value="${model.key2}" class="input1 enteredpn"></span>
+                                                    <input disabled="${this.disable1}" id="partnumber2" value="${model.pn2}" class="input1 enteredpn">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input disabled id="labelsn2" value="${model.sn2}" class="sn-input input1">
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey2" value="${model.snkey2}" class="input1"> </span>
+                                                    <input disabled="${this.disable1}" id="labelsn2" value="${model.sn2}" class="hwr-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL1">
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn3}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description">PN:</span>
-                                                    <input disabled id="partnumber3" value="${model.pn3}" class=" enteredpn input1">
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.disable}"  id="key3" value="${model.key3}" class="input1 enteredpn"></span>
+                                                    <input disabled="${this.disable1}" id="partnumber3" value="${model.pn3}" class=" enteredpn input1">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input disabled id="labelsn3" value="${model.sn3}" class="sn-input input1">
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey3" value="${model.snkey3}" class="input1"> </span>
+                                                    <input disabled="${this.disable1}" id="labelsn3" value="${model.sn3}" class="hwr-input input1">
                                             </div>
                                         </div>
                                     </div>
@@ -203,75 +256,81 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description">Model No:</span>
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.disable}"  id="key4" value="${model.key4}" class="input1 enteredpn"></span>
                                                     <input disabled id="partnumber4" value="${model.pn4}" class="input1 enteredpn">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="hwr-words">HWR: </span>
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey4" value="${model.snkey4}" class="input1"> </span>
                                                     <input disabled id="labelsn4" value="${model.sn4}" class="input1 hwr-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR">
                                             <div class="scancode">
-                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
-                                            </div>
-                                            <div class="partnumber"> <span class="description">PN:</span>
-                                                    <input disabled id="partnumber4" value="${model.pn4}" class="input1 enteredpn">
-                                            </div>
-                                            
-                                            <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input disabled id="labelsn4" value="${model.sn4}" class="input1 sn-input">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-halfR1">
-                                            <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn5}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description">HDD #2:</span>
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.disable}"  id="key5" value="${model.key5}" class="input1 enteredpn"></span>
                                                     <input disabled id="partnumber5" value="${model.pn5}" class="input1 enteredpn">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="sn-words">Sn: </span>
-                                                    <input disabled id="labelsn5" value="${model.sn5}" class="input1 sn-input">
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey5" value="${model.snkey5}" class="input1"> </span>
+                                                    <input disabled="${this.disable1}" id="labelsn5" value="${model.sn5}" class="input1 hwr-input">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-halfR1">
+                                            <div class="scancode">
+                                                <scan-code id="my_barcode" type="qrcode" data="${model.sn6}" height="100" width="100"></scan-code>
+                                            </div>
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.disable}"  id="key6" value="${model.key6}" class="input1 enteredpn"></span>
+                                                    <input disabled="${this.disable1}" id="partnumber6" value="${model.pn6}" class="input1 enteredpn">
+                                            </div>
+                                            
+                                            <div style="clear: both;"></div>
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey6" value="${model.snkey6}" class="input1"> </span>
+                                                    <input disabled="${this.disable1}" id="labelsn6" value="${model.sn6}" class="input1 hwr-input">
                                             </div>
                                         </div>
                                     </div>
                                     <div style="clear: both;"></div>
-                                    <div class="col-desc">
-                                        <div class="detail-header1"> PO No. </div>
-                                            <input disabled id="po" value="${model.po}" class="desc-input input1">
-                                    </div>
-                                    <!--   <div class="col-desc">
-                                        <div class="detail-header1"> Goods Marking </div>
-                                    </div> -->
-                                    <!--   <div class="col-desc">
-                                        <div class="detail-header1"> Description </div>
-                                    </div> -->
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
-                                            <div class="detail-header"> Box Count </div>
-                                                <input disabled id="bcount1" style="float: left;"  value="${model.bcount1}" class="input1 detail-input1">
+                                            <div class="detail-header"> <input disabled="${this.disable}"  id="key7" value="${model.key7}" class="input1 detail-input"> </div>
+                                                <input disabled="${this.disable1}" id="pono" value="${model.po}" class="input1  detail-input">
+                                        </div>
+                                    </div>
+                                    <div class="col-pns">
+                                        <div class="col-md-bottom1">
+                                            <div class="detail-header"> <input disabled="${this.disable}"  id="key8" value="${model.key8}" class="input1 detail-input"> </div>
+                                                <input disabled="${this.disable1}" id="goodsmarking" value="${model.goodsmarking}" class="input1  detail-input">
+                                        </div>
+                                    </div>
+                                    <div class="col-desc">
+                                        <div class="detail-header1"> <input disabled="${this.disable}"  id="key9" value="${model.key9}" class="input1 detail-input"> </div>
+                                            <input disabled="${this.disable1}" id="po" value="${model.description}" class="desc-input input1">
+                                    </div>
+                                    <div class="col-pns">
+                                        <div class="col-md-bottomL1">
+                                            <div class="detail-header"> <input disabled="${this.disable}"  id="key10" value="${model.key10}" class="input1 detail-input"> </div>
+                                                <input disabled="${this.disable1}" id="bcount1" style="float: left;"  value="${model.bcount1}" class="input1 detail-input1">
                                             <div class="of"> of </div>
-                                                <input disabled id="bcount2" style="float: left;"  value="${model.bcount2}" class="input1 detail-input1">
+                                                <input disabled="${this.disable1}" id="bcount2" style="float: left;"  value="${model.bcount2}" class="input1 detail-input1">
                                             <div style="clear: both"></div>
                                         </div>
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottom1">
-                                            <div class="detail-header"> Weight (lbs) </div>
-                                                <input disabled id="weight" value="${model.weight}" class="input1  detail-input">
+                                            <div class="detail-header"> <input disabled="${this.disable}"  id="key11" value="${model.key11}" class="input1 detail-input"> </div>
+                                                <input disabled="${this.disable1}" id="weight" value="${model.weight}" class="input1  detail-input">
                                         </div>
                                     </div>
                                     <div class="col-desc-bot">
-                                        <div class="detail-header1 center"> Assembled in the United States of America </div>
+                                        <div class="detail-header1 center"><input disabled="${this.disable}"  id="key12" value="${model.key12}" class="input1 detail-input"></div>
                                     </div>
                 </div>`
             }
 
-            render(shippinglabel(model), this.shadowRoot.getElementById('table'))
+            render(shippinglabel(this.model), this.shadowRoot.getElementById('table'))
 
 
 
@@ -950,13 +1009,13 @@
         .scancode {
             float: left;
             width: 30%;
-            height: 103px;
+            height: 95px;
         }
 
         .partnumber {
             float: left;
             width: 66%;
-            line-height: 50px;
+            line-height: 85px;
             font-size: 21px;
             font-weight: 400;
         }
