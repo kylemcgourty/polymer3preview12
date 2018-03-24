@@ -359,7 +359,7 @@ export class ModuleHeader extends LitElement {
                     <div class="my-content">
                         <div class="bottom">
                             <div class="right-icon">
-                                <span>${datetext}</span>&nbsp;<span data-id='header-pagedate'>${date}</span>
+                                <span>Date: </span>&nbsp;<span data-id='header-pagedate'>${date}</span>
                             </div>
                         </div>
                     </div>
