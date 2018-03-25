@@ -943,17 +943,11 @@ export class DefieMenu extends PolymerElement {
     }
 
     userResponse(e) {
-
-
-
         this.set('leftservices', e.detail.response.results)
-
-
     }
 
     serviceResponse(e) {
         this.set('leftservices', e.detail.response.results.services)
-
         this.getSetting(sessionStorage.getItem("PR"))
     }
 
