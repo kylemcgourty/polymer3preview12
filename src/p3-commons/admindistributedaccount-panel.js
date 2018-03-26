@@ -1,7 +1,7 @@
-import {LitElement} from '../../node_modules/@polymer/lit-element/lit-element.js'
+import { LitElement } from '../../node_modules/@polymer/lit-element/lit-element.js'
 
-import {repeat} from '../../node_modules/lit-html/lib/repeat.js'
-import {render, html} from '../../node_modules/lit-html/lib/lit-extended.js';
+import { repeat } from '../../node_modules/lit-html/lib/repeat.js'
+import { render, html } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 export class AdminDistributedAccount extends LitElement {
 
@@ -50,7 +50,7 @@ export class AdminDistributedAccount extends LitElement {
     renderItems() {
         const types = data => {
 
-            return html`
+            return html `
             <div>
             ${repeat (
                  data,
@@ -68,10 +68,10 @@ export class AdminDistributedAccount extends LitElement {
                  )}
             <div>`;
         }
-        
+
         render(types(this.data), this.shadowRoot.querySelector('#table'))
     }
-   
+
     responseSubmit(request) {
         var auth = request.detail.response.auth
         this.close();
@@ -79,21 +79,43 @@ export class AdminDistributedAccount extends LitElement {
 
     open(data) {
 
-        this.data = [];
-        this.data.push({ account: "Account", range: "Range", disabled: true, visibility: "hidden" });
+        if (data.length == 0) {
+            data.push({ account: "Bank Account", width: 15, height: 2, id: 1, accounts: [] });
+            data.push({ account: "Control Account", width: 15, height: 2, id: 2, accounts: [] });
+            data.push({ account: "Credit Cards", width: 15, height: 2, id: 3, accounts: [] });
+            this.data = [];
+            this.data.push({ account: "Account", range: "Range", disabled: true, visibility: "hidden" });
 
-        this.index = data.length 
-        if (data) {
-            data.forEach((val, i) => {
-                if (i<3){
-                    val.disabled = true
-                    val.visibility = "hidden"
-                }
-            })
-            this.data = this.data.concat(data)
+            this.index = data.length
+            if (data) {
+                data.forEach((val, i) => {
+                    if (i < 3) {
+                        val.disabled = true
+                        val.visibility = "hidden"
+                    }
+                })
+                this.data = this.data.concat(data)
+            }
+
+            this.renderItems()
+            this.submit()
+        } else {
+            this.data = [];
+            this.data.push({ account: "Account", range: "Range", disabled: true, visibility: "hidden" });
+
+            this.index = data.length
+            if (data) {
+                data.forEach((val, i) => {
+                    if (i < 3) {
+                        val.disabled = true
+                        val.visibility = "hidden"
+                    }
+                })
+                this.data = this.data.concat(data)
+            }
+
+            this.renderItems()
         }
-
-        this.renderItems()
 
         // this.updateStyles({
         //     '--title-background-normal': this.headercolor,
@@ -116,7 +138,7 @@ export class AdminDistributedAccount extends LitElement {
 
         let largestid = 0;
         this.data.forEach((item, i) => {
-            if (item.id > largestid){
+            if (item.id > largestid) {
                 largestid = item.id
             }
         });
@@ -162,7 +184,7 @@ export class AdminDistributedAccount extends LitElement {
     }
     remove(item) {
 
-        let index = this.data.map(function(x) {return x.id; }).indexOf(item.id);
+        let index = this.data.map(function(x) { return x.id; }).indexOf(item.id);
 
         this.data.splice(index, 1);
 
@@ -172,7 +194,7 @@ export class AdminDistributedAccount extends LitElement {
             composed: true,
             bubbles: true,
             detail: {
-                index: index -1,
+                index: index - 1,
                 choice: item
             }
         }))
@@ -181,7 +203,7 @@ export class AdminDistributedAccount extends LitElement {
     render() {
 
 
-        return html`
+        return html `
 
                     <style include="shared-styles iron-flex iron-flex-alignment">
          :host {

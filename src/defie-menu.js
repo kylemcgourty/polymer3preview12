@@ -182,7 +182,7 @@ export class DefieMenu extends PolymerElement {
         .alink {
             text-decoration: none;
                 color: #6b6b6b;
-                font-size: 13px;
+                font-size: 14px;
             
         }
 
@@ -943,18 +943,12 @@ export class DefieMenu extends PolymerElement {
     }
 
     userResponse(e) {
-
-
-
         this.set('leftservices', e.detail.response.results)
-
-
     }
 
     serviceResponse(e) {
         if (e.detail.response){
         this.set('leftservices', e.detail.response.results.services)
-
         this.getSetting(sessionStorage.getItem("PR"))
     }
     }
