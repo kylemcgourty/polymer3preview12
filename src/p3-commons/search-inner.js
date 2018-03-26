@@ -55,6 +55,12 @@ export class SearchInner extends LitElement {
     }
 
     initialresponse() {
+
+        if (Object.keys(this.searchkeyindexes).length == 2){
+            this.searchkeyindexes.searchkeyindex3 = "hide"
+            this.searchkeyindexes.searchkeyindex4 = "hide"
+
+        }
         const searchtypes = (searchdisplay, searchkeyindexes, searchfields)  => {
             return html`
                 <div style="display: ${ searchdisplay.display }; padding-bottom:24px">
@@ -307,6 +313,10 @@ export class SearchInner extends LitElement {
             padding-left: 0px;
             padding-right: 0px;
             width: 80%;
+        }
+
+        #hide {
+            display: none
         }
 
          .input {

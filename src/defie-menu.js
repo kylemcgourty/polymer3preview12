@@ -952,15 +952,27 @@ export class DefieMenu extends PolymerElement {
     }
 
     serviceResponse(e) {
+        if (e.detail.response){
         this.set('leftservices', e.detail.response.results.services)
 
         this.getSetting(sessionStorage.getItem("PR"))
+    }
     }
 
     toWelcomePage(e) {
         this.set('route.path', '/welcome');
         this.showMenu = true;
         this.set('leftservices', e.detail.services)
+
+        
+
+        // let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        // this.$.serviceajax.headers['CustomToken'] = ct;
+        // this.$.serviceajax.url = "/service/leftservice"
+        // this.$.serviceajax.generateRequest()
+        // this.showMenu = true;
+
+
         this.getSetting(sessionStorage.getItem("PR"))
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
         // this.$.serviceajax.headers['CustomToken'] = ct;
@@ -1106,11 +1118,11 @@ export class DefieMenu extends PolymerElement {
         // sessionStorage.setItem('UR', 2);
         // sessionStorage.setItem('PR', 50000);
 
-        // let ct = sessionStorage.getItem("CUSTOMTOKEN")
-        // this.$.serviceajax.headers['CustomToken'] = ct;
-        // this.$.serviceajax.url = "/api/user/services/" + ur
-        // this.$.serviceajax.generateRequest()
-        // this.showMenu = true;
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.$.serviceajax.headers['CustomToken'] = ct;
+        this.$.serviceajax.url = "/api/user/services/" + sessionStorage.getItem("UR")
+        this.$.serviceajax.generateRequest()
+        this.showMenu = true;
 
 
 

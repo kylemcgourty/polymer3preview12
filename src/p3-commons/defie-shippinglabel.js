@@ -98,27 +98,28 @@
             
             
                         this.model.po = this.shadowRoot.getElementById('po').value
+                        this.model.description = this.shadowRoot.getElementById('description').value
                         this.model.bcount1 = this.shadowRoot.getElementById('bcount1').value.toString()
                         this.model.bcount2 = this.shadowRoot.getElementById('bcount2').value.toString()
                         this.model.weight = this.shadowRoot.getElementById('weight').value
                     }
 
             return this.model
-                    
+
 
 
         }
 
        
 
-        initializer(model, editable) {
+        initializer(model, first, disabled) {
             // this.fire('closePanel', {})
 
             this.model= model;
-            this.editable = editable
+            this.editable = first
 
 
-            if (editable){
+            if (first){
                 this.model.key1 = ""
                 this.model.key2 = ""
                 this.model.key3 = ""
@@ -145,6 +146,16 @@
                 this.disable1 = true;
             }
 
+            if (disabled){
+                this.disable = true;
+                this.disable1= true;
+            }
+
+            if (!disabled && !first){
+                this.disable = true;
+                this.disable1 = false
+            }
+
             
 
             const shippinglabel = (model)=> {
@@ -159,17 +170,17 @@
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input disabled="${this.disable1}" id="company" value="${model.companyname}" class="input1 col-xs-9">
+                                                        <input disabled id="company" value="${model.companyname}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input disabled="${this.disable1}" id="address" value="${model.address}" class="input1 col-xs-9">
+                                                        <input disabled id="address" value="${model.address}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
                                                 <div>
-                                                        <input disabled="${this.disable1}" id="phone" value="${model.phone}" class="input1 col-xs-9">
+                                                        <input disabled id="phone" value="${model.phone}" class="input1 col-xs-9">
                                                 </div>
                                             </div>
                                             <div class="my-content">
@@ -189,22 +200,22 @@
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled="${this.disable1}" id="shipcompany" value="${model.shipcompanyname}" class="input1 col-xs-9">
+                                                            <input disabled id="shipcompany" value="${model.shipcompanyname}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled="${this.disable1}" id="shipattention" value="${model.shipattention}" class="input1 col-xs-9">
+                                                            <input disabled id="shipattention" value="${model.shipattention}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled="${this.disable1}" id="shipaddress" value="${model.shipaddress}" class="input1 col-xs-9">
+                                                            <input disabled id="shipaddress" value="${model.shipaddress}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                                 <div class="my-content">
                                                     <div class="">
-                                                            <input disabled="${this.disable1}" id="shipphone" value="${model.shipphone}" class="input1 col-xs-9">
+                                                            <input disabled id="shipphone" value="${model.shipphone}" class="input1 col-xs-9">
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,12 +227,12 @@
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn1}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"><span class="description"><input disabled="${this.disable}"  id="key1" value="${model.key1}" class="input1 enteredpn"></span>
-                                                    <input disabled  id="partnumber1" value="${model.pn1}" class="input1 enteredpn">
+                                                    <input disabled="${this.disable1}"  id="partnumber1" value="${model.pn1}" class="input1 enteredpn">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey1" value="${model.snkey1}" class="input1"> </span>
-                                                    <input disabled value="${model.sn1}" id="labelsn1" class="hwr-input input1">
+                                                    <input disabled="${this.disable1}" value="${model.sn1}" id="labelsn1" class="hwr-input input1">
                                             </div>
                                         </div>
                                         <div class="col-md-halfL">
@@ -257,12 +268,12 @@
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description"><input disabled="${this.disable}"  id="key4" value="${model.key4}" class="input1 enteredpn"></span>
-                                                    <input disabled id="partnumber4" value="${model.pn4}" class="input1 enteredpn">
+                                                    <input disabled="${this.disable1}" id="partnumber4" value="${model.pn4}" class="input1 enteredpn">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
                                             <div class="serialnumber"><span class="hwr-words"><input disabled="${this.disable}"  id="snkey4" value="${model.snkey4}" class="input1"> </span>
-                                                    <input disabled id="labelsn4" value="${model.sn4}" class="input1 hwr-input">
+                                                    <input disabled="${this.disable1}" id="labelsn4" value="${model.sn4}" class="input1 hwr-input">
                                             </div>
                                         </div>
                                         <div class="col-md-halfR">
@@ -270,7 +281,7 @@
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn5}" height="100" width="100"></scan-code>
                                             </div>
                                             <div class="partnumber"> <span class="description"><input disabled="${this.disable}"  id="key5" value="${model.key5}" class="input1 enteredpn"></span>
-                                                    <input disabled id="partnumber5" value="${model.pn5}" class="input1 enteredpn">
+                                                    <input disabled="${this.disable1}" id="partnumber5" value="${model.pn5}" class="input1 enteredpn">
                                             </div>
                                             
                                             <div style="clear: both;"></div>
@@ -296,7 +307,7 @@
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
                                             <div class="detail-header"> <input disabled="${this.disable}"  id="key7" value="${model.key7}" class="input1 detail-input"> </div>
-                                                <input disabled="${this.disable1}" id="pono" value="${model.po}" class="input1  detail-input">
+                                                <input disabled="${this.disable1}" id="po" value="${model.po}" class="input1  detail-input">
                                         </div>
                                     </div>
                                     <div class="col-pns">
@@ -307,7 +318,7 @@
                                     </div>
                                     <div class="col-desc">
                                         <div class="detail-header1"> <input disabled="${this.disable}"  id="key9" value="${model.key9}" class="input1 detail-input"> </div>
-                                            <input disabled="${this.disable1}" id="po" value="${model.description}" class="desc-input input1">
+                                            <input disabled="${this.disable1}" id="description" value="${model.description}" class="desc-input input1">
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
