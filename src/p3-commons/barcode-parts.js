@@ -98,7 +98,7 @@ export class BarcodeParts extends LitElement {
                                         <div class="col-xs-3"> Qty</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
-                                                <input disabled class="input" value="${ item.qty }">
+                                                <input disabled class="input" id="qty-${item.id}" value="${ item.qty }">
                                             </div>
                                         </div>
                                     </div>
