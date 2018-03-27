@@ -834,6 +834,8 @@
             border: none;
             background-color: #eee;
             box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
+            box-sizing: border-box;
+            padding-right: 3px;
         }
 
         .text-right {
@@ -913,11 +915,7 @@
             padding-left: 3px;
         }
 
-        .bd9-2 .input1 {
-            padding-right: 2px;
-            box-sizing: border-box;
-        }
-
+      
         #showSN {
             display: block
         }
@@ -1226,6 +1224,8 @@
             text-overflow: ellipsis;
             overflow: hidden;
             font-size: 14px;
+            box-sizing: border-box;
+            padding-right: 3px;
         }
 
         .desktop-only {

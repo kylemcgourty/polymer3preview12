@@ -190,7 +190,7 @@ class BPSPanel extends LitElement {
                 item.model = ""
                 item.mfgpn = ""
             }
-            item.id = i + 1
+            item.idno = i + 1
             return item
         })
 
@@ -208,9 +208,9 @@ class BPSPanel extends LitElement {
                 <div class="results-container fit">
                 ${repeat (
                         data,
-                        item => item.id,
+                        item => item.idno,
                         item => html`
-                    <div on-tap="${()=>{this.openChoice(item.id)}}" id="qachecklist">
+                    <div on-tap="${()=>{this.openChoice(item.idno)}}" id="qachecklist">
                         <div class="ilrow layout vertical">
                             <div class="my-content" >
                                 <div class="col-xs-3">Id</div>
@@ -260,7 +260,7 @@ class BPSPanel extends LitElement {
         })
     }
 
-    openChoice(id) {
+    openChoice(idno) {
 
 
 
@@ -270,18 +270,19 @@ class BPSPanel extends LitElement {
             bubbles: true,
             composed: true,
             detail: {
-                item: this.data[id-1],
+                item: this.data[idno-1],
 
             }
 
         }))
 
     } else if (this.eventSelector == "bc"){
+
          this.dispatchEvent(new CustomEvent('barcode', {
             bubbles: true,
             composed: true,
             detail: {
-                item: this.data[id-1],
+                item: this.data[idno-1],
 
             }
 
@@ -292,7 +293,7 @@ class BPSPanel extends LitElement {
             bubbles: true,
             composed: true,
             detail: {
-                item: this.data[id-1],
+                item: this.data[idno-1],
 
             }
 
