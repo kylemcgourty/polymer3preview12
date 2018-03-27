@@ -47,7 +47,7 @@ class BPSPanel extends LitElement {
         this.searchfields={}
         if (title == "QA Check List"){
             this.eventSelector = "qa"
-            this.searchRoute = "/bps/qalist/search/"+ sessionStorage.getItem("PR")
+            this.searchRoute = "/qachecklist/qalist/search/"+ sessionStorage.getItem("PR")
 
             this.searchkeyindexes.searchkeyindex1 = "qalistidver"
             this.searchkeyindexes.searchkeyindex2 = "partidver_l"
@@ -63,7 +63,7 @@ class BPSPanel extends LitElement {
 
         } else if (title == "Barcodes List"){
             this.eventSelector = "bc"
-            this.searchRoute = "/bps/barcodes/search/"+ sessionStorage.getItem("PR")
+            this.searchRoute = "/barcode/barcodes/search/"+ sessionStorage.getItem("PR")
 
             this.searchkeyindexes.searchkeyindex1 = "barcodeidver"
             this.searchkeyindexes.searchkeyindex2 = "barcode_l"
@@ -88,16 +88,22 @@ class BPSPanel extends LitElement {
             this.searchkeyindexes.searchkeyindex4 = "productno"
 
         } else if (title == "Shipping Labels List"){
+
+            this.eventSelector = "sl"
+            this.searchRoute = "/shippinglabel/search"
+
             
             this.searchfields.searchfield1 = "Ship. label id"
             this.searchfields.searchfield2 = "Shipping label"
-            this.searchfields.searchfield3 = "Part id"
-            this.searchfields.searchfield4 = "Product No."
+            // this.searchfields.searchfield3 = "Part id"
+            // this.searchfields.searchfield4 = "Product No."
 
-            this.searchkeyindexes.searchkeyindex1 = "slidver"
-            this.searchkeyindexes.searchkeyindex2 = "shippinglabel"
-            this.searchkeyindexes.searchkeyindex3 = "partid"
-            this.searchkeyindexes.searchkeyindex4 = "productno"
+            this.searchkeyindexes.searchkeyindex1 = "idver"
+            this.searchkeyindexes.searchkeyindex2 = "name_l"
+
+            this.searchoption = "idver"
+            // this.searchkeyindexes.searchkeyindex3 = "partid"
+            // this.searchkeyindexes.searchkeyindex4 = "productno"
 
 
         }
@@ -177,6 +183,12 @@ class BPSPanel extends LitElement {
                 item.procedureidver = item.idver
                 item.qaname = item.barcodename
                 item.mfgpn = item.productno
+            }
+            if (item.labelname || item.labelname == ""){
+                item.procedureidver = item.idver
+                item.qaname = item.labelname
+                item.model = ""
+                item.mfgpn = ""
             }
             item.id = i + 1
             return item
@@ -266,6 +278,17 @@ class BPSPanel extends LitElement {
 
     } else if (this.eventSelector == "bc"){
          this.dispatchEvent(new CustomEvent('barcode', {
+            bubbles: true,
+            composed: true,
+            detail: {
+                item: this.data[id-1],
+
+            }
+
+        }))
+
+    } else if (this.eventSelector == "sl"){
+         this.dispatchEvent(new CustomEvent('shippinglabel', {
             bubbles: true,
             composed: true,
             detail: {
