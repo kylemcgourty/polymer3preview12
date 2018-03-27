@@ -638,7 +638,8 @@
             color: blue;
             width: 100%;
             margin-bottom: 17px;
-            text-align: right;
+            font-size: 17px;
+            margin-left: 38%;
         }
         
         .func {
