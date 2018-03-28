@@ -1262,5 +1262,5 @@
 
 
     }
-customElements.define('shippinglabels-view', ShippingLabelsViewElement);
+customElements.define('shippinglabels-viewelement', ShippingLabelsViewElement);
  

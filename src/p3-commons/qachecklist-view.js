@@ -2365,4 +2365,4 @@ import {Element as PolymerElement}
         }
 
     }
-    customElements.define("qachecklist-view", QACheckListViewElement);
+    customElements.define("qachecklist-viewelement", QACheckListViewElement);
