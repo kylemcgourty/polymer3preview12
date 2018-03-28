@@ -950,7 +950,7 @@ export class DefieMenu extends PolymerElement {
         if (e.detail.response){
         this.set('leftservices', e.detail.response.results.services)
         this.getSetting(sessionStorage.getItem("PR"))
-    }
+      }
     }
 
     toWelcomePage(e) {

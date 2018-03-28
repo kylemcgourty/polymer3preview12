@@ -185,7 +185,13 @@ export class PartSidepanel extends LitElement {
                     tempArray2.push(element.idver); //1
                     tempArray2.push(element.mfgpn); //2
                     tempArray2.push(element.description); //3
-                    tempArray2.push(element.model) // 4
+                    if (element.boid == 0 && element.bomid == 0 ) {
+                        tempArray2.push("") // 4
+                    } else if (element.boid == 0 && element.bomid != 0){
+                        tempArray2.push(element.bomidver) // 4
+                    } else {
+                        tempArray2.push(element.boidver) // 4
+                    }
                     tempArray2.push(element.category); //5
                     tempArray2.push(element.type); //type 6
                     tempArray2.push(element.averagecost)
@@ -272,7 +278,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">Model:</div>
+                                        <div class="col-xs-3">BOM/BO id:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[4] }">
