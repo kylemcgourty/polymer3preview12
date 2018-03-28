@@ -55,7 +55,7 @@
                         id: 0
                     }]
 
-                    this.setTitle('Function Title')
+                    this.setTitle('Add Function')
 
                     this.setTable(this.data)
 
@@ -109,7 +109,7 @@
 
                 this.functions = false
 
-                this.setTitle('Function Title')
+                this.setTitle('Add Function')
                 this.setTable(this.data)
             }
 
@@ -123,16 +123,36 @@
                 this.mobile = false
             }
 
+
+            if (data.length == 1){
+                data.push({
+                    columndata: "",
+                    procedures: "",
+                    pass: "",
+                    issue: "",
+                    resolution: "",
+                    qa: "",
+                    replacement: "",
+                    signoff: "",
+                    title: "function",
+                    enable: false,
+                    id: 1
+                
+                })
+            }
+
             data.forEach((item, i) => {
                  item.id = i
             })
+
+            
 
             this.data = data
 
 
             this.setTable(this.data)
 
-                this.setTitle('Add Functions')
+                this.setTitle('Add Sub-functions')
 
                 this.functions = true
 
@@ -195,7 +215,7 @@
         setTitle(titledata){
 
 
-            if (titledata == "Add Functions"){
+            if (titledata == "Add Sub-functions"){
 
             const title = (templateheader) => html`<style>
                 div[data-title="procedure-title"] .input {
@@ -204,6 +224,10 @@
                     font-size: 17px;
                     box-shadow: none;
                     text-align: center;
+                }
+
+                [data-title="procedure-title"] {
+                    display: none;
                 }
 
                 [data-title="procedure-title"] paper-icon-button{
@@ -225,14 +249,14 @@
                 
                 .func-icons[data-title="function"] {
                     display: inline-block;
-                }</style><span class="title"> ${templateheader}  </span>`
+                }</style><span on-tap="${()=>{this.add()}}"  class="manage"> ${templateheader}  </span>`
 
             render(title(titledata), this.shadowRoot.getElementById('title'))
 
 
             } else {
 
-                const title1 = (templateheader) => html`<span class="title"> ${templateheader}  </span>`
+                const title1 = (templateheader) => html`<span on-tap="${()=>{this.add()}}"  class="manage"> ${templateheader}  </span>`
 
             render(title1(titledata), this.shadowRoot.getElementById('title'))
 
@@ -639,7 +663,6 @@
             width: 100%;
             margin-bottom: 17px;
             font-size: 17px;
-            margin-left: 38%;
         }
         
         .func {
@@ -666,6 +689,8 @@
         .il-holder {
             display: flex;
             flex-direction: column;
+            margin-top: 15px;
+
         }
 
          @media (max-width: 767px) {
@@ -689,7 +714,7 @@
                 </div>
                 <div class="end">
                
-                    <div on-tap="${()=>{this.add()}}" class="manage add-icon"  icon="icons:add"> Add </div>
+                    
                 </div>
                 <div>
                     <div id="table" class="il-holder">
