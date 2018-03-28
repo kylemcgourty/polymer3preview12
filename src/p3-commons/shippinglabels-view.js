@@ -1180,12 +1180,12 @@
          
         }
 
-        start(returnURL, view){
+        start(returnURL, view, hide){
            
             this.returnURL = returnURL
 
                 this.$.moduleheader.open(this.model.settings, {pagename: "Shipping Label", pageidtext: "Shipping Label id:", pageid: this.model.idver, date: this.convertDate3(this.model.created)})
-                this.$.shippinglabel.initializer(this.model, undefined, view)
+                this.$.shippinglabel.initializer(this.model, undefined, view, hide)
                 this.shadowRoot.getElementById('labelname').value = this.model.labelname
 
                 this.startview = undefined
