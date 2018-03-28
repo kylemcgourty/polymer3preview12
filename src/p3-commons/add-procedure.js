@@ -55,7 +55,7 @@
                         id: 0
                     }]
 
-                    this.setTitle('Function Title')
+                    this.setTitle('Add Function')
 
                     this.setTable(this.data)
 
@@ -109,7 +109,7 @@
 
                 this.functions = false
 
-                this.setTitle('Function Title')
+                this.setTitle('Add Function')
                 this.setTable(this.data)
             }
 
@@ -123,16 +123,36 @@
                 this.mobile = false
             }
 
+
+            if (data.length == 1){
+                data.push({
+                    columndata: "",
+                    procedures: "",
+                    pass: "",
+                    issue: "",
+                    resolution: "",
+                    qa: "",
+                    replacement: "",
+                    signoff: "",
+                    title: "function",
+                    enable: false,
+                    id: 1
+                
+                })
+            }
+
             data.forEach((item, i) => {
                  item.id = i
             })
+
+
 
             this.data = data
 
 
             this.setTable(this.data)
 
-                this.setTitle('Add Functions')
+                this.setTitle('Add Sub-functions')
 
                 this.functions = true
 
@@ -171,8 +191,8 @@
                                 <div>
                                     <div class="container" data-title$="${item.title}">
                                             <input  id$="procedure-${item.id}" class="input col-xs-9" value="${item.procedures}">
-                                        <paper-icon-button on-tap="${() => this.remove(item)}" class="right" class="function-icons" icon="icons:close"></paper-icon-button>
-                                        <paper-icon-button class="right" icon="icons:swap-vert" on-tap="${()=>this.swap(item)}" raised>Cancel</paper-icon-button>
+                                        <iron-icon on-tap="${() => this.remove(item)}" class="right icon2" class="function-icons" icon="icons:close"></iron-icon>
+                                        <iron-icon class="right icon1" icon="icons:swap-vert" on-tap="${()=>this.swap(item)}" raised>Cancel</iron-icon>
                                         <div style="clear:both"></div>
                                     </div>
                                 </div>
@@ -195,7 +215,7 @@
         setTitle(titledata){
 
 
-            if (titledata == "Add Functions"){
+            if (titledata == "Add Sub-functions"){
 
             const title = (templateheader) => html`<style>
                 div[data-title="procedure-title"] .input {
@@ -204,6 +224,10 @@
                     font-size: 17px;
                     box-shadow: none;
                     text-align: center;
+                }
+
+                [data-title="procedure-title"] {
+                    display: none;
                 }
 
                 [data-title="procedure-title"] paper-icon-button{
@@ -225,14 +249,14 @@
                 
                 .func-icons[data-title="function"] {
                     display: inline-block;
-                }</style><span class="title"> ${templateheader}  </span>`
+                }</style><span on-tap="${()=>{this.add()}}"  class="manage"> ${templateheader}  </span>`
 
             render(title(titledata), this.shadowRoot.getElementById('title'))
 
 
             } else {
 
-                const title1 = (templateheader) => html`<span class="title"> ${templateheader}  </span>`
+                const title1 = (templateheader) => html`<span on-tap="${()=>{this.add()}}"  class="manage"> ${templateheader}  </span>`
 
             render(title1(titledata), this.shadowRoot.getElementById('title'))
 
@@ -626,8 +650,9 @@
         }
         
         .container {
-            height: 15px;
-            margin-bottom: 14px;
+            height: 22px;
+            box-sizing: border-box;
+            position: relative;
         }
         
         .name {
@@ -639,7 +664,6 @@
             width: 100%;
             margin-bottom: 17px;
             font-size: 17px;
-            margin-left: 38%;
         }
         
         .func {
@@ -651,8 +675,14 @@
         }
         
         .right {
-            float: right;
-            margin-top: -11px;
+            position: absolute;
+        }
+
+        .icon1 {
+            right: 59px;
+        }
+        .icon2 {
+            right: 18px;
         }
         
         [data-admin="superuser"] {
@@ -666,6 +696,8 @@
         .il-holder {
             display: flex;
             flex-direction: column;
+            margin-top: 15px;
+
         }
 
          @media (max-width: 767px) {
@@ -689,7 +721,7 @@
                 </div>
                 <div class="end">
                
-                    <div on-tap="${()=>{this.add()}}" class="manage add-icon"  icon="icons:add"> Add </div>
+                    
                 </div>
                 <div>
                     <div id="table" class="il-holder">

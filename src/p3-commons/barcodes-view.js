@@ -1010,4 +1010,4 @@ export class BarcodesViewElement extends PolymerElement {
     }
 
 }
-customElements.define("barcodes-view", BarcodesViewElement);
+customElements.define("barcodes-viewelement", BarcodesViewElement);
