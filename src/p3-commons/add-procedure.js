@@ -145,7 +145,7 @@
                  item.id = i
             })
 
-            
+
 
             this.data = data
 
@@ -191,8 +191,8 @@
                                 <div>
                                     <div class="container" data-title$="${item.title}">
                                             <input  id$="procedure-${item.id}" class="input col-xs-9" value="${item.procedures}">
-                                        <paper-icon-button on-tap="${() => this.remove(item)}" class="right" class="function-icons" icon="icons:close"></paper-icon-button>
-                                        <paper-icon-button class="right" icon="icons:swap-vert" on-tap="${()=>this.swap(item)}" raised>Cancel</paper-icon-button>
+                                        <iron-icon on-tap="${() => this.remove(item)}" class="right icon2" class="function-icons" icon="icons:close"></iron-icon>
+                                        <iron-icon class="right icon1" icon="icons:swap-vert" on-tap="${()=>this.swap(item)}" raised>Cancel</iron-icon>
                                         <div style="clear:both"></div>
                                     </div>
                                 </div>
@@ -650,8 +650,9 @@
         }
         
         .container {
-            height: 15px;
-            margin-bottom: 14px;
+            height: 22px;
+            box-sizing: border-box;
+            position: relative;
         }
         
         .name {
@@ -674,8 +675,14 @@
         }
         
         .right {
-            float: right;
-            margin-top: -11px;
+            position: absolute;
+        }
+
+        .icon1 {
+            right: 59px;
+        }
+        .icon2 {
+            right: 18px;
         }
         
         [data-admin="superuser"] {

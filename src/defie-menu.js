@@ -955,15 +955,15 @@ export class DefieMenu extends PolymerElement {
 
     toWelcomePage(e) {
         this.set('route.path', '/welcome');
-        this.showMenu = true;
-        this.set('leftservices', e.detail.services)
-
-
-        // let ct = sessionStorage.getItem("CUSTOMTOKEN")
-        // this.$.serviceajax.headers['CustomToken'] = ct;
-        // this.$.serviceajax.url = "/service/leftservice"
-        // this.$.serviceajax.generateRequest()
         // this.showMenu = true;
+        // this.set('leftservices', e.detail.services)
+
+
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.$.serviceajax.headers['CustomToken'] = ct;
+        this.$.serviceajax.url = "/service/leftservice"
+        this.$.serviceajax.generateRequest()
+        this.showMenu = true;
 
 
         this.getSetting(sessionStorage.getItem("PR"))
