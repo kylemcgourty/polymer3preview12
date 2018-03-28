@@ -174,7 +174,7 @@
                                                 </div>
                                             </div>
                                             <!-- END MOBILE -->
-                                            <div data-size$="${item.col0.size}" class="group2 layout horizontal wrap mobile-part">
+                                            <div style="display: ${item.col0.display}" data-size$="${item.col0.size}" class="group2 layout horizontal wrap mobile-part">
                                                 <div class="box2-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd2-2">
                                                         <span class="bd2-1head">${this.col0}:</span>
@@ -183,7 +183,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-size$="${item.col1.size}" class="group1 layout horizontal wrap">
+                                            <div style="display: ${item.col1.display}" data-size$="${item.col1.size}" class="group1 layout horizontal wrap">
                                                 <div class="box1-data layout horizontal" style="visibility: ${item.visibility}">
                                                     <div class="bd2-1head">${this.col1}: </div>
                                                     <div class="bd1-1">
@@ -192,7 +192,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-size$="${item.col2.size}" class="group4 layout horizontal wrap">
+                                            <div style="display: ${item.col2.display}" data-size$="${item.col2.size}" class="group4 layout horizontal wrap">
                                                 <div class="box4-data layout horizontal">
                                                     <div class="bd4-1">
                                                         <span class="bd4-1head">${this.col2}: </span>
@@ -201,7 +201,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                             <div data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
+                                             <div style="display: ${item.col3.display}" data-size$="${item.col3.size}" class="group5 layout horizontal wrap ">
                                                 <div class="box5-data layout horizontal">
                                                     <div class="bd5-2">
                                                         <span class="bd5-1head"> ${this.col3}:</span>
