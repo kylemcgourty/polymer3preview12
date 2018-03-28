@@ -711,7 +711,7 @@ delete(item) {
             font-size: 16px;
             margin-top: 6px;
             height: 22px;
-            background-color: #c6c9ce;
+            background-color: #eee;
             line-height: 1.5;
         }
 
@@ -721,20 +721,21 @@ delete(item) {
 
         .barcodecontainer {
             height: auto;
-            width: 140px
+            width: 100px
         }
 
         .box {
-            height: 140px;
-            width: 136px;
+            height: 100px;
+            width: 100px;
             margin: auto auto;
-            outline: 1px solid #dbdde0;
+            border: 1px solid #dbdde0;
             text-align: center;
-            line-height: 9.5;
+            line-height: 7.5;
+            box-sizing: border-box;
         }
 
         .box-input {
-            width: 140px;
+            width: 100px;
         }
 
         @media (min-width: 1680px) {
