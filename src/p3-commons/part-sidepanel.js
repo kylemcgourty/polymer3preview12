@@ -182,16 +182,18 @@ export class PartSidepanel extends LitElement {
                     var element = tempArray[i];
 
                     tempArray2.push(element.mfgname); //0
-                    tempArray2.push(element.idver); //1
-                    tempArray2.push(element.mfgpn); //2
-                    tempArray2.push(element.description); //3
-                    if (element.boid == 0 && element.bomid == 0 ) {
+                    tempArray2.push(element.mfgpn); //1
+                    tempArray2.push(element.description); //2
+                    if (element.bomid == 0) {
+                        tempArray2.push("") // 3
+                    } else {
+                        tempArray2.push(element.bomidver) // 3
+                    } 
+                    if (element.boid == 0) {
                         tempArray2.push("") // 4
-                    } else if (element.boid == 0 && element.bomid != 0){
-                        tempArray2.push(element.bomidver) // 4
                     } else {
                         tempArray2.push(element.boidver) // 4
-                    }
+                    } 
                     tempArray2.push(element.category); //5
                     tempArray2.push(element.type); //type 6
                     tempArray2.push(element.averagecost)
@@ -254,7 +256,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">Company Id:</div>
+                                        <div class="col-xs-3">Product No.:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[1] }">
@@ -262,7 +264,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">Product No.:</div>
+                                        <div class="col-xs-3">Description:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[2] }">
@@ -270,7 +272,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">Description:</div>
+                                        <div class="col-xs-3">BOM Id:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[3] }">
@@ -278,7 +280,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">BOM/BO id:</div>
+                                        <div class="col-xs-3">BO Id:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[4] }">
