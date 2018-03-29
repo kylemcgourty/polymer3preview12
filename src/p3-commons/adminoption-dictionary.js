@@ -118,12 +118,12 @@ export class AdminOptionDictionary extends LitElement {
 
         switch (this.typemodel) {
             case "ptypes":
-                data = [{ word: "Spare" }, { word: "Component" }, { word: "Product" }, { word: "Others" }];
+                data = [{ word: "HW" }, { word: "SW" }, { word: "License" },{ word: "Service" },{ word: "Others" }];
                 break;
             case "custcategories":
             case "vendcategories":
             case "categories":
-                data = [{ word: "Hardware" }, { word: "Software" }, { word: "Service" }, { word: "Others" }];
+                data = [{ word: "Server" }, { word: "Cluster" }, { word: "Business SW" },{ word: "Graphic SW" },{ word: "SLA License" },{ word: "Monthly License" },{ word: "1-YR Service" },{ word: "Others" }];
                 break;
             case "vendshipvia":
             case "custshipvia":

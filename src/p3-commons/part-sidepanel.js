@@ -180,15 +180,18 @@ export class PartSidepanel extends LitElement {
 
                 for (var i = 0; i < tempArray.length; i++) {
                     var element = tempArray[i];
-
-                    tempArray2.push(element.mfgname); //0
-                    tempArray2.push(element.idver); //1
+                    tempArray2.push(element.idver); //0
+                    tempArray2.push(element.mfgname); //1
                     tempArray2.push(element.mfgpn); //2
                     tempArray2.push(element.description); //3
-                    tempArray2.push(element.model) // 4
+                    if (element.boid == 0) {
+                        tempArray2.push(element.bomidver) // 4
+                    } else {
+                        tempArray2.push(element.boidver) // 4
+                    }
                     tempArray2.push(element.category); //5
                     tempArray2.push(element.type); //type 6
-                    tempArray2.push(element.averagecost)
+                    tempArray2.push(this.usd(element.averageunitcost))
                     tempArray2.push(element.tableiid); //8
                     tempArray2.push(i); // index 9
 
@@ -240,7 +243,7 @@ export class PartSidepanel extends LitElement {
                                 <div class="my-content"></div>
                                 <div on-tap="${() => this.inventoryChoice(item)}" class="layout vertical" style="width: 100%;">
                                     <div class="my-content" >
-                                        <div class="col-xs-3">Company:</div>
+                                        <div class="col-xs-3">Part Id:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[0] }">
@@ -248,7 +251,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">Company Id:</div>
+                                        <div class="col-xs-3">Company:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[1] }">
@@ -272,7 +275,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">Model:</div>
+                                        <div class="col-xs-3">BOM/BO id:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[4] }">
@@ -315,7 +318,25 @@ export class PartSidepanel extends LitElement {
         }
 
     }
-
+    usd(value) {
+        var numberWithCommas = function(x) {
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+        if (typeof value == "number") {
+            value = value.usd(2);
+            value = numberWithCommas(value);
+            return value;
+        } else if (value === undefined) {
+            return;
+        } else if (value.indexOf('$') != -1) {
+            return value;
+        } else {
+            value = numberWithCommas(value);
+            return '$' + value;
+        }
+    }
     close() {
         this.dispatchEvent(new CustomEvent('closePanel', {
             bubbles: true,
