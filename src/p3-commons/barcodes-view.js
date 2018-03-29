@@ -529,7 +529,7 @@ export class BarcodesViewElement extends PolymerElement {
                 <app-header condenses reveals fixed effects="waterfall blend-background">
                     <app-toolbar class="middle middle-container">
                         <paper-icon-button id="paperToggle" icon="menu" drawer-toggle on-tap="toggleLeft"></paper-icon-button>
-                        <div class="app-name" title> View Barcodes </div>
+                        <div class="app-name" title>  Barcodes </div>
                         <logout-header></logout-header>
                     </app-toolbar>
                 </app-header>
