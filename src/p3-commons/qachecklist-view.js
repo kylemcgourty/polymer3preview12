@@ -960,6 +960,9 @@ import {Element as PolymerElement}
             float: right;
         }
 
+        .remover {
+            display: none
+        }
         @media (max-width: 1843px) {
             .procedures-desk {
                 display: none;
@@ -1418,7 +1421,7 @@ import {Element as PolymerElement}
                 <app-header condenses reveals fixed effects="waterfall blend-background">
                     <app-toolbar class="middle middle-container">
                         <paper-icon-button id="paperToggle" icon="menu" drawer-toggle on-tap="toggleLeft"></paper-icon-button>
-                        <div class="app-name" title> Create QA Check List </div>
+                        <div class="app-name" title> QA Check List </div>
                         <logout-header></logout-header>
                     </app-toolbar>
                 </app-header>
@@ -1449,7 +1452,11 @@ import {Element as PolymerElement}
                             <div class="col-xs-12 col-md-11"></div>
                             <div class="col-xs-12 col-md-11">
                                 <div class="my-content button-row text-right">
-                                    <paper-button class="button main-button" on-tap="cancel" raised>Cancel</paper-button>
+                                    <paper-button class="button main-button" id="cancel" on-tap="cancel" raised>Cancel</paper-button>
+                                    <paper-button class="button main-button" id="save" on-tap="save" raised>Save</paper-button>
+                                    <paper-button class="button main-button" id="edit" on-tap="edit" raised>Edit</paper-button>
+
+
 
                                 </div>
                             </div>
@@ -1490,7 +1497,7 @@ import {Element as PolymerElement}
         <iron-media-query query="(max-width: 992px)" query-matches="{{queryMatches}}"></iron-media-query>
         <iron-media-query query="(max-width: 1250px)" query-matches="{{queryMatchesShrink}}"></iron-media-query>
         <iron-media-query query="(max-width: 767px)" query-matches="{{queryMatchesShrinkMax}}"></iron-media-query>
-        <iron-ajax method="POST" id="ajaxSave" handle-as="json" on-response="response" on-error="responseError" content-type="application/json"></iron-ajax>
+        <iron-ajax method="PUT" id="ajaxSave" handle-as="json" on-response="response" on-error="responseError" content-type="application/json"></iron-ajax>
         <iron-ajax id="ajaxGet" method="GET" handle-as="json" on-response="receiveProcedure" content-type="application/json"></iron-ajax>`
         }
 
@@ -1779,7 +1786,7 @@ import {Element as PolymerElement}
 
         }
 
-        start(returnRoute, view, saveURL){
+        start(returnRoute, view, saveURL, editbutton){
                 console.log('got mdoel in view', JSON.parse(JSON.stringify(this.model)))
                 this.view = view
                 this.setmoduleheader()
@@ -1787,7 +1794,49 @@ import {Element as PolymerElement}
                 this.setBillshipto();
                 this.startview = undefined
                 this.returnRoute = returnRoute
+                this.editbutton = editbutton
+                this.scrollTop()
+
+
+
+                if (saveURL){
+                    this.saveURL = saveURL
+                    this.showSave(true)
+                } else {
+                    this.showSave(false)
+                }
+
         }
+
+        showSave(save) {
+
+                this.shadowRoot.getElementById('edit').classList.add('remover')
+
+            if (save){
+                this.shadowRoot.getElementById('save').classList.remove('remover')
+                this.shadowRoot.getElementById('cancel').classList.add('remover')
+
+            } else {
+                this.shadowRoot.getElementById('save').classList.add('remover')
+                this.shadowRoot.getElementById('cancel').classList.remove('remover')
+
+            }
+
+            if (this.editbutton){
+                this.shadowRoot.getElementById('edit').classList.remove('remover')
+
+            }
+        }
+
+         edit(){
+
+            console.log('route', this.route.path)
+            let editRoute = this.route.path.replace('view', 'edit')
+
+            this.set('route.path', editRoute)
+
+        }
+
 
         setmoduleheader() {
             
@@ -1853,8 +1902,6 @@ import {Element as PolymerElement}
 
         }
 
-
-
     convertDate3(input) {
         if (input === undefined) {
             input = new Date().toString();
@@ -1868,501 +1915,686 @@ import {Element as PolymerElement}
             return result;
         }
     }
-     
 
-        computeDisplay(val) {
 
-            if (val === "procedure-title") {
-                return true
-            } else {
-                return false
-            }
+    save() {
 
+        this.convertModule()
+
+
+        let data = this.$.qalist.retrieveData().slice(1)
+
+        data.forEach(function(val, index) {
+            data[index].lineid = index
+        })
+
+        this.model.qalist = data
+
+        this.model.qty = Number(this.model.qty)
+
+
+
+
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.$.ajaxSave.headers['CustomToken'] = ct;
+        this.$.ajaxSave.url = this.saveURL
+        this.$.ajaxSave.body = JSON.stringify(this.model);
+        this.$.ajaxSave.generateRequest();
+    }
+
+    response(request) {
+        
+
+
+
+            document.querySelector('#toast').text = 'Saved successfully.';
+            document.querySelector('#toast').show();
+
+
+        
+            let viewRoute = this.route.path.replace('edit', 'view')
+
+            this.set('route.path', viewRoute)
+
+
+    }
+
+
+      computeDisplay(val, item) {
+
+
+        if (val === "procedure-title") {
+            return true
+        } else if (this.admin == "superuser") {
+            return false
+        } else {
+            return true
         }
 
-        converter() {
+    }
 
-            // this.set('mobiledata', this.data.slice(1))
+    converter() {
 
-
-            if (this.data.length == 1) {
-                return
-            }
-
-            if (this.data.length > 0) {
-
-                this.start = undefined
-
-                this.set('mobiledata', [])
-                let index = 1
-                let bool = true
-
-                while (bool) {
-
-                    if (this.data[index] == undefined) {
+        // this.set('mobiledata', this.data.slice(1))
 
 
-                        this.end = index;
+        if (this.data.length == 1) {
+            return
+        }
 
-                        this.converterHelper()
+        if (this.data.length > 0) {
 
-                        this.start = undefined
+            this.start = undefined
 
-                        bool = false;
-                        break;
-                    }
+            this.set('mobiledata', [])
+            let index = 1
+            let bool = true
 
-                    if (!this.start && this.data[index].title == "procedure-title") {
+            while (bool) {
 
-                        this.start = index
-                        index = index + 1
-                        continue;
-
-                    }
-
-                    if (this.start && this.data[index].title == "procedure-title") {
+                if (this.data[index] == undefined) {
 
 
-                        this.end = index
+                    this.end = index;
 
-                        this.converterHelper()
+                    this.converterHelper()
 
-                        this.start = undefined
+                    this.start = undefined
 
-                        continue;
-                    }
+                    bool = false;
+                    break;
+                }
 
+                if (!this.start && this.data[index].title == "procedure-title") {
 
+                    this.start = index
                     index = index + 1
+                    continue;
 
                 }
 
-            }
-
-        }
-
-        converterHelper() {
-
-            let temp = []
+                if (this.start && this.data[index].title == "procedure-title") {
 
 
-            let result = this.data.slice(this.start, this.end)
+                    this.end = index
 
+                    this.converterHelper()
 
-            let group = []
+                    this.start = undefined
 
-
-            group = temp.concat(JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)))
-
-
-
-            let length = group.length
-
-            let l1 = 0
-            let l2 = length / 6
-            let l3 = 2 * length / 6
-            let l4 = 3 * length / 6
-            let l5 = 4 * length / 6
-            let l6 = 5 * length / 6
-
-
-
-            group.forEach(function(item, index) {
-
-                if (index < l2) {
-                    item.columndata = item.pass
-                } else if (l2 <= index < l3) {
-                    item.columndata = item.issue
-                } else if (l3 <= index < l4) {
-                    item.columndata = item.resolution
-                } else if (l4 <= index < l5) {
-                    item.columndata = item.replacement
-                } else if (l5 <= index < l6) {
-                    item.columndata = item.qa
-                } else if (l6 <= index) {
-                    item.columndata = item.signoff
+                    continue;
                 }
 
-
-            })
-
-            group[l1].columndata = "Pass | Fail"
-            group[l1].title = "procedure-title"
-
-            group[l2].columndata = "Issues"
-            group[l2].title = "procedure-title"
-
-            group[l3].columndata = "Resolution"
-            group[l3].title = "procedure-title"
-
-            group[l4].columndata = "Replacement"
-            group[l4].title = "procedure-title"
-
-            group[l5].columndata = "QA"
-            group[l5].title = "procedure-title"
-
-            group[l6].columndata = "Sign Off"
-            group[l6].title = "procedure-title"
-
-
-            this.mobiledata = this.mobiledata.concat(group)
-
-
-
-        }
-
-
-
-
-        newEdits(e) {
-
-            this.set('data', e.detail.newmodel)
-        }
-
-
-        addFunctionMobile(e) {
-
-
-            if (e.model.mobile) {
-                let id = e.model.mobile.titleid
-
-
-                var index = 0
-                let bool = true
-
-
-                while (bool) {
-
-                    if (this.data[index] == undefined) {
-                        return
-                    }
-
-
-                    if (id === this.data[index].titleid) {
-
-                        break
-
-                    }
-
-                    index = index + 1
-
-                }
-
-                this.insertionIndex = index
-
-
-                let data = [];
-
-
-                data.push(this.data[index])
 
                 index = index + 1
 
-                while (bool) {
-
-                    if (this.data[index] == undefined || this.data[index].title == "procedure-title") {
-                        break;
-                    }
-
-                    data.push(this.data[index])
-
-                    index = index + 1
-                }
-
-
-                this.adjustPanelProps(this.panelprops, "addfunction")
-
-                setTimeout(function() {
-                    this.$.drawer.togglePanel();
-
-                    this.shadowRoot.querySelector('#function').open(data)
-
-                }.bind(this), 200)
-
             }
 
         }
-        addFunction(e) {
 
-            console.log('add func', e)
-            if (this.admin === "superuser") {
+    }
+
+    converterHelper() {
+
+        let temp = []
+
+
+        let result = this.data.slice(this.start, this.end)
+
+
+        let group = []
+
+
+        group = temp.concat(JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)), JSON.parse(JSON.stringify(result)))
+
+
+
+        let length = group.length
+
+        let l1 = 0
+        let l2 = length / 6
+        let l3 = 2 * length / 6
+        let l4 = 3 * length / 6
+        let l5 = 4 * length / 6
+        let l6 = 5 * length / 6
+
+
+
+        group.forEach(function(item, index) {
+
+            if (index < l2) {
+                item.columndata = item.pass
+            } else if (l2 <= index < l3) {
+                item.columndata = item.issue
+            } else if (l3 <= index < l4) {
+                item.columndata = item.resolution
+            } else if (l4 <= index < l5) {
+                item.columndata = item.replacement
+            } else if (l5 <= index < l6) {
+                item.columndata = item.qa
+            } else if (l6 <= index) {
+                item.columndata = item.signoff
+            }
+
+
+        })
+
+        group[l1].columndata = "Pass | Fail"
+        group[l1].title = "procedure-title"
+
+        group[l2].columndata = "Issues"
+        group[l2].title = "procedure-title"
+
+        group[l3].columndata = "Resolution"
+        group[l3].title = "procedure-title"
+
+        group[l4].columndata = "Replacement"
+        group[l4].title = "procedure-title"
+
+        group[l5].columndata = "QA"
+        group[l5].title = "procedure-title"
+
+        group[l6].columndata = "Sign Off"
+        group[l6].title = "procedure-title"
+
+
+        this.mobiledata = this.mobiledata.concat(group)
+
+
+
+    }
+
+
+
+
+    newEdits(e) {
+
+        this.set('data', e.detail.newmodel)
+    }
+
+
+    addFunctionMobile(item, qadata) {
+
+
+        if (item) {
+
+
+            let id = item.titleid
+
+
+            var index = 0
+            let bool = true
+
+
+            while (bool) {
+
+                if (qadata[index] == undefined) {
+                    return
+                }
+
+
+                if (id === qadata[index].titleid) {
+
+                    break
+
+                }
+
+                index = index + 1
+
+            }
+
+            this.insertionIndex = index
+
+
+            let data = [];
+
+
+            data.push(qadata[index])
+
+            index = index + 1
+
+            while (bool) {
+
+                if (qadata[index] == undefined || qadata[index].title == "procedure-title") {
+                    break;
+                }
+
+                data.push(qadata[index])
+
+                index = index + 1
+            }
+
+
+            this.adjustPanelProps(this.panelprops, "addprocedure")
+
+            setTimeout(function() {
+                this.$.drawer.togglePanel();
+
+                this.shadowRoot.getElementById('add').openfunction(JSON.parse(JSON.stringify(data)), true)
+
+            }.bind(this), 200)
+
+        }
+
+    }
+
+    mobileFunctions(data) {
+
+
+        let id = data[0].titleid
+
+
+        let bool = true
+
+        let i = 0;
+
+        while (bool) {
+
+            if (this.qaData[i] == undefined) {
+                break;
+            }
+
+            if (this.qaData[i].titleid == id) {
+
+
+
+                let index = i
+                for (var j = 1; j < data.length; j++) {
+
+
+                    if (this.qaData[index + j] != undefined && this.qaData[index + j].title != "procedure-title") {
+                        this.qaData[index + j].procedures = data[j].procedures
+                    } else {
+                        this.qaData.splice(index + j, 0, data[j])
+                    }
+
+
+
+                }
+
+
+            }
+            ++i
+        }
+
+
+
+
+        this.$.qalist.open(this.qaData, "#db8002", true)
+
+    }
+    addFunction(item) {
+
+
+        if (window.screen.width < 768) {
+            this.drawerwidth = "320px"
+        } else {
+            this.drawerwidth = "640px"
+        }
+
+
+        let index = item.id
+        this.insertionIndex = index
+        let data = []
+
+        data.push(this.qaData[index])
+
+            ++index
+
+        let bool = true
+
+
+        while (bool) {
+
+            if (this.qaData[index] == undefined || this.qaData[index].title == "procedure-title") {
+                break;
+            }
+
+            data.push(this.qaData[index])
+
+            index = index + 1
+
+        }
+        this.adjustPanelProps(this.panelprops, "addprocedure")
+
+        setTimeout(function() {
+            this.$.drawer.togglePanel();
+
+            this.shadowRoot.getElementById('add').openfunction(JSON.parse(JSON.stringify(data)))
+
+        }.bind(this), 200)
+
+        // this.$.function.open(data)
+
+    }
+
+
+
+
+
+
+
+    addProcedure(data) {
+
+        if (window.screen.width < 768) {
+            this.drawerwidth = "320px"
+        } else {
+            this.drawerwidth = "640px"
+        }
+
+        this.manage = "addprocedure"
+
+        this.drawerwidth = "620px"
+        this.adjustPanelProps(this.panelprops, "addprocedure")
+        this.$.add.open(data)
+
+        this.$.drawer.togglePanel();
+    }
+
+
+
+
+    history(e) {
+
+
+
+        if (window.screen.width < 768) {
+            this.drawerwidth = "320px"
+        } else {
+            this.drawerwidth = "640px"
+        }
+
+        this.adjustPanelProps(this.panelprops, "historypanel")
+
+        let url1 = "/api/bom/procedures/history/" + this.model.bomid + "/" + this.model.procedureid
+
+
+        this.$.history.open(this.procedures, url1)
+
+
+        this.$.drawer.togglePanel()
+
+
+    }
+
+    convertModule() {
+
+        this.modulebillshipto = this.$.abinfo.returnModel()
+
+        this.set('model.brand', this.modulebillshipto.ainfovalues.ainfo1_value)
+        this.set('model.brandidver', this.modulebillshipto.ainfovalues.ainfo2_value.toString())
+        this.set('model.qaname', this.modulebillshipto.ainfovalues.ainfo3_value)
+        this.set('model.qty', Number(this.modulebillshipto.ainfovalues.ainfo4_value))
+        this.set('model.serialnumber', String(this.modulebillshipto.ainfovalues.ainfo5_value))
+        this.set('model.bomboidver', this.modulebillshipto.ainfovalues.ainfo6_value)
+        this.set('model.woidver', this.modulebillshipto.ainfovalues.ainfo7_value)
+
+
+        this.set('model.mfgpn', this.modulebillshipto.binfovalues.binfo1_value)
+        this.set('model.partidver', this.modulebillshipto.binfovalues.binfo2_value)
+        this.set('model.model', this.modulebillshipto.binfovalues.binfo3_value)
+        this.set('model.description', this.modulebillshipto.binfovalues.binfo4_value)
+        this.set('model.version', this.modulebillshipto.binfovalues.binfo5_value)
+        this.set('model.eco', this.modulebillshipto.binfovalues.binfo6_value)
+        this.set('model.deviation', this.modulebillshipto.binfovalues.binfo7_value)
+
+
+        this.set('model.total', float(this.model.total))
+
+
+
+    }
+
+  
+
+    chooseCustomer() {
+        window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
+        this.adjustPanelProps(this.panelprops, "showcustomersidepanel");
+        this.$.showcustomer.open(this.model.settings.id);
+        this.$.drawer.togglePanel();
+    }
+
+
+    adjustPanelProps(props) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        var self = this;
+
+        props.forEach(function(item) {
+            var newVal = !args.includes(item);
+            self.set(item, newVal);
+        });
+    }
+
+
+    close() {
+        this.$.drawer.closeDrawer();
+    }
+
+
+
+    scrollTop() {
+        this.latestidver = ""
+
+        this.shadowRoot.getElementById('top').scrollIntoView()
+
+    }
+
+    resizeQAList(e) {
+
+        if (this.route.path.includes("qachecklists/edit")) {
+            this.$.qalist.resize(e)
+        }
+    }
+
+
+    setPanelSize() {
+        if (window.screen.width < 768) {
+            this.drawerwidth = "320px"
+        } else {
+            this.drawerwidth = "640px"
+        }
+    }
+
+
+
+
+
+
+    ready() {
+        super.ready();
+
+        this.titlecolor();
+
+
+        window.addEventListener('resize', (e) => { this.resizeQAList(e) }, true)
+
+
+        this.shadowRoot.addEventListener('sendcustomerlist', e => {
+            this.adminsignin = true
+            this.adminstatus = true
+            window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
+            this.adjustPanelProps(this.panelprops, "showcustomersidepanel");
+            this.$.showcustomer.open(this.model.settings.id);
+            this.$.drawer.togglePanel();
+        })
+
+
+
+        this.shadowRoot.addEventListener('CustomerEvent', e => {
+            let cust = e.detail.routeData
+            this.set('model.brand', cust.companyname)
+            this.set('model.brandid', cust.id)
+            this.set('model.brandidver', cust.idver)
+
+            this.modulebillshipto.ainfovalues.ainfo1_value = this.model.brand
+            this.modulebillshipto.ainfovalues.ainfo2_value = this.model.brandidver
+
+            this.$.abinfo.open(this.modulebillshipto, this.disabledinput, this.displaysearch, this.searchid, this.ainfo, this.binfo)
+
+
+        });
+
+
+        this.shadowRoot.addEventListener('closePanel', e => {
+            this.close()
+        })
+
+        this.shadowRoot.addEventListener('addProcedure', e => {
+            this.setPanelSize()
+
+            this.addProcedure(e.detail.data)
+        })
+
+        this.shadowRoot.addEventListener('mobilefunctions', e => {
+
+            this.mobileFunctions(e.detail.data)
+        })
+
+        this.shadowRoot.addEventListener('addFunction', e => {
+            this.setPanelSize()
+            this.qaData = e.detail.data
+            this.addFunction(e.detail.item)
+        })
+
+        this.shadowRoot.addEventListener('addFunctionMobile', e => {
+            this.setPanelSize()
+            this.qaData = e.detail.data
+
+            this.addFunctionMobile(e.detail.item, e.detail.data)
+        })
+
+        this.$.add.addEventListener('addprocedure', e => {
+            this.close()
+            this.newProcedure(e)
+        })
+
+        this.shadowRoot.addEventListener('update-table', e => {
+            this.data = this.data.slice(0, 1)
+
+            this.set('data', this.data.concat(e.detail.model))
+            this.$.qalist.open(this.data, "#db8002")
+            this.close()
+        })
+
+        this.$.edit.addEventListener('editprocedure', e => {
+            this.close()
+            this.newEdits(e)
+        })
+
+        this.shadowRoot.addEventListener('sorted', e => {
+
+            let model = e.detail.model
+
+            this.$.add.open1(model)
+
+
+
+            let closeFirst = new Promise((resolve, reject) => {
+                this.close();
+                setTimeout(() => {
+                    resolve()
+                }, 500)
+            })
+            closeFirst.then(() => {
+
                 if (window.screen.width < 768) {
                     this.drawerwidth = "320px"
                 } else {
                     this.drawerwidth = "640px"
                 }
 
+                this.adjustPanelProps(this.panelprops, "addprocedure");
+                this.$.drawer.togglePanel();
+            })
+        })
 
-                let index = e.model.index
-                this.insertionIndex = index
-                let data = []
+        this.shadowRoot.addEventListener('functions', e => {
 
-                data.push(this.data[index])
+            let newData = e.detail.data
 
-                    ++index
+            let first = this.qaData.slice(0, this.insertionIndex)
+            let index = this.insertionIndex + 1
+            let bool = true
+            while (bool) {
 
-                let bool = true
-
-
-                while (bool) {
-
-                    if (this.data[index] == undefined || this.data[index].title == "procedure-title") {
-                        break;
-                    }
-
-                    data.push(this.data[index])
-
-                    index = index + 1
-
+                if (this.qaData[index] == undefined || this.qaData[index].title == "procedure-title") {
+                    break;
                 }
-                this.adjustPanelProps(this.panelprops, "addfunction")
 
-                setTimeout(function() {
-                    this.$.drawer.togglePanel();
+                index = index + 1
+            }
+            let second = this.qaData.slice(index)
+            this.set('qaData', [])
 
-                    this.shadowRoot.querySelector('#function').open(data)
 
-                }.bind(this), 200)
+            let len = first.length
 
-                // this.$.function.open(data)
+            let len2 = len + newData.length
+
+
+            var data = first.concat(newData, second)
+
+            this.set('qaData', JSON.parse(JSON.stringify(data)))
+
+            for (var i = len2 - 1; i >= len; i--) {
+
+                this.splice('qaData', i, 1)
 
             }
-        }
+
+
+
+            for (var i = len; i < len2; i++) {
+
+                this.splice('qaData', i, 0, JSON.parse(JSON.stringify(data[i])))
+
+            }
+
+            this.$.qalist.open(this.qaData, "#db8002")
+
+
+
+            this.close()
+        })
 
 
 
 
 
+        this.shadowRoot.addEventListener('openSort', e => {
+            let closeFirst = new Promise((resolve, reject) => {
+                this.close();
+                setTimeout(() => {
+                    resolve()
+                }, 500)
+            })
+            closeFirst.then(() => {
 
-
-        addProcedure(e) {
-
-            if (window.screen.width < 768) {
                 this.drawerwidth = "320px"
-            } else {
-                this.drawerwidth = "640px"
-            }
-
-            this.manage = "addprocedure"
-
-            this.drawerwidth = "620px"
-            this.adjustPanelProps(this.panelprops, "addprocedure")
-            this.$.add.open(this.data)
-
-            this.$.drawer.togglePanel();
-        }
-
-
-
-        edit() {
-
-            this.set('route.path', '/qachecklists/edit/' + this.model.qaname + "/" + this.model.qalistidver)
-
-        }
-
-
-
-
-
-
-        adjustPanelProps(props) {
-            var args = Array.prototype.slice.call(arguments, 1);
-            var self = this;
-
-            props.forEach(function(item) {
-                var newVal = !args.includes(item);
-                self.set(item, newVal);
-            });
-        }
-
-
-        close() {
-            this.$.drawer.closeDrawer();
-        }
-
-
-
-        scrollTop() {
-            this.shadowRoot.getElementById('top').scrollIntoView()
-
-        }
-
-        ready() {
-            super.ready();
-
-            this.titlecolor();
-
-
-            this.shadowRoot.addEventListener('closePanel', e => {
-                this.close()
-            })
-
-            this.$.add.addEventListener('addprocedure', e => {
-                this.close()
-                this.newProcedure(e)
-            })
-
-            this.shadowRoot.addEventListener('update-table', e => {
-                this.data = this.data.slice(0, 1)
-                this.set('data', this.data.concat(e.detail.model))
-                this.close()
-            })
-
-            this.$.edit.addEventListener('editprocedure', e => {
-                this.close()
-                this.newEdits(e)
-            })
-
-            this.shadowRoot.addEventListener('sorted', e => {
-
-                let model = e.detail.model
-
-                if (this.manage === "addprocedure") {
-                    this.$.add.open1(model)
-                } else if (this.manage == "addfunction") {
-
-                    //     setTimeout(function(){
-                    // this.$.drawer.togglePanel();
-
-                    this.shadowRoot.querySelector('#function').open1(model)
-
-                    // }.bind(this), 200)
-
-                    // this.$.function.open1(model)
-                }
-
-                let closeFirst = new Promise((resolve, reject) => {
-                    this.close();
-                    setTimeout(() => {
-                        resolve()
-                    }, 500)
-                })
-                closeFirst.then(() => {
-
-                    if (window.screen.width < 768) {
-                        this.drawerwidth = "320px"
-                    } else {
-                        this.drawerwidth = "640px"
-                    }
-
-                    this.adjustPanelProps(this.panelprops, this.manage);
-                    this.$.drawer.togglePanel();
-                })
-            })
-
-            this.shadowRoot.addEventListener('functions', e => {
-                let newData = e.detail.data
-
-                let first = this.data.slice(0, this.insertionIndex)
-                let index = this.insertionIndex + 1
-                let bool = true
-                while (bool) {
-
-                    if (this.data[index] == undefined || this.data[index].title == "procedure-title") {
-                        break;
-                    }
-
-                    index = index + 1
-                }
-                let second = this.data.slice(index)
-
-                let len = first.length
-
-                let len2 = newData.length
-
-                let data = first.concat(newData, second)
-
-
-                this.set('data', data)
-
-                for (var i = len; i < len2; i++) {
-                    this.set('data.' + i + ".procedures", data[i].procedures)
-                }
-
-                this.close()
+                let data = e.detail.data
+                let index = e.detail.index
+                this.manage = e.detail.service
+                this.adjustPanelProps(this.panelprops, "showsortpanel");
+                this.$.sort.open(data, index);
+                this.$.drawer.togglePanel();
             })
 
 
-
-
-            this.shadowRoot.addEventListener('toSignIn', e => {
-                let closeFirst = new Promise((resolve, reject) => {
-                    this.close();
-                    setTimeout(() => {
-                        resolve()
-                    }, 500)
-                })
-                closeFirst.then(() => {
-                    this.set('drawerwidth', "320px")
-
-                    this.set('drawerwidth', "320px")
-                    this.adjustPanelProps(this.panelprops, "adminsignin");
-
-                    this.$.signin.open();
-                    this.$.drawer.togglePanel();
-                })
-            })
-            this.shadowRoot.addEventListener('authorized', e => {
-
-                if (this.manage === "addprocedure") {
-                    this.$.add.open()
-                }
-
-                this.admin = "superuser"
-                let closeFirst = new Promise((resolve, reject) => {
-                    this.close();
-                    setTimeout(() => {
-                        resolve()
-                    }, 500)
-                })
-                closeFirst.then(() => {
-
-                    if (window.screen.width < 768) {
-                        this.drawerwidth = "320px"
-                    } else {
-                        this.drawerwidth = "640px"
-                    }
-
-                    this.adjustPanelProps(this.panelprops, this.manage);
-                    this.$.drawer.togglePanel();
-                })
-            })
-
-            this.shadowRoot.addEventListener('openSort', e => {
-                let closeFirst = new Promise((resolve, reject) => {
-                    this.close();
-                    setTimeout(() => {
-                        resolve()
-                    }, 500)
-                })
-                closeFirst.then(() => {
-
-                    this.drawerwidth = "320px"
-                    console.log('e in ev', e)
-                    let data = e.detail.data
-                    let index = e.detail.index
-                    this.manage = e.detail.service
-                    this.adjustPanelProps(this.panelprops, "showsortpanel");
-                    this.$.sort.open(data, index);
-                    this.$.drawer.togglePanel();
-                })
-
-
-            })
-
-        }
-
-
-
-
-        titlecolor() {
-
-            this.headercolor = "#db8002"
-            this.updateStyles({
-                '--title-background-normal': this.headercolor,
-                '--title-normal': 'white',
-            });
-        }
+        })
 
     }
+
+
+
+
+    titlecolor() {
+
+        this.headercolor = "#db8002"
+        this.updateStyles({
+            '--title-background-normal': this.headercolor,
+            '--title-normal': 'white',
+        });
+    }
+
+}
     customElements.define("qachecklist-viewelement", QACheckListViewElement);

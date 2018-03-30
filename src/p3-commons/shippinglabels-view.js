@@ -817,6 +817,10 @@
                  padding-left: 9px;
         }
 
+        .remover {
+            display: none;
+        }
+
         @media (min-width: 1680px) {
             .margin-right {
                 margin-right: 57px;
@@ -1080,10 +1084,11 @@
         </style>
         <paper-drawer-panel id="drawer" drawer-Width="[[drawerwidth]]" force-narrow="true" right-drawer disable-edge-swipe style="overflow-y: scroll;">
             <paper-header-panel slot="main">
+                <div id="top"></div>
                 <app-header condenses reveals fixed effects="waterfall blend-background">
                     <app-toolbar class="middle middle-container">
                         <paper-icon-button id="paperToggle" icon="menu" drawer-toggle on-tap="toggleLeft"></paper-icon-button>
-                        <div class="app-name" title> View Shipping Labels</div>
+                        <div class="app-name" title> Shipping Labels</div>
                         <logout-header></logout-header>
                     </app-toolbar>
                 </app-header>
@@ -1109,7 +1114,7 @@
                             <div class="col-xs-12 col-md-11"></div>
                             <div class="col-xs-12 col-md-11">
                                 <div class="my-content text-right">
-                                    <paper-button class="button main-button" on-click="cancel" raised>Cancel</paper-button>
+                                    <paper-button id="cancel" class="button main-button" on-click="cancel" raised>Cancel</paper-button>
                                 </div>
                             </div>
                         </div>
@@ -1117,7 +1122,7 @@
                 </section>
             </paper-header-panel>
         </paper-drawer-panel>
-        <iron-ajax id="ajax" method="POST" handle-as="json" on-error="response" on-response="response" content-type="application/json"></iron-ajax>`
+        <iron-ajax id="ajax" method="PUT" handle-as="json" on-error="response" on-response="response" content-type="application/json"></iron-ajax>`
         }
         static get properties() {
             return {
@@ -1181,22 +1186,74 @@
         }
 
         start(returnURL, view, hide){
-           
-            this.returnURL = returnURL
+
+                this.scrollTop()
+
+                this.returnURL = returnURL
 
                 this.$.moduleheader.open(this.model.settings, {pagename: "Shipping Label", pageidtext: "Shipping Label id:", pageid: this.model.idver, date: this.convertDate3(this.model.created)})
                 this.$.shippinglabel.initializer(this.model, undefined, view, hide)
                 this.shadowRoot.getElementById('labelname').value = this.model.labelname
 
-                this.startview = undefined
+              
 
         }
+
+        save() {
+
+            let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.$.ajax.headers['CustomToken'] = ct;
+            this.$.ajax.url = this.saveurl
+            this.model = this.$.shippinglabel.retrieveData()
+            this.$.ajax.body = JSON.stringify(this.model);
+            this.$.ajax.generateRequest();
+
+
+        }
+
+
+        response(e){
+            document.querySelector('#toast').text = "Saved successfully";
+             document.querySelector('#toast').show();
+
+             this.set('route.path', this.responseRoute)
+
+        }
+
+        edit(){
+            let editRoute = this.responseRoute.replace('view', 'edit')
+
+            this.set('route.path', editRoute)
+
+        }
+
+
+
 
         cancel() {
             this.set('route.path', this.returnURL)
         }
 
-      
+        
+        showSave(save) {
+
+                this.shadowRoot.getElementById('edit').classList.add('remover')
+
+            if (save){
+                this.shadowRoot.getElementById('save').classList.remove('remover')
+                this.shadowRoot.getElementById('cancel').classList.add('remover')
+
+            } else {
+                this.shadowRoot.getElementById('save').classList.add('remover')
+                this.shadowRoot.getElementById('cancel').classList.remove('remover')
+
+            }
+
+            if (this.editbutton){
+                this.shadowRoot.getElementById('edit').classList.remove('remover')
+
+            }
+        }
 
 
 
@@ -1234,9 +1291,11 @@
 
 
 
-        edit() {
-            this.set('route.path', '/shippinglabels/edit/'+this.model.labelname + "/"+this.model.idver)
-        }
+
+
+         scrollTop() {
+         this.shadowRoot.getElementById('top').scrollIntoView()
+     }
 
        
 
