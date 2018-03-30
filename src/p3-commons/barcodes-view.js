@@ -380,6 +380,10 @@ export class BarcodesViewElement extends PolymerElement {
             width: 140px;
         }
 
+        .remover {
+            display: none;
+        }
+
         @media (min-width: 1680px) {
             .margin-right {
                 margin-right: 52px;
@@ -569,7 +573,10 @@ export class BarcodesViewElement extends PolymerElement {
                             <div class="col-xs-12 col-md-11"></div>
                             <div class="col-xs-12 col-md-11">
                                 <div class="my-content button-row text-right">
-                                    <paper-button class="button main-button" on-click="cancel" raised>Cancel</paper-button>
+                                    <paper-button class="button main-button" id="cancel" on-tap="cancel" raised>Cancel</paper-button>
+                                    <paper-button class="button main-button" id="save" on-tap="save" raised>Save</paper-button>
+                                    <paper-button class="button main-button" id="edit" on-tap="edit" raised>Edit</paper-button>
+
                                 </div>
                             </div>
                         </div>
@@ -583,7 +590,7 @@ export class BarcodesViewElement extends PolymerElement {
         <iron-media-query query="(max-width: 992px)" query-matches="{{queryMatches}}"></iron-media-query>
         <iron-media-query query="(max-width: 1250px)" query-matches="{{queryMatchesShrink}}"></iron-media-query>
         <iron-media-query query="(max-width: 767px)" query-matches="{{queryMatchesShrinkMax}}"></iron-media-query>
-        <iron-ajax method="POST" id="ajaxSave" handle-as="json" on-response="response" on-error="responseError" content-type="application/json"></iron-ajax>
+        <iron-ajax method="PUT" id="ajaxSave" handle-as="json" on-response="response" on-error="responseError" content-type="application/json"></iron-ajax>
         <iron-ajax method="PUT" id="ajaxCalc" url="/api/bom/calc" content-type="application/json" on-response="responseCalc"></iron-ajax>
 `
     }
@@ -863,7 +870,7 @@ export class BarcodesViewElement extends PolymerElement {
 
 
 
-    start(returnURL, view, saveURL) {
+    start(returnURL, view, saveURL, editbutton) {
 
             this.returnURL = returnURL
             this.view = view
@@ -873,7 +880,36 @@ export class BarcodesViewElement extends PolymerElement {
             this.setModuleABInfo()
             this.close()
             this.scrollTop()
-    }
+            this.editbutton = editbutton
+
+       if (saveURL){
+                    this.saveURL = saveURL
+                    this.showSave(true)
+                } else {
+                    this.showSave(false)
+                }
+
+        }
+
+        showSave(save) {
+
+                this.shadowRoot.getElementById('edit').classList.add('remover')
+
+            if (save){
+                this.shadowRoot.getElementById('save').classList.remove('remover')
+                this.shadowRoot.getElementById('cancel').classList.add('remover')
+
+            } else {
+                this.shadowRoot.getElementById('save').classList.add('remover')
+                this.shadowRoot.getElementById('cancel').classList.remove('remover')
+
+            }
+
+            if (this.editbutton){
+                this.shadowRoot.getElementById('edit').classList.remove('remover')
+
+            }
+        }
 
 
 
@@ -909,8 +945,11 @@ export class BarcodesViewElement extends PolymerElement {
 
 
     setModel(model) {
+
+
         if (model) {
 
+            console.log('the model in wo', model)
             if (model.items[0].qty == "Qty") {
                 model.items = model.items.slice(1)
 
@@ -924,7 +963,7 @@ export class BarcodesViewElement extends PolymerElement {
                 description: "Description",
                 serialnumbers: "Serial Numbers"
             })
-            this.$.barcodes.open(items, this.view)
+            this.$.barcodes.open(items, this.view, "none!important")
         }
     }
 
@@ -934,11 +973,36 @@ export class BarcodesViewElement extends PolymerElement {
 
 
 
-    edit() {
+    compute(i) {
+        return i + 1
+    }
 
-        this.model.items = this.$.barcodes.retrieveData().slice(1)
 
-        this.set('route.path', '/barcodes/edit/' + this.model.company + "/" + this.model.idver)
+
+            
+
+
+           
+    selectpart() {
+        if (window.innerWidth < 768) {
+            this.drawerwidth = "320px"
+        } else {
+            this.drawerwidth = "640px"
+        }
+
+          if (!this.rbomid || !this.rbomidver){
+                document.querySelector('#toast').text = "Please select a bom first.";
+                document.querySelector('#toast').show();
+                return
+              }
+
+
+        this.adjustPanelProps(this.panelprops, "showbarcodesparts");
+
+
+        this.shadowRoot.getElementById('barcodeparts').open(this.model.settings.id, this.rbomid, this.rbomidver)
+            
+            this.$.drawer.togglePanel();
     }
 
 
@@ -960,7 +1024,115 @@ export class BarcodesViewElement extends PolymerElement {
 
 
 
+    DataBindingI(result) {
+        if (result.detail) {
 
+                this.rbomid = partnumber.bomid
+                this.rbomidver = partnumber.bomidver
+
+
+                this.convertModule()
+
+
+            this.convertModule()
+
+            this.modulebillshipto.binfovalues.binfo1_value = partnumber.mfgpn
+            this.modulebillshipto.binfovalues.binfo2_value = partnumber.idver
+            this.modulebillshipto.binfovalues.binfo3_value = partnumber.model
+            this.modulebillshipto.binfovalues.binfo4_value = partnumber.description
+
+
+            this.$.abinfo.open(this.modulebillshipto, this.disabledinput, this.displaysearch, this.searchid, this.ainfo, this.binfo)
+
+
+
+        } else {
+            document.querySelector('#toast').text = result.error;
+            document.querySelector('#toast').show();
+        }
+    }
+
+
+    convertModule() {
+
+        this.modulebillshipto = this.$.abinfo.returnModel()
+
+
+        this.set('model.company', this.modulebillshipto.ainfovalues.ainfo1_value)
+        this.set('model.companyidver', String(this.modulebillshipto.ainfovalues.ainfo2_value))
+        this.set('model.barcodename', this.modulebillshipto.ainfovalues.ainfo3_value)
+        if (isNaN(this.modulebillshipto.ainfovalues.ainfo4_value)) {
+            document.querySelector('#toast').text = 'Qty must be a number.';
+            document.querySelector('#toast').show();
+            return false
+        }
+        this.set('model.qty', Number(this.modulebillshipto.ainfovalues.ainfo4_value))
+        this.set('model.serialnumber', this.modulebillshipto.ainfovalues.ainfo5_value)
+        this.set('model.bomboidver', this.modulebillshipto.ainfovalues.ainfo6_value)
+        this.set('model.woidver', this.modulebillshipto.ainfovalues.ainfo7_value)
+        this.set('model.productno', this.modulebillshipto.binfovalues.binfo1_value)
+        this.set('model.partidver', this.modulebillshipto.binfovalues.binfo2_value)
+        this.set('model.model', this.modulebillshipto.binfovalues.binfo3_value)
+        this.set('model.description', this.modulebillshipto.binfovalues.binfo4_value)
+        this.set('model.version', this.modulebillshipto.binfovalues.binfo5_value)
+        this.set('model.eco', this.modulebillshipto.binfovalues.binfo6_value)
+        this.set('model.deviation', this.modulebillshipto.binfovalues.binfo7_value)
+        this.model.companyid = Number(this.model.companyid)
+
+
+        return true
+
+    }
+
+
+
+    save() {
+
+            this.model.items = this.$.barcodes.retrieveData().slice(1)
+
+
+            if (this.model.items.length == 0){
+                document.querySelector('#toast').text = 'Please select a bom and bom components';
+                document.querySelector('#toast').show();
+                return
+           }
+
+
+           var result = this.convertModule()
+           if (result != true){
+            return
+           }
+           let ct = sessionStorage.getItem("CUSTOMTOKEN")
+            this.$.ajaxSave.headers['CustomToken'] = ct;
+            this.$.ajaxSave.url = this.saveURL
+            this.$.ajaxSave.body = JSON.stringify(this.model);
+            this.$.ajaxSave.generateRequest();
+
+      
+       
+    }
+
+
+    response(request) {
+
+
+        if (request.detail.response.status) {
+            document.querySelector('#toast').text = 'Saved successfully.';
+            document.querySelector('#toast').show();
+
+
+             let viewRoute = this.route.path.replace('edit', 'view')
+
+            this.set('route.path', viewRoute)
+       
+        }
+    }
+
+    edit() {
+        let editRoute = this.route.path.replace('view', 'edit')
+
+            this.set('route.path', editRoute)
+    }
 
 
     close() {
@@ -987,13 +1159,69 @@ export class BarcodesViewElement extends PolymerElement {
 
         this.titlecolor();
 
+        this.shadowRoot.addEventListener('sendpartlist', e => {
+            window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
+            this.$.showpart.open(this.model.settings.id)
+            this.adjustPanelProps(this.panelprops, "showParts");
+            this.$.drawer.togglePanel();
+
+        })
+
+
+        this.shadowRoot.addEventListener('InventoryPartEvent', e => { this.close();
+            this.DataBindingI(e) });
 
 
         this.shadowRoot.addEventListener('closePanel', e => {
             this.close()
         })
 
+        this.shadowRoot.addEventListener('BarcodeParts', e => {
+            let item = e.detail.data
+            item.barcodes = [];
+            for (var i = 0; i < item.qty; i++) {
+                item.barcodes.push({ barcode: "" })
+            }
 
+            this.model.items = this.$.barcodes.retrieveData()
+            this.model.items.push(item)
+
+            this.$.barcodes.open(this.model.items)
+            this.close()
+
+        })
+
+        this.shadowRoot.addEventListener('BOMorBOpart', e => {
+            let item = e.detail
+            item.barcodes = [];
+            for (var i = 0; i < item.qty; i++) {
+                item.barcodes.push({ barcode: "" })
+            }
+            this.push('barcodes', item)
+
+            this.set('modulebillshipto.ainfovalues.ainfo6_value', item.parentidver)
+
+        })
+
+
+
+        this.shadowRoot.addEventListener('sendcustomerlist', e => {
+            window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
+            this.adjustPanelProps(this.panelprops, "showcustomersidepanel");
+            this.$.showcustomer.open(this.model.settings.id);
+            this.$.drawer.togglePanel();
+        })
+
+
+        this.shadowRoot.addEventListener('showbomandbolist', e => {
+            window.innerWidth < 768 ? this.drawerwidth = "320px" : this.drawerwidth = "640px"
+            this.adjustPanelProps(this.panelprops, "showbomandbolist");
+            this.$.showbomandbo.open();
+            this.$.drawer.togglePanel();
+        })
+
+
+      
 
     }
 

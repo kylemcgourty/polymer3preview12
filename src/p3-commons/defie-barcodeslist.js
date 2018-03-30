@@ -33,7 +33,7 @@ import '../../src/p3-commons/search-inner.js'
 
        
 
-        open(data, view){
+        open(data, view, noicon){
 
             if (view == true){
                 this.view = true
@@ -42,6 +42,7 @@ import '../../src/p3-commons/search-inner.js'
             }
 
             this.data= data
+            this.noicon = noicon
 
 
             this.data.forEach((item, i) => { item.id = i})
@@ -69,7 +70,7 @@ import '../../src/p3-commons/search-inner.js'
                                                     <div class="serialnumbers">
                                                         ${item.serialnumbers}
                                                     </div>
-                                                     <iron-icon class="delete" editOnly$="${this.view}" icon="close" on-tap="${()=>{this.delete(item)}}"></iron-icon>
+                                                     <iron-icon class="delete" style="display:${this.noicon}" editOnly$="${this.view}" icon="close" on-tap="${()=>{this.delete(item)}}"></iron-icon>
                                                 </div>
                                                 <div id$="placement-${item.id}"  class="layout horizontal wrap">
                                                 <div> 

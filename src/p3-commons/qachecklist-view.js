@@ -1951,8 +1951,7 @@ import {Element as PolymerElement}
             document.querySelector('#toast').show();
 
 
-            console.log('the route path', this.route.path)
-
+        
             let viewRoute = this.route.path.replace('edit', 'view')
 
             this.set('route.path', viewRoute)
