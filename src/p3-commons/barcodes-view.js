@@ -681,22 +681,7 @@ export class BarcodesViewElement extends PolymerElement {
                     }
                 }
             },
-            ainfo: {
-                type: Object,
-                notify: true,
-                value: function() {
-                    return {
-                        title: "Project",
-                        info1: "Company",
-                        info2: "Company id",
-                        info3: "Barcode Name",
-                        info4: "Qty",
-                        info5: "Serial Number",
-                        info6: "BOM/BO id",
-                        info7: "WO id",
-                    }
-                }
-            },
+           
             binfo: {
                 type: Object,
                 notify: true,
@@ -870,7 +855,21 @@ export class BarcodesViewElement extends PolymerElement {
 
 
 
-    start(returnURL, view, saveURL, editbutton) {
+    start(returnURL, view, saveURL, editbutton, bomConfig, woConfig) {
+
+        bomConfig ? bomConfig : bomConfig = "BOM/BO id"
+        woConfig ? woConfig : woConfig = "WO id"
+        this.ainfo = {
+                        title: "Project",
+                        info1: "Company",
+                        info2: "Company id",
+                        info3: "Barcode Name",
+                        info4: "Qty",
+                        info5: "Serial Number",
+                        info6: bomConfig,
+                        info7: woConfig,
+                    }
+
 
             this.returnURL = returnURL
             this.view = view

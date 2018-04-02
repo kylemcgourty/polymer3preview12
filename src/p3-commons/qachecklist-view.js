@@ -1588,22 +1588,7 @@ import {Element as PolymerElement}
                     }
                 }
             },
-            ainfo: {
-                type: Object,
-                notify: true,
-                value: function() {
-                    return {
-                        title: "Product Info",
-                        info1: "Brand",
-                        info2: "Brand Id",
-                        info3: "QA Check List",
-                        info4: "Qty",
-                        info5: "Serial Number",
-                        info6: "BOM/BO id",
-                        info7: "WO id",
-                    }
-                }
-            },
+            
             binfo: {
                 type: Object,
                 notify: true,
@@ -1786,8 +1771,26 @@ import {Element as PolymerElement}
 
         }
 
-        start(returnRoute, view, saveURL, editbutton){
-                console.log('got mdoel in view', JSON.parse(JSON.stringify(this.model)))
+        start(returnRoute, view, saveURL, editbutton, bomConfig, woConfig){
+                
+
+                bomConfig ? bomConfig : bomConfig = "BOM/BO id"
+                woConfig ? woConfig : woConfig = "WO id"
+
+               this.ainfo= {
+             
+                 
+                        title: "Product Info",
+                        info1: "Company",
+                        info2: "Company Id",
+                        info3: "QA Check List",
+                        info4: "Qty",
+                        info5: "Serial Number",
+                         info6: bomConfig,
+                        info7: woConfig,
+                    }
+           
+
                 this.view = view
                 this.setmoduleheader()
                 this.setModel(this.model)
