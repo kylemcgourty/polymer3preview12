@@ -557,6 +557,7 @@ export class DefieMenu extends PolymerElement {
                         "buildorder-new": "buildorders",
                         "releasedbuildorders": "releasedbuildorders",
                         "releasebuildorder-new": "releasedbuildorders",
+                        "workorder-release": "workorders",
                         "workorders": "workorders",
                         "workorder-new": "workorders",
                         "finishworkorders": "finishworkorders",
@@ -665,6 +666,7 @@ export class DefieMenu extends PolymerElement {
                         "buildorder-new": "/buildorders/src/buildorders-shell.js",
                         "releasedbuildorders": "/releasedbuildorders/src/releasedbuildorders-shell.js",
                         "releasebuildorder-new": "/releasedbuildorders/src/releasedbuildorders-shell.js",
+                        "workorder-release": "/workorders/src/workorders-shell.js",
                         "workorders": "/workorders/src/workorders-shell.js",
                         "workorder-new": "/workorders/src/workorders-shell.js",
                         "finishworkorders": "/finishworkorders/src/finishworkorders-shell.js",
@@ -955,16 +957,8 @@ export class DefieMenu extends PolymerElement {
 
     toWelcomePage(e) {
         this.set('route.path', '/welcome');
-        // this.showMenu = true;
-        // this.set('leftservices', e.detail.services)
-
-        let ct = sessionStorage.getItem("CUSTOMTOKEN")
-        this.$.serviceajax.headers['CustomToken'] = ct;
-        this.$.serviceajax.url = "/service/leftservice"
-        this.$.serviceajax.generateRequest()
         this.showMenu = true;
-
-
+        this.set('leftservices', e.detail.services)
 
         this.getSetting(sessionStorage.getItem("PR"))
         // let ct = sessionStorage.getItem("CUSTOMTOKEN")
