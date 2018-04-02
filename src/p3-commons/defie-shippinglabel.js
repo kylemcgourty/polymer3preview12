@@ -572,6 +572,7 @@
             min-height: 1px;
             width: 100%;
             border: black solid .1px;
+            border-right: none;
         }
 
         .col-xs-3 {
@@ -1067,14 +1068,7 @@
             width: 47.4%;
         }
 
-        .detail-header {
-            padding-left: 1%;
-        }
-
-        .detail-header1 {
-            padding-left: .5%;
-        }
-
+    
         .desc-input {
             width: 99.5%;
             border: none;
@@ -1083,13 +1077,13 @@
         }
 
         .col-desc {
-            width: 98%;
+            width: 97.9%;
             border: black solid 1px;
             border-bottom: none;
         }
 
         .col-desc-bot {
-            width: 98%;
+            width: 97.9%;
             border: black solid 1px;
         }
 
