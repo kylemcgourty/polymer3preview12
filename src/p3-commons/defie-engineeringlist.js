@@ -127,18 +127,18 @@
                         <div style="display: ${item.display}" class="layout vertical">
                             <div class="data-container layout horizontal">
                                 <div class="options layout vertical" style="background-color: ${item.background}">
-                                    <div class="layout horizontal" style="visibility: ${item.visibility}">
-                                        <div class="opt1"> ${item.id} </div>
-                                        <div class="iconholder">
+                                    <div class="layout horizontal">
+                                        <div class="opt1" style="visibility: ${item.visibility}"> ${item.id} </div>
+                                        <div class="iconholder" style="visibility: ${item.visibility}">
                                             <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap=${() => this.event1(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
                                             <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap=${() => this.event2(item)}" class="icon1"></paper-icon-button>
                                         </div>
-                                        <div class="iconholder">
+                                        <div class="iconholder" style="visibility: ${item.visibility}">
                                             <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap=${() => this.event3(item)}" class="icon1"></paper-icon-button>
                                         </div>
-                                        <div class="iconholder">
+                                        <div class="iconholder" style="visibility: ${item.visibility}">
                                             <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap=${() => this.event4(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                     </div>
@@ -243,7 +243,7 @@
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col7.display}" data-size$="${item.col7.size}" class="group8 layout horizontal wrap">
-                                                <div class="box8-data layout horizontal" style="visibility: ${item.visibility}">
+                                                <div class="box8-data layout horizontal">
                                                     <div class="bd8-2">
                                                         <span class="bd8-1head"> ${this.col7}</span>
                                                             <input data-align$="${item.col7.textalign}" on-focusout="${() =>this.event77(item)}" value="${item.col7.value}" id$="item77-${item.id}" style="display:${this.editableCheck(item.col7.editable)}; background-color: ${item.background}" class="input1 inputnum outline">
@@ -252,8 +252,8 @@
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col8.display}" data-size$="${item.col8.size}" class="group9 layout horizontal wrap">
-                                                <div class="box9-data layout horizontal" style="visibility: ${item.visibility}">
-                                                    <div class="bd9-2" style="visibility: ${item.visibility}">
+                                                <div class="box9-data layout horizontal">
+                                                    <div class="bd9-2">
                                                         <span class="bd9-1head"> ${this.col8}</span>
                                                             <input id$="item88-${item.id}" style="display:${this.editableCheck(item.col8.editable)};"  on-focusout="${() =>this.event88(item)}" value="${item.col8.value}"  data-align$="${item.col8.textalign}" class="input1 inputnum outline">
                                                             <input style="display:${this.editableCheck1(item.col8.editable)};" value="${item.col8.value}" disabled data-align$="${item.col8.textalign}" class="input1 inputnum">
@@ -261,8 +261,8 @@
                                                 </div>
                                             </div>
                                             <div style="display: ${item.col9.display}" data-size$="${item.col9.size}" class="group10 layout horizontal wrap">
-                                                <div class="box10-data layout horizontal" style="visibility: ${item.visibility}">
-                                                    <div class="bd10-2" style="visibility: ${item.visibility}">
+                                                <div class="box10-data layout horizontal">
+                                                    <div class="bd10-2">
                                                         <span class="bd10-1head"> ${this.col9}</span>
                                                             <input data-align$="${item.col9.textalign}" class="input1 inputnum outline" id$="item99-${item.id}" style="display:${this.editableCheck(item.col9.editable)};"  on-focusout="${() =>this.event99(item)}" value="${item.col9.value}">
                                                             <input style="display:${this.editableCheck1(item.col9.editable)};" value="${item.col9.value}" disabled data-align$="${item.col9.textalign}" class="input1 inputnum">
