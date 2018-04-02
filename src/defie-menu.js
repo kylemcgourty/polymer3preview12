@@ -355,7 +355,7 @@ export class DefieMenu extends PolymerElement {
 
                 <boms-shell setting="[[setting]]" name="boms"></boms-shell>
 
-                <releasedboms-shell rbom="[[rbom]]" setting="[[setting]]" name="releasedboms"></releasedboms-shell>
+                <releasedboms-shell rbom="[[rbom]]" setting="[[setting]]" name="releasedboms" wotorbom="[[wotorbom]]"></releasedboms-shell>
 
                 <buildorders-shell setting="[[setting]]" name="buildorders"></buildorders-shell>
 
@@ -365,7 +365,7 @@ export class DefieMenu extends PolymerElement {
 
 
 
-                <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders"></releasedbuildorders-shell>
+                <releasedbuildorders-shell rbo="[[rbo]]" setting="[[setting]]" name="releasedbuildorders" wotorbo="[[wotorbo]]"></releasedbuildorders-shell>
 
 
                 <qachecklists-shell setting="[[setting]]" name="qachecklists"></qachecklists-shell>
@@ -798,6 +798,12 @@ export class DefieMenu extends PolymerElement {
         this.addEventListener('RBOtoWONew', e => {
             this.set('rbotowo', e.detail.model)
         });
+        this.addEventListener('WOtoRBOM', e => {
+            this.set('wotorbom', e.detail.model)
+        });
+        this.addEventListener('WOtoRBO', e => {
+            this.set('wotorbo', e.detail.model)
+        });
         this.addEventListener('logoutapp', e => {
             this.set('route.path', "")
             this.showMenu = false;
@@ -838,13 +844,13 @@ export class DefieMenu extends PolymerElement {
         //     this.set('option', 'welcome')
         //     return;
         // }
-
+         
         if (Array.isArray(module)) {
             Promise.all(module.map((item) => { import (item) })).then(() => {
                 this.set('option', this.ServicesList[route])
             })
         } else {
-
+         console.log(module)
             import (module).then((mod) => {
                 this.set('option', this.ServicesList[route])
             })
@@ -961,9 +967,9 @@ export class DefieMenu extends PolymerElement {
         this.set('leftservices', e.detail.services)
 
         this.getSetting(sessionStorage.getItem("PR"))
-        // let ct = sessionStorage.getItem("CUSTOMTOKEN")
-        // this.$.serviceajax.headers['CustomToken'] = ct;
-        // this.$.serviceajax.generateRequest();
+        let ct = sessionStorage.getItem("CUSTOMTOKEN")
+        this.$.serviceajax.headers['CustomToken'] = ct;
+        this.$.serviceajax.generateRequest();
         this.getDefaultShipto();
     }
 
