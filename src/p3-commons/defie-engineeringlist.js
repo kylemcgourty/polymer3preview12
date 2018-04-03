@@ -130,16 +130,16 @@
                                     <div class="layout horizontal">
                                         <div class="opt1" style="visibility: ${item.visibility}"> ${item.id} </div>
                                         <div class="iconholder" style="visibility: ${item.visibility}">
-                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap=${() => this.event1(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}; visibility: ${item.icons.firsthidden}" on-tap=${() => this.event1(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder">
-                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap=${() => this.event2(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}; visibility: ${item.icons.secondhidden}" on-tap=${() => this.event2(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="visibility: ${item.visibility}">
-                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap=${() => this.event3(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}; visibility: ${item.icons.thirdhidden}" on-tap=${() => this.event3(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                         <div class="iconholder" style="visibility: ${item.visibility}">
-                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap=${() => this.event4(item)}" class="icon1"></paper-icon-button>
+                                            <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}; visibility: ${item.icons.fourthhidden}" on-tap=${() => this.event4(item)}" class="icon1"></paper-icon-button>
                                         </div>
                                     </div>
                                 </div>
@@ -158,16 +158,16 @@
                                                         </div>
                                                         <div class="mobile-icons layout horizontal" style="visibility: ${item.visibility}">
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}" on-tap="${() =>this.event1(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.first}" style="display: ${item.icons.firstdisplay}; visibility: ${item.icons.firsthidden}" on-tap="${() =>this.event1(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}" on-tap="${() =>this.event2(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.second}" style="display: ${item.icons.seconddisplay}; visibility: ${item.icons.secondhidden}" on-tap="${() =>this.event2(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}" on-tap="${() =>this.event3(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.third}" style="display: ${item.icons.thirddisplay}; visibility: ${item.icons.thirdhidden}" on-tap="${() =>this.event3(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                             <div class="iconholder">
-                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}" on-tap="${() =>this.event4(item)}" class="icon1"></paper-icon-button>
+                                                                <paper-icon-button icon="${item.icons.fourth}" style="display: ${item.icons.fourthdisplay}; visibility: ${item.icons.fourthhidden}" on-tap="${() =>this.event4(item)}" class="icon1"></paper-icon-button>
                                                             </div>
                                                         </div>
                                                     </div>
