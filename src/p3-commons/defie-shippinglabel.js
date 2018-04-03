@@ -112,7 +112,7 @@
 
        
 
-        initializer(model, first, disabled, keysonly) {
+        initializer(model, first, disabled, keysonly, editkeys) {
             // this.fire('closePanel', {})
 
             this.model= model;
@@ -147,6 +147,11 @@
                 this.valuedisable = true;
 
             
+            }
+
+            if (editkeys){
+                this.keydisable = false;
+                this.valuedisable = true;
             }
 
             if (disabled){
@@ -365,9 +370,9 @@
                                     </div>
                                     <div class="col-desc">
                                         <div class="detail-header1"> <input disabled="${this.keydisable}" placeholder="Description:"  id="key9" value="${model.key9}" class="placeholder input2 detail-input"> 
-                                        <input disabled="${this.keydisable}"  id="key9" value="${model.key9}" class="input2 detail-input">
+                                        <input disabled="${this.keydisable}"  id="key9" value="${model.key9}" class="noplaceholder input2 detail-input">
                                         </div>
-                                            <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="description" value="${model.description}" class="noplaceholder desc-input input1">
+                                            <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="description" value="${model.description}" class=" desc-input input1">
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
