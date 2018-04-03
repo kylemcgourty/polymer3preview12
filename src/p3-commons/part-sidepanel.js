@@ -275,7 +275,7 @@ export class PartSidepanel extends LitElement {
                                         </div>
                                     </div>
                                     <div class="my-content" >
-                                        <div class="col-xs-3">RBOM/RBO id:</div>
+                                        <div class="col-xs-3">RBOM/RBOid:</div>
                                         <div class="text-right col-xs-9" style="float:right">
                                             <div>
                                                 <input disabled class="input" value="${ item[4] }">
