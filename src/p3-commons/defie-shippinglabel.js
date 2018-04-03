@@ -38,28 +38,56 @@
         retrieveData(){
 
             if (this.editable){
-                this.model.key1 = this.shadowRoot.getElementById('key1').value
-                this.model.key2 = this.shadowRoot.getElementById('key2').value
-                this.model.key3 = this.shadowRoot.getElementById('key3').value
-                this.model.key4 = this.shadowRoot.getElementById('key4').value
-                this.model.key5 = this.shadowRoot.getElementById('key5').value
-                this.model.key6 = this.shadowRoot.getElementById('key6').value
 
-                this.model.key7 = this.shadowRoot.getElementById('key7').value
-                this.model.key8 = this.shadowRoot.getElementById('key8').value
-                this.model.key9 = this.shadowRoot.getElementById('key9').value
-                this.model.key10 = this.shadowRoot.getElementById('key10').value
-                this.model.key11 = this.shadowRoot.getElementById('key11').value
-                this.model.key12 = this.shadowRoot.getElementById('key12').value
+                console.log('set key disable', this.keydisable, this.editable)
+
+                // if (!this.keydisable){
+
+                    this.model.key1 = this.shadowRoot.getElementById('key1p').value
+                    this.model.key2 = this.shadowRoot.getElementById('key2p').value
+                    this.model.key3 = this.shadowRoot.getElementById('key3p').value
+                    this.model.key4 = this.shadowRoot.getElementById('key4p').value
+                    this.model.key5 = this.shadowRoot.getElementById('key5p').value
+                    this.model.key6 = this.shadowRoot.getElementById('key6p').value
+
+                    this.model.key7 = this.shadowRoot.getElementById('key7p').value
+                    this.model.key8 = this.shadowRoot.getElementById('key8p').value
+                    this.model.key9 = this.shadowRoot.getElementById('key9p').value
+                    this.model.key10 = this.shadowRoot.getElementById('key10p').value
+                    this.model.key11 = this.shadowRoot.getElementById('key11p').value
+                    this.model.key12 = this.shadowRoot.getElementById('key12p').value
 
 
-                this.model.snkey1 = this.shadowRoot.getElementById('snkey1').value
-                this.model.snkey2 = this.shadowRoot.getElementById('snkey2').value
-                this.model.snkey3 = this.shadowRoot.getElementById('snkey3').value
-                this.model.snkey4 = this.shadowRoot.getElementById('snkey4').value
-                this.model.snkey5 = this.shadowRoot.getElementById('snkey5').value
-                this.model.snkey6 = this.shadowRoot.getElementById('snkey6').value
+                    this.model.snkey1 = this.shadowRoot.getElementById('snkey1p').value
+                    this.model.snkey2 = this.shadowRoot.getElementById('snkey2p').value
+                    this.model.snkey3 = this.shadowRoot.getElementById('snkey3p').value
+                    this.model.snkey4 = this.shadowRoot.getElementById('snkey4p').value
+                    this.model.snkey5 = this.shadowRoot.getElementById('snkey5p').value
+                    this.model.snkey6 = this.shadowRoot.getElementById('snkey6p').value
 
+                // } else {
+                //     this.model.key1 = this.shadowRoot.getElementById('key1').value
+                //     this.model.key2 = this.shadowRoot.getElementById('key2').value
+                //     this.model.key3 = this.shadowRoot.getElementById('key3').value
+                //     this.model.key4 = this.shadowRoot.getElementById('key4').value
+                //     this.model.key5 = this.shadowRoot.getElementById('key5').value
+                //     this.model.key6 = this.shadowRoot.getElementById('key6').value
+
+                //     this.model.key7 = this.shadowRoot.getElementById('key7').value
+                //     this.model.key8 = this.shadowRoot.getElementById('key8').value
+                //     this.model.key9 = this.shadowRoot.getElementById('key9').value
+                //     this.model.key10 = this.shadowRoot.getElementById('key10').value
+                //     this.model.key11 = this.shadowRoot.getElementById('key11').value
+                //     this.model.key12 = this.shadowRoot.getElementById('key12').value
+
+
+                //     this.model.snkey1 = this.shadowRoot.getElementById('snkey1').value
+                //     this.model.snkey2 = this.shadowRoot.getElementById('snkey2').value
+                //     this.model.snkey3 = this.shadowRoot.getElementById('snkey3').value
+                //     this.model.snkey4 = this.shadowRoot.getElementById('snkey4').value
+                //     this.model.snkey5 = this.shadowRoot.getElementById('snkey5').value
+                //     this.model.snkey6 = this.shadowRoot.getElementById('snkey6').value
+                // }
 
 
 
@@ -149,10 +177,7 @@
             
             }
 
-            if (editkeys){
-                this.keydisable = false;
-                this.valuedisable = true;
-            }
+
 
             if (disabled){
                 this.keydisable = true;
@@ -163,8 +188,13 @@
             if (!disabled && !first){
                 this.keydisable = true;
                 this.valuedisable = false
-
              
+            }
+
+             if (editkeys){
+                this.keydisable = false;
+                this.valuedisable = true;
+                this.editable = true
             }
 
             
@@ -237,7 +267,7 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn1}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"><span class="description"><input disabled="${this.keydisable}"  id="key1" value="${model.key1}" placeholder="PN:" class="input2 enteredpn placeholder">
+                                            <div class="partnumber"><span class="description"><input disabled="${this.keydisable}"  id="key1p" value="${model.key1}" placeholder="PN:" class="input2 enteredpn placeholder">
 
                                             <input disabled="${this.keydisable}"  id="key1" value="${model.key1}"  class="input2 noplaceholder enteredpn">
                                             </span>
@@ -245,7 +275,7 @@
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey1" value="${model.snkey1}" class="input2 placeholder"> 
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey1p" value="${model.snkey1}" class="input2 placeholder"> 
 
                                                 <input disabled="${this.keydisable}"  id="snkey1" value="${model.snkey1}" class="input2 noplaceholder">
                                             </span>
@@ -256,7 +286,7 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn2}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"><span class="description"> <input disabled="${this.keydisable}"  id="key2" value="${model.key2}" placeholder="PN:" class="input2 enteredpn placeholder">
+                                            <div class="partnumber"><span class="description"> <input disabled="${this.keydisable}"  id="key2p" value="${model.key2}" placeholder="PN:" class="input2 enteredpn placeholder">
 
                                             <input disabled="${this.keydisable}"  id="key2" value="${model.key2}"  class="input2 noplaceholder enteredpn">
                                             </span>
@@ -264,7 +294,7 @@
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey2" value="${model.snkey2}" class="input2 placeholder"> 
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey2p" value="${model.snkey2}" class="input2 placeholder"> 
 
                                                 <input disabled="${this.keydisable}" id="snkey2" value="${model.snkey2}" class="input2 noplaceholder">
                                             </span>
@@ -275,7 +305,7 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn3}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key3" value="${model.key3}" placeholder="PN:" class="input2 enteredpn placeholder">
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key3p" value="${model.key3}" placeholder="PN:" class="input2 enteredpn placeholder">
 
                                             <input disabled="${this.keydisable}"  id="key3" value="${model.key3}"  class="input2 noplaceholder enteredpn">
                                             </span>
@@ -283,7 +313,7 @@
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey3" value="${model.snkey3}" class="input2 placeholder"> 
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey3p" value="${model.snkey3}" class="input2 placeholder"> 
 
                                                 <input disabled="${this.keydisable}" id="snkey3" value="${model.snkey3}" class="input2 noplaceholder">
                                             </span>
@@ -296,7 +326,7 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn4}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key4" value="${model.key4}" placeholder="PN:" class="input2 enteredpn placeholder">
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key4p" value="${model.key4}" placeholder="PN:" class="input2 enteredpn placeholder">
 
                                             <input disabled="${this.keydisable}"  id="key4" value="${model.key4}"  class="input2 noplaceholder enteredpn">
                                             </span>
@@ -304,7 +334,7 @@
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey4" value="${model.snkey4}" class="input2 placeholder"> 
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey4p" value="${model.snkey4}" class="input2 placeholder"> 
 
                                                 <input disabled="${this.keydisable}" id="snkey4" value="${model.snkey4}" class="input2 noplaceholder">
                                             </span>
@@ -315,7 +345,7 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn5}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key5" value="${model.key5}" placeholder="PN:" class="input2 enteredpn placeholder">
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key5p" value="${model.key5}" placeholder="PN:" class="input2 enteredpn placeholder">
 
                                             <input disabled="${this.keydisable}"  id="key5" value="${model.key5}"  class="input2 noplaceholder enteredpn">
                                             </span>
@@ -323,7 +353,7 @@
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey5" value="${model.snkey5}" class="input2 placeholder"> 
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey5p" value="${model.snkey5}" class="input2 placeholder"> 
 
                                                 <input disabled="${this.keydisable}" id="snkey5" value="${model.snkey5}" class="input2 noplaceholder">
                                             </span>
@@ -334,7 +364,7 @@
                                             <div class="scancode">
                                                 <scan-code id="my_barcode" type="qrcode" data="${model.sn6}" height="100" width="100"></scan-code>
                                             </div>
-                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key6" value="${model.key6}" placeholder="PN:" class="input2 enteredpn placeholder">
+                                            <div class="partnumber"> <span class="description"><input disabled="${this.keydisable}"  id="key6p" value="${model.key6}" placeholder="PN:" class="input2 enteredpn placeholder">
 
                                             <input disabled="${this.keydisable}"  id="key6" value="${model.key6}"  class="input2 noplaceholder enteredpn">
                                             </span>
@@ -342,7 +372,7 @@
                                             </div>
                                             
                                             <div style="clear: both;"></div>
-                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey6" value="${model.snkey6}" class="input2 placeholder"> 
+                                            <div class="serialnumber"><span class="hwr-words"><input disabled="${this.keydisable}" placeholder="SN:" id="snkey6p" value="${model.snkey6}" class="input2 placeholder"> 
 
                                                 <input disabled="${this.keydisable}" id="snkey6" value="${model.snkey6}" class="input2 noplaceholder">
                                             </span>
@@ -353,7 +383,7 @@
                                     <div style="clear: both;"></div>
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
-                                            <div class="detail-header fieldstarters"> <input disabled="${this.keydisable}" placeholder="Product No:"  id="key7" value="${model.key7}" class="placeholder input2 detail-input">
+                                            <div class="detail-header fieldstarters"> <input disabled="${this.keydisable}" placeholder="Product No:"  id="key7p" value="${model.key7}" class="placeholder input2 detail-input">
                                              <input disabled="${this.keydisable}"   id="key7" value="${model.key7}" class="noplaceholder input2 detail-input"> 
 
                                              </div>
@@ -362,21 +392,21 @@
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottom1">
-                                            <div class="detail-header fieldstarters"> <input disabled="${this.keydisable}" placeholder="Goodsmarking:"  id="key8" value="${model.key8}" class="placeholder input2 detail-input"> 
+                                            <div class="detail-header fieldstarters"> <input disabled="${this.keydisable}" placeholder="Goodsmarking:"  id="key8p" value="${model.key8}" class="placeholder input2 detail-input"> 
                                             <input disabled="${this.keydisable}"   id="key8" value="${model.key8}" class="noplaceholder input2 detail-input"> 
                                             </div>
                                                 <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="goodsmarking" value="${model.goodsmarking}" class="input1  detail-input">
                                         </div>
                                     </div>
                                     <div class="col-desc">
-                                        <div class="detail-header1"> <input disabled="${this.keydisable}" placeholder="Description:"  id="key9" value="${model.key9}" class="placeholder input2 detail-input"> 
+                                        <div class="detail-header1"> <input disabled="${this.keydisable}" placeholder="Description:"  id="key9p" value="${model.key9}" class="placeholder input2 detail-input"> 
                                         <input disabled="${this.keydisable}"  id="key9" value="${model.key9}" class="noplaceholder input2 detail-input">
                                         </div>
                                             <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="description" value="${model.description}" class=" desc-input input1">
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
-                                            <div class="detail-header"> <input disabled="${this.keydisable}" placeholder="Box:"  id="key10" value="${model.key10}" class="placeholder input2 detail-input">
+                                            <div class="detail-header"> <input disabled="${this.keydisable}" placeholder="Box:"  id="key10p" value="${model.key10}" class="placeholder input2 detail-input">
                                             <input disabled="${this.keydisable}"   id="key10" value="${model.key10}" class="noplaceholder input2 detail-input">
                                              </div>
                                                 <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="bcount1" style="float: left;"  value="${model.bcount1}" class="input1 detail-input1">
@@ -387,13 +417,13 @@
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottom1">
-                                            <div class="detail-header"> <input disabled="${this.keydisable}" placeholder="Weight:"  id="key11" value="${model.key11}" class="placeholder input2 detail-input">
+                                            <div class="detail-header"> <input disabled="${this.keydisable}" placeholder="Weight:"  id="key11p" value="${model.key11}" class="placeholder input2 detail-input">
                                             <input disabled="${this.keydisable}"  id="key11" value="${model.key11}" class="noplaceholder input2 detail-input"> </div>
                                                 <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="weight" value="${model.weight}" class="input1  detail-input">
                                         </div>
                                     </div>
                                     <div class="col-desc-bot">
-                                        <div class="detail-header1 center"><input disabled="${this.keydisable}" placeholder="Manufactured in the USA"  id="key12" value="${model.key12}" class=" placeholder input2 detail-input">
+                                        <div class="detail-header1 center"><input disabled="${this.keydisable}" placeholder="Manufactured in the USA"  id="key12p" value="${model.key12}" class=" placeholder input2 detail-input">
                                         <input disabled="${this.keydisable}"  id="key12" value="${model.key12}" class="noplaceholder input2 detail-input"></div>
                                     </div>
                 </div>`
@@ -402,13 +432,10 @@
             render(shippinglabel(this.model), this.shadowRoot.getElementById('table'))
 
 
-            console.log('the keys and val', this.keydisable, this.valuedisable)
             if (this.keydisable ){
                     let nodes = this.shadowRoot.querySelectorAll('input.noplaceholder')
 
-                    console.log('running', nodes)
                 nodes.forEach((item)=> {
-                    console.log('setting item', item)
                     item.setAttribute("style", "display: block;")
                 })
 
@@ -418,18 +445,17 @@
                 })
             } else {
                 let nodes = this.shadowRoot.querySelectorAll('input.noplaceholder')
-                console.log('nls', nodes)
                 nodes.forEach((item)=> {
-                    console.log('nodes', item)
                     item.setAttribute("style", "display: none;")
                 })
 
                 let nodes1 = this.shadowRoot.querySelectorAll('input.placeholder')
                 nodes1.forEach((item)=> {
-                    console.log('nodes1', item)
                     item.setAttribute("style", "display: block;")
                 })
             }
+
+            console.log('set keydisable', this.keydisable)
 
         }
 

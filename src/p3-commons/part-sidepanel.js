@@ -6,6 +6,21 @@ import { render } from '../../node_modules/lit-html/lib/lit-extended.js';
 
 import '../../src/p3-commons/search-inner.js'
 
+Number.prototype.usd = function(c) {
+    var d = '.';
+    var t = ',';
+    const prefix = '$';
+    let n = this;
+    c = isNaN(c = Math.abs(c)) ? 2 : c;
+    d = d == undefined ? "." : d;
+    t = t == undefined ? "," : t;
+    const s = n < 0 ? "-" : "";
+    const i = `${parseInt(n = Math.abs(+n || 0).toFixed(c))}`;
+    let j;
+    j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + prefix + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
 
 export class PartSidepanel extends LitElement {
     static get properties() {
@@ -43,6 +58,11 @@ export class PartSidepanel extends LitElement {
             negfilter: {
                 type: String,
                 reflectToAttribute: true,
+            },
+
+            bomsonly: {
+                type: String,
+                reflectToAttribute: true
             },
 
             profileid: {
@@ -172,6 +192,12 @@ export class PartSidepanel extends LitElement {
 
                     tempArray = tempArray.filter(function(item, ind) {
                         return item.type != this.negfilter
+                    }.bind(this))
+                }
+
+                if(this.bomsonly){
+                    tempArray = tempArray.filter(function(item, ind) {
+                        return item.bomid > 0
                     }.bind(this))
                 }
 
