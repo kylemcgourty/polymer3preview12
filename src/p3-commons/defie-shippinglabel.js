@@ -348,8 +348,8 @@
                                     <div style="clear: both;"></div>
                                     <div class="col-pns">
                                         <div class="col-md-bottomL1">
-                                            <div class="detail-header"> <input disabled="${this.keydisable}" placeholder="Product No:"  id="key7" value="${model.key7}" class="placeholder input2 detail-input">
-                                            <div class="detail-header"> <input disabled="${this.keydisable}"   id="key7" value="${model.key7}" class="noplaceholder input2 detail-input"> </div>
+                                            <div class="detail-header fieldstarters"> <input disabled="${this.keydisable}" placeholder="Product No:"  id="key7" value="${model.key7}" class="placeholder input2 detail-input">
+                                             <input disabled="${this.keydisable}"   id="key7" value="${model.key7}" class="noplaceholder input2 detail-input"> 
 
                                              </div>
                                                 <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="po" value="${model.po}" class="input1  detail-input">
@@ -357,7 +357,7 @@
                                     </div>
                                     <div class="col-pns">
                                         <div class="col-md-bottom1">
-                                            <div class="detail-header"> <input disabled="${this.keydisable}" placeholder="Goodsmarking:"  id="key8" value="${model.key8}" class="placeholder input2 detail-input"> 
+                                            <div class="detail-header fieldstarters"> <input disabled="${this.keydisable}" placeholder="Goodsmarking:"  id="key8" value="${model.key8}" class="placeholder input2 detail-input"> 
                                             <input disabled="${this.keydisable}"   id="key8" value="${model.key8}" class="noplaceholder input2 detail-input"> 
                                             </div>
                                                 <input data-keysonly$="${this.hidekeys}" disabled="${this.valuedisable}" id="goodsmarking" value="${model.goodsmarking}" class="input1  detail-input">
@@ -558,6 +558,10 @@
 
         .text-right {
             text-align: right;
+        }
+
+        .fieldstarters {
+            border-top: .1px solid black;
         }
 
         .col-xs-12 {
