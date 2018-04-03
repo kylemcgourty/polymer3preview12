@@ -814,7 +814,7 @@
         .nametitle {
             width: 159px;
                 box-sizing: border-box;
-                 padding-left: 9px;
+                 padding-left: 3px;
         }
 
         .remover {
