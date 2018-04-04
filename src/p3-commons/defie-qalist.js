@@ -973,6 +973,8 @@
             /*min-height: 54px;*/
             line-height: 2.5;
             border-bottom: none
+             height: 39px;
+            margin-bottom: 3px;
         }
 
         .unit:nth-child(2) .data {
@@ -1421,9 +1423,8 @@
             width: 100%;
             background-color: #eee;
             margin-top: 6px;*/
-            box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.4);
             overflow: hidden;
-            height: 39px;
+            height: 21px;
             /*     height: 67px;
             overflow: hidden;*/
         }
@@ -1484,21 +1485,17 @@
             height: 29px;
             flex-shrink: 0;
             overflow: hidden;
-            height: 37px;
+            height: 21px;
         }
 
         div[class^="box"] {
             flex-shrink: 0;
             width: 100%;
-            height: 37px;
+            height: 21px;
             /*width: 100%;*/
             /*overflow: hidden;*/
         }
-        /*    div[class^="bd"]:nth-child(3) {
-            padding-left: 6px;
-            height: 29px;
-        }
-        */
+      
 
         div[class^="bd"] {
             white-space: nowrap;
@@ -1508,7 +1505,7 @@
             height: 29px;
             flex-shrink: 0;
             box-sizing: border-box;
-            height: 37px;
+            height: 21px;
             /*overflow: hidden;*/
         }
 
@@ -1549,10 +1546,8 @@
         }
 
         .data {
-            background-color: #eee;
-            margin-top: 8px;
             overflow: hidden;
-            height: 33px;
+            height: 21px;
             width: 100%;
         }
 
@@ -1589,15 +1584,7 @@
             display: none;
         }
 
-        .group4 .input1,
-        .group5 .input1,
-        .group1 .input1,
-        .group8 .input1,
-        .group3 .input1,
-        .group7 .input1 {
-            border: 1px solid grey;
-            border-radius: 1px;
-        }
+       
 
         .unit:nth-child(2) .input1 {
             border: none!important;
@@ -1800,12 +1787,13 @@
             /*text-align: right;*/
             border: none;
             background-color: #eee;
-            width: 97%;
-            /* box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5); */
+            width: 100%;
+            box-shadow: 0 1px 0 rgba(155, 155, 155, 0.5);
             color: black;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            height: 17px;
         }
 
         .input {
