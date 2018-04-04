@@ -775,8 +775,9 @@
         }
 
         .version-container {
-            padding-left: 2%;
-            margin-top: 155px;
+                padding-left: 2%;
+    margin-top: 128px;
+    margin-bottom: 36px;
         }
 
         .shiptitle {
@@ -812,7 +813,13 @@
         }
 
         .nametitle {
-            width: 159px;
+            width: 98px;
+                box-sizing: border-box;
+                 padding-left: 3px;
+        }
+
+        .nametitle2 {
+            width: 52px;
                 box-sizing: border-box;
                  padding-left: 3px;
         }
@@ -1105,7 +1112,7 @@
                             <div class="labelholder">
                                 <div class="layout horizontal version-container">
                                    <div class="layout horizontal infocontainer"> <span class="nametitle"> Label name </span><input disabled class="input1"  value="{{labelname}}" id="labelname"> </div>
-                                   <div class="layout horizontal infocontainer"> <span class="nametitle"> SO id </span> <input class="input1" disabled  value="{{model.soid}}"> </div> 
+                                   <div class="layout horizontal infocontainer"> <span class="nametitle2"> SO id </span> <input class="input1" disabled  value="{{model.soid}}"> </div> 
                                 </div>
                                 <defie-shippinglabel id="shippinglabel"></defie-shippinglabel>
                             </div>

@@ -177,18 +177,24 @@ class BPSPanel extends LitElement {
         this.data = this.data.map((item, i) => {
             
             if (item.qalistidver){
+                this.idIdentifier = "QA List id"
                 item.procedureidver = item.qalistidver
+                item.company = item.brand
+
             }
             if (item.barcodename || item.barcodename == ""){
+                this.idIdentifier = "BC id"
+
                 item.procedureidver = item.idver
-                item.qaname = item.barcodename
                 item.mfgpn = item.productno
             }
             if (item.labelname || item.labelname == ""){
+                this.idIdentifier = "Ship. label id"
+
                 item.procedureidver = item.idver
-                item.qaname = item.labelname
-                item.model = ""
                 item.mfgpn = ""
+                item.partidver = ""
+                item.company = ""
             }
             item.idno = i + 1
             return item
@@ -213,7 +219,7 @@ class BPSPanel extends LitElement {
                     <div on-tap="${()=>{this.openChoice(item.idno)}}" id="qachecklist">
                         <div class="ilrow layout vertical">
                             <div class="my-content" >
-                                <div class="col-xs-3">Id</div>
+                                <div class="col-xs-3">${this.idIdentifier}</div>
                                 <div class="text-right">
                                     <div class="col-xs-9" >
                                         <input disabled class="input" value="${item.procedureidver}">
@@ -221,18 +227,18 @@ class BPSPanel extends LitElement {
                                 </div>
                             </div>
                             <div class="my-content" >
-                                <div class="col-xs-3">Name</div>
+                                <div class="col-xs-3">Part id</div>
                                 <div class="text-right">
                                     <div class="col-xs-9">
-                                        <input disabled class="input" value="${item.qaname}">
+                                        <input disabled class="input" value="${item.partidver}">
                                     </div>
                                 </div>
                             </div>
                             <div class="my-content" >
-                                <div class="col-xs-3">Model</div>
+                                <div class="col-xs-3">Company</div>
                                 <div class="text-right">
                                     <div class="col-xs-9" >
-                                        <input disabled class="input" value="${item.model}">
+                                        <input disabled class="input" value="${item.company}">
                                     </div>
                                 </div>
                             </div>

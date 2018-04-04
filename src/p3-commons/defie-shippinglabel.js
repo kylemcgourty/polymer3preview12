@@ -549,7 +549,7 @@
             border: none;
             height: 18px;
             width: 100%;
-            padding-left: 1%;
+            padding-left: 3px;
             box-sizing: border-box;
             background-color: #eee;
         }
@@ -1285,7 +1285,6 @@
 
         .hwr-input {
             width: 91.444%;
-            padding-left: 2%;
             margin-left: 0;
             height: 19px;
         }
@@ -1375,7 +1374,8 @@
                 width: 99.4%;
                 border: none;
                 background-color: #eee;
-                padding-left: .5%;
+                padding-left: 3px;
+                margin-left: 1px;
             }
             .detail-input {
                 padding-left: 1%;

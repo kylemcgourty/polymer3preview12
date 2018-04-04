@@ -1605,7 +1605,7 @@
 
         .group1 {
             min-width: 150px;
-            width: 7%;
+            width: 10%;
             flex-grow: 1;
             padding-right: 6px!important;
         }
@@ -1623,16 +1623,16 @@
         }
 
         .group4 {
-            min-width: 150px;
-            width: 7%;
-            flex-grow: 1;
+                min-width: 100px;
+                width: 1%;
+                flex-grow: 1;
         }
 
         .group5 {
-            min-width: 150px;
-            width: 7%;
-            flex-grow: 1;
-            padding-right: 6px;
+                min-width: 100px;
+                width: 0%;
+                flex-grow: 1;
+                padding-right: 6px;
         }
 
         .group6 {
@@ -1643,9 +1643,9 @@
         }
 
         .group7 {
-            width: 7%;
-            flex-grow: 1;
-            min-width: 102px;
+                width: 0%;
+    flex-grow: 1;
+    min-width: 100px;
         }
 
         .group8 {
@@ -1660,9 +1660,15 @@
             min-width: 120px;
         }
 
+
+        [data-procedure="function"].bd1-1 {
+                min-width: 132px;
+                width: 100%;
+        }
+
         .bd1-1 {
-            min-width: 132px;
-            width: 43%;
+                min-width: 132px;
+                width: 85%;
         }
 
         .bd1-2 {
