@@ -972,7 +972,7 @@
             font-size: 17px;
             /*min-height: 54px;*/
             line-height: 2.5;
-            border-bottom: none
+            border-bottom: none;
              height: 39px;
             margin-bottom: 3px;
         }
@@ -1009,6 +1009,22 @@
             box-shadow: none;
             margin-top: 0px;
             margin: auto;
+        }
+
+        .unit:nth-child(2) div[class^="bd"] {
+            height: 39px;
+        }
+
+      
+
+         .unit:nth-child(2) div[class^="group"] {
+            height: 39px;
+        }
+
+     
+
+        .unit:nth-child(2) .data-container {
+            height: 39px;
         }
 
         .unit:nth-child(2) .opt1,
