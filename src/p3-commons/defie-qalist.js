@@ -1628,23 +1628,20 @@
         }
 
         .group4 {
-                min-width: 100px;
-                width: 1%;
-                flex-grow: 1;
+            min-width: 94px;
+            width: 6%;
         }
 
         .group5 {
-                min-width: 100px;
-                width: 0%;
-                flex-grow: 1;
+                min-width: 94px;
+            width: 6%;
         }
 
        
 
         .group7 {
-                width: 0%;
-    flex-grow: 1;
-    min-width: 100px;
+            min-width: 94px;
+            width: 6%;
         }
 
         .group8 {
