@@ -91,8 +91,8 @@
                                                                         <div class="bd1-1" data-procedure$="${item.title}">
                                                                                 <input id$="procedures-${item.id}" disabled class="input1" value="${item.procedures}">
                                                                         </div>
-                                                                        <paper-icon-button class="procedure-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></paper-icon-button>
-                                                                        <paper-icon-button class="function-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></paper-icon-button>
+                                                                        <iron-icon class="procedure-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${(e)=>{this.addProcedure(e)}}" icon="icons:add-circle-outline"></iron-icon>
+                                                                        <iron-icon class="function-icons" style="display:${this.showIcon()}" data-procedure$="${item.title}" on-tap="${()=>{this.addFunction(item)}}" icon="add-circle"></iron-icon>
                                                                     </div>
                                                                 </div>
                                                                 <div class="group4 layout horizontal wrap" data-procedure$="${item.title}">
@@ -120,10 +120,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="group1 layout horizontal wrap" data-procedure$="${item.title}">
-                                                                    <div class="box1-data layout horizontal">
-                                                                        <div class="bd1-2">
-                                                                            <span class="bd1-1head"> Replacement</span>
+                                                                <div class="group6 layout horizontal wrap" data-procedure$="${item.title}">
+                                                                    <div class="box6-data layout horizontal">
+                                                                        <div class="bd6-2">
+                                                                            <span class="bd6-1head"> Replacement</span>
                                                                                 <input id$="replacement-${item.id}" disabled="${this.determiner(item.title)}" value="${item.replacement}" class="input1">
                                                                         </div>
                                                                     </div>
@@ -1044,10 +1044,7 @@
             display: none
         }
 
-        .unit:nth-child(2) .bd6-1head {
-            display: inline-block;
-        }
-
+      
         .unit:nth-child(2) .input1 {
             outline: none;
         }
@@ -1433,16 +1430,10 @@
         }
 
         .data-container {
-            /* white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            width: 100%;
-            background-color: #eee;
-            margin-top: 6px;*/
+            
             overflow: hidden;
             height: 21px;
-            /*     height: 67px;
-            overflow: hidden;*/
+            padding-bottom: 1px;
         }
 
         .bod {
@@ -1569,11 +1560,12 @@
 
         .procedure-icons {
             color: black;
+            margin-top: 8px;
         }
 
         .function-icons {
             color: black;
-            margin-top: -6px;
+            margin-top: -2px;
         }
 
         [data-procedure="procedure-title"].procedure-icons {
@@ -1606,11 +1598,14 @@
             border: none!important;
         }
 
+        div[class^="group"].group1{
+            padding-left: 0px;
+        }
+
         .group1 {
             min-width: 150px;
             width: 10%;
             flex-grow: 1;
-            padding-right: 6px!important;
         }
 
         .group2 {
@@ -1620,6 +1615,12 @@
         }
 
         .group3 {
+            width: 9%;
+            flex-grow: 1;
+            min-width: 250px;
+        }
+
+         .group6 {
             width: 9%;
             flex-grow: 1;
             min-width: 250px;
@@ -1635,15 +1636,9 @@
                 min-width: 100px;
                 width: 0%;
                 flex-grow: 1;
-                padding-right: 6px;
         }
 
-        .group6 {
-            width: 7%;
-            flex-grow: 1;
-            min-width: 70px;
-            box-sizing: border-box;
-        }
+       
 
         .group7 {
                 width: 0%;
@@ -1671,13 +1666,12 @@
 
         .bd1-1 {
                 min-width: 132px;
-                width: 85%;
+                width: 91%;
         }
 
         .bd1-2 {
             min-width: 110px;
             width: 100%;
-            padding-left: 6px;
         }
 
         .bd2-1 {
@@ -1708,7 +1702,6 @@
         .bd4-1 {
             min-width: 100%;
             width: 100%;
-            padding-left: 23px;
             box-sizing: border-box;
         }
 
@@ -1732,18 +1725,21 @@
             width: 100%;
         }
 
-        .bd6-2 {
-            min-width: 76px;
+           .bd6-1 {
+            min-width: 71px;
             width: 100%;
-            box-sizing: border-box;
-            padding-left: 40%;
         }
+
+        .bd6-2 {
+            min-width: 104px;
+            width: 100%;
+        }
+      
 
         .bd7-2 {
             min-width: 70px;
             width: 100%;
             box-sizing: border-box;
-            padding-right: 5px;
         }
 
         .bd8-2,
@@ -1757,16 +1753,9 @@
             width: 45px;
         }
         
-        .bd6-2 {
-            width: 90px;
-            box-sizing: border-box!important;
-            padding-left: 5px;
-        }
+   
         
-        .bd6-3 {
-            width: 144px;
-        }
-        
+       
         .bd7-1 {
             width: 71px;
         }
@@ -1810,6 +1799,9 @@
             text-overflow: ellipsis;
             overflow: hidden;
             height: 17px;
+            vertical-align: top;
+            box-sizing: border-box;
+            padding-left: 2px;
         }
 
         .input {
