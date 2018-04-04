@@ -1433,7 +1433,8 @@
             
             overflow: hidden;
             height: 21px;
-            padding-bottom: 1px;
+            box-sizing: border-box;
+            margin-bottom: 1px;
         }
 
         .bod {
