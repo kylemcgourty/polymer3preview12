@@ -39,5 +39,7 @@
       "preset": "es6-unbundled",
       "basePath": true
     }
-  ]
+  ],
+  "npm": true,
+  "moduleResolution": "node"
 }

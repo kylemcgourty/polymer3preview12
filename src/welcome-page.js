@@ -1,13 +1,13 @@
-   import { Element as PolymerElement }
-   from '../../node_modules/@polymer/polymer/polymer-element.js'
-   import '../../node_modules/@polymer/paper-drawer-panel/paper-drawer-panel.js'
-   import '../../node_modules/@polymer/paper-header-panel/paper-header-panel.js'
+   import {PolymerElement, html }
+   from '@polymer/polymer/polymer-element.js'
+   import '@polymer/paper-drawer-panel/paper-drawer-panel.js'
+   import '@polymer/paper-header-panel/paper-header-panel.js'
    import '../src/p3-commons/logout-header.js'
 
    export class WelcomePage extends PolymerElement {
 
        static get template() {
-           return ` 
+           return html` 
         <style include="shared-styles iron-flex iron-flex-alignment">
         #paperToggle {
             min-height: 40px;
